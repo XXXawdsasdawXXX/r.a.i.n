@@ -24,7 +24,7 @@ namespace Essential
             }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             Destroyed?.Invoke(this);
         }
