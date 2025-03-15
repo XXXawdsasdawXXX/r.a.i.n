@@ -53,6 +53,8 @@ namespace Core.GameLoop
 
         public async void AddSpawnableListener(IGameListener listener)
         {
+            Log.Info("AddSpawnableListener", Color.cyan, this);
+            
             ProfilerMarker marker = new($"AddSpawnableListener: {listener.GetType().Name}");
             marker.Begin();
             
