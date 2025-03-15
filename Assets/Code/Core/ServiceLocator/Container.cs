@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Core.ServiceLocator
 {
-    public sealed class Container : Essential.Mono
+    public sealed class Container : MonoBehaviour
     {
         public static Container Instance { get; private set; }
         
