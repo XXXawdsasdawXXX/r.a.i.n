@@ -20,11 +20,7 @@ namespace Game.Entities
         {
             base.OnStartClient();
            
-            if (!IsOwner)
-            {
-                return;
-            }
-        
+    
         }
 
         public UniTask GameInitialize()
@@ -36,6 +32,11 @@ namespace Game.Entities
 
         public UniTask GameStart()
         {
+            if (!IsOwner)
+            {
+                return UniTask.CompletedTask;
+            }
+        
             _camera = Camera.main;
 
             if (_camera != null)
@@ -48,7 +49,6 @@ namespace Game.Entities
                 cameraTransform.SetParent(playerTransform);
                 cameraTransform.position = cameraPosition;
             }
-            
             return UniTask.CompletedTask;
         }
 
