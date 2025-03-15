@@ -1,25 +1,25 @@
-﻿using Core.Network;
+﻿using System.Collections.Generic;
+using Core.Network;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
-using Essential;
 using FishNet;
 using FishNet.Connection;
-using FishNet.Managing.Server;
-using FishNet.Object;
 using FishNet.Transporting;
-using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Core.GameLoop
 {
+    [Preserve]
     public class MonoSpawnTracker : IService, IInitializeListener, ISubscriber
     {
         private GameEventDispatcher _gameEventDispatcher;
         private PlayerSpawner _playerSpawner;
 
+        private readonly HashSet<Essential.Mono> _observeMono  = new();
+
         public UniTask GameInitialize()
         {
             _gameEventDispatcher = Container.Instance.GetService<GameEventDispatcher>();
-            
             
             return UniTask.CompletedTask;
         }
@@ -28,42 +28,37 @@ namespace Core.GameLoop
         {
             Essential.Mono.Started += OnMonoStarted;
             Essential.Mono.Destroyed -= OnMonoDestroyed;
-            InstanceFinder.ServerManager.OnRemoteConnectionState += ServerManagerOnOnRemoteConnectionState;
+            InstanceFinder.ServerManager.OnRemoteConnectionState += OnRemoteConnectionState;
 
             return UniTask.CompletedTask;
-        }
-
-        private void ServerManagerOnOnRemoteConnectionState(NetworkConnection arg1, RemoteConnectionStateArgs arg2)
-        {
-            arg1.OnObjectRemoved += OnMonoDestroyed;
         }
 
         public void Unsubscribe()
         {
             Essential.Mono.Started -= OnMonoStarted;
             Essential.Mono.Destroyed -= OnMonoDestroyed;
+            InstanceFinder.ServerManager.OnRemoteConnectionState -= OnRemoteConnectionState;
+        }
+
+        private void OnRemoteConnectionState(NetworkConnection connection, RemoteConnectionStateArgs args)
+        {
+            connection.OnObjectRemoved += OnMonoDestroyed;
         }
 
         private void OnMonoStarted(Essential.Mono obj)
         {
-            if (obj.TryGetComponent(out IGameListener gameListener))
+            if (obj.TryGetComponent(out IGameListener gameListener) && !_observeMono.Contains(obj))
             {
+                _observeMono.Add(obj);
                 _gameEventDispatcher.AddSpawnableListener(gameListener);
             }
         }
 
         private void OnMonoDestroyed(Essential.Mono obj)
         {
-            if (obj.TryGetComponent(out IGameListener gameListener))
+            if (obj.TryGetComponent(out IGameListener gameListener) && _observeMono.Contains(obj))
             {
-                /*if (obj is NetworkBehaviour networkBehaviour && !networkBehaviour.IsOwner)
-                {
-                    Log.Info("is not owner", obj);
-                    return;
-                }*/
-                
-                Log.Info("destroyed", Color.cyan, obj);
-                
+                _observeMono.Remove(obj);
                 _gameEventDispatcher.RemoveSpawnableListener(gameListener);
             }
         }

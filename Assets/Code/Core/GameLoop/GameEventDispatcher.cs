@@ -2,8 +2,6 @@
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
-using FishNet;
-using FishNet.Managing.Timing;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -11,6 +9,7 @@ namespace Core.GameLoop
 {
     public sealed class GameEventDispatcher : Essential.Mono, IService
     {
+        private readonly HashSet<IGameListener> _listeners = new();
         private readonly HashSet<IInitializeListener> _initListeners = new();
         private readonly HashSet<ILoadListener> _loadListeners = new();
         private readonly HashSet<IStartListener> _startListeners = new();
@@ -53,12 +52,20 @@ namespace Core.GameLoop
 
         public async void AddSpawnableListener(IGameListener listener)
         {
-            Log.Info("AddSpawnableListener", Color.cyan, this);
+            if (!_listeners.Add(listener))
+            {
+                return;
+            }
+            
+            Log.Info($"AddSpawnableListener {listener.GetType().Name}", Color.cyan, this);
             
             ProfilerMarker marker = new($"AddSpawnableListener: {listener.GetType().Name}");
             marker.Begin();
-            
-            if (listener is IInitializeListener initListener) await initListener.GameInitialize();
+
+            if (listener is IInitializeListener initListener)
+            {
+                await initListener.GameInitialize();
+            }
 
             if (listener is ISubscriber subscriber)
             {
@@ -76,12 +83,17 @@ namespace Core.GameLoop
             if (listener is IFixedUpdateListener fixedUpdateListener) _fixedUpdateListeners.Add(fixedUpdateListener);
 
             if (listener is IExitListener exitListener) _exitListeners.Add(exitListener);
-
+            
             marker.End();
         }
 
         public void RemoveSpawnableListener(IGameListener listener)
         {
+            if (!_listeners.Remove(listener))
+            {
+                return;
+            }
+            
             if (listener is IUpdateListener updateListener)
             {
                 _updateListeners.Remove(updateListener);
@@ -131,6 +143,8 @@ namespace Core.GameLoop
             
             foreach (IGameListener listener in gameListeners)
             {
+                if(!_listeners.Add(listener)) continue;
+                
                 if (listener is IInitializeListener initListener) _initListeners.Add(initListener);
 
                 if (listener is ISubscriber subscriber) _subscribers.Add(subscriber);
