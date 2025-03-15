@@ -12,13 +12,12 @@ namespace Game.Entities.Params
     {
         public event Action<string> Changed;
         public string Name => _name.Value;
-        
+
         private readonly SyncVar<string> _name = new();
-        
+
         public override void OnStartClient()
         {
             //enabled = IsOwner;
-            
             
             SetName(GetHashCode().ToString());
         }
@@ -26,29 +25,24 @@ namespace Game.Entities.Params
         public UniTask Subscribe()
         {
             _name.OnChange += OnNameChanged;
-        
+
             return UniTask.CompletedTask;
         }
-        
+
         public void Unsubscribe()
         {
             _name.OnChange -= OnNameChanged;
         }
         
-
         [ServerRpc(RequireOwnership = false)]
         public void SetName(string personName)
         {
             _name.Value = personName;
-            
-            Log.Info($"{gameObject} set name {personName}", Color.green, this);
         }
 
         private void OnNameChanged(string prev, string next, bool asserver)
         {
-         
-                Changed?.Invoke(next);
-            
+            Changed?.Invoke(next);
         }
     }
 }

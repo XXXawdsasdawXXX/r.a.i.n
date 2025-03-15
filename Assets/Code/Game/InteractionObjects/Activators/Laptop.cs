@@ -43,21 +43,25 @@ namespace Game.InteractionObjects.Activators
 
         private void OnInteractionPerformed()
         {
-            Log.Info("OnInteractionPerformed", this);
-            InstanceFinder.ServerManager.Broadcast(GetActivatorBroadcast());
-        }
+            Log.Info($"OnInteractionPerformed; " +
+                     $"client: {InstanceFinder.IsClientStarted}; " +
+                     $"server: {InstanceFinder.IsServerStarted}", this);
 
-        private void OnClientRequestChanged(NetworkConnection networkConnection, ActivatorBroadcast broadcast, Channel channel)
-        {
-            Log.Info("On Client Request Changed", this);
             if (InstanceFinder.IsClientStarted)
             {
-                InstanceFinder.ClientManager.Broadcast(broadcast);
+                InstanceFinder.ClientManager.Broadcast(GetActivatorBroadcast());
             }
             else if (InstanceFinder.IsServerStarted)
             {
-                InstanceFinder.ServerManager.Broadcast(broadcast);
+                InstanceFinder.ServerManager.Broadcast(GetActivatorBroadcast());
             }
+        }
+
+        private void OnClientRequestChanged(NetworkConnection network, ActivatorBroadcast broadcast, Channel channel)
+        {
+            Log.Info("On Client Request Changed", this);
+
+            InstanceFinder.ServerManager.Broadcast(broadcast);
         }
 
         private void OnServerSendChanged(ActivatorBroadcast broadcast, Channel channel)
