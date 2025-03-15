@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.Entities
 {
-    public class HeroMovement : NetworkBehaviour, IInitializeListener, IStartListener ,IFixedUpdateListener
+    public class HeroMovement : NetworkBehaviour, IInitializeListener, IFixedUpdateListener
     {
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private float _moveSpeed = 5f;
@@ -20,23 +20,11 @@ namespace Game.Entities
         {
             base.OnStartClient();
            
-    
-        }
-
-        public UniTask GameInitialize()
-        {
-            _inputManager = Container.Instance.GetService<InputManager>();
-            
-            return UniTask.CompletedTask;
-        }
-
-        public UniTask GameStart()
-        {
             if (!IsOwner)
             {
-                return UniTask.CompletedTask;
+                return;
             }
-        
+            
             _camera = Camera.main;
 
             if (_camera != null)
@@ -49,9 +37,15 @@ namespace Game.Entities
                 cameraTransform.SetParent(playerTransform);
                 cameraTransform.position = cameraPosition;
             }
-            return UniTask.CompletedTask;
         }
 
+        public UniTask GameInitialize()
+        {
+            _inputManager = Container.Instance.GetService<InputManager>();
+            
+            return UniTask.CompletedTask;
+        }
+        
         public void GameFixedUpdate(float fixedDeltaTime)
         {
             _rigidbody2D.velocity = _inputManager.Direction.normalized * _moveSpeed * fixedDeltaTime;
