@@ -2,7 +2,11 @@
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
+using FishNet;
+using FishNet.Connection;
+using FishNet.Managing.Server;
 using FishNet.Object;
+using FishNet.Transporting;
 using UnityEngine;
 
 namespace Core.GameLoop
@@ -16,6 +20,7 @@ namespace Core.GameLoop
         {
             _gameEventDispatcher = Container.Instance.GetService<GameEventDispatcher>();
             
+            
             return UniTask.CompletedTask;
         }
 
@@ -23,8 +28,14 @@ namespace Core.GameLoop
         {
             Essential.Mono.Started += OnMonoStarted;
             Essential.Mono.Destroyed -= OnMonoDestroyed;
+            InstanceFinder.ServerManager.OnRemoteConnectionState += ServerManagerOnOnRemoteConnectionState;
 
             return UniTask.CompletedTask;
+        }
+
+        private void ServerManagerOnOnRemoteConnectionState(NetworkConnection arg1, RemoteConnectionStateArgs arg2)
+        {
+            arg1.OnObjectRemoved += OnMonoDestroyed;
         }
 
         public void Unsubscribe()
