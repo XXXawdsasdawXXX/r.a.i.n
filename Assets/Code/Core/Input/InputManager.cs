@@ -3,6 +3,7 @@ using Core.GameLoop;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace Core.Input
 {
@@ -10,7 +11,7 @@ namespace Core.Input
     {
         public event Action<EInputAction> ActionStarted; 
         public event Action<EInputAction> ActionEnded; 
-        public float2 Direction { get; private set; }
+        public Vector2 Direction { get; private set; }
 
         private InputActionKey[] _inputActionKeys;
 
@@ -24,7 +25,7 @@ namespace Core.Input
 
         public void GameUpdate()
         {
-            Direction = new float2(
+            Direction = new Vector2(
                 UnityEngine.Input.GetAxisRaw("Horizontal"),
                 UnityEngine.Input.GetAxisRaw("Vertical"));
 
