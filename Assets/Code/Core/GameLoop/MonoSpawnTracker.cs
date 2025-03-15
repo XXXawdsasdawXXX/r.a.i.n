@@ -1,6 +1,7 @@
 ﻿using Core.Network;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
+using Essential;
 using FishNet.Object;
 
 namespace Core.GameLoop
@@ -35,11 +36,6 @@ namespace Core.GameLoop
         {
             if (obj.TryGetComponent(out IGameListener gameListener))
             {
-                if (obj is NetworkBehaviour networkBehaviour && !networkBehaviour.IsOwner)
-                {
-                    return;
-                }
-                
                 _gameEventDispatcher.AddSpawnableListener(gameListener);
             }
         }
@@ -48,10 +44,11 @@ namespace Core.GameLoop
         {
             if (obj.TryGetComponent(out IGameListener gameListener))
             {
-                if (obj is NetworkBehaviour networkBehaviour && !networkBehaviour.IsOwner)
+                /*if (obj is NetworkBehaviour networkBehaviour && !networkBehaviour.IsOwner)
                 {
+                    Log.Info("is not owner", obj);
                     return;
-                }
+                }*/
                 
                 _gameEventDispatcher.RemoveSpawnableListener(gameListener);
             }

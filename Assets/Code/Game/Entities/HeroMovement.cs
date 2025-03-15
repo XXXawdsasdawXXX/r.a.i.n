@@ -15,16 +15,16 @@ namespace Game.Entities
       
         private Camera _camera;
         private InputManager _inputManager;
-        
-        public UniTask GameInitialize()
-        {
-            _inputManager = Container.Instance.GetService<InputManager>();
-            
-            return UniTask.CompletedTask;
-        }
 
-        public UniTask GameStart()
+        public override void OnStartClient()
         {
+            base.OnStartClient();
+           
+            if (!IsOwner)
+            {
+                return;
+            }
+            
             _camera = Camera.main;
 
             if (_camera != null)
@@ -37,16 +37,28 @@ namespace Game.Entities
                 cameraTransform.SetParent(playerTransform);
                 cameraTransform.position = cameraPosition;
             }
+        }
+
+        public UniTask GameInitialize()
+        {
+            _inputManager = Container.Instance.GetService<InputManager>();
             
+            return UniTask.CompletedTask;
+        }
+
+        public UniTask GameStart()
+        {
             return UniTask.CompletedTask;
         }
 
         public void GameFixedUpdate(float fixedDeltaTime)
         {
+            /*
             if (!IsOwner)
             {
                 return;
             }
+            */
        
             _rigidbody2D.velocity = _inputManager.Direction.normalized * _moveSpeed * (float)TimeManager.TickDelta;
         }
