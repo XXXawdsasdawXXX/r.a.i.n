@@ -40,12 +40,12 @@ namespace Game.World
         private void _updateTime(float second)
         {
             _time.Value += TimeSpan.FromSeconds(second * 1000);
-            Current = _time.Value;
         }
 
         private void _onTimeChange(TimeSpan prev, TimeSpan next, bool asserver)
         {
-            Log.Info($"{Current.Hours}", this);
+            //Log.Info($"{Current.}");
+            Current = prev;
         }
     }
 }
