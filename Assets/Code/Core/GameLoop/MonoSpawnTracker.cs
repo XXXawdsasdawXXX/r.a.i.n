@@ -47,18 +47,16 @@ namespace Core.GameLoop
 
         private void OnMonoStarted(Essential.Mono obj)
         {
-            if (obj.TryGetComponent(out IGameListener gameListener) && !_observeMono.Contains(obj))
+            if (obj.TryGetComponent(out IGameListener gameListener) && _observeMono.Add(obj))
             {
-                _observeMono.Add(obj);
                 _gameEventDispatcher.AddSpawnableListener(gameListener);
             }
         }
 
         private void OnMonoDestroyed(Essential.Mono obj)
         {
-            if (obj.TryGetComponent(out IGameListener gameListener) && _observeMono.Contains(obj))
+            if (obj.TryGetComponent(out IGameListener gameListener) && _observeMono.Remove(obj))
             {
-                _observeMono.Remove(obj);
                 _gameEventDispatcher.RemoveSpawnableListener(gameListener);
             }
         }
