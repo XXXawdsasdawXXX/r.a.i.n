@@ -18,62 +18,50 @@ namespace Game.InteractionObjects.Activators
         {
             _viewDisplay.SetActive(!_activatorBroadcast.IsActive);
 
-            Log.Info($"change display state {!_activatorBroadcast.IsActive}", this);
-
             base.StartInteraction();
         }
 
         public UniTask Subscribe()
         {
-            Trigger.InteractionPerformed += OnInteractionPerformed;
-            InstanceFinder.ClientManager.RegisterBroadcast<ActivatorBroadcast>(OnServerSendChanged);
-            InstanceFinder.ServerManager.RegisterBroadcast<ActivatorBroadcast>(OnClientRequestChanged);
+            Trigger.InteractionPerformed += _onInteractionPerformed;
+            InstanceFinder.ClientManager.RegisterBroadcast<ActivatorBroadcast>(_onServerSendChanged);
+            InstanceFinder.ServerManager.RegisterBroadcast<ActivatorBroadcast>(_onClientRequestChanged);
 
-            Log.Info("subscribe", this);
             return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()
         {
-            Trigger.InteractionPerformed -= OnInteractionPerformed;
-            InstanceFinder.ClientManager.UnregisterBroadcast<ActivatorBroadcast>(OnServerSendChanged);
-            InstanceFinder.ServerManager.UnregisterBroadcast<ActivatorBroadcast>(OnClientRequestChanged);
-            Log.Info("unsubscribe", this);
+            Trigger.InteractionPerformed -= _onInteractionPerformed;
+            InstanceFinder.ClientManager.UnregisterBroadcast<ActivatorBroadcast>(_onServerSendChanged);
+            InstanceFinder.ServerManager.UnregisterBroadcast<ActivatorBroadcast>(_onClientRequestChanged);
         }
 
-        private void OnInteractionPerformed()
+        private void _onInteractionPerformed()
         {
-            Log.Info($"OnInteractionPerformed; " +
-                     $"client: {InstanceFinder.IsClientStarted}; " +
-                     $"server: {InstanceFinder.IsServerStarted}", this);
-
             if (InstanceFinder.IsClientStarted)
             {
-                InstanceFinder.ClientManager.Broadcast(GetActivatorBroadcast());
+                InstanceFinder.ClientManager.Broadcast(_getActivatorBroadcast());
             }
             else if (InstanceFinder.IsServerStarted)
             {
-                InstanceFinder.ServerManager.Broadcast(GetActivatorBroadcast());
+                InstanceFinder.ServerManager.Broadcast(_getActivatorBroadcast());
             }
         }
 
-        private void OnClientRequestChanged(NetworkConnection network, ActivatorBroadcast broadcast, Channel channel)
+        private void _onClientRequestChanged(NetworkConnection network, ActivatorBroadcast broadcast, Channel channel)
         {
-            Log.Info("On Client Request Changed", this);
-
             InstanceFinder.ServerManager.Broadcast(broadcast);
         }
 
-        private void OnServerSendChanged(ActivatorBroadcast broadcast, Channel channel)
+        private void _onServerSendChanged(ActivatorBroadcast broadcast, Channel channel)
         {
-            Log.Info("On Server Send Changed", this);
-
             _activatorBroadcast = broadcast;
 
             StartInteraction();
         }
 
-        private ActivatorBroadcast GetActivatorBroadcast()
+        private ActivatorBroadcast _getActivatorBroadcast()
         {
             return string.IsNullOrEmpty(_activatorBroadcast.ObjectID)
                 ? new ActivatorBroadcast()
