@@ -47,7 +47,7 @@ namespace FishNet.Managing.Client
         /// Called when a client other than self connects.
         /// This is only available when using ServerManager.ShareIds.
         /// </summary>
-        public event Action<RemoteConnectionStateArgs> OnRemoteConnectionState;
+        public event Action<NetworkConnection, RemoteConnectionStateArgs> OnRemoteConnectionState;
         /// <summary>
         /// Called when the server sends all currently connected clients.
         /// This is only available when using ServerManager.ShareIds.
@@ -182,15 +182,21 @@ namespace FishNet.Managing.Client
             if (args.Connected)
             {
                 Clients[args.Id] = new(NetworkManager, args.Id, -1, false);
-                OnRemoteConnectionState?.Invoke(rcs);
+                OnRemoteConnectionState?.Invoke(Clients[args.Id], rcs);
             }
             else
             {
-                OnRemoteConnectionState?.Invoke(rcs);
                 if (Clients.TryGetValue(args.Id, out NetworkConnection c))
                 {
+                    OnRemoteConnectionState?.Invoke(c, rcs);
+                    
                     c.ResetState();
+                    
                     Clients.Remove(args.Id);
+                }
+                else
+                {
+                    OnRemoteConnectionState?.Invoke(null, rcs);
                 }
             }
         }

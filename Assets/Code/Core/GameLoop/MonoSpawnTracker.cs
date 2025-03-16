@@ -26,26 +26,28 @@ namespace Core.GameLoop
 
         public UniTask Subscribe()
         {
-            Essential.Mono.Started += OnMonoStarted;
-            Essential.Mono.Destroyed -= OnMonoDestroyed;
-            InstanceFinder.ServerManager.OnRemoteConnectionState += OnRemoteConnectionState;
+            Essential.Mono.Started += _onMonoStarted;
+            Essential.Mono.Destroyed -= _onMonoDestroyed;
+            InstanceFinder.ServerManager.OnRemoteConnectionState += _onRemoteConnectionState;
+            InstanceFinder.ClientManager.OnRemoteConnectionState += _onRemoteConnectionState;
 
             return UniTask.CompletedTask;
         }
-
+        
         public void Unsubscribe()
         {
-            Essential.Mono.Started -= OnMonoStarted;
-            Essential.Mono.Destroyed -= OnMonoDestroyed;
-            InstanceFinder.ServerManager.OnRemoteConnectionState -= OnRemoteConnectionState;
+            Essential.Mono.Started -= _onMonoStarted;
+            Essential.Mono.Destroyed -= _onMonoDestroyed;
+            InstanceFinder.ServerManager.OnRemoteConnectionState -= _onRemoteConnectionState;
+            InstanceFinder.ClientManager.OnRemoteConnectionState -= _onRemoteConnectionState;
         }
 
-        private void OnRemoteConnectionState(NetworkConnection connection, RemoteConnectionStateArgs args)
+        private void _onRemoteConnectionState(NetworkConnection connection, RemoteConnectionStateArgs args)
         {
-            connection.OnObjectRemoved += OnMonoDestroyed;
+            connection.OnObjectRemoved += _onMonoDestroyed;
         }
 
-        private void OnMonoStarted(Essential.Mono obj)
+        private void _onMonoStarted(Essential.Mono obj)
         {
             if (obj.TryGetComponent(out IGameListener gameListener) && _observeMono.Add(obj))
             {
@@ -53,7 +55,7 @@ namespace Core.GameLoop
             }
         }
 
-        private void OnMonoDestroyed(Essential.Mono obj)
+        private void _onMonoDestroyed(Essential.Mono obj)
         {
             if (obj.TryGetComponent(out IGameListener gameListener) && _observeMono.Remove(obj))
             {

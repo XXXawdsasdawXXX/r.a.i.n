@@ -66,7 +66,7 @@ namespace Game.InteractionObjects.Activators
             return string.IsNullOrEmpty(_activatorBroadcast.ObjectID)
                 ? new ActivatorBroadcast()
                 {
-                    ObjectID = ID.Value,
+                    ObjectID = gameObject.GetInstanceID().ToString(),
                     IsActive = true
                 }
                 : new ActivatorBroadcast()

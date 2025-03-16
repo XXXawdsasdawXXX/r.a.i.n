@@ -165,7 +165,7 @@ namespace FishNet.Object
 #endif
         }
 
-        protected override void OnValidate()
+        protected void OnValidate()
         {
 #if UNITY_EDITOR
             if (Application.isPlaying)

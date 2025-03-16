@@ -6,7 +6,7 @@ namespace UI.Windows.Base
     {
         [SerializeField] protected UIView view;
 
-        protected override void OnEnable()
+        protected void OnEnable()
         {
             SubscribeToEvents(true);
         }
@@ -18,10 +18,9 @@ namespace UI.Windows.Base
 
         protected virtual void SubscribeToEvents(bool flag)
         {
-            
         }
 
-        protected override void OnValidate()
+        protected void OnValidate()
         {
             if (view == null && !TryGetComponent(out view))
             {

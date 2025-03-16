@@ -7,13 +7,23 @@ using UI.Windows.Base;
 
 namespace UI.Windows.HUD
 {
-    public class HUDWindowController : UIWindowController<HUDWindowView>, IInitializeListener, IUpdateListener
+    public class HUDWindowController : UIWindowController<HUDWindowView>, 
+        IInitializeListener,
+        IStartListener,
+        IUpdateListener
     {
         private GameTime _gameTime;
 
         public UniTask GameInitialize()
         {
             _gameTime = Container.Instance.GetService<GameTime>();
+            
+            return UniTask.CompletedTask;
+        }
+
+        public UniTask GameStart()
+        {
+            view.Open();
             
             return UniTask.CompletedTask;
         }
