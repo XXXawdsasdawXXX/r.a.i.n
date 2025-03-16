@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace UI.Windows.Base
 {
-    public abstract class UIWindowController<UIView> : MonoBehaviour where UIView : UIWindowView
+    public abstract class UIWindowController<UIView> : Essential.Mono where UIView : UIWindowView
     {
         [SerializeField] protected UIView view;
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
             SubscribeToEvents(true);
         }
@@ -16,9 +16,12 @@ namespace UI.Windows.Base
             SubscribeToEvents(false);
         }
 
-        protected abstract void SubscribeToEvents(bool flag);
+        protected virtual void SubscribeToEvents(bool flag)
+        {
+            
+        }
 
-        private void OnValidate()
+        protected override void OnValidate()
         {
             if (view == null && !TryGetComponent(out view))
             {
