@@ -10,7 +10,7 @@ namespace Game.World
 {
     public class GameTime : NetworkBehaviour, IService, ISubscriber, IUpdateListener
     {
-        public TimeSpan Current { get; private set; }
+        public TimeSpan Current => _time.Value;
         
         private readonly SyncVar<TimeSpan> _time = new();
 
@@ -45,7 +45,6 @@ namespace Game.World
         private void _onTimeChange(TimeSpan prev, TimeSpan next, bool asserver)
         {
             //Log.Info($"{Current.}");
-            Current = prev;
         }
     }
 }
