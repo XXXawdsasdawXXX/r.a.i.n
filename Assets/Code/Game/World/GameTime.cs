@@ -22,10 +22,10 @@ namespace Game.World
                 TotalSeconds = totalSeconds;
             }
         }
-        
+
         public TimeSpan Current { get; private set; }
         
-        private const float TIME_SCALE = 60f;
+        private const float TIME_SCALE = 6000f;
         
         private double _lastUpdateTime;
 

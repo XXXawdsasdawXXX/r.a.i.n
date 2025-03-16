@@ -65,12 +65,20 @@ namespace Core.ServiceLocator
 
         private void _initializeTypedList<T>(ref List<T> list)
         {
-            Type[] types = Assembly.GetExecutingAssembly().GetTypes();
+            string[] targetAssemblies = { "Core", "Game", "UI" };
 
-            IEnumerable<Type> serviceTypes = types.Where(t =>
-                typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract &&
-                !typeof(MonoBehaviour).IsAssignableFrom(t));
+            List<Type> serviceTypes = new List<Type>();
 
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                if (targetAssemblies.Contains(assembly.GetName().Name)) // Проверяем, нужная ли это сборка
+                {
+                    serviceTypes.AddRange(assembly.GetTypes().Where(t =>
+                        typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract &&
+                        !typeof(MonoBehaviour).IsAssignableFrom(t)));
+                }
+            }
+            
             foreach (Type serviceType in serviceTypes)
             {
                 if (Activator.CreateInstance(serviceType) is T service)

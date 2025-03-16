@@ -2,6 +2,7 @@
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
+using FishNet;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -20,10 +21,18 @@ namespace Core.GameLoop
 
         private bool _isGameBooted;
 
-        private void Awake()
+        private async void Awake()
         {
             _initializeListeners();
-            _bootGame();
+            
+            await _notifyGameInitialize();
+            await _notifySubscribe();
+            await _notifyGameLoad();
+            await _notifyGameStart();
+
+            await UniTask.WaitUntil(() => InstanceFinder.IsServerStarted);
+
+            _isGameBooted = true;
         }
 
         private void Update()
@@ -56,9 +65,9 @@ namespace Core.GameLoop
             {
                 return;
             }
-            
+
             Log.Info($"AddSpawnableListener {listener.GetType().Name}", Color.cyan, this);
-            
+
             ProfilerMarker marker = new($"AddSpawnableListener: {listener.GetType().Name}");
             marker.Begin();
 
@@ -70,7 +79,7 @@ namespace Core.GameLoop
             if (listener is ISubscriber subscriber)
             {
                 await subscriber.Subscribe();
-                
+
                 _subscribers.Add(subscriber);
             }
 
@@ -79,11 +88,11 @@ namespace Core.GameLoop
             if (listener is IStartListener startListener) await startListener.GameStart();
 
             if (listener is IUpdateListener updateListener) _updateListeners.Add(updateListener);
-            
+
             if (listener is IFixedUpdateListener fixedUpdateListener) _fixedUpdateListeners.Add(fixedUpdateListener);
 
             if (listener is IExitListener exitListener) _exitListeners.Add(exitListener);
-            
+
             marker.End();
         }
 
@@ -93,58 +102,38 @@ namespace Core.GameLoop
             {
                 return;
             }
-            
+
             if (listener is IUpdateListener updateListener)
             {
                 _updateListeners.Remove(updateListener);
-                Log.Info("remove update listener", Color.cyan, this);
-
             }
 
             if (listener is IFixedUpdateListener fixedUpdateListener)
             {
                 _fixedUpdateListeners.Remove(fixedUpdateListener);
-                Log.Info("remove fixed update listener", Color.cyan, this);
             }
 
             if (listener is IExitListener exitListener)
             {
                 _exitListeners.Remove(exitListener);
-                Log.Info("remove exit listener", Color.cyan, this);
             }
 
             if (listener is ISubscriber subscriber)
             {
                 subscriber.Unsubscribe();
 
-                Log.Info("remove subscribe listener", Color.cyan, this);
                 _subscribers.Remove(subscriber);
             }
         }
-
-        private async void _bootGame()
-        {
-            ProfilerMarker marker = new("_bootGame");
-            marker.Begin();
-
-            await _notifyGameInitialize();
-            await _notifySubscribe();
-            await _notifyGameLoad();
-            await _notifyGameStart();
-
-            _isGameBooted = true;
-
-            marker.End();
-        }
-
+        
         private void _initializeListeners()
         {
             List<IGameListener> gameListeners = Container.Instance.GetGameListeners();
-            
+
             foreach (IGameListener listener in gameListeners)
             {
-                if(!_listeners.Add(listener)) continue;
-                
+                if (!_listeners.Add(listener)) continue;
+
                 if (listener is IInitializeListener initListener) _initListeners.Add(initListener);
 
                 if (listener is ISubscriber subscriber) _subscribers.Add(subscriber);
@@ -154,8 +143,9 @@ namespace Core.GameLoop
                 if (listener is IStartListener startListener) _startListeners.Add(startListener);
 
                 if (listener is IUpdateListener updateListener) _updateListeners.Add(updateListener);
-                
-                if (listener is IFixedUpdateListener fixedUpdateListener) _fixedUpdateListeners.Add(fixedUpdateListener);
+
+                if (listener is IFixedUpdateListener fixedUpdateListener)
+                    _fixedUpdateListeners.Add(fixedUpdateListener);
 
                 if (listener is IExitListener exitListener) _exitListeners.Add(exitListener);
             }
@@ -183,7 +173,7 @@ namespace Core.GameLoop
             {
                 await listener.GameLoad();
             }
-            
+
             marker.End();
         }
 
@@ -219,7 +209,7 @@ namespace Core.GameLoop
             {
                 ProfilerMarker marker = new($"_notifyGameUpdate: {listener.GetType().Name}");
                 marker.Begin();
-                
+
                 listener.GameUpdate(deltaTime);
 
                 marker.End();
@@ -232,7 +222,7 @@ namespace Core.GameLoop
             {
                 ProfilerMarker marker = new($"_notifyGameFixedUpdate: {listener.GetType().Name}");
                 marker.Begin();
-                
+
                 listener.GameFixedUpdate(fixedDeltaTime);
 
                 marker.End();
