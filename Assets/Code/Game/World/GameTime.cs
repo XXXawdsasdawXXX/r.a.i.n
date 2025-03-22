@@ -93,7 +93,7 @@ namespace Game.World
             // Клиент получил обновление от сервера и синхронизировал время
             TimeSpan serverTime = TimeSpan.FromSeconds(broadcast.TotalSeconds);
            
-            Log.ClientInfo($"[net] _onServerSendChanged {serverTime}", this);
+            Log.ClientInfo($"[net] _onServerSendChanged {broadcast.TotalSeconds}", this);
 
             Current = serverTime;
         }
