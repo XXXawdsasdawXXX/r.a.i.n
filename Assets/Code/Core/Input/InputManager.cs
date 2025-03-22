@@ -1,28 +1,27 @@
 ﻿using System;
 using Core.GameLoop;
 using Core.ServiceLocator;
-using Cysharp.Threading.Tasks;
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Core.Input
 {
-    public sealed class InputManager : IService, IInitializeListener, IUpdateListener
+    [Preserve]
+    public sealed class InputManager : IService, IUpdateListener
     {
         public event Action<EInputAction> ActionStarted; 
         public event Action<EInputAction> ActionEnded; 
         public Vector2 Direction { get; private set; }
 
-        private InputActionKey[] _inputActionKeys;
-
-
-        public UniTask GameInitialize()
+        private readonly InputActionKey[] _inputActionKeys = 
         {
-            _inputActionKeys = Container.Instance.GetConfig<InputConfig>().InputActionKeys;
-                
-            return UniTask.CompletedTask;
-        }
-        
+            new()
+            {
+                Key = KeyCode.F,
+                Action = EInputAction.Interaction
+            }    
+        };
+
         public void GameUpdate(float deltaTime)
         {
             Direction = new Vector2(

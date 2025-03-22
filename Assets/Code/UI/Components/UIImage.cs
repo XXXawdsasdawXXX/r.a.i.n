@@ -11,5 +11,10 @@ namespace UI.Components
         {
             _image.fillAmount = normalizedValue;
         }
+        
+        public float GetFillAmount()
+        {
+            return _image.fillAmount;
+        }
     }
 }

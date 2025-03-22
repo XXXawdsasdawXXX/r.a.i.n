@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b978028bc9b640e8aec82f8fc8a23a7a, type: 3}
-  m_Name: AssetLibrary
+  m_Name: Library_Asset
   m_EditorClassIdentifier: 
   <Material>k__BackingField:
-    _materials:
+    _assets:
     - {fileID: 2100000, guid: 08e5af0e02e06804c9db3cda7c51ffd5, type: 2}

@@ -2,6 +2,7 @@
 using Core.GameLoop;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
+using Essential;
 using FishNet;
 using FishNet.Broadcast;
 using FishNet.Connection;
@@ -32,15 +33,16 @@ namespace Game.World
 
         public UniTask Subscribe()
         {
-            InstanceFinder.ServerManager.RegisterBroadcast<GameTimeBroadcast>(OnClientRequestChanged);
-            InstanceFinder.ClientManager.RegisterBroadcast<GameTimeBroadcast>(OnServerSendChanged);
+            InstanceFinder.ServerManager.RegisterBroadcast<GameTimeBroadcast>(_onClientRequestChanged);
+            InstanceFinder.ClientManager.RegisterBroadcast<GameTimeBroadcast>(_onServerSendChanged);
+            
             return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()
         {
-            InstanceFinder.ServerManager.UnregisterBroadcast<GameTimeBroadcast>(OnClientRequestChanged);
-            InstanceFinder.ClientManager.UnregisterBroadcast<GameTimeBroadcast>(OnServerSendChanged);
+            InstanceFinder.ServerManager.UnregisterBroadcast<GameTimeBroadcast>(_onClientRequestChanged);
+            InstanceFinder.ClientManager.UnregisterBroadcast<GameTimeBroadcast>(_onServerSendChanged);
         }
 
         public void GameUpdate(float deltaTime)
@@ -60,11 +62,13 @@ namespace Game.World
             // Учитываем множитель времени
             Current += TimeSpan.FromSeconds(deltaTime * TIME_SCALE);
 
-            // Отправляем обновление клиентам раз в секунду
             if (Time.time - _lastUpdateTime >= 1.0f)
             {
                 _lastUpdateTime = Time.time;
-                InstanceFinder.ServerManager.Broadcast(new GameTimeBroadcast(Current.TotalSeconds));
+
+                double totalSeconds = Current.TotalSeconds;
+                        
+                InstanceFinder.ServerManager.Broadcast(new GameTimeBroadcast(totalSeconds));
             }
         }
 
@@ -74,15 +78,24 @@ namespace Game.World
             Current += TimeSpan.FromSeconds(deltaTime * TIME_SCALE);
         }
 
-        private void OnClientRequestChanged(NetworkConnection _, GameTimeBroadcast broadcast, Channel _2)
+        private void _onClientRequestChanged(NetworkConnection _, GameTimeBroadcast broadcast, Channel _2)
         {
             // Сервер получил от клиента (можно игнорировать, так как сервер сам управляет временем)
         }
 
-        private void OnServerSendChanged(GameTimeBroadcast broadcast, Channel _)
+        private void _onServerSendChanged(GameTimeBroadcast broadcast, Channel _)
         {
             // Клиент получил обновление от сервера и синхронизировал время
-            Current = TimeSpan.FromSeconds(broadcast.TotalSeconds);
+            TimeSpan serverTime = TimeSpan.FromSeconds(broadcast.TotalSeconds);
+           
+            Log.Info($"_onServerSendChanged {serverTime}", this);
+            
+            /*if (Current > serverTime)
+            {
+                return;
+            }*/
+            
+            Current = serverTime;
         }
     }
 }

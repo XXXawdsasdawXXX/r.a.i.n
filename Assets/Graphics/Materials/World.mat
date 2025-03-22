@@ -240,7 +240,7 @@ Material:
     - _OutlineTexXSpeed: 0.9
     - _OutlineTexYSpeed: 19.4
     - _OutlineWidth: 0.004
-    - _OverlayBlend: 0.617
+    - _OverlayBlend: 0.2861584
     - _OverlayGlow: 25
     - _PinchUvAmount: 0.35
     - _PixelateSize: 4

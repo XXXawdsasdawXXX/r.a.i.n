@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Core.GameLoop;
+using Essential;
 using UnityEngine;
 
 namespace Core.ServiceLocator
@@ -15,6 +16,7 @@ namespace Core.ServiceLocator
 
         private Essential.Mono[] _allObjects;
         private List<IService> _services = new();
+        private List<IMono> _mono = new();
 
         private void Awake()
         {
@@ -30,6 +32,7 @@ namespace Core.ServiceLocator
             _allObjects = FindObjectsOfType<Essential.Mono>(true);
             
             _initializeTypedList(ref _services);
+            _initializeTypedList(ref _mono);
         }
 
         public List<IGameListener> GetGameListeners()
@@ -71,7 +74,7 @@ namespace Core.ServiceLocator
 
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                if (targetAssemblies.Contains(assembly.GetName().Name)) // Проверяем, нужная ли это сборка
+                if (targetAssemblies.Contains(assembly.GetName().Name))
                 {
                     serviceTypes.AddRange(assembly.GetTypes().Where(t =>
                         typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract &&
@@ -93,6 +96,8 @@ namespace Core.ServiceLocator
             {
                 list.AddRange(typedMono);
             }
+            
+            Log.Info($"Initialize instances. Type of {typeof(T).Name}. Count {list.Count} ", this);
         }
 
         private List<T> _getContainerComponents<T>()
@@ -100,6 +105,7 @@ namespace Core.ServiceLocator
             List<T> list = new();
 
             list.AddRange(_services.OfType<T>().ToList());
+            list.AddRange(_mono.OfType<T>().ToList());
 
             IEnumerable<T> mbListeners = _allObjects.OfType<T>();
             foreach (T mbListener in mbListeners)

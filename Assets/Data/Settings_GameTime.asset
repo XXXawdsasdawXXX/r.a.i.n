@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f65fa6d9dca3411d9fbac7d234c5c514, type: 3}
-  m_Name: InputConfig
+  m_Script: {fileID: 11500000, guid: 7a3a3e075b804ccc8cda00b06c1a5bf0, type: 3}
+  m_Name: Settings_GameTime
   m_EditorClassIdentifier: 
-  <InputActionKeys>k__BackingField:
-  - Key: 102
-    Action: 1
+  <TimeScale>k__BackingField: 600
+  <SunriseTime>k__BackingField: 6
+  <SunsetTime>k__BackingField: 18
