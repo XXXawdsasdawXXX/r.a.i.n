@@ -590,6 +590,7 @@ retry:
             }
         }
 
+        [Obsolete("This overload has been deprecated in favor of passing a GameObject instead of a Transform.", false)]
         public static void AttachInstanceToGameObject(FMOD.Studio.EventInstance instance, Transform transform, bool nonRigidbodyVelocity = false)
         {
             AttachedInstance attachedInstance = FindOrAddAttachedInstance(instance, transform, RuntimeUtils.To3DAttributes(transform));
@@ -609,6 +610,7 @@ retry:
             attachedInstance.rigidBody = rigidBody;
         }
 
+        [Obsolete("This overload has been deprecated in favor of passing a GameObject instead of a Transform.", false)]
         public static void AttachInstanceToGameObject(FMOD.Studio.EventInstance instance, Transform transform, Rigidbody rigidBody)
         {
             AttachedInstance attachedInstance = FindOrAddAttachedInstance(instance, transform, RuntimeUtils.To3DAttributes(transform, rigidBody));
@@ -625,6 +627,7 @@ retry:
             attachedInstance.rigidBody2D = rigidBody2D;
         }
 
+        [Obsolete("This overload has been deprecated in favor of passing a GameObject instead of a Transform.", false)]
         public static void AttachInstanceToGameObject(FMOD.Studio.EventInstance instance, Transform transform, Rigidbody2D rigidBody2D)
         {
             AttachedInstance attachedInstance = FindOrAddAttachedInstance(instance, transform, RuntimeUtils.To3DAttributes(transform, rigidBody2D));
