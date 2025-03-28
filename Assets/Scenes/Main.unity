@@ -1001,6 +1001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78a6cfd86b943ea9821e3efa6817e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Network>k__BackingField: {fileID: 328750981}
   _configs:
   - {fileID: 11400000, guid: c5c47a9d9442c364c887818626fa8a87, type: 2}
   - {fileID: 11400000, guid: c51f7553ba57eb7499f70d937f79ec34, type: 2}
@@ -2205,9 +2206,9 @@ MonoBehaviour:
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
-  _isSpawnable: 1
+  _isSpawnable: 0
   _isGlobal: 0
-  _initializeOrder: 0
+  _initializeOrder: -1
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}

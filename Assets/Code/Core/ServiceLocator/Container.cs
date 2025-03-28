@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Core.GameLoop;
 using Essential;
+using FishNet.Managing;
 using UnityEngine;
 
 namespace Core.ServiceLocator
@@ -11,6 +12,8 @@ namespace Core.ServiceLocator
     public sealed class Container : MonoBehaviour
     {
         public static Container Instance { get; private set; }
+
+        [field: SerializeField] public NetworkManager Network { get; private set; }
         
         [SerializeField] private List<ScriptableObject> _configs;
 
