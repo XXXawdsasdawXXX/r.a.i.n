@@ -838,7 +838,7 @@ MonoBehaviour:
   _refreshDefaultPrefabs: 0
   _runInBackground: 1
   _dontDestroyOnLoad: 1
-  _objectPool: {fileID: 1372100606}
+  _objectPool: {fileID: 0}
   _persistence: 0
   _logging: {fileID: 0}
   _spawnablePrefabs: {fileID: 11400000, guid: be7986d6072ff464aa8f25d69186c905, type: 2}
@@ -2163,8 +2163,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enabled: 1
   _heroPrefab: {fileID: 8329376548906989968, guid: 21ceab23df0a0094b8c75888ea23c5d4, type: 3}
-  _networkManager: {fileID: 328750981}
   _prefabObjects: {fileID: 11400000, guid: be7986d6072ff464aa8f25d69186c905, type: 2}
+  _networkManager: {fileID: 328750981}
+  _logColor: {r: 0.6472442, g: 0.9339623, b: 0.22027415, a: 1}
 --- !u!4 &1372100607
 Transform:
   m_ObjectHideFlags: 0
