@@ -35,7 +35,7 @@ namespace Game.Entities.Hero
             }
         }
 
-        [ServerRpc]
+        [ObserversRpc]
         private void Rotate()
         {
             float forward = _rigidbody2D.velocity.x > 0 ? -1 : 1;
