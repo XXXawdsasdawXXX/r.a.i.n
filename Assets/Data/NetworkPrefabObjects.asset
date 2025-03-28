@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4489d77032a81ef42b0067acf2737d4d, type: 3}
-  m_Name: New SinglePrefabObjects
+  m_Name: NetworkPrefabObjects
   m_EditorClassIdentifier: 
   <CollectionId>k__BackingField: 1
   _prefabs:

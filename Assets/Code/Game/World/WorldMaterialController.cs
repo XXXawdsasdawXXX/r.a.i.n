@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Game.World
 {
     [Preserve]
-    public class WorldMaterialController : IMono, IInitializeListener, IUpdateListener
+    public class WorldMaterialController : IMono, IInitializeListener, IUpdateListener, IExitListener
     {
         private const string MATERIAL_PARAM_NAME = "_OverlayBlend";
         private const float MAX_VALUE = 0.675f;
@@ -41,6 +41,11 @@ namespace Game.World
     
                 _worldMaterial.SetFloat(_overlayBlend, brightness);
             }
+        }
+
+        public void GameExit()
+        {
+            _worldMaterial.SetFloat(_overlayBlend, 0);
         }
     }
 }
