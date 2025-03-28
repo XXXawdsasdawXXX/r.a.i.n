@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 8329376548906989968}
   - component: {fileID: 7987240356325076128}
   - component: {fileID: 2934239996263089593}
+  - component: {fileID: 4457616683836532246}
   - component: {fileID: 4528120448664325983}
   - component: {fileID: 6778264612898636302}
   - component: {fileID: 3634067845205420892}
@@ -342,6 +343,28 @@ MonoBehaviour:
   _overrideType: 3
   _updateHostVisibility: 1
   _observerConditions: []
+--- !u!114 &4457616683836532246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483374850134618058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 8329376548906989968}
+  _networkObjectCache: {fileID: 0}
+  IgnoredParameters: []
+  _animator: {fileID: 69949965107314698}
+  _synchronizeWhenDisabled: 0
+  _smoothFloats: 1
+  _interpolation: 2
+  _clientAuthoritative: 1
+  _sendToOwner: 0
 --- !u!114 &4528120448664325983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +481,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8329376548906989968}
   _networkObjectCache: {fileID: 8329376548906989968}
   _animator: {fileID: 69949965107314698}
+  _netanimator: {fileID: 0}
   _viewBody: {fileID: 1047437175584240034}
   _rigidbody2D: {fileID: 7074728272879338317}
 --- !u!1 &6401220223736595008
