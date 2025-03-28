@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.GameLoop;
+using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
 using FishNet.Connection;
@@ -27,22 +28,26 @@ namespace Core.Network
     public class HeroPool : NetworkBehaviour, IInitializeListener, ISubscriber
     {
         private readonly Dictionary<NetworkConnection, NetworkObject> _heroes = new();
-        
+
         [SerializeField] private NetworkObject _heroPrefab;
         [SerializeField] private PrefabObjects _prefabObjects;
 
         [SerializeField] private Color _logColor;
         
+        private NetworkManager _networkManager;
+        
         public UniTask GameInitialize()
         {
+            _networkManager = Container.Instance.Network;
+            
             return UniTask.CompletedTask;
         }
 
         public UniTask Subscribe()
         {
-            NetworkManager.SceneManager.OnClientLoadedStartScenes += SceneManager_OnClientLoadedStartScenes;
-            NetworkManager.ClientManager.OnClientConnectionState += ClientManagerOnClientConnectionState;
-            NetworkManager.ServerManager.OnRemoteConnectionState += ServerManager_OnRemoveConnection;
+            _networkManager.SceneManager.OnClientLoadedStartScenes += SceneManager_OnClientLoadedStartScenes;
+            _networkManager.ClientManager.OnClientConnectionState += ClientManagerOnClientConnectionState;
+            _networkManager.ServerManager.OnRemoteConnectionState += ServerManager_OnRemoveConnection;
 
             return UniTask.CompletedTask;
         }
@@ -56,8 +61,8 @@ namespace Core.Network
 
         public void Unsubscribe()
         {
-            NetworkManager.ClientManager.OnClientConnectionState -= ClientManagerOnClientConnectionState;
-            NetworkManager.SceneManager.OnClientLoadedStartScenes -= SceneManager_OnClientLoadedStartScenes;
+            _networkManager.ClientManager.OnClientConnectionState -= ClientManagerOnClientConnectionState;
+            _networkManager.SceneManager.OnClientLoadedStartScenes -= SceneManager_OnClientLoadedStartScenes;
         }
 
         private void SceneManager_OnClientLoadedStartScenes(NetworkConnection arg1, bool arg2)
@@ -67,8 +72,8 @@ namespace Core.Network
                 return;
             }
 
-            NetworkObject nob = NetworkManager.GetPooledInstantiated(_heroPrefab, Vector3.zero, quaternion.identity, true);
-            NetworkManager.ServerManager.Spawn(nob, arg1);
+            NetworkObject nob = _networkManager.GetPooledInstantiated(_heroPrefab, Vector3.zero, quaternion.identity, true);
+            _networkManager.ServerManager.Spawn(nob, arg1);
             nob.gameObject.name += "_0";
           
             Log.Info(
