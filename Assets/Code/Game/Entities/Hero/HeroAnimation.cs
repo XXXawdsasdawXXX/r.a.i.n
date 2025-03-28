@@ -1,6 +1,7 @@
 ﻿using Core.Data;
 using Core.GameLoop;
 using Cysharp.Threading.Tasks;
+using FishNet.Component.Transforming;
 using FishNet.Object;
 using UnityEngine;
 
@@ -30,15 +31,21 @@ namespace Game.Entities.Hero
                 _animator.SetFloat(_speedHash, _rigidbody2D.velocity.magnitude);
                 if (_rigidbody2D.velocity.x != 0)
                 {
-                    Rotate();
+                    RotateServerRpc(_rigidbody2D.velocity.x);
                 }
             }
         }
 
-        [ObserversRpc]
-        private void Rotate()
+        [ServerRpc]
+        private void RotateServerRpc(float velocityX)
         {
-            float forward = _rigidbody2D.velocity.x > 0 ? -1 : 1;
+            float forward = velocityX > 0 ? -1 : 1;
+            RotateObserversRpc(forward);
+        }
+
+        [ObserversRpc]
+        private void RotateObserversRpc(float forward)
+        {
             _viewBody.localScale = new Vector3(forward, 1, 1);
         }
     }
