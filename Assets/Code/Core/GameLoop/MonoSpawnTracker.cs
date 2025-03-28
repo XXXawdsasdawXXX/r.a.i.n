@@ -7,6 +7,7 @@ using FishNet;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Transporting;
+using Plugins.FishNet.Runtime.Managing.Object;
 using UnityEngine.Scripting;
 
 namespace Core.GameLoop

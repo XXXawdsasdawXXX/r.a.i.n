@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.ServiceLocator;
 using Essential;
 using FishNet;
 using FishNet.Connection;
@@ -7,13 +6,13 @@ using FishNet.Managing;
 using FishNet.Object;
 using UnityEngine;
 
-namespace Core.Network
+namespace Plugins.FishNet.Runtime.Managing.Object
 {
     /// <summary>
     /// Spawns a player object for clients when they connect.
     /// </summary>
     [AddComponentMenu("FishNet/Component/PlayerSpawner")]
-    public class PlayerSpawner : Essential.Mono, IService
+    public class PlayerSpawner : Essential.Mono
     {
         #region Public.
         /// <summary>

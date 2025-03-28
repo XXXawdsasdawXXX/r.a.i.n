@@ -39,7 +39,4 @@ namespace FishNet.Managing.Object
             return (whole & part) == part;
         }
     }
-
-
-
 }

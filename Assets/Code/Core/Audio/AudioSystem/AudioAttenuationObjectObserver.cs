@@ -5,6 +5,7 @@ using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
 using FishNet.Object;
+using Plugins.FishNet.Runtime.Managing.Object;
 using UnityEngine;
 using UnityEngine.Scripting;
 
