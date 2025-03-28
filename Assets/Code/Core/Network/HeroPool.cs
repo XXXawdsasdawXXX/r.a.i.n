@@ -24,20 +24,17 @@ namespace Core.Network
         }
     }
     
-    public class HeroPool : DefaultObjectPool, IInitializeListener, ISubscriber
+    public class HeroPool : NetworkBehaviour, IInitializeListener, ISubscriber
     {
         private readonly Dictionary<NetworkConnection, NetworkObject> _heroes = new();
         
         [SerializeField] private NetworkObject _heroPrefab;
         [SerializeField] private PrefabObjects _prefabObjects;
-        [SerializeField] private NetworkManager _networkManager;
 
         [SerializeField] private Color _logColor;
         
         public UniTask GameInitialize()
         {
-            InitializeOnce(_networkManager);
-
             return UniTask.CompletedTask;
         }
 
@@ -70,10 +67,10 @@ namespace Core.Network
                 return;
             }
 
-            NetworkObject nob =
-                _networkManager.GetPooledInstantiated(_heroPrefab, Vector3.zero, quaternion.identity, true);
-            _networkManager.ServerManager.Spawn(nob, arg1);
+            NetworkObject nob = NetworkManager.GetPooledInstantiated(_heroPrefab, Vector3.zero, quaternion.identity, true);
+            NetworkManager.ServerManager.Spawn(nob, arg1);
             nob.gameObject.name += "_0";
+          
             Log.Info(
                 $"on client start scene -> PrefabId: {_heroPrefab.PrefabId}, CollectionId: {_heroPrefab.SpawnableCollectionId} ",
                 _logColor, this);
@@ -83,7 +80,7 @@ namespace Core.Network
 
         private async void ClientManagerOnClientConnectionState(ClientConnectionStateArgs obj)
         {
-            if (obj.ConnectionState == LocalConnectionState.Stopped)
+            /*if (obj.ConnectionState == LocalConnectionState.Stopped)
             {
       
                 Log.Info(
@@ -97,7 +94,7 @@ namespace Core.Network
 
                 UniTask.Delay(1000);
                 networkObject.gameObject.SetActive(true);
-            }
+            }*/
         }
 
         /*
