@@ -36,14 +36,14 @@ namespace Core.Network
         }
 
         [ServerRpc(RequireOwnership = false)]
-            public void DespawnItem()
+        public void DespawnItem()
+        {
+            if (_itemInstances.Count > 0)
             {
-                if (_itemInstances.Count > 0)
-                {
-                    _networkManager.ServerManager.Despawn(_itemInstances[^1]);
+                _networkManager.ServerManager.Despawn(_itemInstances[^1]);
 
-                    _itemInstances.Remove(_itemInstances[^1]);
-                }
+                _itemInstances.Remove(_itemInstances[^1]);
             }
         }
     }
+}

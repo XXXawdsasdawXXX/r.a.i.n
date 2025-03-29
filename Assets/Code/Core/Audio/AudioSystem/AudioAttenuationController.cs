@@ -33,14 +33,14 @@ namespace Core.Audio
 
         public UniTask Subscribe()
         {
-            _heroPool.HeroSpawned += _setObject;
+            _heroPool.PlayerHeroSpawned += _setObject;
             
             return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()
         {
-            _heroPool.HeroSpawned -= _setObject;
+            _heroPool.PlayerHeroSpawned -= _setObject;
         }
 
         private void _setObject(GameObject gameObject)

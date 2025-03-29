@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Audio/AudioSystem/AudioAttenuationObjectObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Audio/AudioSystem/AudioAttenuationController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Audio/AudioSystem/AudioAttenuationObjectObserver.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Audio/AudioSystem/AudioAttenuationController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Audio/AudioSystem/AudioAttenuationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Audio/AudioSystem/AudioAttenuationController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/HeroPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/HeroPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/NetworkItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/NetworkItemSpawner.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +106,7 @@
       <workItem from="1743078335916" duration="1036000" />
       <workItem from="1743155997557" duration="2201000" />
       <workItem from="1743238887580" duration="1280000" />
-      <workItem from="1743242517877" duration="2106000" />
+      <workItem from="1743242517877" duration="2760000" />
     </task>
     <servers />
   </component>
