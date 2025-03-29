@@ -19,7 +19,7 @@ namespace Game.Entities.Hero
 
         private void PlayStep()
         {
-            _audio.OneShot(AudioEventLibrary.STEP);
+            _audio.OneShot(AudioEventLibrary.STEP, transform.position);
         }
     }
 }

@@ -3,6 +3,7 @@ using Core.Libraries;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using FMODUnity;
+using UnityEngine;
 using UnityEngine.Scripting;
 
 namespace Core.Audio
@@ -31,6 +32,13 @@ namespace Core.Audio
             EventReference eventReference = _audioLibrary.Events.Get(eventKey);
             
             RuntimeManager.PlayOneShot(eventReference);
+        }
+        
+        public void OneShot(string eventKey, Vector3 position)
+        {
+            EventReference eventReference = _audioLibrary.Events.Get(eventKey);
+            
+            RuntimeManager.PlayOneShot(eventReference, position);
         }
     }
 }
