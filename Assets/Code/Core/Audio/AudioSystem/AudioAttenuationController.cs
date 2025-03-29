@@ -45,7 +45,7 @@ namespace Core.Audio
 
         private void _setObject(GameObject gameObject)
         {
-            _listener.AttenuationObject = gameObject;
+            //_listener.AttenuationObject = gameObject;
         }
     }
 }
