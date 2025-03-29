@@ -3,7 +3,7 @@ using Core.GameLoop;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
-using Game.World;
+using Game.Time;
 using UI.Windows.Base;
 
 namespace UI.Windows.HUD

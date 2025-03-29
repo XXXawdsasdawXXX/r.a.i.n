@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Data.Settings
+namespace Game.Time
 {
     [CreateAssetMenu(fileName = "Settings_GameTime", menuName = "Game/Settings/GameTime")]
     public class GameTimeSettings : ScriptableObject

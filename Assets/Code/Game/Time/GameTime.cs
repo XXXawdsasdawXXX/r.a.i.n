@@ -2,16 +2,12 @@
 using Core.GameLoop;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
-using Essential;
 using FishNet;
 using FishNet.Broadcast;
-using FishNet.Connection;
-using Game.Data.Settings;
-using UnityEngine;
 using UnityEngine.Scripting;
 using Channel = FishNet.Transporting.Channel;
 
-namespace Game.World
+namespace Game.Time
 {
     [Preserve]
     public class GameTime : IService, ISubscriber, IInitializeListener, IUpdateListener
@@ -65,9 +61,9 @@ namespace Game.World
         {
             Current += TimeSpan.FromSeconds(deltaTime * _timeScale);
 
-            if (Time.time - _lastUpdateTime >= 1.0f)
+            if (UnityEngine.Time.time - _lastUpdateTime >= 1.0f)
             {
-                _lastUpdateTime = Time.time;
+                _lastUpdateTime = UnityEngine.Time.time;
 
                 double totalSeconds = Current.TotalSeconds;
                         

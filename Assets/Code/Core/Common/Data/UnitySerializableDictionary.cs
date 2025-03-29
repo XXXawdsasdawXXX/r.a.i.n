@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Essential;
 using UnityEngine;
 
 namespace Core.Data
 {
     [Serializable]
-    public sealed class UnitySerializableDictionary<TKey, TValue> 
-        : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+    public sealed class UnitySerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, 
+        ISerializationCallbackReceiver
     {
         [SerializeField] private List<TKey> _keys = new();
         [SerializeField] private List<TValue> _values = new();

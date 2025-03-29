@@ -12,6 +12,7 @@ namespace Core.Input
         public event Action<EInputAction> ActionStarted; 
         public event Action<EInputAction> ActionEnded; 
         public Vector2 Direction { get; private set; }
+        public Vector3 MousePosition { get; private set; }
 
         private readonly InputActionKey[] _inputActionKeys = 
         {
@@ -19,7 +20,12 @@ namespace Core.Input
             {
                 Key = KeyCode.F,
                 Action = EInputAction.Interaction
-            }    
+            },
+            new()
+            {
+                Key = KeyCode.Mouse0,
+                Action = EInputAction.LeftClick
+            }
         };
 
         public void GameUpdate(float deltaTime)
@@ -28,6 +34,8 @@ namespace Core.Input
                 UnityEngine.Input.GetAxisRaw("Horizontal"),
                 UnityEngine.Input.GetAxisRaw("Vertical"));
 
+            MousePosition = UnityEngine.Input.mousePosition;
+            
             foreach (InputActionKey inputActionKey in _inputActionKeys)
             {
                 if (UnityEngine.Input.GetKeyDown(inputActionKey.Key))

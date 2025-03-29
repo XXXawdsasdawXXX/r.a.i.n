@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab90cd91e0e84da7b3e77419c83dd2ba, type: 3}
+  m_Name: Settings_Grid
+  m_EditorClassIdentifier: 
+  _tiles:
+  - TileType: 1
+    Weight: 0
+    Tiles:
+    - {fileID: 11400000, guid: e0704c5ba72cf04409e7df5350772c51, type: 2}
+    - {fileID: 11400000, guid: fcab3956bb5b7184aaabfe679fd2d518, type: 2}
+    - {fileID: 11400000, guid: ca481c37605e7ac48ada7c276cf15ae6, type: 2}
+    - {fileID: 11400000, guid: 45214336b0d61944387200b312e79b6b, type: 2}
+    - {fileID: 11400000, guid: f86faa9ad615b7b4ab7b7d2dbc7ed363, type: 2}
+    - {fileID: 11400000, guid: 8cece7bfe473be84987a269146b0fe92, type: 2}
+    - {fileID: 11400000, guid: 652523766f59e3d46af5eb245e689132, type: 2}
+    - {fileID: 11400000, guid: cdf9d9e1e2a763049a83f92fd63665d0, type: 2}
+    - {fileID: 11400000, guid: 7d20b136870c1904b89f0d0543baf500, type: 2}
+  - TileType: 2
+    Weight: 0
+    Tiles:
+    - {fileID: 11400000, guid: 38f9ceb9328ff1c41a9646f286a427bc, type: 2}

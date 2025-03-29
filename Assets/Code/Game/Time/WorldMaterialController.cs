@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using LiteNetLib.Utils;
 using UnityEngine;
 
-namespace Game.World
+namespace Game.Time
 {
     [Preserve]
     public class WorldMaterialController : IMono, IInitializeListener, IUpdateListener, IExitListener

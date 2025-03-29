@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Essential
 {
-    public class Mono : MonoBehaviour
+    public abstract class Mono : MonoBehaviour
     {
         public static event Action<Mono> Started;
         public static event Action<Mono> Destroyed;

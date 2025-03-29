@@ -4,9 +4,10 @@ using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
 using FishNet.Object;
+using Game.Camera;
 using UnityEngine;
 
-namespace Game.Entities
+namespace Game.Entities.Hero
 {
     public class HeroMovement : NetworkBehaviour, IInitializeListener, IFixedUpdateListener
     {
@@ -14,7 +15,7 @@ namespace Game.Entities
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _cameraYOffset = 4;
       
-        private Camera _camera;
+        private CameraView _camera;
         private InputManager _inputManager;
 
         public override void OnStartClient()
@@ -26,7 +27,7 @@ namespace Game.Entities
                 return;
             }
             
-            _camera = Camera.main;
+            _camera = Container.Instance.GetView<CameraView>();
 
             if (_camera != null)
             {

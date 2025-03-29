@@ -18,6 +18,7 @@ namespace Core.ServiceLocator
 
         private Essential.Mono[] _allObjects;
         private List<IService> _services = new();
+        private List<MonoView> _views = new();
         private List<IMono> _mono = new();
 
         private void Awake()
@@ -35,6 +36,7 @@ namespace Core.ServiceLocator
             
             _initializeTypedList(ref _services);
             _initializeTypedList(ref _mono);
+            _initializeTypedList(ref _views);
         }
 
         public List<IGameListener> GetGameListeners()
@@ -68,6 +70,20 @@ namespace Core.ServiceLocator
             return default;
         }
 
+        public T GetView<T>() where T : MonoView
+        {
+            foreach (MonoView view in _views)
+            {
+                if (view is T findView)
+                {
+                    return findView;
+                }
+            }
+
+            return default;
+        }
+
+        
         private void _initializeTypedList<T>(ref List<T> list)
         {
             string[] targetAssemblies = { "Core", "Game", "UI" };

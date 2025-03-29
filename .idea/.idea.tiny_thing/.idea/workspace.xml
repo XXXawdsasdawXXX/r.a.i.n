@@ -2,325 +2,48 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/MarkerInterfaces.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/MarkerInterfaces/MonoView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/MarkerInterfaces/MonoView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Camera.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Camera/CameraView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Camera/CameraView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Grid.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Grid/ETileType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Grid/ETileType.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Grid/GridService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Grid/GridService.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Grid/GridSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Grid/GridSettings.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Grid/GridView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/Grid/GridView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/_Test.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/_Test/TestService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Game/_Test/TestService.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/CHANGELOG.md.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Dependencies.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Dependencies/HttpEncoder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Dependencies/HttpEncoder.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Dependencies/HttpUtility.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Dependencies/HttpUtility.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Edgegap.asmdef" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Edgegap.asmdef.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapApiBase.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapApiBase.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapAppApi.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapAppApi.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapDeploymentsApi.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapDeploymentsApi.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapIpApi.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapIpApi.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapWizardApi.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/EdgegapWizardApi.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/AppPortsData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/AppPortsData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/DeploymentPortsData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/DeploymentPortsData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/LocationData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/LocationData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/ProtocolType.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/ProtocolType.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Requests.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Requests/CreateAppRequest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Requests/CreateAppRequest.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Requests/CreateAppVersionRequest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Requests/CreateAppVersionRequest.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Requests/CreateDeploymentRequest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Requests/CreateDeploymentRequest.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Requests/UpdateAppVersionRequest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Requests/UpdateAppVersionRequest.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/CreateDeploymentResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/CreateDeploymentResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/EdgegapErrorResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/EdgegapErrorResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/EdgegapHttpResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/EdgegapHttpResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetAppVersionsResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetAppVersionsResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetAppsResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetAppsResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetCreateAppResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetCreateAppResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetDeploymentResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetDeploymentResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetDeploymentStatusResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetDeploymentStatusResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetDeploymentsResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetDeploymentsResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetRegistryCredentialsResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetRegistryCredentialsResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetYourPublicIpResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/GetYourPublicIpResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/StopActiveDeploymentResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/StopActiveDeploymentResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/UpsertAppVersionResult.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/Results/UpsertAppVersionResult.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/SessionData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/SessionData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/VersionData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Api/Models/VersionData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/ButtonShaker.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/ButtonShaker.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/CustomPopupContent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/CustomPopupContent.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Dockerfile.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapBuildUtils.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapBuildUtils.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapServerData.uss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapServerData.uss.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapServerDataManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapServerDataManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapWindow.uss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapWindow.uss.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapWindow.uxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapWindow.uxml.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapWindowMetadata.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapWindowMetadata.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapWindowV2.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/EdgegapWindowV2.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/BaronNeue SDF.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/BaronNeue SDF.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Spartan-Regular SDF.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Spartan-Regular SDF.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Spartan-SemiBold SDF.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Spartan-SemiBold SDF.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src/BaronNeue.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src/BaronNeue.otf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src/Spartan.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src/Spartan/Spartan-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src/Spartan/Spartan-Regular.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src/Spartan/Spartan-SemiBold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src/Spartan/Spartan-SemiBold.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src/UbuntuMono-R.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/Src/UbuntuMono-R.ttf.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/UbuntuMono-R SDF.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Fonts/UbuntuMono-R SDF.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/GithubRelease.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/GithubRelease.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Images.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Images/clipboard-128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Images/clipboard-128.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Images/discord-brands-solid-64px.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Images/discord-brands-solid-64px.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Images/discord-brands-solid.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Images/discord-brands-solid.svg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Images/logo_transparent_400_alpha25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/Images/logo_transparent_400_alpha25.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/PackageJSON.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Editor/PackageJSON.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Enums.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Enums/ApiEnvironment.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Enums/ApiEnvironment.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Enums/ServerStatus.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Enums/ServerStatus.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Enums/ToolState.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Enums/ToolState.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/LICENSE.md.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/AppVersionUpdatePatchData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/AppVersionUpdatePatchData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/DeployPostData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/DeployPostData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ApiModelContainercrashdata.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ApiModelContainercrashdata.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ApiModelContainerlogs.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ApiModelContainerlogs.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppCreation.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppCreation.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersion.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersion.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionCreateSessionConfig.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionCreateSessionConfig.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionEnv.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionEnv.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionPort.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionPort.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionProbe.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionProbe.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionUpdate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionUpdate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionUpdateSessionConfig.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionUpdateSessionConfig.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionWhitelistEntry.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionWhitelistEntry.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionWhitelistEntryPayload.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionWhitelistEntryPayload.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionWhitelistEntrySuccess.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionWhitelistEntrySuccess.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionWhitelistResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersionWhitelistResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/AppVersions.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Application.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Application.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ApplicationPatch.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ApplicationPatch.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ApplicationPost.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ApplicationPost.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Applications.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Applications.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/BaseModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/BaseModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/BulkSessionDelete.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/BulkSessionDelete.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/BulkSessionPost.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/BulkSessionPost.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ComponentCredentials.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ComponentCredentials.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ContainerLogStorageModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/ContainerLogStorageModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/CustomBulkSessionModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/CustomBulkSessionModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/CustomBulkSessionsModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/CustomBulkSessionsModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/CustomSessionDeleteModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/CustomSessionDeleteModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/CustomSessionModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/CustomSessionModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Delete.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Delete.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/DeployEnvModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/DeployEnvModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/DeployModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/DeployModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Deployment.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Deployment.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/DeploymentLocation.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/DeploymentLocation.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/DeploymentSessionContext.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/DeploymentSessionContext.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Deployments.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Deployments.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Error.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Error.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/GeoIpListModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/GeoIpListModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Location.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Location.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/LocationModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/LocationModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Locations.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Locations.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentCreate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentEnvListResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentEnvListResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentEnvsCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentEnvsCreate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentEnvsResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentEnvsResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentEnvsUpdate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentEnvsUpdate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentListResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentListResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentUpdate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerComponentUpdate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerCreate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerListResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerListResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerManagedReleaseCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerManagedReleaseCreate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerManagedReleaseResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerManagedReleaseResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerManagedReleaseUpdate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerManagedReleaseUpdate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseConfigCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseConfigCreate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseConfigResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseConfigResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseConfigUpdate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseConfigUpdate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseCreate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseCreate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseCreateBase.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseCreateBase.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseResponseBase.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseResponseBase.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseUpdate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseUpdate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseUpdateBase.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerReleaseUpdateBase.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerUpdate.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MatchmakerUpdate.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MetricsModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MetricsModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MetricsResponse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/MetricsResponse.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Monitor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Monitor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/NetworkMetricsModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/NetworkMetricsModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Pagination.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Pagination.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Paginator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Paginator.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/PatchSessionModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/PatchSessionModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/PortMapping.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/PortMapping.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Request.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Request.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SelectorEnvModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SelectorEnvModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SelectorModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SelectorModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionContext.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionContext.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionDelete.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionDelete.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionGet.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionGet.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionRequest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionRequest.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionUser.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionUser.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionUserContext.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/SessionUserContext.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Sessions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Sessions.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/StaticSites.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/StaticSites.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/StaticSitesList.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/StaticSitesList.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Status.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/Status.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/TotalMetricsModel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Models/SDK/TotalMetricsModel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Newtonsoft_Package_Patch.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/Newtonsoft_Package_Patch.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/README.md.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/Edgegap/package.json.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Common/Data/UnitySerializableDictionary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Data/UnitySerializableDictionary.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/VectorExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/VectorExtension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Input/EInputAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Input/EInputAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Input/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Input/InputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/Container.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/Container.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/IMono.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/MarkerInterfaces/IMono.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/IMono.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/MarkerInterfaces/IMono.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/IService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/MarkerInterfaces/IService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/IService.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/MarkerInterfaces/IService.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Essential/Log.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Essential/Log.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Essential/Mono.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Essential/Mono.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/Entities/Hero/HeroMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Game/Entities/Hero/HeroMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/Game.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Game/Game.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Game/Time.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/GameTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Game/Time/GameTime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/GameTime.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Game/Time/GameTime.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/GameTimeSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Game/Time/GameTimeSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/GameTimeSettings.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Game/Time/GameTimeSettings.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/WorldMaterialController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Game/Time/WorldMaterialController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Game/World/WorldMaterialController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Game/Time/WorldMaterialController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/HUDWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/HUDWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Core.csproj.DotSettings" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -349,24 +72,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "TODO_SCOPE": "All Places",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\user\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\user\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.51f1\Editor\Unity.exe" />
@@ -423,7 +146,8 @@
       <workItem from="1743155997557" duration="2201000" />
       <workItem from="1743238887580" duration="1280000" />
       <workItem from="1743242517877" duration="4429000" />
-      <workItem from="1743258521239" duration="3775000" />
+      <workItem from="1743258521239" duration="6740000" />
+      <workItem from="1743271968787" duration="4319000" />
     </task>
     <servers />
   </component>
