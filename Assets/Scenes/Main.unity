@@ -835,12 +835,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c95dfde7d73b54dbbdc23155d35d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _refreshDefaultPrefabs: 0
+  _refreshDefaultPrefabs: 1
   _runInBackground: 1
   _dontDestroyOnLoad: 1
   _objectPool: {fileID: 0}
   _persistence: 0
-  _logging: {fileID: 0}
+  _logging: {fileID: 11400000, guid: db3baf639bb3dca4981c6e5a2de0feb8, type: 2}
   _spawnablePrefabs: {fileID: 11400000, guid: be7986d6072ff464aa8f25d69186c905, type: 2}
 --- !u!4 &328750982
 Transform:

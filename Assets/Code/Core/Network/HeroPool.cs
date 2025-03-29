@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using FishNet.Connection;
 using FishNet.Managing;
@@ -11,11 +12,13 @@ using Core.ServiceLocator;
 
 namespace Core.Network
 {
-    public class HeroPool : NetworkBehaviour, IInitializeListener, ISubscriber
+    public class HeroPool : NetworkBehaviour, IService, IInitializeListener, ISubscriber
     {
+        public event Action<GameObject> HeroSpawned;
+        
         private readonly Dictionary<NetworkConnection, NetworkObject> _heroes = new();
         private readonly Color _logColor = new(0.3f, 0.8f, 0.2f);
-
+        
         [SerializeField] private NetworkObject _heroPrefab;
         
         private NetworkManager _networkManager;
@@ -61,6 +64,8 @@ namespace Core.Network
                      $"CollectionId: {_heroPrefab.SpawnableCollectionId}", _logColor, this);
             
             _heroes.Add(connection, pooledInstantiated);
+            
+            HeroSpawned?.Invoke(pooledInstantiated.gameObject);
         }
 
         private void _serverManagerOnRemoveConnection(NetworkConnection connection, RemoteConnectionStateArgs state)

@@ -1,26 +1,21 @@
-﻿using Core.Data;
-using Core.GameLoop;
+﻿using Core.GameLoop;
 using Core.Network;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
-using FishNet.Object;
-using Plugins.FishNet.Runtime.Managing.Object;
 using UnityEngine;
 using UnityEngine.Scripting;
 
 namespace Core.Audio
 {
     [Preserve]
-    public class AudioAttenuationObjectObserver : IMono, IInitializeListener, ISubscriber
+    public class AudioAttenuationController : IMono, IInitializeListener, ISubscriber
     {
         private FMODUnity.StudioListener _listener;
-        private PlayerSpawner _playerSpawner;
+        private HeroPool _heroPool;
 
         public UniTask GameInitialize()
         {
-            _playerSpawner = Object.FindObjectOfType<PlayerSpawner>();
-
             if (Camera.main != null)
             {
                 _listener = Camera.main.GetComponent<FMODUnity.StudioListener>();
@@ -30,25 +25,27 @@ namespace Core.Audio
                 Log.Error("No find camera.main", this);
             }
 
+            _heroPool = Container.Instance.GetService<HeroPool>();
+
             return UniTask.CompletedTask;
         }
 
+
         public UniTask Subscribe()
         {
-         //   _playerSpawner.OnSpawned += PlayerSpawnerOnOnSpawned;
+            _heroPool.HeroSpawned += _setObject;
+            
             return UniTask.CompletedTask;
         }
 
         public void Unsubscribe()
         {
-           // _playerSpawner.OnSpawned += PlayerSpawnerOnOnSpawned;
+            _heroPool.HeroSpawned -= _setObject;
         }
 
-        private void PlayerSpawnerOnOnSpawned(NetworkObject obj)
+        private void _setObject(GameObject gameObject)
         {
-            _listener.AttenuationObject = obj.gameObject;
-
-            Log.Info($"{obj.name}", this);
+            _listener.AttenuationObject = gameObject;
         }
     }
 }
