@@ -54,6 +54,7 @@ namespace Core.Network
                 true);
             
             _networkManager.ServerManager.Spawn(pooledInstantiated, connection);
+            _networkManager.SceneManager.AddOwnerToDefaultScene(pooledInstantiated);
 
             Log.Info($"on client start scene -> " +
                      $"PrefabId: {_heroPrefab.PrefabId}, " +

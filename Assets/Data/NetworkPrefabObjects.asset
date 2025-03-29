@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4489d77032a81ef42b0067acf2737d4d, type: 3}
   m_Name: NetworkPrefabObjects
   m_EditorClassIdentifier: 
-  <CollectionId>k__BackingField: 1
+  <CollectionId>k__BackingField: 0
   _prefabs:
   - {fileID: 8329376548906989968, guid: 21ceab23df0a0094b8c75888ea23c5d4, type: 3}
+  - {fileID: 8821076372296327611, guid: d3718bd0e5c846d4380ef5e8ed1070b8, type: 3}

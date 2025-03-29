@@ -10,31 +10,40 @@ namespace Core.Network
     {
         [SerializeField] private NetworkManager _networkManager;
         [SerializeField] private NetworkObject _itemPrefab;
-      
+
         private readonly List<NetworkObject> _itemInstances = new();
-        
-        
+
         [ServerRpc(RequireOwnership = false)]
         public void SpawnItem(Vector3 position)
         {
-            NetworkObject drop = _networkManager.GetPooledInstantiated(_itemPrefab, transform, true);
-            drop.transform.position = position;
+            if (_networkManager == null || !_networkManager.IsServerStarted)
+            {
+                Debug.LogWarning("NetworkManager is not active or server is not started.");
+                return;
+            }
 
+            NetworkObject drop = _networkManager.GetPooledInstantiated(_itemPrefab, transform, true);
+
+            if (drop == null)
+            {
+                Debug.LogWarning("Failed to get pooled instance of item.");
+                return;
+            }
+
+            drop.transform.position = position;
             _networkManager.ServerManager.Spawn(drop);
-            _networkManager.SceneManager.AddOwnerToDefaultScene(drop);
-         
             _itemInstances.Add(drop);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void DespawnItem()
-        {
-            if (_itemInstances.Count > 0)
+            public void DespawnItem()
             {
-                _networkManager.ServerManager.Despawn(_itemInstances[^1]);
+                if (_itemInstances.Count > 0)
+                {
+                    _networkManager.ServerManager.Despawn(_itemInstances[^1]);
 
-                _itemInstances.Remove(_itemInstances[^1]);
+                    _itemInstances.Remove(_itemInstances[^1]);
+                }
             }
         }
     }
-}

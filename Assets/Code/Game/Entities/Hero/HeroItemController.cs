@@ -22,11 +22,9 @@ namespace Game.Entities
 
         private void Update()
         {
-
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 _networkItemSpawner.SpawnItem(transform.position + Vector3.right);
-
             }
 
             if (Input.GetKeyDown(KeyCode.F2))
@@ -34,6 +32,5 @@ namespace Game.Entities
                 _networkItemSpawner.DespawnItem();
             }
         }
-
     }
 }
