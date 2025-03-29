@@ -30,7 +30,6 @@ namespace Game.World
         private float _timeScale;
         private double _lastUpdateTime;
         
-
         public UniTask GameInitialize()
         {
             _timeScale = Container.Instance.GetConfig<GameTimeSettings>().TimeScale;

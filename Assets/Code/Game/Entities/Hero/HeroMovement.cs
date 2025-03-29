@@ -38,7 +38,6 @@ namespace Game.Entities
                 cameraTransform.SetParent(playerTransform);
                 cameraTransform.position = cameraPosition;
                 
-                
                 Log.Info("spawn",Color.magenta, this);
             }
         }

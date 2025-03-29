@@ -12,7 +12,6 @@ namespace Core.ServiceLocator
     public sealed class Container : MonoBehaviour
     {
         public static Container Instance { get; private set; }
-
         [field: SerializeField] public NetworkManager Network { get; private set; }
         
         [SerializeField] private List<ScriptableObject> _configs;

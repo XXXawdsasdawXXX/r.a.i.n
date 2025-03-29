@@ -70,10 +70,9 @@ namespace Core.Network
             HeroSpawned?.Invoke(pooledInstantiated.gameObject);
 
             TargetHeroSpawned(connection, pooledInstantiated.gameObject);
-
         }
 
-// 👇 Добавляем TargetRpc, который вызывается только для конкретного игрока
+        
         [TargetRpc]
         private void TargetHeroSpawned(NetworkConnection connection, GameObject hero)
         {

@@ -481,7 +481,6 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8329376548906989968}
   _networkObjectCache: {fileID: 8329376548906989968}
   _animator: {fileID: 69949965107314698}
-  _netanimator: {fileID: 0}
   _viewBody: {fileID: 1047437175584240034}
   _rigidbody2D: {fileID: 7074728272879338317}
 --- !u!1 &6401220223736595008
@@ -523,7 +522,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.267}
+  m_AnchoredPosition: {x: 0, y: 1.042}
   m_SizeDelta: {x: 0.7, y: 0.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3168878378803988197
