@@ -4,5 +4,38 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 5c588b563efd2ff4998c8b460a4b83a1
+  - enabled: 1
+    path: Assets/Scenes/Game_0.unity
+    guid: 53d09aa8b9fd3564685c5008ef1bc76b
+  - enabled: 1
+    path: Assets/Scenes/Game_1.unity
+    guid: 6768380e680723442a1331f8400190ac
+  - enabled: 1
+    path: Assets/Plugins/FishNet/Demos/SceneManager/Additive Scenes/Scenes/AdditiveScenes_0.unity
+    guid: 7643cdc3eefb15f4f8608cc633c55f7e
+  - enabled: 1
+    path: Assets/Plugins/FishNet/Demos/SceneManager/Additive Scenes/Scenes/AdditiveScenes_1.unity
+    guid: aab2581cdfbe8f44698ef91d36f2d6c6
+  - enabled: 1
+    path: Assets/Plugins/FishNet/Demos/SceneManager/Additive Scenes/Scenes/AdditiveScenes_2.unity
+    guid: 969cc8a8a67c58b4da9baa82a65c66bf
+  - enabled: 1
+    path: Assets/Plugins/FishNet/Demos/SceneManager/Additive Scenes/Scenes/AdditiveScenes_3.unity
+    guid: 8ac819f926d1e914e9552e79c147082d
+  - enabled: 1
+    path: Assets/Plugins/FishNet/Demos/SceneManager/Additive Scenes/Scenes/AdditiveScenes_Start.unity
+    guid: afbcf8f41ca78ef4296672aeb824f605
+  - enabled: 1
+    path: Assets/Plugins/FishNet/Demos/SceneManager (Old Examples)/Scenes/Replace/ReplaceConnection.unity
+    guid: 58053e81b62de3a499afaf0f73d01b01
+  - enabled: 1
+    path: Assets/Plugins/FishNet/Demos/SceneManager (Old Examples)/Scenes/Replace/ReplaceGlobal.unity
+    guid: fddd81e62368fe9448b0eb0a80da6bb4
+  - enabled: 1
+    path: Assets/Plugins/FishNet/Demos/SceneManager (Old Examples)/Scenes/Replace/ReplaceMain.unity
+    guid: 099398b014b86004abd99a7d21cf417a
   m_configObjects: {}
