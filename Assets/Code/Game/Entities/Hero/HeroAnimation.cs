@@ -9,12 +9,15 @@ namespace Game.Entities.Hero
     public class HeroAnimation : NetworkBehaviour, IInitializeListener, IUpdateListener
     {
         private static readonly int _speedHash = Animator.StringToHash("Speed");
+
+        public string RuntimeListenerName => "HeroAnimation";
         
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform _viewBody;
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
         private Cache<Vector3> _velocityCache;
+
 
         public UniTask GameInitialize()
         {

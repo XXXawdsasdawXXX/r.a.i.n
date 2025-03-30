@@ -12,14 +12,17 @@ namespace Game.Time
     public class WorldMaterialController : IMono, IInitializeListener, IUpdateListener, IExitListener
     {
         private static readonly int _overlayBlend = Shader.PropertyToID(MATERIAL_PARAM_NAME);
-        
+
         private const string MATERIAL_PARAM_NAME = "_OverlayBlend";
         private const float MAX_VALUE = 0.675f;
+
+        public string RuntimeListenerName => "WorldMaterialController";
         
         private Cache<int> _lastUpdatedMinute;
         private Material _worldMaterial;
         private GameTime _gameTime;
-        
+
+
         public UniTask GameInitialize()
         {
             _worldMaterial = Container.Instance.GetConfig<AssetLibrary>().Material.Get(MaterialLibrary.WORLD);

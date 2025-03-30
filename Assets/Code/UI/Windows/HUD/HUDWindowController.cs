@@ -13,9 +13,12 @@ namespace UI.Windows.HUD
         IStartListener,
         IUpdateListener
     {
+        public string RuntimeListenerName => "HUDWindowController";
+        
         private GameTime _gameTime;
         private Cache<int> _lastUpdateMinute;
         private float _currentValue;
+
 
         public UniTask GameInitialize()
         {

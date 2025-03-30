@@ -27,12 +27,16 @@ namespace Core.GameLoop
         UniTask GameStart();
     }
 
-    public interface IUpdateListener : IGameListener
+    public interface IRuntimeListener : IGameListener
+    {
+        string RuntimeListenerName { get; }
+    }
+    public interface IUpdateListener : IRuntimeListener
     {
         void GameUpdate(float deltaTime);
     }
     
-    public interface IFixedUpdateListener : IGameListener
+    public interface IFixedUpdateListener : IRuntimeListener
     {
         void GameFixedUpdate(float fixedDeltaTime);
     }

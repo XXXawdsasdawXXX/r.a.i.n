@@ -163,7 +163,7 @@ namespace FishNet.Managing.Client
                 NetworkManager.StorePooledInstantiated(networkObject, false);
             }
 
-            Log.Info("client spawn", this);
+            Log.ClientInfo("client spawn", this);
             writer.Store();
         }
 
@@ -174,10 +174,10 @@ namespace FishNet.Managing.Client
         {
             PooledWriter writer = WriterPool.Retrieve();
             WriteDepawn(networkObject, writer);
-            base.NetworkManager.TransportManager.SendToServer((byte)Channel.Reliable, writer.GetArraySegment());
+            NetworkManager.TransportManager.SendToServer((byte)Channel.Reliable, writer.GetArraySegment());
             writer.Store();
 
-            Log.Info("client despawn", this);
+            Log.ClientInfo("client despawn", this);
             
             base.Despawn(networkObject, networkObject.GetDefaultDespawnType(), asServer: false);
         }

@@ -215,7 +215,7 @@ namespace Core.GameLoop
             {
                 foreach (IUpdateListener listener in _updateListeners)
                 {
-                    Profiler.BeginSample(listener.GetType().Name);
+                    Profiler.BeginSample(listener.RuntimeListenerName);
 
                     listener.GameUpdate(deltaTime);
 
@@ -230,7 +230,7 @@ namespace Core.GameLoop
             {
                 foreach (IFixedUpdateListener listener in _fixedUpdateListeners)
                 {
-                    Profiler.BeginSample(listener.GetType().Name);
+                    Profiler.BeginSample(listener.RuntimeListenerName);
 
                     listener.GameFixedUpdate(fixedDeltaTime);
 

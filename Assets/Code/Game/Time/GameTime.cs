@@ -21,11 +21,13 @@ namespace Game.Time
             }
         }
 
+        public string RuntimeListenerName => "GameTime";
         public TimeSpan Current { get; private set; }
-        
+
         private float _timeScale;
         private double _lastUpdateTime;
-        
+
+
         public UniTask GameInitialize()
         {
             _timeScale = Container.Instance.GetConfig<GameTimeSettings>().TimeScale;

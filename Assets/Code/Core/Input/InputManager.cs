@@ -9,10 +9,13 @@ namespace Core.Input
     [Preserve]
     public sealed class InputManager : IService, IUpdateListener
     {
-        public event Action<EInputAction> ActionStarted; 
-        public event Action<EInputAction> ActionEnded; 
+        public event Action<EInputAction> ActionStarted;
+        public event Action<EInputAction> ActionEnded;
+
+        public string RuntimeListenerName => "InputManager";
         public Vector2 Direction { get; private set; }
         public Vector3 MousePosition { get; private set; }
+
 
         private readonly InputActionKey[] _inputActionKeys = 
         {

@@ -29,8 +29,7 @@ namespace Game.Grid
             
             return cellPos.AsFloat2();
         }
-
-
+        
         public ETileType GetTileType(Vector3 worldPosition)
         {
             Vector3Int cell = WorldToCell(worldPosition);

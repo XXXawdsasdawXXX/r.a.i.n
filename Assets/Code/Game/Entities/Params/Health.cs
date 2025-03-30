@@ -1,7 +1,6 @@
 ﻿using System;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using UnityEngine;
 
 namespace Game.Entities.Params
 {
@@ -35,7 +34,7 @@ namespace Game.Entities.Params
 
             Changed?.Invoke();
         }
-
+        
         public float GetNormalize()
         {
             return _health.Value / Max;
