@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6315422958930571904}
+  - component: {fileID: 9045540903597572497}
   - component: {fileID: 7074728272879338317}
   - component: {fileID: -5377052078767239473}
   - component: {fileID: 8329376548906989968}
@@ -165,6 +166,25 @@ Transform:
   - {fileID: 1356570363391507603}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9045540903597572497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483374850134618058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57474330f3704caeb79f00dc54cb2173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Rigidbody>k__BackingField: {fileID: 7074728272879338317}
+  <Name>k__BackingField: {fileID: 4172023190012156737}
+  <Health>k__BackingField: {fileID: 4774697951357296534}
+  <Movement>k__BackingField: {fileID: 6778264612898636302}
+  <Color>k__BackingField: {fileID: 3634067845205420892}
+  <Animation>k__BackingField: {fileID: 7102317373915660470}
+  <ItemController>k__BackingField: {fileID: -227475778803773201}
 --- !u!50 &7074728272879338317
 Rigidbody2D:
   serializedVersion: 4

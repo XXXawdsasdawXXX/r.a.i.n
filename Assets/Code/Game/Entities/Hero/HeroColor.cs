@@ -1,7 +1,7 @@
 ﻿using FishNet.Object;
 using UnityEngine;
 
-namespace Game.Entities
+namespace Game.Entities.Hero
 {
     public class HeroColor : NetworkBehaviour
     {
