@@ -13,7 +13,7 @@ using UnityEngine.Scripting;
 namespace Core.GameLoop
 {
     [Preserve]
-    public class MonoSpawnTracker : IService, IInitializeListener, ISubscriber
+    internal sealed class MonoSpawnTracker : IService, IInitializeListener, ISubscriber
     {
         private GameEventDispatcher _gameEventDispatcher;
         private PlayerSpawner _playerSpawner;

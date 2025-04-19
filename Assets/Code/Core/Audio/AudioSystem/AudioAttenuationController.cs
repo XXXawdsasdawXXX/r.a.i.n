@@ -8,7 +8,7 @@ using UnityEngine.Scripting;
 
 namespace Core.Audio
 {
-    [Preserve]
+    /*[Preserve]
     public class AudioAttenuationController : IMono, IInitializeListener, ISubscriber
     {
         private FMODUnity.StudioListener _listener;
@@ -47,5 +47,5 @@ namespace Core.Audio
         {
             _listener.AttenuationObject = gameObject;
         }
-    }
+    }*/
 }

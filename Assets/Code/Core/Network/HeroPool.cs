@@ -9,6 +9,7 @@ using UnityEngine;
 using Essential;
 using Core.GameLoop;
 using Core.ServiceLocator;
+using FishNet;
 
 namespace Core.Network
 {
@@ -26,7 +27,7 @@ namespace Core.Network
 
         public UniTask GameInitialize()
         {
-            _networkManager = Container.Instance.Network;
+            _networkManager = InstanceFinder.NetworkManager;
 
             return UniTask.CompletedTask;
         }

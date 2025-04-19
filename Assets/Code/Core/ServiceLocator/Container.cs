@@ -1,44 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Core.GameLoop;
-using Essential;
-using FishNet.Managing;
 using UnityEngine;
 
 namespace Core.ServiceLocator
 {
-    public sealed class Container : MonoBehaviour
+    public sealed class Container 
     {
         public static Container Instance { get; private set; }
-        [field: SerializeField] public NetworkManager Network { get; private set; }
+        internal ContextEntities Context { get; }
         
-        [SerializeField] private List<ScriptableObject> _configs;
-
-        private Essential.Mono[] _allObjects;
-        private List<IService> _services = new();
-        private List<MonoView> _views = new();
-        private List<IMono> _mono = new();
-
-        private void Awake()
+        private readonly List<ScriptableObject> _configs = new();
+        
+        internal Container(ContextEntities projectContext)
         {
-            if (Instance != null)
-            {
-                Destroy(gameObject);
-            }
+            Context = projectContext;
             
-            DontDestroyOnLoad(gameObject);
-         
             Instance = this;
-            
-            _allObjects = FindObjectsOfType<Essential.Mono>(true);
-            
-            _initializeTypedList(ref _services);
-            _initializeTypedList(ref _mono);
-            _initializeTypedList(ref _views);
         }
-
+        
         public List<IGameListener> GetGameListeners()
         {
             return _getContainerComponents<IGameListener>();
@@ -57,81 +38,78 @@ namespace Core.ServiceLocator
             return null;
         }
 
-        public T GetService<T>() where T : IService
+        public T GetService<T>() where T : class, IService
         {
-            foreach (IService service in _services)
+            Type type = typeof(T);
+            
+            ContextEntities lowContext = Context;
+           
+            while (lowContext.Child != null)
             {
-                if (service is T findService)
-                {
-                    return findService;
-                }
+                lowContext = lowContext.Child;
             }
 
+            while (lowContext != null)
+            {
+                if (lowContext.Services.TryGetValue(type, out IService sceneService))
+                {
+                    return sceneService as T;
+                }
+
+                lowContext = lowContext.Parent;
+            }
+            
             return default;
         }
 
         public T GetView<T>() where T : MonoView
         {
-            foreach (MonoView view in _views)
+            Type type = typeof(T);
+      
+            ContextEntities lowContext = Context.Child;
+           
+            while (lowContext.Child != null)
             {
-                if (view is T findView)
+                lowContext = lowContext.Child;
+            }
+
+            while (lowContext != null)
+            {
+                if (lowContext.Views.TryGetValue(type, out MonoView monoView))
                 {
-                    return findView;
+                    return monoView as T;
                 }
+
+                lowContext = lowContext.Parent;
             }
 
             return default;
         }
 
-        
-        private void _initializeTypedList<T>(ref List<T> list)
+        public void AddConfig(ScriptableObject config)
         {
-            string[] targetAssemblies = { "Core", "Game", "UI" };
-
-            List<Type> serviceTypes = new List<Type>();
-
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                if (targetAssemblies.Contains(assembly.GetName().Name))
-                {
-                    serviceTypes.AddRange(assembly.GetTypes().Where(t =>
-                        typeof(T).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract &&
-                        !typeof(MonoBehaviour).IsAssignableFrom(t)));
-                }
-            }
-            
-            foreach (Type serviceType in serviceTypes)
-            {
-                if (Activator.CreateInstance(serviceType) is T service)
-                {
-                    list.Add(service);
-                }
-            }
-
-            T[] typedMono = _allObjects.OfType<T>().ToArray();
-            
-            if (typedMono.Any())
-            {
-                list.AddRange(typedMono);
-            }
-            
-            Log.Info($"Initialize instances. Type of {typeof(T).Name}. Count {list.Count} ", this);
+            _configs.Add(config);
         }
-
+        
         private List<T> _getContainerComponents<T>()
         {
             List<T> list = new();
 
-            list.AddRange(_services.OfType<T>().ToList());
-            list.AddRange(_mono.OfType<T>().ToList());
-
-            IEnumerable<T> mbListeners = _allObjects.OfType<T>();
-            foreach (T mbListener in mbListeners)
+            ContextEntities lowContext = Context;
+           
+            while (lowContext.Child != null)
             {
-                if (!list.Contains(mbListener))
-                {
-                    list.Add(mbListener);
-                }
+                lowContext = lowContext.Child;
+            }
+
+            while (lowContext != null)
+            {
+                list.AddRange(lowContext.Services.OfType<T>());
+                list.AddRange(lowContext.Mono.OfType<T>());
+                list.AddRange(lowContext.Views.OfType<T>());
+                list.AddRange(lowContext.Objects.OfType<T>());
+                
+                lowContext = lowContext.Parent;
             }
 
             return list;

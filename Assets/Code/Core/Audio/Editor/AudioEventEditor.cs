@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace Core.Audio.Editor
 {
-
     [CustomPropertyDrawer(typeof(AudioEvent))]
-    public class AudioEventDrawer : PropertyDrawer
+    internal sealed class AudioEventDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

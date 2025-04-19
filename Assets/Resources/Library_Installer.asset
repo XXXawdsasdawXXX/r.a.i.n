@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c8dd1856534df4b2deb6f6bb0ddfaf, type: 3}
+  m_Name: Library_Installer
+  m_EditorClassIdentifier: 
+  <ProjectsInstaller>k__BackingField: {fileID: 11400000, guid: 8b79fe3057f6d8349929a10eb35eb999, type: 2}
+  <CoreGameInstaller>k__BackingField: {fileID: 11400000, guid: f0939c4930f8ee542ba431aec5ee97e8, type: 2}
+  <MetaGameInstaller>k__BackingField: {fileID: 0}
+  _sceneInstallers: []

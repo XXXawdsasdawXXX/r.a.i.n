@@ -1,7 +1,7 @@
-﻿using Core.GameLoop;
+﻿using Code.CoreGame.Entities.Params;
+using Core.GameLoop;
 using Cysharp.Threading.Tasks;
 using Essential;
-using Game.Entities.Params;
 using UI.Components;
 using UnityEngine;
 

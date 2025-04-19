@@ -1,9 +1,9 @@
-﻿using Core.Data;
+﻿using Code.CoreGame.Time;
+using Core.Data;
 using Core.GameLoop;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
-using Game.Time;
 using UI.Windows.Base;
 
 namespace UI.Windows.HUD

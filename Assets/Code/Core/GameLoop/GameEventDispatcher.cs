@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
@@ -9,7 +10,7 @@ using UnityEngine.Profiling;
 
 namespace Core.GameLoop
 {
-    public sealed class GameEventDispatcher : Essential.Mono, IService
+    internal sealed class GameEventDispatcher : Essential.Mono, IService
     {
         private static readonly ProfilerMarker _fixedUpdateProfilerMarker = new("_notifyGameFixedUpdate:");
         private static readonly ProfilerMarker _updateProfilerMarker = new("_notifyGameUpdate:");
@@ -23,12 +24,40 @@ namespace Core.GameLoop
         private readonly HashSet<IExitListener> _exitListeners = new();
         private readonly HashSet<ISubscriber> _subscribers = new();
 
-        private bool _isGameBooted;
+        private bool _isStarted;
 
-
-        private async void Awake()
+        private void Awake()
         {
-            _initializeListeners();
+            DontDestroyOnLoad(this);
+        }
+
+        private void Update()
+        {
+            if (_isStarted)
+            {
+                _notifyGameUpdate(Time.deltaTime);
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (_isStarted)
+            {
+                _notifyGameFixedUpdate(Time.fixedDeltaTime);
+            }
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (_isStarted)
+            {
+                _notifyGameExit();
+            }
+        }
+        
+        public async void Register(List<IGameListener> listeners)
+        {
+            _initializeListeners(listeners);
 
             await _notifyGameInitialize();
             await _notifyGameLoad();
@@ -38,33 +67,19 @@ namespace Core.GameLoop
             await _notifySubscribe();
             await _notifyGameStart();
 
-            _isGameBooted = true;
+            _isStarted = true;
         }
 
-        private void Update()
+        public void Dispose()
         {
-            if (_isGameBooted)
-            {
-                _notifyGameUpdate(Time.deltaTime);
-            }
-        }
-
-        private void FixedUpdate()
-        {
-            if (_isGameBooted)
-            {
-                _notifyGameFixedUpdate(Time.fixedDeltaTime);
-            }
-        }
-
-        private void OnApplicationQuit()
-        {
-            if (_isGameBooted)
+            if (_isStarted)
             {
                 _notifyGameExit();
             }
-        }
 
+            _isStarted = false;
+        }
+        
         public async void AddSpawnableListener(IGameListener listener)
         {
             if (!_listeners.Add(listener))
@@ -132,10 +147,8 @@ namespace Core.GameLoop
             }
         }
 
-        private void _initializeListeners()
+        private void _initializeListeners(List<IGameListener> gameListeners)
         {
-            List<IGameListener> gameListeners = Container.Instance.GetGameListeners();
-
             foreach (IGameListener listener in gameListeners)
             {
                 if (!_listeners.Add(listener)) continue;
@@ -150,8 +163,7 @@ namespace Core.GameLoop
 
                 if (listener is IUpdateListener updateListener) _updateListeners.Add(updateListener);
 
-                if (listener is IFixedUpdateListener fixedUpdateListener)
-                    _fixedUpdateListeners.Add(fixedUpdateListener);
+                if (listener is IFixedUpdateListener fixedUpdateListener) _fixedUpdateListeners.Add(fixedUpdateListener);
 
                 if (listener is IExitListener exitListener) _exitListeners.Add(exitListener);
             }

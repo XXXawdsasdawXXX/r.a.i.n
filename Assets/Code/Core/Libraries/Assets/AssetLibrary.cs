@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Core.Libraries
+namespace Core.Libraries.Assets
 {
     [CreateAssetMenu(fileName = "Library_Asset", menuName = "Game/Library/Asset")]
     public class AssetLibrary : ScriptableObject

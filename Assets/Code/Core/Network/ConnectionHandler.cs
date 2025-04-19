@@ -20,7 +20,10 @@ namespace Core.Network
 
         private void OnDisable()
         {
-            InstanceFinder.ClientManager.OnClientConnectionState -= OnClientConnectionState;
+            if (InstanceFinder.ClientManager != null)
+            {
+                InstanceFinder.ClientManager.OnClientConnectionState -= OnClientConnectionState;
+            }
         }
 
         public void ConnectAsClient(string serverIP)

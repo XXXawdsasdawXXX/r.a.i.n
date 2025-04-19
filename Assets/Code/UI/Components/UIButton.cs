@@ -4,6 +4,7 @@ using Core.GameLoop;
 using Core.Libraries;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
+using Essential;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -16,12 +17,14 @@ namespace UI.Components
         
         [SerializeField] private Button _button;
         
-        private Audio _audio;
-
-
+        private AudioService _audio;
+        
         public UniTask GameInitialize()
         {
-            _audio = Container.Instance.GetService<Audio>();
+            _audio = Container.Instance.GetService<AudioService>();
+          
+            Log.Info($"_audio != null {_audio != null}", this);
+            
             _button.onClick.AddListener(Click);
             
             return UniTask.CompletedTask;

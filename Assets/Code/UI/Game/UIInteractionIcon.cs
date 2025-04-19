@@ -1,4 +1,4 @@
-﻿using Game.InteractionObjects;
+﻿using Code.CoreGame.InteractionObjects;
 using UnityEngine;
 
 namespace UI.Game
