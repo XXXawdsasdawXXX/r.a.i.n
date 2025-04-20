@@ -1,4 +1,3 @@
-using Code.CoreGame.Installers;
 using Core.GameLoop;
 using Core.Network;
 using Core.ServiceLocator;
@@ -38,14 +37,25 @@ namespace UI.Windows.Connection
         {
             if (flag)
             {
+                view.ButtonServer.Clicked += ButtonServerOnClicked;
                 view.ButtonHost.Clicked += ButtonHostOnClicked;
                 view.ButtonClient.Clicked += ButtonClientOnClicked;
             }
             else
             {
+                view.ButtonServer.Clicked -= ButtonServerOnClicked;
                 view.ButtonHost.Clicked -= ButtonHostOnClicked;
                 view.ButtonClient.Clicked -= ButtonClientOnClicked;
             }
+        }
+
+        private void ButtonServerOnClicked()
+        {
+            _connectionHandler.StartServer();
+            
+            _gameStateMachine.SwitchState(typeof(CoreGameState));
+            
+            view.Close();
         }
 
         private void ButtonClientOnClicked()

@@ -68,7 +68,7 @@ namespace Core.Network
                      $"PrefabId: {_heroPrefab.PrefabId}, " +
                      $"CollectionId: {_heroPrefab.SpawnableCollectionId}", _logColor, this);
 
-            _heroes.Add(connection, pooledInstantiated);
+            _heroes[connection] = pooledInstantiated;
 
             HeroSpawned?.Invoke(pooledInstantiated.gameObject);
 

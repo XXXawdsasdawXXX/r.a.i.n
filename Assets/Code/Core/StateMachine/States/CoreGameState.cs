@@ -42,7 +42,7 @@ namespace Core.StateMachine
             _coreEntities.Add(AssetProvider.Instantiate(_assetLibrary.Windows.Get(AssetKey.CANVAS_CORE_GAME)));
             _coreEntities.Add(AssetProvider.Instantiate(_assetLibrary.SceneComponents.Get(AssetKey.CAMERA))); 
             _coreEntities.Add(AssetProvider.Instantiate(_assetLibrary.SceneComponents.Get(AssetKey.POOL_HERO)));
-            _coreEntities.Add(AssetProvider.Instantiate(_assetLibrary.SceneComponents.Get(AssetKey.POOL_ITEM)));
+            _coreEntities.Add(AssetProvider.Instantiate(_assetLibrary.SceneComponents.Get(AssetKey.POOL_ITEM)));    
             
             ContextEntities coreGameContext = ContextBuilder.BuildContext(_installerLibrary.CoreGameInstaller.GetTypes());
             Container.Instance.Context.SetChildContext(coreGameContext);

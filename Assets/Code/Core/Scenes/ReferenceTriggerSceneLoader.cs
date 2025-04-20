@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
+using Essential;
 using FishNet;
 using FishNet.Connection;
 using FishNet.Managing.Scened;
@@ -10,51 +11,52 @@ using UnityEngine;
 
 namespace Core.Scenes
 {
-    public class ReferenceTriggerSceneLoader : Essential.Mono
+    public class ReferenceTriggerSceneLoader : NetworkBehaviour
     {
-        public event Action<NetworkObject, EScene> MovedToAnotherScene; 
+        public event Action<NetworkObject, EScene> MovedToAnotherScene;
 
-          /// <summary>
+        /// <summary>
         /// True to move the triggering object.
         /// </summary>
-        [Tooltip("True to move the triggering object.")]
-        [SerializeField]
+        [Tooltip("True to move the triggering object.")] [SerializeField]
         private bool _moveObject = true;
+
         /// <summary>
         /// True to move all connection objects (clients).
         /// </summary>
-        [Tooltip("True to move all connection objects (clients).")]
-        [SerializeField]
+        [Tooltip("True to move all connection objects (clients).")] [SerializeField]
         private bool _moveAllObjects;
+
         /// <summary>
         /// True to replace current scenes with new scenes. First scene loaded will become active scene.
         /// </summary>
         [Tooltip("True to replace current scenes with new scenes. First scene loaded will become active scene.")]
         [SerializeField]
         private ReplaceOption _replaceOption = ReplaceOption.None;
+
         /// <summary>
         /// Scenes to load.
         /// </summary>
-        [Tooltip("Scenes to load.")]
-        [SerializeField]
+        [Tooltip("Scenes to load.")] [SerializeField]
         private EScene _scene;
+
         /// <summary>
         /// True to only unload for the connectioning causing the trigger.
         /// </summary>
-        [Tooltip("True to only unload for the connectioning causing the trigger.")]
-        [SerializeField]
+        [Tooltip("True to only unload for the connectioning causing the trigger.")] [SerializeField]
         private bool _connectionOnly;
+
         /// <summary>
         /// True to automatically unload the loaded scenes when no more connections are using them.
         /// </summary>
         [Tooltip("True to automatically unload the loaded scenes when no more connections are using them.")]
         [SerializeField]
         private bool _automaticallyUnload = true;
+
         /// <summary>
         /// True to fire when entering the trigger. False to fire when exiting the trigger.
         /// </summary>
-        [Tooltip("True to fire when entering the trigger. False to fire when exiting the trigger.")]
-        [SerializeField]
+        [Tooltip("True to fire when entering the trigger. False to fire when exiting the trigger.")] [SerializeField]
         private bool _onTriggerEnter = true;
 
         /// <summary>
@@ -107,63 +109,67 @@ namespace Core.Scenes
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (!_onTriggerEnter)
-            {
-                return;
-            }
-
             NetworkObject networkObject = col.GetComponent<NetworkObject>();
+
+            Log.Info(this, $"{col.gameObject.name} trigger enter {InstanceFinder.NetworkManager.ServerManager.Started}", Color.cyan);
             
             if (networkObject == null)
             {
                 return;
             }
-            
+
             if (_triggeredTimes.TryGetValue(networkObject.Owner, out float time))
             {
-                if (Time.time - time < 0.5f)
+                if (Time.time - time < 1f)
                 {
+                    Log.Info(this, $"{col.gameObject.name} trigger cooldown", Color.cyan);
                     return;
                 }
             }
-          
+
             _triggeredTimes[networkObject.Owner] = Time.time;
 
             MovedToAnotherScene?.Invoke(networkObject, _scene);
-            
+
             //Container.Instance.GetService<SceneService>().LoadSceneAsync(_scene).Forget();
             LoadScene(networkObject);
         }
+        
 
-        private void OnTriggerExit2D(Collider2D other)
+       [ServerRpc(RequireOwnership = false)]
+        private void LoadScene(NetworkObject triggeringIdentity)
         {
-            if (!_onTriggerEnter)
+            Log.Info(this, $"{triggeringIdentity.Owner.ClientId} try load scene", Color.cyan);
+
+            /*if (!InstanceFinder.NetworkManager.IsServerStarted)
             {
+                Log.Info(this, $"{triggeringIdentity.Owner.ClientId} !InstanceFinder.NetworkManager.IsServerStarted",
+                    Color.cyan);
+
                 return;
-            }
+            }*/
 
-            NetworkObject networkObject = other.GetComponent<NetworkObject>();
-
-            if (networkObject == null)
+            LoadOptions loadOptions = new()
             {
-                return;
-            }
-            
-            if (_triggeredTimes.TryGetValue(networkObject.Owner, out float time))
-            {
-                if (Time.time - time < 0.5f)
-                {
-                    return;
-                }
-            }
-          
-            _triggeredTimes[networkObject.Owner] = Time.time;
+                AutomaticallyUnload = true, // Принудительно включаем, даже если флаг выключен в инспекторе
+            };
 
-            LoadScene(other.GetComponent<NetworkObject>());
-        }
+            // Создание и настройка сцены
+            SceneLoadData sceneLoadData = new(_scene.ToString());
+            sceneLoadData.PreferredActiveScene = new(sceneLoadData.SceneLookupDatas[0]);
+            sceneLoadData.ReplaceScenes = ReplaceOption.All; // Было OnlineOnly
+            sceneLoadData.Options = new LoadOptions { AutomaticallyUnload = true };
+            sceneLoadData.MovedNetworkObjects = new NetworkObject[] { triggeringIdentity };
 
     
-        private void LoadScene(NetworkObject triggeringIdentity)
+
+            Log.Info(this,
+                $"[SceneLoader] Loading scene: {_scene} with ReplaceOption: {sceneLoadData.ReplaceScenes}", Color.cyan);
+
+            InstanceFinder.SceneManager.LoadConnectionScenes(triggeringIdentity.Owner, sceneLoadData);
+        }
+
+        /*private void LoadScene(NetworkObject triggeringIdentity)
         {
             if (!InstanceFinder.NetworkManager.IsServerStarted)
             {
@@ -207,6 +213,6 @@ namespace Core.Scenes
             {
                 InstanceFinder.SceneManager.LoadGlobalScenes(sceneLoadData);
             }
-        }
+        }*/
     }
 }

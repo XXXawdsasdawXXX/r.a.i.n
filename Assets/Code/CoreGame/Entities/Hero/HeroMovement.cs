@@ -45,8 +45,7 @@ namespace Code.CoreGame.Entities.Hero
                 Log.Info("spawn",Color.magenta, this);
             }
         }
-
-
+        
         public UniTask Initialize()
         {
             Log.Info("initialize",Color.magenta, this);

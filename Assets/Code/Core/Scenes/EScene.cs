@@ -6,13 +6,6 @@ namespace Core.Scenes
         Menu,
         Game_0,
         Game_1,
-        AdditiveScenes_0,
-        AdditiveScenes_1,
-        AdditiveScenes_2,
-        AdditiveScenes_3,
-        AdditiveScenes_Start,
-        ReplaceConnection,
-        ReplaceGlobal,
-        ReplaceMain,
+        Game_2,
     }
 }

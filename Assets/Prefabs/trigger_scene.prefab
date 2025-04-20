@@ -130,14 +130,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6683807e2ba4edab7a600a16e6166ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   _moveObject: 1
   _moveAllObjects: 1
   _replaceOption: 1
-  _scenes:
-  - Game_0
+  _scene: 0
   _connectionOnly: 0
   _automaticallyUnload: 1
   _onTriggerEnter: 1
+  _stackedSceneHandle: 0
+  _sceneStack: 0
 --- !u!61 &3714580437737648144
 BoxCollider2D:
   m_ObjectHideFlags: 0

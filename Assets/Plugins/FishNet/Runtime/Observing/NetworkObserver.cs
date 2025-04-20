@@ -401,9 +401,6 @@ namespace FishNet.Observing
                     }
                 }
             }
-
-            Log.Info($"Rebuild {connection.ClientId}", Color.blue, this);
-
             //If all conditions met.
             if (allConditionsMet)
                 return ReturnPassedConditions(currentlyAdded);

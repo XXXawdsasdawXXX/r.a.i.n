@@ -7,7 +7,7 @@ using UnityEngine.Scripting;
 namespace Core.Input
 {
     [Preserve]
-    public sealed class InputManager : IService, IUpdateListener
+    public sealed class InputManager : IService, IUpdateListener, IExitListener
     {
         public event Action<EInputAction> ActionStarted;
         public event Action<EInputAction> ActionEnded;
@@ -51,6 +51,11 @@ namespace Core.Input
                     ActionEnded?.Invoke(inputActionKey.Action);
                 }
             }
+        }
+
+        public void GameExit()
+        {
+            Direction = Vector2.zero;
         }
     }
 }

@@ -176,15 +176,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4759669999868245615, guid: dd96609b13ffc80478fb86e6354d79d9, type: 3}
       propertyPath: m_Color.b
-      value: 0.43529722
+      value: 0.6313726
       objectReference: {fileID: 0}
     - target: {fileID: 4759669999868245615, guid: dd96609b13ffc80478fb86e6354d79d9, type: 3}
       propertyPath: m_Color.g
-      value: 0.6320754
+      value: 0.5700175
       objectReference: {fileID: 0}
     - target: {fileID: 4759669999868245615, guid: dd96609b13ffc80478fb86e6354d79d9, type: 3}
       propertyPath: m_Color.r
-      value: 0.49474442
+      value: 0.43529412
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6714877922836035389, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
       propertyPath: _scene
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6714877922836035389, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
       propertyPath: _moveObject
@@ -225,11 +225,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.44
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.78
+      value: -0.89
       objectReference: {fileID: 0}
     - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
       propertyPath: m_LocalPosition.z

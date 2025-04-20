@@ -297,83 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4b06b61341040dda6750c6a752100ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &701183466
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6714877922836035389, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: _scene
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6714877922836035389, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: _replaceOption
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6714877922836035389, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: _connectionOnly
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6714877922836035389, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: _moveAllObjects
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6714877922836035389, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: _scenes.Array.data[0]
-      value: Game_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7084232707141748054, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_Name
-      value: trigger_scene-move-all
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9168289296602992059, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
 --- !u!1 &837811203
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +444,14 @@ PrefabInstance:
     - target: {fileID: 5147836535200371394, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6629356045115619630, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
+      propertyPath: _isSpawnable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6629356045115619630, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 4261215679
       objectReference: {fileID: 0}
     - target: {fileID: 6714877922836035389, guid: 632352953bcbef941bf0da08b06c8529, type: 3}
       propertyPath: _scene
@@ -1309,5 +1240,4 @@ SceneRoots:
   - {fileID: 1557836634}
   - {fileID: 557954741}
   - {fileID: 1834211808}
-  - {fileID: 701183466}
   - {fileID: 1022686912}

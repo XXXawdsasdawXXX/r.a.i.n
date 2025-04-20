@@ -2,17 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Scenes/TestTrigger.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Scenes/TestTrigger.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Input/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Input/InputManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/ConnectionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/ConnectionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/HeroPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/HeroPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Scenes/EScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Scenes/EScene.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Scenes/ReferenceTriggerSceneLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Scenes/ReferenceTriggerSceneLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Camera/CameraView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Camera/CameraView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/Laptop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/Laptop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Essential/Mono.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Essential/Mono.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/HeroMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/HeroMovement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Connection/ConnectionWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Connection/ConnectionWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Materials/World.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Materials/World.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Connection/ConnectionWindowView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Connection/ConnectionWindowView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FishNet/Runtime/Managing/Scened/LoadUnloadDatas/ReplaceOption.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/FishNet/Runtime/Managing/Scened/LoadUnloadDatas/ReplaceOption.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FishNet/Runtime/Observing/NetworkObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/FishNet/Runtime/Observing/NetworkObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Services/network_pool-hero.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Services/network_pool-hero.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Services/network_pool-items.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Services/network_pool-items.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/window-connection.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/window-connection.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/trigger_scene.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/trigger_scene.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Bootstrap.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Bootstrap.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game_1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game_1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +44,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f547e88ca61ed0dceca1eabca811c17384657179b4394e074d325274e3fe2f1/System.ComponentModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Core/Audio/AudioEvents/AudioEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../tiny_thing_clone_1/Assets/Code/Core/Scenes/ReferenceTriggerSceneLoader.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -131,7 +145,8 @@
       <workItem from="1744998940157" duration="47000" />
       <workItem from="1745056025356" duration="24140000" />
       <workItem from="1745137298287" duration="8630000" />
-      <workItem from="1745151483288" duration="4194000" />
+      <workItem from="1745151483288" duration="12647000" />
+      <workItem from="1745176354710" duration="1408000" />
     </task>
     <servers />
   </component>

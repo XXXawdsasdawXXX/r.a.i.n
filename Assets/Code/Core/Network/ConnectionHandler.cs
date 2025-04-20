@@ -54,6 +54,21 @@ namespace Core.Network
       
             Debug.Log($"[Host] Сервер запущен на {GetLocalIPAddress()}:{_port}");
         }
+        
+        
+        public void StartServer()
+        {
+            if (InstanceFinder.NetworkManager.TransportManager.Transport is Tugboat tugboat)
+            {
+                tugboat.SetClientAddress(GetLocalIPAddress());
+                tugboat.SetPort(_port);
+                Debug.Log($"[Host] set local ip {GetLocalIPAddress()}:{_port}");
+            }
+
+            InstanceFinder.ServerManager.StartConnection();
+
+            Debug.Log($"[Host] Сервер запущен на {GetLocalIPAddress()}:{_port}");
+        }
 
         private void OnClientConnectionState(ClientConnectionStateArgs args)
         {

@@ -19,7 +19,4 @@ namespace FishNet.Managing.Scened
         /// </summary>
         None
     }
-
-
-
 }
