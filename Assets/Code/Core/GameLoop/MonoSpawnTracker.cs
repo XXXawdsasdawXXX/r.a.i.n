@@ -32,7 +32,7 @@ namespace Core.GameLoop
         public UniTask Subscribe()
         {
             Essential.Mono.Started += _onMonoStarted;
-            Essential.Mono.Destroyed -= _onMonoDestroyed;
+            Essential.Mono.Destroyed += _onMonoDestroyed;
             /*InstanceFinder.ServerManager.OnRemoteConnectionState += _onRemoteConnectionState;
             InstanceFinder.ClientManager.OnRemoteConnectionState += _onRemoteConnectionState;*/
 
@@ -45,7 +45,7 @@ namespace Core.GameLoop
         {
             Essential.Mono.Started -= _onMonoStarted;
             Essential.Mono.Destroyed -= _onMonoDestroyed;
-            InstanceFinder.ServerManager.OnSpawn += _onMonoStarted;
+            InstanceFinder.ServerManager.OnSpawn -= _onMonoStarted;
             InstanceFinder.ServerManager.OnDespawn -= _onMonoDestroyed;
             /*InstanceFinder.ServerManager.OnRemoteConnectionState -= _onRemoteConnectionState;
             InstanceFinder.ClientManager.OnRemoteConnectionState -= _onRemoteConnectionState;*/

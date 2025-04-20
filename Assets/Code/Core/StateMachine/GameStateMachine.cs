@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.GameLoop;
 using Core.ServiceLocator;
 
 namespace Core.StateMachine
 {
-    public class GameStateMachine : IService
+    public class GameStateMachine : IService, IExitListener
     {
         private readonly Dictionary<Type, IState> _states;
         
@@ -39,6 +40,11 @@ namespace Core.StateMachine
             }
             
             await _states[type].Enter();
+        }
+
+        public void GameExit()
+        {
+            // _currentState.Exit();
         }
     }
 }

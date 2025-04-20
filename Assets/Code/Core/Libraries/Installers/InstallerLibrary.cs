@@ -24,7 +24,7 @@ namespace Core.Libraries.Installers
         
         public Installer GetSceneInstaller(EScene scene)
         {
-            return _sceneInstallers.First(i => i.Scene == scene).Installer;
+            return _sceneInstallers.FirstOrDefault(i => i.Scene == scene).Installer;
         }
     }
 }

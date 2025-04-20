@@ -91,6 +91,11 @@ namespace Core.Scenes
 
         private void OnSceneManagerLoadEnd(SceneLoadEndEventArgs args)
         {
+            if (args.LoadedScenes == null || args.LoadedScenes.Length == 0)
+            {
+                return;
+            }
+            
             if (Enum.TryParse(args.LoadedScenes[0].name, out EScene loadedScene))
             {
                 _currentScene = loadedScene;

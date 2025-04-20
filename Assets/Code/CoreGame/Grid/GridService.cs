@@ -10,7 +10,7 @@ using UnityEngine.Tilemaps;
 namespace Code.CoreGame.Grid
 {
     [Preserve]
-    public class GridService : IService, IInitializeListener
+    public class GridService : IService, IInitializeListener, IStartListener
     {
         public bool IsInitialized { get; set; }
         
@@ -19,9 +19,15 @@ namespace Code.CoreGame.Grid
         
         public UniTask Initialize()
         {
-            _view = Container.Instance.GetView<GridView>();
             _settings = Container.Instance.GetConfig<GridSettings>();
 
+            return UniTask.CompletedTask;
+        }
+
+        public UniTask GameStart()
+        {
+            _view = Container.Instance.GetView<GridView>();
+            
             return UniTask.CompletedTask;
         }
 
@@ -31,7 +37,7 @@ namespace Code.CoreGame.Grid
             
             return cellPos.AsFloat2();
         }
-        
+
         public ETileType GetTileType(Vector3 worldPosition)
         {
             Vector3Int cell = WorldToCell(worldPosition);

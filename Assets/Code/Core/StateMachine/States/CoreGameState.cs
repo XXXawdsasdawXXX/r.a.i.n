@@ -6,6 +6,7 @@ using Core.Libraries.Installers;
 using Core.Scenes;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
+using Essential;
 using UnityEngine;
 
 namespace Core.StateMachine
@@ -81,6 +82,8 @@ namespace Core.StateMachine
 
         private void OnSwitchScene(EScene obj)
         {
+            Log.Info(this, $"On switch scene {obj}", Color.magenta);
+            
             _gameEventDispatcher.Dispose();
             
             ContextEntities sceneContext = ContextBuilder

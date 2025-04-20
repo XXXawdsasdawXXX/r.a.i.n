@@ -10,17 +10,18 @@ namespace Core.StateMachine
     public class MainMenuState : IState
     {
         public bool IsInitialized { get; set; }
-
-        private AssetLibrary _assetLibrary;
         
         private GameEventDispatcher _gameEventDispatcher;
         private SceneService _sceneService;
         
+        private AssetLibrary _assetLibrary;
+        
+        
         public UniTask Initialize()
         {
             _gameEventDispatcher = Container.Instance.GetService<GameEventDispatcher>();
-            
             _sceneService = Container.Instance.GetService<SceneService>();
+            
             _assetLibrary = Container.Instance.GetConfig<AssetLibrary>();
             
             return UniTask.CompletedTask;
