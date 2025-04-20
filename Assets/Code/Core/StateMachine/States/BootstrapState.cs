@@ -1,6 +1,7 @@
 ﻿using Core.AssetManagement;
 using Core.GameLoop;
 using Core.Libraries.Assets;
+using Core.Libraries.Configs;
 using Core.Libraries.Installers;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
@@ -28,20 +29,25 @@ namespace Core.StateMachine
                 .LoadScriptableObject<AssetLibrary>(AssetKey.ASSET_LIBRARY_PATH);
             ScriptableObject audioEventLibrary = await AssetProvider
                 .LoadScriptableObject(AssetKey.AUDIO_LIBRARY_PATH);
+            ConfigLibrary configLibrary = await AssetProvider
+                .LoadScriptableObject<ConfigLibrary>(AssetKey.CONFIG_LIBRARY_PATH);
 
             if (Log.PROFILER_IS_ACTIVE)
             {
-                AssetProvider.Instantiate(assetLibrary.Window.Get(AssetKey.CANVAS_PROFILER));
+                AssetProvider.Instantiate(assetLibrary.Windows.Get(AssetKey.CANVAS_PROFILER));
             }
             
             ContextEntities projectContext = ContextBuilder.BuildContext(installerLibrary.ProjectsInstaller.GetTypes());
             projectContext.Services.Add(typeof(GameStateMachine), _gameStateMachine);
-            
             Container container = new(projectContext);
 
-            container.AddConfig(assetLibrary);
             container.AddConfig(installerLibrary);
+            container.AddConfig(assetLibrary);
             container.AddConfig(audioEventLibrary);
+            foreach (ScriptableObject config in configLibrary.Configs)
+            {
+                container.AddConfig(config);
+            }
             
             GameEventDispatcher gameEventDispatcher = container.GetService<GameEventDispatcher>();
             gameEventDispatcher.Register(container.GetGameListeners());

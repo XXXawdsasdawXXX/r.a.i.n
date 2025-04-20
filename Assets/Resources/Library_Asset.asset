@@ -15,8 +15,13 @@ MonoBehaviour:
   <Material>k__BackingField:
     _assets:
     - {fileID: 2100000, guid: 08e5af0e02e06804c9db3cda7c51ffd5, type: 2}
-  <Window>k__BackingField:
+  <Windows>k__BackingField:
     _assets:
     - {fileID: 6790191599092600512, guid: f57d2d0891a5cb54bbf2e0514539f406, type: 3}
     - {fileID: 3081301137537393607, guid: 87e05de4c0c40a1418996abd44ce0c85, type: 3}
     - {fileID: 6395590355646006443, guid: 6b0f33e43f111eb4babd1e70f6321586, type: 3}
+  <SceneComponents>k__BackingField:
+    _assets:
+    - {fileID: 3537835706141628769, guid: 48d9e7bf9c5fc504d9e2baa4fecd7ba3, type: 3}
+    - {fileID: 4972153846337700059, guid: 1a411a0e306729549afdd3c354dcb3c2, type: 3}
+    - {fileID: 6750910372822967641, guid: 060f587b8a757e64dade0e84ce7c4e9f, type: 3}

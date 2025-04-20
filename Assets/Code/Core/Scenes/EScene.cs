@@ -2,14 +2,15 @@ namespace Core.Scenes
 {
     public enum EScene
     {
+        Bootstrap,
         Menu,
-        Game0,
-        Game1,
-        AdditiveScenes0,
-        AdditiveScenes1,
-        AdditiveScenes2,
-        AdditiveScenes3,
-        AdditiveScenesStart,
+        Game_0,
+        Game_1,
+        AdditiveScenes_0,
+        AdditiveScenes_1,
+        AdditiveScenes_2,
+        AdditiveScenes_3,
+        AdditiveScenes_Start,
         ReplaceConnection,
         ReplaceGlobal,
         ReplaceMain,

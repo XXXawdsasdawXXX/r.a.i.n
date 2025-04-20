@@ -21,10 +21,10 @@ namespace Core.ServiceLocator
             {
                 _registry(mono, context);
             }
-            
+
             return context;
         }
-        
+
         internal static ContextEntities BuildContext(Type[] allTypes)
         {
             ContextEntities context = new()
@@ -39,12 +39,15 @@ namespace Core.ServiceLocator
             {
                 _registry(mono, context);
             }
-            
-            foreach (Type type in allTypes)
+
+            if (allTypes != null)
             {
-                _createAndRegistry(type, context);
+                foreach (Type type in allTypes)
+                {
+                    _createAndRegistry(type, context);
+                }
             }
-            
+
             return context;
         }
 
@@ -66,7 +69,7 @@ namespace Core.ServiceLocator
             {
                 context.Views[type] = view;
             }
-            
+
             Log.Info($"[ContextBuilder] _registry {type.Name}");
         }
 
@@ -85,7 +88,7 @@ namespace Core.ServiceLocator
                 IMono instance = (IMono)Activator.CreateInstance(type);
                 context.Mono[type] = instance;
             }
-            
+
             Log.Info($"[ContextBuilder] _createAndRegistry {type.Name}");
         }
     }

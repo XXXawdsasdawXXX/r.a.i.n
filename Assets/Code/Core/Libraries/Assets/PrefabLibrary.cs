@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Core.Libraries.Assets
 {
     [Serializable]
-    public class WindowLibrary : Library<string, GameObject>
+    public class PrefabLibrary : Library<string, GameObject>
     {
         protected override bool ThisIs(GameObject value, string key)
         {

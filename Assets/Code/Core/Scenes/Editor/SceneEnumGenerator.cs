@@ -10,7 +10,6 @@ using UnityEngine;
 
 namespace Core.Scenes.Editor
 {
-    
     public class SceneEnumGenerator : IPreprocessBuildWithReport
     {
         public int callbackOrder => 0;
@@ -45,8 +44,7 @@ namespace Core.Scenes.Editor
 
                 foreach (string name in sceneNames)
                 {
-                    string safeName = Sanitize(name);
-                    writer.WriteLine($"        {safeName},");
+                    writer.WriteLine($"        {name},");
                 }
 
                 writer.WriteLine("    }");
@@ -56,14 +54,6 @@ namespace Core.Scenes.Editor
             AssetDatabase.Refresh();
             
             Debug.Log($"SceneId enum generated: {sceneNames.Count} scenes → {outputPath}");
-        }
-
-        private static string Sanitize(string name)
-        {
-            // Убираем пробелы, спецсимволы и приводим к PascalCase
-            return new string(name
-                .Where(char.IsLetterOrDigit)
-                .ToArray());
         }
     }
 }
