@@ -575,6 +575,10 @@ namespace FishNet.Managing.Client
             while (reader.Remaining > 0)
             {
                 byte behaviourId = reader.ReadUInt8Unpacked();
+                if (behaviours.Count <= behaviourId)
+                {
+                    continue;
+                }
                 behaviours[behaviourId].ReadSyncTypesForSpawn(reader);
             }
         }
