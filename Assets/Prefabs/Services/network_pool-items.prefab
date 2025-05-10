@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8921016235356048276}
   - component: {fileID: 7691229995825521990}
-  - component: {fileID: 1458563989736893386}
+  - component: {fileID: 2011616313636587622}
   m_Layer: 0
   m_Name: network_pool-items
   m_TagString: Untagged
@@ -83,7 +83,7 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 0}
     Scale: {x: 0, y: 0, z: 0}
     IsValid: 0
---- !u!114 &1458563989736893386
+--- !u!114 &2011616313636587622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,6 +92,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6750910372822967641}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a991d2f5fc044c18df7f1c2bf8fd727, type: 3}
+  m_Script: {fileID: 11500000, guid: 8eca111fdb4f4a83aa620db7561aa8c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 7691229995825521990}
+  _networkObjectCache: {fileID: 0}
+  _prefab: {fileID: 8821076372296327611, guid: d3718bd0e5c846d4380ef5e8ed1070b8, type: 3}

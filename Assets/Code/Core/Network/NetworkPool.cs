@@ -26,7 +26,7 @@ namespace Core.Network
         private readonly List<NetworkObject> _instances = new();
         
         private GameEventDispatcher _gameEventDispatcher;
-
+        
         
         public virtual UniTask Initialize()
         {
@@ -38,7 +38,7 @@ namespace Core.Network
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public virtual void Despawn(NetworkObject instance, NetworkConnection connection = null)
+        public virtual void ServerDespawn(NetworkObject instance, NetworkConnection connection = null)
         {
             if (_instances.Contains(instance))
             {
@@ -58,7 +58,12 @@ namespace Core.Network
             }
         }
 
-        //[ServerRpc(RequireOwnership = false)]
+        [ServerRpc(RequireOwnership = false)]
+        public void ServerSpawn(Vector3 position, NetworkConnection connection = null)
+        {
+            spawn(position, connection);
+        }
+
         protected void spawn(Vector3 position, NetworkConnection connection = null)
         {
             NetworkObject instance = networkManager.GetPooledInstantiated(_prefab, transform, true);

@@ -2,63 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Data/ReactiveProperty.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Data/ReactiveProperty.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Character.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Character.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Controllers.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Controllers/Miner.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Controllers/Miner.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Controllers/Movement.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Controllers/Movement.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/ICharacterComponent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/ICharacterComponent.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/GameObjects.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/GameObjects/Items.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/GameObjects/Items/ItemPool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/GameObjects/Items/ItemPool.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Input/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Input/InputManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigLibrary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigLibrary.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/HeroPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/HeroPool.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/NetworkPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/NetworkPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/UserProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/UserProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Scenes/ReferenceTriggerSceneLoader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Scenes/ReferenceTriggerSceneLoader.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Camera/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Camera/CameraController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/Data.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/Data.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/Data/EHeroState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/Data/EHeroState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/Data/EHeroState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/Data/EHeroState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/Data/HeroSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/Data/HeroSettings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/Data/HeroSettings.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/Data/HeroSettings.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/Hero.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/Hero.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroAnimation.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroAnimation.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroAnimationEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroAnimationEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroAnimationEvent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroAnimationEvent.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroColor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroColor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroColor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroColor.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroItemController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroItemController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroItemController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroItemController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroMainer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroMainer.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroMovement.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroMovement.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroStateObserver.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Hero/MonoComponents/HeroStateObserver.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/Resource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/Resource.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourcePool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourcePool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Installers/CoreGameInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Installers/CoreGameInstaller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FishNet/Runtime/Object/NetworkBehaviour.Callbacks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/FishNet/Runtime/Object/NetworkBehaviour.Callbacks.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Services/network_pool-hero.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Services/network_pool-hero.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroItemController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroItemController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Services/network_pool-items.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Services/network_pool-items.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreGame.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/CoreGame.csproj.DotSettings" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +165,7 @@
       <workItem from="1746691674888" duration="8665000" />
       <workItem from="1746721881349" duration="466000" />
       <workItem from="1746797632940" duration="12851000" />
-      <workItem from="1746873238319" duration="3588000" />
+      <workItem from="1746873238319" duration="4806000" />
     </task>
     <servers />
   </component>

@@ -38,14 +38,8 @@ namespace Core.StateMachine
 
         public async UniTask Enter()
         {
-            
             await _sceneService.LoadSceneAsync(EScene.Game_0); //todo use player progress
-
-            /*var heroPool = AssetProvider.Instantiate(_assetLibrary.SceneComponents.Get(AssetKey.POOL_HERO));
-            _coreEntities.Add(heroPool);
             
-            heroPool.gameObject.SetActive(true);*/
-            _coreEntities.Add(AssetProvider.Instantiate(_assetLibrary.SceneComponents.Get(AssetKey.POOL_ITEM)));    
             _coreEntities.Add(AssetProvider.Instantiate(_assetLibrary.Windows.Get(AssetKey.CANVAS_CORE_GAME)));
 
             Container.Instance.Context.BuildChildContext(_installerLibrary.CoreGameInstaller.GetTypes());
