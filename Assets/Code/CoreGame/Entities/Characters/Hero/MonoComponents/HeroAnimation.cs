@@ -1,29 +1,22 @@
-﻿using Code.CoreGame.Entities.Characters.Controllers;
-using Code.CoreGame.Entities.Characters.Interfaces;
+﻿using Code.CoreGame.Entities.Characters.Interfaces;
 using Core.Data;
 using Core.GameLoop;
-using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
-using FishNet.Component.Animating;
 using FishNet.Object;
 using UnityEngine;
 
 namespace Code.CoreGame.Entities.Characters.Hero
 {
-    public class HeroAnimation : NetworkBehaviour, IHarvestAnimator, 
-        IInitializeListener, IUpdateListener
+    public class HeroAnimation : NetworkBehaviour, IHarvestAnimator, IInitializeListener, IUpdateListener
     {
         public bool IsInitialized { get; set; }
         public string RuntimeListenerName => "HeroAnimation";
         
         [SerializeField] private Animator _animator;
-        [SerializeField] private NetworkAnimator _networkAnimator;
-        
         [SerializeField] private Transform _viewBody;
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
         private Cache<Vector3> _velocityCache;
-        private Miner _mainer;
 
         public UniTask Initialize()
         {
@@ -59,14 +52,12 @@ namespace Code.CoreGame.Entities.Characters.Hero
         public void StartHarvest()
         {
             _animator.SetBool(AnimatorKey.HARVEST, true);
-            _networkAnimator.SendAll();
         }
         
         [ServerRpc]
         public void StopHarvest()
         {
             _animator.SetBool(AnimatorKey.HARVEST, false);
-            _networkAnimator.SendAll();
         }
 
         [ServerRpc]
