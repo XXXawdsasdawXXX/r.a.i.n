@@ -1,8 +1,8 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Collections.Generic;
 using Core.ServiceLocator;
 using FishNet.Connection;
 using FishNet.Object;
-using Unity.Plastic.Newtonsoft.Json.Serialization;
 
 namespace Core.Network
 {
@@ -11,7 +11,9 @@ namespace Core.Network
         public event Action HeroSetted; 
         public NetworkConnection Connection { get; private set; }
         public NetworkObject Hero { get; private set; }
-        
+
+        private readonly Dictionary<Type, object> _heroComponents = new();
+
         public void SetConnection(NetworkConnection connection)
         {
             Connection = connection;
@@ -21,7 +23,25 @@ namespace Core.Network
         {
             Hero = hero;
             
+            _heroComponents.Clear();
+            
             HeroSetted?.Invoke();
+        }
+
+        public T GetHeroComponent<T>() where T: class
+        {
+            Type type = typeof(T);
+            
+            if (_heroComponents.ContainsKey(type))
+            {
+                return _heroComponents[type] as T;
+            }
+
+            T component = Hero.GetComponentInChildren<T>(true);
+            
+            _heroComponents.Add(type, component);
+            
+            return component;
         }
     }
 }

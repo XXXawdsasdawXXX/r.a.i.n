@@ -182,7 +182,6 @@ MonoBehaviour:
   <Rigidbody>k__BackingField: {fileID: 7074728272879338317}
   <Name>k__BackingField: {fileID: 4172023190012156737}
   <Health>k__BackingField: {fileID: 4774697951357296534}
-  <Movement>k__BackingField: {fileID: 0}
   <Color>k__BackingField: {fileID: 3634067845205420892}
   <Animation>k__BackingField: {fileID: 7102317373915660470}
   <ItemController>k__BackingField: {fileID: -227475778803773201}
@@ -384,8 +383,8 @@ MonoBehaviour:
   _synchronizeWhenDisabled: 0
   _smoothFloats: 1
   _interpolation: 2
-  _clientAuthoritative: 1
-  _sendToOwner: 0
+  _clientAuthoritative: 0
+  _sendToOwner: 1
 --- !u!114 &3634067845205420892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +463,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8329376548906989968}
   _networkObjectCache: {fileID: 8329376548906989968}
   _animator: {fileID: 69949965107314698}
+  _networkAnimator: {fileID: 4457616683836532246}
   _viewBody: {fileID: 1047437175584240034}
   _rigidbody2D: {fileID: 7074728272879338317}
 --- !u!1 &6401220223736595008

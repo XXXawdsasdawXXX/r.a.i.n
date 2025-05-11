@@ -27,7 +27,7 @@ namespace Code.CoreGame.Entities.Characters.Hero
         
         public override void OnStartClient()
         {
-            Log.Info(this, $"on start client {IsOwner}", UnityEngine.Color.black);
+            /*Log.Info(this, $"on start client {IsOwner}", UnityEngine.Color.black);
             if (IsOwner)
             {
                 UserProvider userProvider = Container.Instance.GetService<UserProvider>();
@@ -35,26 +35,36 @@ namespace Code.CoreGame.Entities.Characters.Hero
                 userProvider.SetHero(GetComponent<NetworkObject>());
 
                 Debug.Log($"[HeroClientTracker] Set local hero: {gameObject.name}");
-            }
+            }*/
         }
 
         public override void InitializeComponents()
         {
             Log.Info(this, $"Initialize components {IsOwner}", UnityEngine.Color.black);
+     
             if (IsOwner)
             {
-                InputManager inputManager = Container.Instance.GetService<InputManager>();
+                InputManager input = Container.Instance.GetService<InputManager>();
                 HeroSettings heroSettings = Container.Instance.GetConfig<HeroSettings>();
 
-                Components.Add(typeof(Movement),
-                    new Movement(Rigidbody, inputManager.Direction, heroSettings.MoveSpeed));
+                Movement movement = new Movement(Rigidbody, input.Direction, heroSettings.MoveSpeed);
+                Components.Add(typeof(Movement), movement);
+                
+                Miner miner = new Miner(Animation, Health);
+                Components.Add(typeof(Miner), miner);
+                
+                
+                movement.Condition.Add(() => Health.Current > 0);
+                
+                miner.Condition.Add(() => Rigidbody.velocity.magnitude == 0);
+                miner.Condition.Add(() => Health.Current > 0);
+
+                
+                
                 // Components.Add(typeof(Miner), new Miner());
             }
-        }
 
-        public override void InitializeComponentConditions()
-        {
-            
+            IsConstructed = true;
         }
     }
 }

@@ -9,6 +9,7 @@ using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Object;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core.Network
 {
@@ -21,7 +22,7 @@ namespace Core.Network
         protected NetworkManager networkManager { get; private set; }
 
         
-        [SerializeField] private NetworkObject _prefab;
+        [SerializeField] protected NetworkObject prefab;
       
         private readonly List<NetworkObject> _instances = new();
         
@@ -64,23 +65,24 @@ namespace Core.Network
             spawn(position, connection);
         }
 
-        protected void spawn(Vector3 position, NetworkConnection connection = null)
+        protected async void spawn(Vector3 position, NetworkConnection connection = null)
         {
-            NetworkObject instance = networkManager.GetPooledInstantiated(_prefab, transform, true);
+            NetworkObject instance = networkManager.GetPooledInstantiated(prefab, transform, true);
 
             instance.transform.position = position;
 
             networkManager.ServerManager.Spawn(instance, connection);
 
-            onSpawned(instance, connection);
+            await onSpawned(instance, connection);
 
             _instances.Add(instance);
             
             Spawned?.Invoke(instance);
         }
 
-        protected virtual void onSpawned(NetworkObject instance, NetworkConnection connection)
+        protected virtual UniTask onSpawned(NetworkObject instance, NetworkConnection connection)
         {
+            return UniTask.CompletedTask;
         }
 
         protected virtual void onDespawned(in NetworkObject instance, NetworkConnection connection)

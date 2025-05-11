@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Core.GameLoop;
 using Core.Network;
+using Core.ServiceLocator;
+using Cysharp.Threading.Tasks;
 using Essential;
 using FishNet.Connection;
 using FishNet.Object;
@@ -13,7 +15,7 @@ namespace Code.CoreGame.Entities.Characters.Hero
     public class HeroSpawner : NetworkPool, ISubscriber
     {
         private readonly Dictionary<NetworkConnection, NetworkObject> _heroes = new();
-        
+
         
         public void Subscribe()
         {
@@ -27,19 +29,23 @@ namespace Code.CoreGame.Entities.Characters.Hero
             networkManager.ServerManager.OnRemoteConnectionState -= _serverManagerOnRemoveConnection;
         }
         
-        protected override void onSpawned(NetworkObject instance, NetworkConnection connection)
+        protected override UniTask onSpawned(NetworkObject instance, NetworkConnection connection)
         {
             networkManager.SceneManager.AddOwnerToDefaultScene(instance);
 
             _heroes[connection] = instance;
             
+           
             _initializeHeroComponents(instance);
+            
+            _setUserHero(connection, instance);
+
+            return UniTask.CompletedTask;
         }
 
         protected override IGameListener[] getGameListeners(in NetworkObject networkBehaviour)
         {
-            Hero hero = networkBehaviour.GetComponent<Hero>();
-
+            var hero = networkBehaviour.GetComponent<Hero>();
             List<IGameListener> listeners = new();
 
             foreach ((Type _, ICharacterComponent component) in hero.Components)
@@ -72,9 +78,17 @@ namespace Code.CoreGame.Entities.Characters.Hero
             Hero hero = instance.GetComponent<Hero>();
          
             hero.InitializeComponents();
-            hero.InitializeComponentConditions();
             
             registerGameListener(getGameListeners(instance));
+        }
+        
+        
+        [TargetRpc]
+        private void _setUserHero(NetworkConnection connection, NetworkObject instance)
+        {
+            UserProvider userProvider = Container.Instance.GetService<UserProvider>();
+            userProvider.SetConnection(connection);
+            userProvider.SetHero(instance);
         }
 
         private void _serverManagerOnRemoveConnection(NetworkConnection connection, RemoteConnectionStateArgs state)
