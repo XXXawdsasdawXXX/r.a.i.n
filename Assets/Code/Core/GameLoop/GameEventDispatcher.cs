@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Core.Editor;
+using Core.Save;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
@@ -22,8 +24,11 @@ namespace Core.GameLoop
         private readonly HashSet<IExitListener> _exitListeners = new();
         private readonly HashSet<ISubscriber> _subscribers = new();
 
+        private SaveService _saveService;
+        private GameModel _gameModel;
+
         private bool _isStarted;
-        
+
         private void Update()
         {
             if (_isStarted)
@@ -47,7 +52,13 @@ namespace Core.GameLoop
                 _notifyGameExit();
             }
         }
-        
+
+        public void Initialize()
+        {
+            _saveService = Container.Instance.GetService<SaveService>();
+            _gameModel = Container.Instance.GetService<GameModel>();
+        }
+
         public async UniTask Register(List<IGameListener> listeners)
         {
             _initializeListeners(listeners);
@@ -56,7 +67,7 @@ namespace Core.GameLoop
             await _notifyGameLoad();
             await _notifySubscribe();
             await _notifyGameStart();
-            
+
             _isStarted = true;
         }
 
@@ -66,7 +77,7 @@ namespace Core.GameLoop
             {
                 subscriber.Unsubscribe();
             }
-       
+
             _isStarted = false;
         }
 
@@ -77,7 +88,7 @@ namespace Core.GameLoop
                 await AddSpawnableListener(listener);
             }
         }
-        
+
         public async UniTask AddSpawnableListener(IGameListener listener)
         {
             if (!_listeners.Add(listener))
@@ -93,7 +104,7 @@ namespace Core.GameLoop
             if (listener is IInitializeListener initListener && !initListener.IsInitialized)
             {
                 initListener.Initialize();
-                
+
                 initListener.IsInitialized = true;
             }
 
@@ -106,7 +117,7 @@ namespace Core.GameLoop
 
             if (listener is ILoadListener loadListener)
             {
-                await loadListener.GameLoad();
+                await loadListener.GameLoad(_gameModel);
 
                 _loadListeners.Add(loadListener);
             }
@@ -124,7 +135,7 @@ namespace Core.GameLoop
 
             marker.End();
         }
-        
+
         public void RemoveSpawnableListeners(IGameListener[] listeners)
         {
             foreach (IGameListener listener in listeners)
@@ -184,7 +195,8 @@ namespace Core.GameLoop
 
                 if (listener is IUpdateListener updateListener) _updateListeners.Add(updateListener);
 
-                if (listener is IFixedUpdateListener fixedUpdateListener) _fixedUpdateListeners.Add(fixedUpdateListener);
+                if (listener is IFixedUpdateListener fixedUpdateListener)
+                    _fixedUpdateListeners.Add(fixedUpdateListener);
 
                 if (listener is IExitListener exitListener) _exitListeners.Add(exitListener);
             }
@@ -201,14 +213,14 @@ namespace Core.GameLoop
                 {
                     continue;
                 }
-                
+
                 await listener.Initialize();
 
                 listener.IsInitialized = true;
             }
 
             marker.End();
-            
+
             Log.Info(this, $"_notifyGameInitialize", Color.red);
         }
 
@@ -219,11 +231,11 @@ namespace Core.GameLoop
 
             foreach (ILoadListener listener in _loadListeners)
             {
-                await listener.GameLoad();
+                await listener.GameLoad(_gameModel);
             }
 
             marker.End();
-            
+
             Log.Info(this, $"_notifyGameLoad", Color.red);
         }
 
@@ -238,9 +250,9 @@ namespace Core.GameLoop
             }
 
             marker.End();
-            
+
             Log.Info(this, $"_notifySubscribe", Color.red);
-            
+
             return UniTask.CompletedTask;
         }
 
@@ -253,9 +265,9 @@ namespace Core.GameLoop
             {
                 await listener.GameStart();
             }
-            
+
             marker.End();
-            
+
             Log.Info(this, $"_notifyGameStart", Color.red);
         }
 
@@ -272,7 +284,6 @@ namespace Core.GameLoop
                     Profiler.EndSample();
                 }
             }
-
         }
 
         private void _notifyGameFixedUpdate(float fixedDeltaTime)
@@ -300,13 +311,16 @@ namespace Core.GameLoop
                 subscriber.Unsubscribe();
             }
 
+            _gameModel.test++;
+            
+            _saveService.Save(_saveService.LastUsedSlot, _gameModel);
+
             foreach (IExitListener listener in _exitListeners)
             {
                 listener.GameExit();
             }
 
-            
-            Log.Info(this, $"_notifyGameExit", Color.red);
+            Log.Info(this, $"_notifyGameExit {_gameModel.test}", Color.red);
             marker.End();
         }
     }

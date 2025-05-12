@@ -10,6 +10,7 @@ using FishNet.Object;
 using FishNet.Transporting;
 using UnityEngine;
 
+
 namespace Code.CoreGame.Entities.Characters.Hero
 {
     public class HeroSpawner : NetworkPool, ISubscriber
@@ -65,7 +66,6 @@ namespace Code.CoreGame.Entities.Characters.Hero
         {
             if (_heroes.ContainsKey(connection))
             {
-                Log.Error(this, $"Hero from this connection already exist.");
                 return;
             }
 

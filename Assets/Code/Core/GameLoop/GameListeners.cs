@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using Core.Save;
 using Cysharp.Threading.Tasks;
 
 namespace Core.GameLoop
@@ -19,7 +20,7 @@ namespace Core.GameLoop
 
     public interface ILoadListener : IGameListener
     {
-        UniTask GameLoad();
+        UniTask GameLoad(GameModel model);
     }
 
     public interface IStartListener : IGameListener

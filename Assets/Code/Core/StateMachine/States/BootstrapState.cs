@@ -3,6 +3,7 @@ using Core.GameLoop;
 using Core.Libraries.Assets;
 using Core.Libraries.Configs;
 using Core.Libraries.Installers;
+using Core.Save;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
@@ -13,14 +14,14 @@ namespace Core.StateMachine
     public class BootstrapState : IState
     {
         public bool IsInitialized { get; set; }
-        
+
         private readonly GameStateMachine _gameStateMachine;
-        
+
         public BootstrapState(GameStateMachine gameStateMachine)
         {
             _gameStateMachine = gameStateMachine;
         }
-        
+
         public async UniTask Initialize()
         {
             InstallerLibrary installerLibrary = await AssetProvider
@@ -36,7 +37,7 @@ namespace Core.StateMachine
             {
                 AssetProvider.Instantiate(assetLibrary.Windows.Get(AssetKey.CANVAS_PROFILER));
             }
-            
+
             ContextEntities projectContext = ContextBuilder.BuildContext(installerLibrary.ProjectsInstaller.GetTypes());
             projectContext.Services.Add(typeof(GameStateMachine), _gameStateMachine);
             Container container = new(projectContext);
@@ -48,7 +49,15 @@ namespace Core.StateMachine
             {
                 container.AddConfig(config);
             }
+
+            var saveService = container.GetService<SaveService>();
+            var model = container.GetService<GameModel>();
+            var loadedModel = saveService.LoadLast<GameModel>() ?? new GameModel(); 
             
+            model.test = loadedModel.test;
+
+            container.GetService<GameEventDispatcher>().Initialize();
+
             /*GameEventDispatcher gameEventDispatcher = container.GetService<GameEventDispatcher>();
            
             await gameEventDispatcher.Register(container.GetGameListeners());*/
@@ -56,9 +65,9 @@ namespace Core.StateMachine
 
         public UniTask Enter()
         {
-             _gameStateMachine.SwitchState(typeof(MainMenuState));
-     
-             return UniTask.CompletedTask;
+            _gameStateMachine.SwitchState(typeof(MainMenuState));
+
+            return UniTask.CompletedTask;
         }
 
         public UniTask Exit()

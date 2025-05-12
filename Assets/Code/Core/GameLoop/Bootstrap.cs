@@ -1,13 +1,12 @@
 ﻿using Core.StateMachine;
-using UnityEngine;
 
 namespace Core.GameLoop
 {
-    internal sealed class Bootstrap : MonoBehaviour
+    internal sealed class Bootstrap : Essential.Mono
     {
         public void Awake()
         {
-            GameStateMachine gameStateMachine = new();
+            GameStateMachine gameStateMachine = new GameStateMachine();
         }
     }
 }
