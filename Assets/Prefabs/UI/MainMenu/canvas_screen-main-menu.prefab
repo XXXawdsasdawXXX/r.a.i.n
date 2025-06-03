@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7965419475011221178, guid: be4fb4848a644a049b09c0dad8c129bf, type: 3}
       propertyPath: m_Name
-      value: canvas_screen_main-menu
+      value: canvas_screen-main-menu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -147,11 +147,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5554749015146704649, guid: f8ab604f92e82d844b41c519af150678, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 482.34
       objectReference: {fileID: 0}
     - target: {fileID: 5554749015146704649, guid: f8ab604f92e82d844b41c519af150678, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 263.104
       objectReference: {fileID: 0}
     - target: {fileID: 5554749015146704649, guid: f8ab604f92e82d844b41c519af150678, type: 3}
       propertyPath: m_LocalPosition.x
@@ -183,11 +183,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5554749015146704649, guid: f8ab604f92e82d844b41c519af150678, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5554749015146704649, guid: f8ab604f92e82d844b41c519af150678, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5554749015146704649, guid: f8ab604f92e82d844b41c519af150678, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

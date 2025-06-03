@@ -14,7 +14,7 @@ namespace Core.ServiceLocator
                 Services = new Dictionary<Type, IService>(),
                 Views = new Dictionary<Type, MonoView>(),
                 Mono = new Dictionary<Type, IMono>(),
-                Objects = Object.FindObjectsOfType<Essential.Mono>().ToList()
+                Objects = Object.FindObjectsOfType<Essential.Mono>(true).ToList()
             };
             
             foreach (Essential.Mono mono in newContext.Objects)
@@ -51,7 +51,7 @@ namespace Core.ServiceLocator
                 Services = new Dictionary<Type, IService>(),
                 Views = new Dictionary<Type, MonoView>(),
                 Mono = new Dictionary<Type, IMono>(),
-                Objects = Object.FindObjectsOfType<Essential.Mono>().ToList()
+                Objects = Object.FindObjectsOfType<Essential.Mono>(true).ToList()
             };
             
             ContextEntities currentContext = existingContext;
@@ -82,7 +82,7 @@ namespace Core.ServiceLocator
                 Services = new Dictionary<Type, IService>(),
                 Views = new Dictionary<Type, MonoView>(),
                 Mono = new Dictionary<Type, IMono>(),
-                Objects = Object.FindObjectsOfType<Essential.Mono>().ToList()
+                Objects = Object.FindObjectsOfType<Essential.Mono>(true).ToList()
             };
             
             ContextEntities currentContext = existingContext;

@@ -33,7 +33,7 @@ namespace CoreGame.Harvest
         public void Subscribe()
         {
             Log.Info(this, $"subscribe");
-            _userProvider.HeroSetted += _onHeroSetted;
+            _userProvider.HeroCreated += _onHeroCreated;
 
             foreach (ResourceSource resource in _resourcesSources)
             {
@@ -54,7 +54,7 @@ namespace CoreGame.Harvest
 
         public void Unsubscribe()
         {
-            _userProvider.HeroSetted -= _onHeroSetted;
+            _userProvider.HeroCreated -= _onHeroCreated;
             
             foreach (ResourceSource resource in _resourcesSources)
             {
@@ -62,7 +62,7 @@ namespace CoreGame.Harvest
             }
         }
 
-        private void _onHeroSetted()
+        private void _onHeroCreated()
         {
             _hero = _userProvider.GetHeroComponent<Hero>();
             Log.Info(this, $"_hero != null {_hero != null}", Log.Orange);

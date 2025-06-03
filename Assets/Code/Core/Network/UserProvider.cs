@@ -8,7 +8,7 @@ namespace Core.Network
 {
     public class UserProvider : IService
     {
-        public event Action HeroSetted; 
+        public event Action HeroCreated; 
         public NetworkConnection Connection { get; private set; }
         public NetworkObject Hero { get; private set; }
 
@@ -25,7 +25,7 @@ namespace Core.Network
             
             _heroComponents.Clear();
             
-            HeroSetted?.Invoke();
+            HeroCreated?.Invoke();
         }
 
         public T GetHeroComponent<T>() where T: class
