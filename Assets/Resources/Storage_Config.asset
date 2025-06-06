@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5788100120704890907c5f545ae45749, type: 3}
-  m_Name: Library_Config
+  m_Name: Storage_Config
   m_EditorClassIdentifier: 
   <Configs>k__BackingField:
   - {fileID: 11400000, guid: 2e247ce61debb8549a96efc73f0267fe, type: 2}
@@ -19,3 +19,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c539417fe530e84a9b38c3dea7e8eb1, type: 2}
   - {fileID: 11400000, guid: 74a12dd04cb13db43bcde57c1d36e561, type: 2}
   - {fileID: 11400000, guid: 7b28ed9f0b438e94783328c36ea2e96c, type: 2}
+  - {fileID: 11400000, guid: 66cd00c6c80886042bc2af135e158064, type: 2}

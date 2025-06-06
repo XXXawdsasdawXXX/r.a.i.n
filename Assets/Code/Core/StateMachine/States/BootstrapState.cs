@@ -24,24 +24,24 @@ namespace Core.StateMachine
 
         public async UniTask Initialize()
         {
-            InstallerLibrary installerLibrary = await AssetProvider
-                .LoadScriptableObject<InstallerLibrary>(AssetKey.INSTALLER_LIBRARY_PATH);
-            ConfigLibrary configLibrary = await AssetProvider
-                .LoadScriptableObject<ConfigLibrary>(AssetKey.CONFIG_LIBRARY_PATH);
+            InstallerStorage installerStorage = await AssetProvider
+                .LoadScriptableObject<InstallerStorage>(AssetKey.INSTALLER_STORAGE_PATH);
+            ConfigStorage configStorage = await AssetProvider
+                .LoadScriptableObject<ConfigStorage>(AssetKey.CONFIG_STORAGE_PATH);
 
-            AssetLibrary assetLibrary = configLibrary.Get<AssetLibrary>();
+            AssetLibrary assetLibrary = configStorage.Get<AssetLibrary>();
 
             if (Log.PROFILER_IS_ACTIVE)
             {
                 AssetProvider.Instantiate(assetLibrary.Windows.Get(AssetKey.CANVAS_PROFILER));
             }
 
-            ContextEntities projectContext = ContextBuilder.BuildContext(installerLibrary.ProjectsInstaller.GetTypes());
+            ContextEntities projectContext = ContextBuilder.BuildContext(installerStorage.ProjectsInstaller.GetTypes());
             projectContext.Services.Add(typeof(GameStateMachine), _gameStateMachine);
             Container container = new(projectContext);
 
-            container.AddConfig(installerLibrary);
-            foreach (ScriptableObject config in configLibrary.Configs)
+            container.AddConfig(installerStorage);
+            foreach (ScriptableObject config in configStorage.Configs)
             {
                 container.AddConfig(config);
             }

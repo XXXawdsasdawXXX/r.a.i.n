@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace Core.Libraries.Installers
 {
-    [CreateAssetMenu(fileName = "Library_Installer", menuName = "Game/Library/Installer")]
-    public class InstallerLibrary : ScriptableObject
+    [CreateAssetMenu(fileName = "Storage_Installer", menuName = "Game/Library/Storage")]
+    public class InstallerStorage : ScriptableObject
     {
         [Serializable]
         private struct SceneInstaller

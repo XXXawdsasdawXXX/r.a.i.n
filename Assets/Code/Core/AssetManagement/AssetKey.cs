@@ -3,11 +3,8 @@
     public static class AssetKey
     {
         //installers
-        public const string INSTALLER_LIBRARY_PATH = "Library_Installer";
-        public const string AUDIO_LIBRARY_PATH = "Library_Audio";
-        public const string ASSET_LIBRARY_PATH = "Library_Asset";
-        public const string CONFIG_LIBRARY_PATH = "Library_Config";
-        public const string RESOURCES_LIBRARY_PATH = "Library_Resources";
+        public const string INSTALLER_STORAGE_PATH = "Storage_Installer";
+        public const string CONFIG_STORAGE_PATH = "Storage_Config";
         
         //windows
         public const string CANVAS_PROFILER = "canvas_screen-profiler";
@@ -16,7 +13,5 @@
         
         //scene components
         public const string CAMERA = "camera";
-        public const string POOL_HERO = "network_pool-hero";
-        public const string POOL_ITEM = "network_pool-items";
     }
 }

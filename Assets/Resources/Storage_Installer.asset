@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36c8dd1856534df4b2deb6f6bb0ddfaf, type: 3}
-  m_Name: Library_Installer
+  m_Name: Storage_Installer
   m_EditorClassIdentifier: 
   <ProjectsInstaller>k__BackingField: {fileID: 11400000, guid: 8b79fe3057f6d8349929a10eb35eb999, type: 2}
   <CoreGameInstaller>k__BackingField: {fileID: 11400000, guid: f0939c4930f8ee542ba431aec5ee97e8, type: 2}

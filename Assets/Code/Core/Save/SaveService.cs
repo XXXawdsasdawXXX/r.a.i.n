@@ -4,21 +4,24 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using Core.Editor;
+using Core.GameLoop;
 using Core.ServiceLocator;
+using Cysharp.Threading.Tasks;
 using Essential;
 using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Core.Save
 {
-    internal sealed class SaveService : IService
+    internal sealed class SaveService : IService, IInitializeListener
     {
         private static readonly string SavePath = Path.Combine(Application.persistentDataPath, "save_slots.dat");
         private static readonly string Password = _generateKey();
         private static readonly string HmacKey = "HMAC_SECRET_KEY_123";
 
         private const bool _useEncryption = false;
-        
+        public bool IsInitialized { get; set; }
+
         public string LastUsedSlot
         {
             get => ParrelSyncUtility.IsClone() ? "clone" : _lastSlot;
@@ -32,8 +35,17 @@ namespace Core.Save
                 _lastSlot = value;
             }
         }
+
+        private SaveSettings _saveSettings;
+
+        private string _lastSlot = "first_slot";
         
-        private string _lastSlot;
+        public UniTask Initialize()
+        {
+            _saveSettings = Container.Instance.GetConfig<SaveSettings>();
+
+            return UniTask.CompletedTask;
+        }
 
         private class SaveContainer
         {
@@ -66,7 +78,7 @@ namespace Core.Save
                 container.LastSlot = slotId;
                 LastUsedSlot = slotId;
 
-                string fullJson = JsonConvert.SerializeObject(container);
+                string fullJson = JsonConvert.SerializeObject(container, _saveSettings.JSONSettings);
                 File.WriteAllText(SavePath, fullJson);
             }
             catch (Exception e)
@@ -79,11 +91,20 @@ namespace Core.Save
         {
             try
             {
-                if (!File.Exists(SavePath)) return null;
+                if (!File.Exists(SavePath))
+                {
+                    return null;
+                }
 
                 string fileContent = File.ReadAllText(SavePath);
-                SaveContainer container = JsonConvert.DeserializeObject<SaveContainer>(fileContent);
-                if (!container.Slots.TryGetValue(slotId, out string slotData)) return null;
+
+                SaveContainer container = JsonConvert
+                    .DeserializeObject<SaveContainer>(fileContent, _saveSettings.JSONSettings);
+
+                if (!container.Slots.TryGetValue(slotId, out string slotData))
+                {
+                    container.Slots.Add(slotData, _saveSettings.DefaultModel.ToString());
+                }
 
                 LastUsedSlot = slotId;
 
@@ -109,7 +130,7 @@ namespace Core.Save
                 }
                 else
                 {
-                    return JsonConvert.DeserializeObject<T>(slotData);
+                    return JsonConvert.DeserializeObject<T>(slotData, _saveSettings.JSONSettings);
                 }
             }
             catch (Exception e)
@@ -122,10 +143,10 @@ namespace Core.Save
         public T LoadLast<T>() where T : class
         {
             SaveContainer container = _loadContainer();
-            
+
             if (!string.IsNullOrEmpty(container.LastSlot))
             {
-                return Load<T>(container.LastSlot);
+                return Load<T>(container.LastSlot ?? _lastSlot);
             }
 
             return null;
@@ -227,7 +248,8 @@ namespace Core.Save
             try
             {
                 string json = File.ReadAllText(SavePath);
-                return JsonConvert.DeserializeObject<SaveContainer>(json) ?? new SaveContainer();
+                return JsonConvert.DeserializeObject<SaveContainer>(json, _saveSettings.JSONSettings) 
+                       ?? new SaveContainer();
             }
             catch
             {

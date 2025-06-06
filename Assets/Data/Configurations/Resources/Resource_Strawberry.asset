@@ -16,8 +16,8 @@ MonoBehaviour:
   <HarvestType>k__BackingField: 1
   <Icon>k__BackingField: {fileID: 5272401415994956661, guid: d362ffe8556496e499e0dd01611693fc, type: 3}
   <WorldView>k__BackingField: {fileID: 1775669009216684005, guid: 057b442bd63761947883f0a186e1ac97, type: 3}
-  <MaxValue>k__BackingField: 30
-  <RemainingTime>k__BackingField: 12
+  <MaxValue>k__BackingField: 15
+  <RemainingTime>k__BackingField: 2
   <HarvestTime>k__BackingField: 5
   <HealthPrice>k__BackingField: 5
   <ResourcePerTick>k__BackingField: 5

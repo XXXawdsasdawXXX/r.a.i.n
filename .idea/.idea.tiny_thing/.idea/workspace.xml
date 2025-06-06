@@ -2,42 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/AnimationStateReader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/AnimationStateReader.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/AnimatorKey.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/IAnimationStateReader.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/IAnimationStateReader.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourceView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourceView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/Float2Converter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/Float2Converter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/WorldModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/WorldModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/AnimatorKey.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/AnimatorKey.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/AnimatorKey.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Controllers/Miner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Controllers/Miner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/HeroAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Interfaces/IHarvestAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Interfaces/IHarvestAnimator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/Data/ResourceConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/Data/ResourceConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourceSource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/Resource.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourceSource.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/Resource.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourceStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourceStorage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourcesManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourcesManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Game/UIResourceValueText.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Game/UIResourceValueText.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetKey.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetKey.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigLibrary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigStorage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigLibrary.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigStorage.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Installers/InstallerLibrary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Installers/InstallerStorage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Installers/InstallerLibrary.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Installers/InstallerStorage.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Data/Configurations/Resources/Resource_Cristal.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Configurations/Resources/Resource_Cristal.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Data/Configurations/Resources/Resource_Strawberry.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Configurations/Resources/Resource_Strawberry.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/Character_farm.anim" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/Character_farm.anim.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/Character_idle.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/Character_idle.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/Character_move.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/Character_move.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/view.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/view.controller.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/point_resource.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/point_resource.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Library_Config.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Library_Config.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Library_Installer.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Library_Installer.asset.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +44,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ff3bcb667574bf9a8630184172fcfbf176600/d8/d40f78d8/SceneManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8b98a57dbed44cd5b675394f1c50d5a82c3800/35/8b1b5f35/InspectorProperty.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8b98a57dbed44cd5b675394f1c50d5a82c3800/e7/a001aa96/DefaultMethodDrawer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d013391e3e3a38b9adb9cad82ad2e93d9e74c35cf211de986348b2f26e11bf/JsonSerializerSettings.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f3981d658666ec9cc1e6958fe22f8614bfe02ccb6625b056c3ece3729c9262/JsonConvert.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f547e88ca61ed0dceca1eabca811c17384657179b4394e074d325274e3fe2f1/System.ComponentModel.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Core/Audio/AudioEvents/AudioEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Core/Editor/ParrelSyncUtility.cs" root0="FORCE_HIGHLIGHTING" />
@@ -200,7 +186,7 @@
       <workItem from="1748547821714" duration="4727000" />
       <workItem from="1748961395997" duration="7888000" />
       <workItem from="1749050893061" duration="2810000" />
-      <workItem from="1749203402863" duration="4717000" />
+      <workItem from="1749203402863" duration="8468000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>

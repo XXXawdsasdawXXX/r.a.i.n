@@ -2,8 +2,8 @@
 
 namespace Core.Libraries.Configs
 {
-    [CreateAssetMenu(fileName = "Library_Config", menuName = "Game/Library/Config")]
-    public class ConfigLibrary : ScriptableObject
+    [CreateAssetMenu(fileName = "Storage_Config", menuName = "Game/Storage/Config")]
+    public class ConfigStorage : ScriptableObject
     {
         [field: SerializeField] public ScriptableObject[] Configs { get; private set; }
 

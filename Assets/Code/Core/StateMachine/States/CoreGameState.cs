@@ -16,7 +16,7 @@ namespace Core.StateMachine
     {
         public bool IsInitialized { get;set; }
 
-        private InstallerLibrary _installerLibrary;
+        private InstallerStorage _installerStorage;
         private AssetLibrary _assetLibrary;
         
         private SceneService _sceneService;
@@ -30,7 +30,7 @@ namespace Core.StateMachine
             _sceneService = Container.Instance.GetService<SceneService>();
             _gameEventDispatcher = Container.Instance.GetService<GameEventDispatcher>();
             
-            _installerLibrary = Container.Instance.GetConfig<InstallerLibrary>();
+            _installerStorage = Container.Instance.GetConfig<InstallerStorage>();
             _assetLibrary = Container.Instance.GetConfig<AssetLibrary>();
             
             return UniTask.CompletedTask;
@@ -42,7 +42,7 @@ namespace Core.StateMachine
             
             _coreEntities.Add(AssetProvider.Instantiate(_assetLibrary.Windows.Get(AssetKey.CANVAS_CORE_GAME)));
 
-            Container.Instance.Context.BuildChildContext(_installerLibrary.CoreGameInstaller.GetTypes());
+            Container.Instance.Context.BuildChildContext(_installerStorage.CoreGameInstaller.GetTypes());
             
             Log.Info(this, "build child context");
             Container.Instance.Context.Child.BuildChildContext();
@@ -90,7 +90,7 @@ namespace Core.StateMachine
 
           
              
-            Container.Instance.Context.Child.BuildChildContext(_installerLibrary.GetSceneInstaller(obj)?.GetTypes());
+            Container.Instance.Context.Child.BuildChildContext(_installerStorage.GetSceneInstaller(obj)?.GetTypes());
          
             await _gameEventDispatcher.Register(Container.Instance.GetGameListeners());
         }

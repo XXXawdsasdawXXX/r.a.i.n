@@ -5,6 +5,6 @@ namespace Core.Save
     [Serializable]
     public class HeroModel
     {
-        public float Health;
+        public float Health = 100;
     }
 }
