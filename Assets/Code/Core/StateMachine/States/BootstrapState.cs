@@ -24,6 +24,15 @@ namespace Core.StateMachine
 
         public async UniTask Initialize()
         {
+            Container container = await InitializeProjectContext();
+
+            LoadGame(container);
+
+            container.GetService<GameEventDispatcher>().Initialize();
+        }
+
+        private async UniTask<Container> InitializeProjectContext()
+        {
             InstallerStorage installerStorage = await AssetProvider
                 .LoadScriptableObject<InstallerStorage>(AssetKey.INSTALLER_STORAGE_PATH);
             ConfigStorage configStorage = await AssetProvider
@@ -46,13 +55,16 @@ namespace Core.StateMachine
                 container.AddConfig(config);
             }
 
+            return container;
+        }
+
+        private static void LoadGame(Container container)
+        {
             SaveService saveService = container.GetService<SaveService>();
             GameModel model = container.GetService<GameModel>();
-            GameModel loadedModel = saveService.LoadLast<GameModel>() ?? new GameModel(); 
-            
-            model.CopyFrom(loadedModel);
+            GameModel loadedModel = saveService.LoadLast<GameModel>() ?? new GameModel();
 
-            container.GetService<GameEventDispatcher>().Initialize();
+            model.CopyFrom(loadedModel);
         }
 
         public UniTask Enter()

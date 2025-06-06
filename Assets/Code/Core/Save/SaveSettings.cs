@@ -14,7 +14,6 @@ namespace Core.Save
             MissingMemberHandling = MissingMemberHandling.Ignore,
             DateTimeZoneHandling = DateTimeZoneHandling.Utc,
             DateFormatHandling = DateFormatHandling.IsoDateFormat,
-            PreserveReferencesHandling = PreserveReferencesHandling.Objects,
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
             NullValueHandling = NullValueHandling.Ignore,
             Converters = new List<JsonConverter>()

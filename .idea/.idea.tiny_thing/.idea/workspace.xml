@@ -2,26 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/Float2Converter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/Float2Converter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetKey.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetKey.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigLibrary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigStorage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigLibrary.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Configs/ConfigStorage.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Installers/InstallerLibrary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Installers/InstallerStorage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Installers/InstallerLibrary.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Installers/InstallerStorage.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Configurations/Resources/Resource_Cristal.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Configurations/Resources/Resource_Cristal.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Configurations/Resources/Resource_Strawberry.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Configurations/Resources/Resource_Strawberry.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Library_Config.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Library_Config.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Library_Installer.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Library_Installer.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +170,7 @@
       <workItem from="1748547821714" duration="4727000" />
       <workItem from="1748961395997" duration="7888000" />
       <workItem from="1749050893061" duration="2810000" />
-      <workItem from="1749203402863" duration="8468000" />
+      <workItem from="1749203402863" duration="9810000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>

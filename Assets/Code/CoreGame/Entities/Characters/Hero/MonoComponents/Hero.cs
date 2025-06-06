@@ -48,9 +48,10 @@ namespace CoreGame.Entities.Characters.Hero
             {
                 InputManager input = Container.Instance.GetService<InputManager>();
                 HeroSettings heroSettings = Container.Instance.GetConfig<HeroSettings>();
+                
                 _model = Container.Instance.GetService<GameModel>().Hero; 
-
-                Movement movement = new Movement(Rigidbody, input.Direction, heroSettings.MoveSpeed);
+                
+                Movement movement = new(Rigidbody, input.Direction, heroSettings.MoveSpeed);
                 Components.Add(typeof(Movement), movement);
                 
                 Miner miner = new Miner(Animation, Health);
@@ -65,7 +66,6 @@ namespace CoreGame.Entities.Characters.Hero
                 miner.Condition.Add(() => Health.Current > 0);
                 
                 Health.Set(_model.Health);
-                // Components.Add(typeof(Miner), new Miner());
             }
 
             IsConstructed = true;
@@ -83,7 +83,11 @@ namespace CoreGame.Entities.Characters.Hero
 
         private void _onHealthChanged()
         {
-            _model.Health = Health.Current;
+            Log.Info(this, $"{_model == null} {Health == null}");
+            if (IsOwner && _model != null)
+            {
+                _model.Health = Health.Current;
+            }
         }
     }
 }
