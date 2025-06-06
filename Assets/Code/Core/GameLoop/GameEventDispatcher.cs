@@ -3,6 +3,7 @@ using Core.Save;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
+using FishNet;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Profiling;
@@ -257,6 +258,8 @@ namespace Core.GameLoop
 
         private async UniTask _notifyGameStart()
         {
+            await UniTask.WaitUntil(() => InstanceFinder.IsClientStarted);
+            
             ProfilerMarker marker = new("_notifyGameStart");
             marker.Begin();
 

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Resource_Strawberry
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 2
+  <HarvestType>k__BackingField: 1
   <Icon>k__BackingField: {fileID: 5272401415994956661, guid: d362ffe8556496e499e0dd01611693fc, type: 3}
   <WorldView>k__BackingField: {fileID: 1775669009216684005, guid: 057b442bd63761947883f0a186e1ac97, type: 3}
-  <MaxValue>k__BackingField: 100
+  <MaxValue>k__BackingField: 30
   <RemainingTime>k__BackingField: 12
   <HarvestTime>k__BackingField: 5
   <HealthPrice>k__BackingField: 5

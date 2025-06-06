@@ -5,76 +5,87 @@ using Core.ServiceLocator;
 using CoreGame.Entities.Characters.Controllers;
 using CoreGame.Entities.Characters.Hero;
 using Cysharp.Threading.Tasks;
-using Essential;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
 namespace CoreGame.Harvest
 {
-    public class ResourcesManager : Essential.Mono, IService, IInitializeListener,ILoadListener ,ISubscriber
+    public class ResourcesManager : Essential.Mono, IService, IInitializeListener, ILoadListener, ISubscriber
     {
         public bool IsInitialized { get; set; }
 
         [SerializeField] private ResourceCollection _resourceCollection;
-        [SerializeField] private ResourceSource[] _resourcesSources;
-        
+        [SerializeField] private Resource[] _resources;
+
         private UserProvider _userProvider;
         private Hero _hero;
         private Miner _miner;
+        private GameModel _gameModel;
 
         public UniTask Initialize()
         {
             _userProvider = Container.Instance.GetService<UserProvider>();
-            
-            return UniTask.CompletedTask;
-        }
-        
-        public void Subscribe()
-        {
-            Log.Info(this, $"subscribe");
-            _userProvider.HeroCreated += _onHeroCreated;
+            _gameModel = Container.Instance.GetService<GameModel>();
 
-            foreach (ResourceSource resource in _resourcesSources)
-            {
-                resource.HarvestStarted += OnHarvestStarted;
-            }
+            return UniTask.CompletedTask;
         }
 
         public UniTask GameLoad(GameModel model)
         {
-            foreach (ResourceSource resource in _resourcesSources)
+            foreach (Resource resource in _resources)
             {
-                Log.Info(this, $"load {resource.gameObject.name}");
-                resource.SetValue(resource.Config.MaxValue);
+                if (model.World.SceneResources.ContainsKey(resource.Position))
+                {
+                    resource.SetValue(model.World.SceneResources[resource.Position]);
+                }
+                else
+                {
+                    model.World.SceneResources.Add(resource.Position, resource.CurrentValue);
+                }
             }
             
             return UniTask.CompletedTask;
+        }
+
+        public void Subscribe()
+        {
+            _userProvider.HeroCreated += _onHeroCreated;
+
+            foreach (Resource resource in _resources)
+            {
+                resource.HarvestStarted += _onHarvestStarted;
+                resource.Changed += _onChangedResource;
+            }
         }
 
         public void Unsubscribe()
         {
             _userProvider.HeroCreated -= _onHeroCreated;
-            
-            foreach (ResourceSource resource in _resourcesSources)
+
+            foreach (Resource resource in _resources)
             {
-                resource.HarvestStarted -= OnHarvestStarted;
+                resource.HarvestStarted -= _onHarvestStarted;
+                resource.Changed -= _onChangedResource;
             }
+        }
+
+        private void _onChangedResource(Resource resource)
+        {
+            _gameModel.World.SceneResources[resource.Position] = resource.CurrentValue;
         }
 
         private void _onHeroCreated()
         {
             _hero = _userProvider.GetHeroComponent<Hero>();
-            Log.Info(this, $"_hero != null {_hero != null}", Log.Orange);
             _miner = _hero.GetCharacterComponent<Miner>();
-            Log.Info(this, $"_miner != null {_miner != null}", Log.Orange);
         }
 
-        private void OnHarvestStarted(ResourceSource resourceSource)
+        private void _onHarvestStarted(Resource resource)
         {
             if (!_miner.IsMining)
             {
-                _miner.StartHarvest(resourceSource);
+                _miner.StartHarvest(resource);
             }
         }
 
@@ -83,18 +94,19 @@ namespace CoreGame.Harvest
         [Button]
         private void _validateResources()
         {
-            foreach (ResourceSource resource in _resourcesSources)
+            foreach (Resource resource in _resources)
             {
                 resource.Validate(_resourceCollection.Library.Get(resource.Type));
                 EditorUtility.SetDirty(resource);
             }
+
             AssetDatabase.SaveAssets();
         }
 
         [Button]
         private void _findResources()
         {
-            _resourcesSources = GetComponentsInChildren<ResourceSource>(true);
+            _resources = GetComponentsInChildren<Resource>(true);
         }
 #endif
     }

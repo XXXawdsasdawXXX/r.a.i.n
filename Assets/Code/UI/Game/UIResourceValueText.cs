@@ -2,28 +2,27 @@
 using CoreGame.Harvest;
 using UI.Components;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace UI.Game
 {
     public class UIResourceValueText : Essential.Mono, ISubscriber
     {
-        [FormerlySerializedAs("_resource")] [SerializeField] private ResourceSource _resourceSource;
+        [SerializeField] private Resource _resource;
         [SerializeField] private UIText _text;
 
         public void Subscribe()
         {
-            _resourceSource.Changed += _onChanged;
+            _resource.Changed += _onChanged;
         }
 
         public void Unsubscribe()
         {
-            _resourceSource.Changed -= _onChanged;
+            _resource.Changed -= _onChanged;
         }
 
-        private void _onChanged()
+        private void _onChanged(Resource _)
         {
-            _text.SetText($"{_resourceSource.Current}/{_resourceSource.Config.MaxValue}");
+            _text.SetText($"{_resource.CurrentValue}/{_resource.Config.MaxValue}");
         }
     }
 }

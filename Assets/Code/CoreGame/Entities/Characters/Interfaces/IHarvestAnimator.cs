@@ -1,8 +1,10 @@
-﻿namespace CoreGame.Entities.Characters.Interfaces
+﻿using CoreGame.Entities.Animation;
+
+namespace CoreGame.Entities.Characters.Interfaces
 {
     public interface IHarvestAnimator
     {
-        void StartHarvest();
-        void StopHarvest();
+        void StartMine(AnimatorKey.EHarvestType harvestType);
+        void StopMine();
     }
 }

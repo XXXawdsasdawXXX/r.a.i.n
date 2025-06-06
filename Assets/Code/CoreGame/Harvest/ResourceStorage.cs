@@ -36,7 +36,7 @@ namespace CoreGame.Harvest
         {
             _model = model;
             
-            Dictionary<int, int> savedCollection = model.World.Resources;
+            Dictionary<int, int> savedCollection = model.World.ResourcesStorage;
 
             Collection = new Dictionary<EResource, int>();
 
@@ -75,9 +75,14 @@ namespace CoreGame.Harvest
         
         public void Add(EResource resource, int value)
         {
+            if (!Collection.ContainsKey(resource))
+            {
+                Collection.Add(resource, 0);
+            }
+            
             Collection[resource] += value;
 
-            _model.World.Resources[(int)resource] = Collection[resource];
+            _model.World.ResourcesStorage[(int)resource] = Collection[resource];   
             
             InstanceFinder.ServerManager.Broadcast(new ResourceBroadcast(Collection));
             
@@ -86,9 +91,14 @@ namespace CoreGame.Harvest
 
         public void Spend(EResource resource, int value)
         {
+            if (!Collection.ContainsKey(resource))
+            {
+                Collection.Add(resource, 0);
+            }
+            
             Collection[resource] -= value;
             
-            _model.World.Resources[(int)resource] = Collection[resource];
+            _model.World.ResourcesStorage[(int)resource] = Collection[resource];
             
             InstanceFinder.ServerManager.Broadcast(new ResourceBroadcast(Collection));
             

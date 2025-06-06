@@ -1,16 +1,21 @@
 ﻿using Core.Data;
 using Core.GameLoop;
+using CoreGame.Entities.Animation;
 using CoreGame.Entities.Characters.Interfaces;
 using Cysharp.Threading.Tasks;
+using Essential;
 using FishNet.Object;
 using UnityEngine;
 
 namespace CoreGame.Entities.Characters.Hero
 {
-    public class HeroAnimation : NetworkBehaviour, IHarvestAnimator, IInitializeListener, IUpdateListener
+    public class HeroAnimation : NetworkBehaviour, IHarvestAnimator, IAnimationStateReader,
+    IInitializeListener, IUpdateListener
     {
         public bool IsInitialized { get; set; }
         public string RuntimeListenerName => "HeroAnimation";
+
+        public AnimatorKey.ECharacterAnimationState CurrentState { get; private set; }
         
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform _viewBody;
@@ -39,7 +44,7 @@ namespace CoreGame.Entities.Characters.Hero
 
             if (_velocityCache.Update(_rigidbody2D.velocity))
             {
-                _animator.SetFloat(AnimatorKey.SPEED, _rigidbody2D.velocity.magnitude);
+                _animator.SetFloat(AnimatorKey.PARAM_SPEED, _rigidbody2D.velocity.magnitude);
        
                 if (_rigidbody2D.velocity.x != 0)
                 {
@@ -47,23 +52,21 @@ namespace CoreGame.Entities.Characters.Hero
                 }
             }
         }
-
-        [ServerRpc]
-        public void StartHarvest()
-        {
-            _animator.SetBool(AnimatorKey.HARVEST, true);
-        }
         
-        [ServerRpc]
-        public void StopHarvest()
-        {
-            _animator.SetBool(AnimatorKey.HARVEST, false);
-        }
+        [ServerRpc] public void StartEat() => 
+            _animator.SetBool(AnimatorKey.PARAM_EAT, true);
+        [ServerRpc] public void StopEat() => 
+            _animator.SetBool(AnimatorKey.PARAM_EAT, false);
+        [ServerRpc] public void StartMine(AnimatorKey.EHarvestType harvestType) => 
+            _animator.SetInteger(AnimatorKey.PARAM_HARVEST_TYPE, (int)harvestType);
+
+        [ServerRpc] public void StopMine() => 
+            _animator.SetInteger(AnimatorKey.PARAM_HARVEST_TYPE, 0);
 
         [ServerRpc]
         private void _rotateServerRpc(float velocityX)
         {
-            float forward = velocityX > 0 ? -1 : 1;
+            float forward = velocityX < 0 ? -1 : 1;
             _rotateObserversRpc(forward);
         }
 
@@ -71,6 +74,26 @@ namespace CoreGame.Entities.Characters.Hero
         private void _rotateObserversRpc(float forward)
         {
             _viewBody.localScale = new Vector3(forward, 1, 1);
+        }
+
+        public void EnteredState(int stateHash)
+        {
+            if (AnimatorKey.CHARACTER_STATES.ContainsKey(stateHash))
+            {
+                CurrentState = AnimatorKey.CHARACTER_STATES[stateHash];
+                
+                Log.Info(this, $"ENTER {CurrentState}");
+            }
+        }
+
+        public void ExitedState(int stateHash)
+        {
+            if (AnimatorKey.CHARACTER_STATES.ContainsKey(stateHash))
+            {
+                CurrentState = AnimatorKey.CHARACTER_STATES[stateHash];
+                
+                Log.Info(this, $"EXIT {CurrentState}");
+            }
         }
     }
 }

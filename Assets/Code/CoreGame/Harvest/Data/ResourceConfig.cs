@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using CoreGame.Entities;
+using CoreGame.Entities.Animation;
+using UnityEngine;
 
 namespace CoreGame.Harvest
 {
@@ -6,6 +8,8 @@ namespace CoreGame.Harvest
     public class ResourceConfig : ScriptableObject
     {
         [field: SerializeField] public EResource Type { get; private set; }
+        
+        [field: SerializeField] public AnimatorKey.EHarvestType HarvestType { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField] public Sprite WorldView  { get; private set; }
         [field: SerializeField] public int MaxValue { get; private set; }

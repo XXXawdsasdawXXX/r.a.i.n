@@ -5,6 +5,7 @@ using Core.ServiceLocator;
 using CoreGame.Entities.Characters.Interfaces;
 using CoreGame.Entities.Params;
 using CoreGame.Harvest;
+using Essential;
 
 namespace CoreGame.Entities.Characters.Controllers
 {
@@ -45,15 +46,15 @@ namespace CoreGame.Entities.Characters.Controllers
 
             Process.CurrentTime += deltaTime;
 
-            if (Process.CurrentTime >= Process.ResourceSource.Config.HarvestTime)
+            if (Process.CurrentTime >= Process.Resource.Config.HarvestTime)
             {
-                _health.UpdateHealth(-Process.ResourceSource.Config.HealthPrice);
+                _health.UpdateHealth(-Process.Resource.Config.HealthPrice);
 
-                Process.ResourceSource.UpdateValue(-Process.ResourceSource.Config.ResourcePerTick);
+                Process.Resource.UpdateValue(-Process.Resource.Config.ResourcePerTick);
 
-                _resourceStorage.Add(Process.ResourceSource.Type, Process.ResourceSource.Config.ResourcePerTick);
+                _resourceStorage.Add(Process.Resource.Type, Process.Resource.Config.ResourcePerTick);
                 
-                if (Process.ResourceSource.IsEnded)
+                if (Process.Resource.IsEnded)
                 {
                     StopHarvest();
                 }
@@ -64,15 +65,17 @@ namespace CoreGame.Entities.Characters.Controllers
             }
         }
 
-        public void StartHarvest(ResourceSource resourceSource)
+        public void StartHarvest(Resource resource)
         {
             Process = new MinerProcess
             {
-                ResourceSource = resourceSource,
+                Resource = resource,
                 CurrentTime = 0,
             };
 
-            _animator.StartHarvest();
+            _animator.StartMine(resource.Config.HarvestType);
+            
+            Log.Info(this, $"{resource.Config.HarvestType}");
 
             IsMining = true;
 
@@ -83,7 +86,7 @@ namespace CoreGame.Entities.Characters.Controllers
         {
             Process = null;
 
-            _animator.StopHarvest();
+            _animator.StopMine();
 
             IsMining = false;
 
@@ -93,7 +96,7 @@ namespace CoreGame.Entities.Characters.Controllers
 
     public class MinerProcess
     {
-        public ResourceSource ResourceSource;
+        public Resource Resource;
         public float CurrentTime;
     }
 }

@@ -11,18 +11,17 @@ using UnityEngine;
 namespace CoreGame.Harvest
 {
     [Serializable]
-    public class ResourceSource : NetworkBehaviour ,ISubscriber
+    public class Resource : NetworkBehaviour ,ISubscriber
     {
-        public event Action<ResourceSource> HarvestStarted;
-        public event Action Changed;
-        public event Action<ResourceSource> HarvestEnded;
+        public event Action<Resource> HarvestStarted;
+        public event Action<Resource> Changed;
+        public event Action<Resource> HarvestEnded;
         [field: SerializeField] public EResource Type { get; private set; }
         [field: SerializeField] public float2 Position { get; private set; }
         [field: SerializeField] public ResourceConfig Config { get; private set; }
-        public bool IsMax => Current >= Config.MaxValue;
-        public bool IsEnded => Current <= 0;
-
-        public int Current => _current.Value;
+        public bool IsMax => CurrentValue >= Config.MaxValue;
+        public bool IsEnded => CurrentValue <= 0;
+        public int CurrentValue => _current.Value;
         
         private readonly SyncVar<int> _current = new();
 
@@ -31,7 +30,8 @@ namespace CoreGame.Harvest
 
         public override void OnStartClient()
         {
-            _current.Value = 99;
+            _current.Value = Config.MaxValue;
+            
             base.OnStartClient();
         }
 
@@ -44,16 +44,15 @@ namespace CoreGame.Harvest
         public void Unsubscribe()
         {
             _interactionTrigger.InteractionPerformed -= _onInteractionPerformed;
+            _current.OnChange -= _onChange;
         }
 
         [ServerRpc(RequireOwnership = false)]
         public void SetValue(int value)
         {
-            Log.Info(this, $"{gameObject.name}: set value from {value} => {_current.Value} ");
-         
             _current.Value = value;
             
-            Changed?.Invoke();
+            Changed?.Invoke(this);
         }
 
         [ServerRpc(RequireOwnership = false)]
@@ -70,8 +69,7 @@ namespace CoreGame.Harvest
                 _current.Value = 0;
             }
             
-            Log.Info(this, $"{gameObject.name}: update {value} => {_current.Value} ");
-            Changed?.Invoke();
+            Changed?.Invoke(this);
         }
 
         private void _onInteractionPerformed()
@@ -82,7 +80,7 @@ namespace CoreGame.Harvest
         private void _onChange(int prev, int next, bool asserver)
         {
             Log.Info(this, $"{gameObject.name}: _onChange {prev} => {_current.Value} ");
-            Changed?.Invoke();
+            Changed?.Invoke(this);
         }
 
 #if UNITY_EDITOR

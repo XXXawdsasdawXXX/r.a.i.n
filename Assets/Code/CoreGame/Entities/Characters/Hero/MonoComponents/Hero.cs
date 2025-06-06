@@ -2,6 +2,7 @@
 using Core.Input;
 using Core.Save;
 using Core.ServiceLocator;
+using CoreGame.Entities.Animation;
 using CoreGame.Entities.Characters.Controllers;
 using CoreGame.Entities.Params;
 using Essential;
@@ -56,8 +57,11 @@ namespace CoreGame.Entities.Characters.Hero
                 Components.Add(typeof(Miner), miner);
                 
                 movement.Condition.Add(() => Health.Current > 0);
+                movement.Condition.Add(() => Animation.CurrentState is not 
+                    AnimatorKey.ECharacterAnimationState.EAT and not 
+                    AnimatorKey.ECharacterAnimationState.HARVEST);
                 
-                miner.Condition.Add(() => Rigidbody.velocity.magnitude == 0);
+                miner.Condition.Add(() => input.Direction.Value == Vector2.zero);
                 miner.Condition.Add(() => Health.Current > 0);
                 
                 Health.Set(_model.Health);
