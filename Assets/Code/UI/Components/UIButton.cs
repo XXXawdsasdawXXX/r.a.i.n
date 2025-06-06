@@ -24,8 +24,6 @@ namespace UI.Components
         {
             _audio = Container.Instance.GetService<AudioService>();
           
-            Log.Info($"_audio != null {_audio != null}", this);
-            
             _button.onClick.AddListener(Click);
             
             return UniTask.CompletedTask;

@@ -2,10 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/AnimationSpeedRandomizer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/AnimationSpeedRandomizer.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/AnimatorKey.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/AnimatorKey.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourceView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourceView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Game/UIResourceValueText.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Game/UIResourceValueTab.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Game/UIResourceValueText.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Game/UIResourceValueTab.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/GameResources/AnimationController_view-resource.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/GameResources/AnimationController_view-resource.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/GameResources/AnimationController_view-strawberry-leaf.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/GameResources/AnimationController_view-strawberry-leaf.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/GameResources/Resource_default_strawberry-leaf.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/2D/Animation/GameResources/Resource_default_strawberry-leaf.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Materials/World.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Materials/World.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/GameResources/resource_ CRISTAL.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/GameResources/resource_ CRISTAL.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/GameResources/resource_.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/GameResources/resource_.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/GameResources/resource_STRAWBERRY.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/GameResources/resource_STRAWBERRY.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +47,14 @@
     <setting file="file://$PROJECT_DIR$/Assets/Code/Core/Audio/AudioEvents/AudioEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Core/Editor/ParrelSyncUtility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Animation/AnimationStateReader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/tiny_thing/Assets/Code/UI/Components/UIButton.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/tiny_thing/Assets/Prefabs/GameResources/resource_.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/tiny_thing/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/tiny_thing/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/tiny_thing/Assets/Prefabs/UI/MainMenu/window-connection.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/tiny_thing/Assets/Prefabs/UI/MainMenu/window-connection.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/tiny_thing/Assets/Prefabs/UI/MainMenu/window-connection.prefab" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/user/Documents/GitHub/tiny_thing/Assets/Prefabs/UI/MainMenu/window-connection.prefab" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@8042b29ff8/Runtime/CompilerServices/StateMachineRunner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Unity.Mathematics/float2.gen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/DropdownEditor.cs" root0="SKIP_HIGHLIGHTING" />
@@ -186,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1748552473124</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="window-connection.prefab">
+      <created>1749227145760</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1749227145760</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,7 +237,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="hero harvest animation" />
     <MESSAGE value="game resources ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="game resources ui" />
+    <MESSAGE value="window-connection.prefab" />
+    <option name="LAST_COMMIT_MESSAGE" value="window-connection.prefab" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

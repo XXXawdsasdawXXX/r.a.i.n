@@ -1,13 +1,14 @@
-﻿using Core.GameLoop;
+﻿using System;
+using Core.Data.RangeFloat;
+using Core.GameLoop;
+using CoreGame.Entities.Animation;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CoreGame.Harvest
 {
     public class ResourceView : Essential.Mono, ISubscriber
     {
-        private static readonly int RESOURCE_VALUE = Animator.StringToHash("ResourceValue");
-        
         [SerializeField] private Animator _animator;
         [SerializeField] private Resource _resource;
 
@@ -23,10 +24,13 @@ namespace CoreGame.Harvest
 
         private void _onChanged(Resource _)
         {
-            _animator.SetFloat(RESOURCE_VALUE, (float)_resource.CurrentValue / _resource.Config.MaxValue);
+            _animator.SetFloat(
+                AnimatorKey.PARAM_RESOURCE_VALUE, 
+                (float)_resource.CurrentValue / _resource.Config.MaxValue);
         }
 
 #if  UNITY_EDITOR
+
         private void OnValidate()
         {
             if (_resource == null)

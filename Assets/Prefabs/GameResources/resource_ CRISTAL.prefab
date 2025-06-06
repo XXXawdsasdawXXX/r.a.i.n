@@ -80,6 +80,14 @@ PrefabInstance:
       propertyPath: <Position>k__BackingField.y
       value: 0.96
       objectReference: {fileID: 0}
+    - target: {fileID: 3568667015911800187, guid: 6ea06861bccb4994ba2d6370418e1693, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3575967194999284636, guid: 6ea06861bccb4994ba2d6370418e1693, type: 3}
+      propertyPath: _field
+      value: 
+      objectReference: {fileID: 8777813359304959363}
     - target: {fileID: 3698334226472946692, guid: 6ea06861bccb4994ba2d6370418e1693, type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 4122867647
@@ -143,3 +151,14 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 1489283151823734677, guid: 6ea06861bccb4994ba2d6370418e1693, type: 3}
   m_PrefabInstance: {fileID: 3598876287368655649}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8777813359304959363 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5197374234046994082, guid: 6ea06861bccb4994ba2d6370418e1693, type: 3}
+  m_PrefabInstance: {fileID: 3598876287368655649}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47c2beeccac4e149e203b6e48d29179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

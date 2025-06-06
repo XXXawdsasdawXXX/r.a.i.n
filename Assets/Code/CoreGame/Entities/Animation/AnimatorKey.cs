@@ -15,6 +15,13 @@ namespace CoreGame.Entities.Animation
 #endif
         }
 
+        public static readonly int PARAM_ANIMATION_SPEED = Animator.StringToHash("AnimationSpeed");
+        
+        #region resources
+
+        public static readonly int PARAM_RESOURCE_VALUE = Animator.StringToHash("ResourceValue");
+
+        #endregion
     
 
         #region characters
