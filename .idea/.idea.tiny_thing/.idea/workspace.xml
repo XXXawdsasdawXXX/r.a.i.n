@@ -2,25 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Float2JsonConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Float2JsonConverter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/JsonExtension.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/JsonExtension.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/shelf/window-connection_prefab.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/shelf/window-connection_prefab.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/VectorExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/VectorExtension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/Float2Converter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/Float2Converter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveSettings.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/WorldModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/WorldModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/Data/ResourceConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/Data/ResourceConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourcesManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Harvest/ResourcesManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Time/GameTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Time/GameTime.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/GameResources/resource_STRAWBERRY.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/GameResources/resource_STRAWBERRY.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIText.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIText.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/inputField-.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/inputField-.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/text-.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/text-.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/text_small-.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/text_small-.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/window-connection.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/window-connection.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Bootstrap.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Bootstrap.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,10 +107,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="32860">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="32860" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -193,6 +184,7 @@
       <workItem from="1749300174971" duration="1474000" />
       <workItem from="1749380699200" duration="148000" />
       <workItem from="1749385078206" duration="2780000" />
+      <workItem from="1749412177967" duration="1336000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>
