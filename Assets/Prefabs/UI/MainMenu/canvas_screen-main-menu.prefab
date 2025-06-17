@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6833679729046101446}
   m_Layer: 5
-  m_Name: windows-informations
+  m_Name: =====windows-informations=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6529171145950791060}
   m_Layer: 5
-  m_Name: window_game-save
+  m_Name: =====window_game-save=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 7871521458400798874}
   - component: {fileID: 6062268962722184870}
   m_Layer: 5
-  m_Name: contentBox-game
+  m_Name: =====contentBox-game=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -993,7 +993,7 @@ GameObject:
   - component: {fileID: 4444285294756952701}
   - component: {fileID: 4738503302699358437}
   m_Layer: 5
-  m_Name: grid-view
+  m_Name: =====grid-view=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1131,7 +1131,7 @@ GameObject:
   - component: {fileID: 3823248606535646754}
   - component: {fileID: 5688237876127792361}
   m_Layer: 5
-  m_Name: contentBox-heroes
+  m_Name: =====contentBox-heroes=====
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

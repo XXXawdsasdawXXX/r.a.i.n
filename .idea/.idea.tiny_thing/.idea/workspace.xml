@@ -1,104 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveContainer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveContainer.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioGroup.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioGroup.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioTextTabGroup.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioTextTabGroup.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIScrollButtons.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIScrollButtons.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/GameEntities.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/GameEntities/UIHeroCardView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/GameEntities/UIHeroCardView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Selected.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Selected/UISelectable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Selected/UISelectable.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Selected/UISelectableAnimation.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Selected/UISelectableAnimation.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Selected/UISelectableAnimation_ColorImage.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Selected/UISelectableAnimation_ColorImage.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Data.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Data/UISettings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Data/UISettings.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/IWindowController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/IWindowController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection.Legacy.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection/ConnectionWindowController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection/ConnectionWindowController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/DeleteHero.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/DeleteHero/DeleteHeroWindowController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/DeleteHero/DeleteHeroWindowController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/DeleteHero/DeleteHeroWindowView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/DeleteHero/DeleteHeroWindowView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Game.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Game/GameWindowController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Game/GameWindowView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Game/GameWindowView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/HeroSettings.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/HeroSettings/HeroSettingsWindowController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/HeroSettings/HeroSettingsWindowController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/HeroSettings/HeroSettingsWindowView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/HeroSettings/HeroSettingsWindowView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowView.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetKey.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetKey.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Assets/AssetLibrary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Libraries/Assets/AssetLibrary.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/NetworkPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/NetworkPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SettingsModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SettingsModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/MainMenuState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/MainMenuState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIButton.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIButton.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIDropDown.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIDropDown.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIElementPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIElementPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIImage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIImage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIResourceBoxView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/GameEntities/UIResourceBoxView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIResourceBoxView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/GameEntities/UIResourceBoxView.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIText.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIText.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/UI.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/UI.asmdef" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Connection.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Connection/ConnectionWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection.Legacy/Legacy_ConnectionWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Connection/ConnectionWindowController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection.Legacy/Legacy_ConnectionWindowController.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Connection/ConnectionWindowView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection.Legacy/Legacy_ConnectionWindowView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Connection/ConnectionWindowView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection.Legacy/Legacy_ConnectionWindowView.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Configurations/Library_Asset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Configurations/Library_Asset.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/canvas_screen-.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/canvas_screen-.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/scrollView-.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Components/scrollView-.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave/infoCard-hero.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave/infoCard-hero.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave/textTab-hero-preview.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave/textTab-hero-preview.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/window-connection.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/window-connection.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Storage_Config.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Storage_Config.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/000webfont SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/000webfont SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/UI.csproj.DotSettings" afterDir="false" />
-    </list>
+    <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -279,7 +182,7 @@
       <workItem from="1749894979504" duration="2947000" />
       <workItem from="1749910134591" duration="1697000" />
       <workItem from="1749987688002" duration="10167000" />
-      <workItem from="1750175446125" duration="2937000" />
+      <workItem from="1750175446125" duration="3300000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>
