@@ -5,6 +5,7 @@ using CoreGame.Entities.Characters.Interfaces;
 using Cysharp.Threading.Tasks;
 using Essential;
 using FishNet.Object;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace CoreGame.Entities.Characters.Hero
@@ -53,14 +54,13 @@ namespace CoreGame.Entities.Characters.Hero
             }
         }
         
-        [ServerRpc] public void StartEat() => 
+        [Button, ServerRpc] public void StartEat() => 
             _animator.SetBool(AnimatorKey.PARAM_EAT, true);
-        [ServerRpc] public void StopEat() => 
+        [Button, ServerRpc] public void StopEat() => 
             _animator.SetBool(AnimatorKey.PARAM_EAT, false);
-        [ServerRpc] public void StartMine(AnimatorKey.EHarvestType harvestType) => 
+        [Button, ServerRpc] public void StartMine(AnimatorKey.EHarvestType harvestType) => 
             _animator.SetInteger(AnimatorKey.PARAM_HARVEST_TYPE, (int)harvestType);
-
-        [ServerRpc] public void StopMine() => 
+        [Button, ServerRpc] public void StopMine() => 
             _animator.SetInteger(AnimatorKey.PARAM_HARVEST_TYPE, 0);
 
         [ServerRpc]

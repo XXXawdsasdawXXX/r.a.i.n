@@ -33,7 +33,17 @@ namespace UI.Components
         {
             _audio.OneShot(AudioEventLibrary.BUTTON_DOWN);   
         }
-        
+
+        protected override void onEnter()
+        {
+            base.onEnter();
+        }
+
+        protected override void onExit()
+        {
+            base.onExit();
+        }
+
         public void OnPointerUp(PointerEventData eventData)
         {
             _audio.OneShot(AudioEventLibrary.BUTTON_UP);
