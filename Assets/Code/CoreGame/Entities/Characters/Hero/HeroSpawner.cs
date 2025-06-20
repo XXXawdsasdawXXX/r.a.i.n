@@ -16,7 +16,6 @@ namespace CoreGame.Entities.Characters.Hero
     {
         private readonly Dictionary<NetworkConnection, NetworkObject> _heroes = new();
 
-        
         public void Subscribe()
         {
             networkManager.SceneManager.OnClientLoadedStartScenes += _sceneManagerOnClientLoadedStartScenes;
@@ -35,7 +34,6 @@ namespace CoreGame.Entities.Characters.Hero
 
             _heroes[connection] = instance;
             
-           
             _initializeHeroComponents(instance);
             
             _setUserHero(connection, instance);

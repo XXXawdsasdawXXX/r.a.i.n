@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.GameLoop;
 using Core.ServiceLocator;
+using Cysharp.Threading.Tasks;
 
 namespace Core.StateMachine
 {
@@ -20,22 +21,7 @@ namespace Core.StateMachine
                 { typeof(CoreGameState) , new CoreGameState()}
             };
             
-            SetState(typeof(BootstrapState));
-            
-        }
-        
-        private async void SetState(Type type)
-        {
-            _currentState = _states[type];
-
-            if (!_currentState.IsInitialized)
-            {
-                await _currentState.Initialize();
-
-                _currentState.IsInitialized = true;
-            }
-            
-            await _states[type].Enter();
+            _setState(typeof(BootstrapState)).Forget();
         }
 
         public async void SwitchState(Type type)
@@ -44,7 +30,12 @@ namespace Core.StateMachine
             {
                 await _currentState.Exit();
             }
-            
+
+            await _setState(type);
+        }
+
+        private async UniTask _setState(Type type)
+        {
             _currentState = _states[type];
 
             if (!_currentState.IsInitialized)

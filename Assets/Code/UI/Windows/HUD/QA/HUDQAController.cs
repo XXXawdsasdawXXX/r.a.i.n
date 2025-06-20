@@ -22,13 +22,13 @@ namespace UI.Windows.HUD.QA
         private Health _heroHealth;
         private UserProvider _userProvider;
 
-        public override UniTask InitializeWindow()
+        public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _resourceStorage = Container.Instance.GetService<ResourceStorage>();
 
             _userProvider = Container.Instance.GetService<UserProvider>();
 
-            return UniTask.CompletedTask;
+            return base.InitializeWindow(manager);
         }
 
         public override void StartWindow()

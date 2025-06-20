@@ -23,17 +23,17 @@ namespace UI.World
 
         public void Subscribe()
         {
-            _personName.Changed += SetName;
+            _personName.Changed += _setName;
         }
 
         public void Unsubscribe()
         {
-            _personName.Changed -= SetName;
+            _personName.Changed -= _setName;
         }
 
-        private void SetName(string objectName)
+        private void _setName(string objectName)
         {
-            Log.Info($"3", this);
+            Log.Info($"{objectName}", this);
             
             _uiText.SetText(objectName);
         }

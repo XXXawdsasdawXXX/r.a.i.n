@@ -21,31 +21,31 @@ namespace UI.Windows.MainMenu.Game
         private ConnectionHandler _connectionHandler;
         private GameStateMachine _gameStateMachine;
 
-        public override UniTask InitializeWindow()
+        public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameModel = Container.Instance.GetService<GameModel>();
             _connectionHandler = Container.Instance.GetService<ConnectionHandler>();
             _gameStateMachine = Container.Instance.GetService<GameStateMachine>();
+
+            _heroWindow = manager.GetWindow<HeroWindowController>();
             
             view.WorldsRadioGroup.Initialize();
             
-            return UniTask.CompletedTask;
+            return base.InitializeWindow(manager);
         }
 
         public override void LoadWindow(GameModel model)
         {
             view.TextUserIP.SetText($"IP: {ConnectionHandler.GetLocalIPAddress()}");
             
-            _updateObjectLockerState();
-            
-            _updateWorldList();
+            _updateView();
         }
 
         public override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
-                windowManager.GetWindow<HeroWindowController>().HeroListChanged += _updateObjectLockerState;
+                _heroWindow.HeroListChanged += _updateObjectLockerState;
             
                 view.ButtonContinue.Clicked += _continueGame;
                 view.ButtonJoin.Clicked += _openJoinWindow;
@@ -54,7 +54,7 @@ namespace UI.Windows.MainMenu.Game
             }
             else
             {
-                windowManager.GetWindow<HeroWindowController>().HeroListChanged -= _updateObjectLockerState;
+                _heroWindow.HeroListChanged -= _updateObjectLockerState;
             
                 view.ButtonContinue.Clicked -= _continueGame;
                 view.ButtonJoin.Clicked -= _openJoinWindow;
@@ -62,7 +62,6 @@ namespace UI.Windows.MainMenu.Game
                 view.WorldsRadioGroup.Selected -= _changeSelectedWorld;
             }
         }
-
         private void _continueGame()
         {
             _connectionHandler.StartHost();
@@ -90,20 +89,26 @@ namespace UI.Windows.MainMenu.Game
             GUIUtility.systemCopyBuffer = $"{ConnectionHandler.GetLocalIPAddress()}";
         }
 
-        private void _updateWorldList()
+        private void _updateView()
         {
+            _updateObjectLockerState();
+            
             if (_gameModel.Worlds.Count > _gameModel.LastWorldIndex.Value)
             {
-                view.WorldsRadioGroup.Pool.DisableAll();
-            
-                foreach (WorldModel modelWorld in _gameModel.Worlds)
+                view.WorldsRadioGroup.Clear();
+                
+                for (int i = 0; i < _gameModel.Worlds.Count; i++)
                 {
+                    WorldModel modelWorld = _gameModel.Worlds[i];
                     UIText worldTabView = view.WorldsRadioGroup.Pool.GetNext();
-                
+
                     worldTabView.SetText(modelWorld.Name);
+                    worldTabView.SetIndex(i);
                 }
+
+                view.WorldsRadioGroup.Select(_gameModel.LastWorldIndex.Value);
                 
-                view.WorldsRadioGroup.Pool.Enabled[_gameModel.LastWorldIndex.Value].Select();
+                view.WorldsRadioGroup.Pool.SortByIndex();
             }
             
             view.ButtonContinue.SetInteractable(_gameModel.Worlds.Count > _gameModel.LastWorldIndex.Value);

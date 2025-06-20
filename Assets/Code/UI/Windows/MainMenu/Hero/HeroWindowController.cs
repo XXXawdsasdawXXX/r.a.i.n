@@ -20,13 +20,13 @@ namespace UI.Windows.MainMenu.Hero
         private GameModel _gameModel;
 
 
-        public override UniTask InitializeWindow()
+        public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameModel = Container.Instance.GetService<GameModel>();
             
             view.HeroesRadioGroup.Initialize();
             
-            return UniTask.CompletedTask;
+            return base.InitializeWindow(manager);
         }
 
         public override void LoadWindow(GameModel model)

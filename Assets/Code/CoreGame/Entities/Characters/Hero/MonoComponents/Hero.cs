@@ -12,7 +12,8 @@ namespace CoreGame.Entities.Characters.Hero
 {
     public class Hero : Character, ISubscriber
     {
-
+        public HeroModel Model { get; private set; }
+        
         [field: Header("Unity components")]
         [field: SerializeField] public Rigidbody2D Rigidbody { get; private set; }
         
@@ -24,8 +25,6 @@ namespace CoreGame.Entities.Characters.Hero
         [field: SerializeField] public HeroColor Color { get; private set; }
         [field: SerializeField] public HeroAnimation Animation { get; private set; }
         [field: SerializeField] public HeroItemController ItemController { get; private set; }
-        
-        private HeroModel _model;
         
         public override void OnStartClient()
         {
@@ -39,7 +38,7 @@ namespace CoreGame.Entities.Characters.Hero
                 Debug.Log($"[HeroClientTracker] Set local hero: {gameObject.name}");
             }*/
         }
-
+        
         public override void InitializeComponents()
         {
             Log.Info(this, $"Initialize components {IsOwner}", UnityEngine.Color.black);
@@ -49,7 +48,7 @@ namespace CoreGame.Entities.Characters.Hero
                 InputManager input = Container.Instance.GetService<InputManager>();
                 HeroSettings heroSettings = Container.Instance.GetConfig<HeroSettings>();
                 
-                _model = Container.Instance.GetService<GameModel>().Hero; 
+                Model = Container.Instance.GetService<GameModel>().GetCurrentHeroModel(); 
                 
                 Movement movement = new(Rigidbody, input.Direction, heroSettings.MoveSpeed);
                 Components.Add(typeof(Movement), movement);
@@ -65,7 +64,8 @@ namespace CoreGame.Entities.Characters.Hero
                 miner.Condition.Add(() => input.Direction.Value == Vector2.zero);
                 miner.Condition.Add(() => Health.Current > 0);
                 
-                Health.Set(_model.Health);
+                Health.Set(Model.Health);
+                Name.SetName(Model.Name);
             }
 
             IsConstructed = true;
@@ -77,16 +77,16 @@ namespace CoreGame.Entities.Characters.Hero
         }
 
         public void Unsubscribe()
-        {
+        {   
             Health.Changed -= _onHealthChanged;
         }
 
         private void _onHealthChanged()
         {
-            Log.Info(this, $"{_model == null} {Health == null}");
-            if (IsOwner && _model != null)
+            Log.Info(this, $"{Model == null} {Health == null}");
+            if (IsOwner && Model != null)
             {
-                _model.Health = Health.Current;
+                Model.Health = Health.Current;
             }
         }
     }

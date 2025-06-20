@@ -49,6 +49,16 @@ namespace UI.Components
             newSelectedElement.Select();
         }
 
+        public void Clear()
+        {
+            foreach (T selectable in Pool.All)
+            {
+                selectable.Deselect();
+            }
+            
+            Pool.DisableAll();
+        }
+
         private void _updateSubscriptionToButtons()
         {
             foreach (T element in Pool.All)

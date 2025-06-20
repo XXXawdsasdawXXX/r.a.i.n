@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Core.Save;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace Core.GameLoop
 
         private SaveService _saveService;
         private GameModel _gameModel;
-        
+
         private bool _isStarted;
 
         public void Initialize()
@@ -34,7 +35,7 @@ namespace Core.GameLoop
             _saveService = Container.Instance.GetService<SaveService>();
             _gameModel = Container.Instance.GetService<GameModel>();
         }
-        
+
         private void Update()
         {
             if (_isStarted)
@@ -55,7 +56,7 @@ namespace Core.GameLoop
         {
             _notifyGameExit();
         }
-        
+
         public async UniTask Register(List<IGameListener> listeners)
         {
             _addListeners(listeners);
@@ -70,10 +71,26 @@ namespace Core.GameLoop
 
         public void Dispose()
         {
+   
             foreach (ISubscriber subscriber in _subscribers)
             {
                 subscriber.Unsubscribe();
             }
+
+            _saveService.Save();
+            
+            _listeners.Clear();
+            _initListeners.Clear();
+            _loadListeners.Clear();
+            _startListeners.Clear();
+            _updateListeners.Clear();
+            _fixedUpdateListeners.Clear();
+            _exitListeners.Clear();
+            _subscribers.Clear();
+            /*foreach (IGameListener listener in listeners)  
+      {
+          RemoveListener(listener);
+      }*/
 
             _isStarted = false;
         }
@@ -111,7 +128,7 @@ namespace Core.GameLoop
 
                 _subscribers.Add(subscriber);
             }
-            
+
             if (listener is ILoadListener loadListener)
             {
                 await loadListener.GameLoad(_gameModel);
@@ -123,7 +140,7 @@ namespace Core.GameLoop
             {
                 await startListener.GameStart();
             }
-            
+
             if (listener is IUpdateListener updateListener) _updateListeners.Add(updateListener);
 
             if (listener is IFixedUpdateListener fixedUpdateListener) _fixedUpdateListeners.Add(fixedUpdateListener);
@@ -162,14 +179,14 @@ namespace Core.GameLoop
             {
                 _fixedUpdateListeners.Remove(fixedUpdateListener);
             }
-            
+
             if (listener is ISubscriber subscriber)
             {
                 subscriber.Unsubscribe();
 
                 _subscribers.Remove(subscriber);
             }
-            
+
             if (listener is IExitListener exitListener)
             {
                 _exitListeners.Remove(exitListener);
@@ -256,7 +273,7 @@ namespace Core.GameLoop
         private async UniTask _notifyGameStart()
         {
             await UniTask.WaitUntil(() => InstanceFinder.IsClientStarted);
-            
+
             ProfilerMarker marker = new("_notifyGameStart");
             marker.Begin();
 

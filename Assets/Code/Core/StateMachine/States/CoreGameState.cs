@@ -14,11 +14,11 @@ namespace Core.StateMachine
 {
     public class CoreGameState : IState
     {
-        public bool IsInitialized { get;set; }
+        public bool IsInitialized { get; set; }
 
         private InstallerStorage _installerStorage;
         private AssetLibrary _assetLibrary;
-        
+
         private SceneService _sceneService;
         private GameEventDispatcher _gameEventDispatcher;
 
@@ -29,42 +29,41 @@ namespace Core.StateMachine
         {
             _sceneService = Container.Instance.GetService<SceneService>();
             _gameEventDispatcher = Container.Instance.GetService<GameEventDispatcher>();
-            
+
             _installerStorage = Container.Instance.GetConfig<InstallerStorage>();
             _assetLibrary = Container.Instance.GetConfig<AssetLibrary>();
-            
+
             return UniTask.CompletedTask;
         }
 
         public async UniTask Enter()
         {
             await _sceneService.LoadSceneAsync(EScene.Game_0); //todo use player progress
-            
+
             _coreEntities.Add(AssetProvider.Instantiate(_assetLibrary.UICanvases.Get(AssetKey.CANVAS_CORE_GAME)));
 
             Container.Instance.Context.BuildChildContext(_installerStorage.CoreGameInstaller.GetTypes());
-            
+
             Log.Info(this, "build child context");
-            Container.Instance.Context.Child.BuildChildContext();
-           
+
             await _gameEventDispatcher.Register(Container.Instance.GetGameListeners());
-            
+
             SubscribeToEvents(true);
         }
 
-        public  UniTask Exit()
+        public UniTask Exit()
         {
-            SubscribeToEvents(false);
+            _gameEventDispatcher.Dispose();
             
-             _gameEventDispatcher.Dispose();
+            SubscribeToEvents(false);
 
             foreach (GameObject entity in _coreEntities)
             {
                 Object.Destroy(entity);
             }
-            
+
             _coreEntities.Clear();
-            
+
             return UniTask.CompletedTask;
         }
 
@@ -85,13 +84,11 @@ namespace Core.StateMachine
         private async void OnSwitchScene(EScene obj)
         {
             Log.Info(this, $"On switch scene {obj}", Color.magenta);
-            
-             _gameEventDispatcher.Dispose();
 
-          
-             
+            _gameEventDispatcher.Dispose();
+
             Container.Instance.Context.Child.BuildChildContext(_installerStorage.GetSceneInstaller(obj)?.GetTypes());
-         
+
             await _gameEventDispatcher.Register(Container.Instance.GetGameListeners());
         }
     }

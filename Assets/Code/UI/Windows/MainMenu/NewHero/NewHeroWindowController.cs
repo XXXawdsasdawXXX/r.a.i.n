@@ -1,9 +1,9 @@
 ﻿using System;
-using Core.GameLoop;
 using Core.Save;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using UI.Windows.Base;
+using UI.Windows.MainMenu.DeleteHero;
 
 namespace UI.Windows.MainMenu.NewHero
 {
@@ -14,12 +14,14 @@ namespace UI.Windows.MainMenu.NewHero
         public bool IsInitialized { get; set; }
 
         private GameModel _gameModel;
-        
-        public override UniTask InitializeWindow()
+        private DeleteWindowController _deleteWIndow;
+
+        public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameModel = Container.Instance.GetService<GameModel>();
-            
-            return UniTask.CompletedTask;
+            _deleteWIndow = manager.GetWindow<DeleteWindowController>();
+
+            return base.InitializeWindow(manager);
         }
 
         public override void SubscribeToEvents(bool flag)

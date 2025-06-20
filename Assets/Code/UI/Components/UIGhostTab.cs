@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace UI.Components
 {
-    public class UIGhostTab : Essential.Mono, /*IPoolableUIElement,*/IStartListener
+    public class UIGhostTab : Essential.Mono /*IPoolableUIElement,*/
     {
         public bool IsInitialized { get; set; }
 
@@ -16,19 +16,16 @@ namespace UI.Components
         [SerializeField] private GameObject _root;
         [SerializeField] private RectTransform _body;
         [SerializeField] private UISettings _uiSettings;
-
- 
-
+        
         private float _originY;
         private Sequence _sequence;
+        
 
- 
-
-        public UniTask GameStart()
+        /*public UniTask GameStart()
         {
             _originY = _body.localPosition.y;
             return UniTask.CompletedTask;
-        }
+        }*/
 
         [Button]
         public void Enable()

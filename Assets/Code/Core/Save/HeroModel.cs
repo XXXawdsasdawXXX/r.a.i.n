@@ -9,8 +9,7 @@ namespace Core.Save
         public float Health;
         public TimeSpan GameTime;
         public TimeSpan LastGameExitTime;
-        
-        
+
         public HeroModel()
         {
             Name = "name";

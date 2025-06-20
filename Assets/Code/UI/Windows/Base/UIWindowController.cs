@@ -7,20 +7,12 @@ namespace UI.Windows.Base
     public abstract class UIWindowController<UIView> : Essential.Mono, IWindowController where UIView : UIWindowView
     {
         [SerializeField] protected UIView view;
-        [SerializeField] protected UIWindowManager windowManager;
-
-        protected void OnEnable()
+        protected UIWindowManager windowManager;
+        
+        public virtual UniTask InitializeWindow(UIWindowManager manager)
         {
-            SubscribeToEvents(true);
-        }
+            windowManager = manager;
 
-        private void OnDisable()
-        {
-            SubscribeToEvents(false);
-        }
-
-        public virtual UniTask InitializeWindow()
-        {
             return UniTask.CompletedTask;
         }
 

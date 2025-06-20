@@ -40,11 +40,23 @@ namespace Core.Save
             Heroes = model?.Heroes ?? new List<HeroModel>();
             Worlds = model?.Worlds ?? new List<WorldModel>();
             
-            LastWorldIndex = model.LastWorldIndex ?? new ReactiveProperty<int>(0);
-            LastHeroIndex = model.LastHeroIndex ?? new ReactiveProperty<int>(0);
+            LastWorldIndex = model?.LastWorldIndex ?? new ReactiveProperty<int>(0);
+            LastHeroIndex = model?.LastHeroIndex ?? new ReactiveProperty<int>(0);
 
             GameEnterTime = model?.GameEnterTime ?? default;
             GameExitTime = model?.GameExitTime ?? default;
+        }
+
+        public HeroModel GetCurrentHeroModel()
+        {
+            if (LastHeroIndex.Value < Heroes.Count)
+            {
+                return Heroes[LastHeroIndex.Value];
+            }
+
+            throw new Exception($"Model has error with hero index. " +
+                                $"Index = {LastWorldIndex.Value}. " +
+                                $"Heroes count = {Heroes.Count}");
         }
     }
 }

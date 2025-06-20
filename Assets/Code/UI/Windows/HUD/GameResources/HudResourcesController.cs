@@ -16,7 +16,7 @@ namespace UI.Windows.HUD.GameResources
        
         private Dictionary<EResource, UIResourceBoxView> _resourcesView;
 
-        public override UniTask InitializeWindow()
+        public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _resourceStorage = Container.Instance.GetService<ResourceStorage>();
             _resourcesView = new Dictionary<EResource, UIResourceBoxView>();
@@ -28,7 +28,7 @@ namespace UI.Windows.HUD.GameResources
                 _resourcesView.Add(resourceBox.ResourceType, resourceBox);
             }
             
-            return UniTask.CompletedTask;
+            return base.InitializeWindow(manager);
         }
 
         public override void StartWindow()

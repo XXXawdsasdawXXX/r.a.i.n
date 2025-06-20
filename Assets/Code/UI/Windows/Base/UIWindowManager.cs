@@ -17,9 +17,8 @@ namespace UI.Windows.Base
         private readonly Dictionary<Type, IWindowController> _windowControllers = new();
         
         private IWindowController _openedWindow;
-
-
-        public UniTask Initialize()
+        
+        public async UniTask Initialize()
         {
             _windows = GetComponentsInChildren<IWindowController>(true);
             
@@ -28,11 +27,12 @@ namespace UI.Windows.Base
                 Type type = windowController.GetType();
                 
                 _windowControllers.Add(type, windowController);
-
-                windowController.InitializeWindow();
             }
             
-            return UniTask.CompletedTask;
+            foreach (IWindowController windowController in _windows)
+            {
+                await windowController.InitializeWindow(this);
+            }
         }
 
         public UniTask GameStart()

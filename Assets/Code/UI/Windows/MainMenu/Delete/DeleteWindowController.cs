@@ -16,11 +16,11 @@ namespace UI.Windows.MainMenu.DeleteHero
       
         private GameModel _gameModel;
 
-        public override UniTask InitializeWindow()
+        public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameModel = Container.Instance.GetService<GameModel>();
             
-            return UniTask.CompletedTask;
+            return base.InitializeWindow(manager);
         }
 
         public override void SubscribeToEvents(bool flag)

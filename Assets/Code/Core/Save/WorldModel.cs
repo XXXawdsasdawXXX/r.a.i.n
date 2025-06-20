@@ -7,8 +7,8 @@ namespace Core.Save
     public class WorldModel
     {
         public string Name;
-        public TimeSpan CreateTime;
-        public TimeSpan ExitTime;
+        public DateTime CreateTime;
+        public DateTime ExitTime;
         public TimeSpan GameTime;
         public Dictionary<int, int> ResourcesStorage = new();
         public Dictionary<string, int> SceneResources = new();

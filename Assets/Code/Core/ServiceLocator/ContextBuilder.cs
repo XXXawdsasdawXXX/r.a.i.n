@@ -20,12 +20,12 @@ namespace Core.ServiceLocator
             
             foreach (Essential.Mono mono in newContext.Objects)
             {
-                _registry(mono, newContext);
+                _registryTypes(mono, newContext);
             }
 
             foreach (Type type in allTypes) 
             {
-                _createAndRegistry(type, newContext);
+                _createAndRegistryType(type, newContext);
             }
 
             return newContext;
@@ -33,11 +33,13 @@ namespace Core.ServiceLocator
         
         internal static void BuildChildContext(this ContextEntities existingContext)
         {
-            existingContext.SetChildContext(BuildContext(existingContext));
+            existingContext.Child = null;
+            existingContext.SetChildContext(_buildContext(existingContext));
         }
 
         internal static void BuildChildContext(this ContextEntities existingContext, Type[] allTypes)
         {
+            existingContext.Child = null;
             existingContext.SetChildContext(BuildContext(existingContext, allTypes));
         }
 
@@ -45,7 +47,7 @@ namespace Core.ServiceLocator
         {
             if (allTypes == null)
             {
-                return BuildContext(existingContext);
+                return _buildContext(existingContext);
             }
             
             ContextEntities newContext = new()
@@ -66,18 +68,18 @@ namespace Core.ServiceLocator
             
             foreach (Essential.Mono mono in newContext.Objects)
             {
-                _registry(mono, existingContext, newContext);
+                _registryTypes(mono, existingContext, newContext);
             }
 
             foreach (Type type in allTypes) 
             {
-                _createAndRegistry(type, existingContext, newContext);
+                _createAndRegistryType(type, existingContext, newContext);
             }
 
             return newContext;
         }
-        
-        internal static ContextEntities BuildContext(ContextEntities existingContext)
+
+        private static ContextEntities _buildContext(ContextEntities existingContext)
         {
             ContextEntities newContext = new()
             {
@@ -97,13 +99,13 @@ namespace Core.ServiceLocator
             
             foreach (Essential.Mono mono in newContext.Objects)
             {
-                _registry(mono, existingContext, newContext);
+                _registryTypes(mono, existingContext, newContext);
             }
 
             return newContext;
         }
 
-        private static void _registry(Essential.Mono mono, ContextEntities existingContext, ContextEntities newContext)
+        private static void _registryTypes(Essential.Mono mono, ContextEntities existingContext, ContextEntities newContext)
         {
             Type type = mono.GetType();
 
@@ -126,27 +128,7 @@ namespace Core.ServiceLocator
             }
         }
 
-        private static void _createAndRegistry(Type type, ContextEntities existingContext, ContextEntities newContext)
-        {
-            if (typeof(IService).IsAssignableFrom(type) && !existingContext.ContainsService(type)
-                                                        && !typeof(Essential.Mono).IsAssignableFrom(type)
-                                                        && !type.IsAbstract)
-            {
-                IService instance = (IService)Activator.CreateInstance(type);
-                newContext.Services[type] = instance;
-            }
-
-            else if (typeof(IMono).IsAssignableFrom(type) && !existingContext.ContainsMono(type)
-                                                          && !typeof(Essential.Mono).IsAssignableFrom(type)
-                                                          && !type.IsAbstract)
-            {
-                IMono instance = (IMono)Activator.CreateInstance(type);
-                newContext.Mono[type] = instance;
-            }
-        }
-        
-        
-        private static void _registry(Essential.Mono mono, ContextEntities context)
+        private static void _registryTypes(Essential.Mono mono, ContextEntities context)
         {
             Type type = mono.GetType();
 
@@ -166,7 +148,27 @@ namespace Core.ServiceLocator
             }
         }
 
-        private static void _createAndRegistry(Type type, ContextEntities newContext)
+        private static void _createAndRegistryType(Type type, ContextEntities existingContext, ContextEntities newContext)
+        {
+            if (typeof(IService).IsAssignableFrom(type) && !existingContext.ContainsService(type)
+                                                        && !typeof(Essential.Mono).IsAssignableFrom(type)
+                                                        && !type.IsAbstract)
+            {
+                IService instance = (IService)Activator.CreateInstance(type);
+                newContext.Services[type] = instance;
+            }
+
+            else if (typeof(IMono).IsAssignableFrom(type) && !existingContext.ContainsMono(type)
+                                                          && !typeof(Essential.Mono).IsAssignableFrom(type)
+                                                          && !type.IsAbstract)
+            {
+                IMono instance = (IMono)Activator.CreateInstance(type);
+                newContext.Mono[type] = instance;
+            }
+        }
+
+
+        private static void _createAndRegistryType(Type type, ContextEntities newContext)
         {
             if (typeof(IService).IsAssignableFrom(type) && !typeof(Essential.Mono).IsAssignableFrom(type)
                                                         && !type.IsAbstract)
@@ -182,6 +184,5 @@ namespace Core.ServiceLocator
                 newContext.Mono[type] = instance;
             }
         }
-        
     }
 }

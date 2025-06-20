@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using log4net.Filter;
 
 namespace Core.ServiceLocator
 {
@@ -53,7 +52,7 @@ namespace Core.ServiceLocator
         
         public bool ContainsObject(Essential.Mono mono)
         {
-            Objects.RemoveAll(o => o == null);
+            Objects.RemoveAll(o => o == null || !o.gameObject);
             
             if (Objects.Contains(mono))
             {

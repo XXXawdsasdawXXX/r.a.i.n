@@ -5,7 +5,7 @@ namespace UI.Windows.Base
 {
     public interface IWindowController
     {
-        public UniTask InitializeWindow();
+        public UniTask InitializeWindow(UIWindowManager manager);
         
         public void LoadWindow(GameModel model);
 

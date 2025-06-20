@@ -15,7 +15,7 @@ namespace UI.Windows.MainMenu.Connection.Legacy
         
         private GameStateMachine _gameStateMachine;
 
-        public override UniTask InitializeWindow()
+        public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameStateMachine = Container.Instance.GetService<GameStateMachine>();
             
@@ -26,7 +26,7 @@ namespace UI.Windows.MainMenu.Connection.Legacy
             view.InputFieldHostIP.SetTextWithoutNotify(
                 PlayerPrefs.GetString(ConnectionHandler.SAVE_KEY, view.InputFieldHostIP.Value));
             
-            return UniTask.CompletedTask;
+            return base.InitializeWindow(manager);
         }
         
         public override void SubscribeToEvents(bool flag)

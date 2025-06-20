@@ -11,20 +11,20 @@ namespace Core.StateMachine
     public class MainMenuState : IState
     {
         public bool IsInitialized { get; set; }
-        
+
         private GameEventDispatcher _gameEventDispatcher;
         private SceneService _sceneService;
-        
+
         private AssetLibrary _assetLibrary;
 
         public UniTask Initialize()
         {
             _gameEventDispatcher = Container.Instance.GetService<GameEventDispatcher>();
-            
+
             _sceneService = Container.Instance.GetService<SceneService>();
-            
+
             _assetLibrary = Container.Instance.GetConfig<AssetLibrary>();
-            
+
             return UniTask.CompletedTask;
         }
 
@@ -33,19 +33,19 @@ namespace Core.StateMachine
             await _sceneService.LoadSceneAsync(EScene.Menu);
 
             AssetProvider.Instantiate(_assetLibrary.UICanvases.Get(AssetKey.CANVAS_MAIN_MENU));
-
-            AssetProvider.Instantiate(_assetLibrary.SceneComponents.Get(AssetKey.CAMERA));
             
             Container.Instance.Context.BuildChildContext();
-            
+
             await _gameEventDispatcher.Register(Container.Instance.GetGameListeners());
         }
 
-        public  UniTask Exit()
+        public UniTask Exit()
         {
-             _gameEventDispatcher.Dispose();
-             
-             return UniTask.CompletedTask;
+            _gameEventDispatcher.Dispose();
+
+            Container.Instance.Context.Child = null;
+
+            return UniTask.CompletedTask;
         }
     }
 }

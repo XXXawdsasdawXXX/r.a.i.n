@@ -5,13 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Json/ReactiveIntJsonConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Json/ReactiveIntJsonConverter.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/JsonExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/JsonExtension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/WorldModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/WorldModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextEntities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextEntities.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/GameStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/GameStateMachine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/MainMenuState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/MainMenuState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Params/PersonName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Params/PersonName.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioGroup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioGroup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIElementPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIElementPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIGhostTab.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIGhostTab.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/IWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/IWindowController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs" afterDir="false" />
@@ -24,10 +33,11 @@
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewGame/NewGameWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewGame/NewGameWindowController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave/infoCard-hero.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave/infoCard-hero.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/World/UIPersonName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/World/UIPersonName.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/000webfont SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/000webfont SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +75,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Unity.Mathematics/float2.gen.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/DropdownEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Selectable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.veriorpies.parrelsync@610157ad76/Editor/ParrelSyncProjectSettings.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -235,7 +246,7 @@
       <workItem from="1750268192167" duration="8860000" />
       <workItem from="1750364969678" duration="1712000" />
       <workItem from="1750408736824" duration="12000" />
-      <workItem from="1750435858036" duration="2749000" />
+      <workItem from="1750435858036" duration="9211000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>
@@ -321,7 +332,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Code/UI/Components/UIGhostTab.cs</url>
-          <line>43</line>
+          <line>40</line>
           <properties documentPath="C:\Users\user\Documents\GitHub\tiny_thing\Assets\Code\UI\Components\UIGhostTab.cs" initialLine="47" containingFunctionPresentation="method 'Enable'">
             <startOffsets>
               <option value="976" />
@@ -334,13 +345,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs</url>
-          <line>83</line>
+          <line>82</line>
           <properties documentPath="C:\Users\user\Documents\GitHub\tiny_thing\Assets\Code\UI\Windows\MainMenu\Hero\HeroWindowController.cs" initialLine="88" containingFunctionPresentation="method '_updateSelectedHeroView'">
             <startOffsets>
-              <option value="2690" />
+              <option value="2701" />
             </startOffsets>
             <endOffsets>
-              <option value="2730" />
+              <option value="2741" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="15" />

@@ -35,10 +35,13 @@ namespace Core.StateMachine
         {
             InstallerStorage installerStorage = await AssetProvider
                 .LoadScriptableObject<InstallerStorage>(AssetKey.INSTALLER_STORAGE_PATH);
+            
             ConfigStorage configStorage = await AssetProvider
                 .LoadScriptableObject<ConfigStorage>(AssetKey.CONFIG_STORAGE_PATH);
 
             AssetLibrary assetLibrary = configStorage.Get<AssetLibrary>();
+
+            AssetProvider.Instantiate(assetLibrary.SceneComponents.Get(AssetKey.CAMERA));
 
             if (Log.PROFILER_IS_ACTIVE)
             {
@@ -47,9 +50,10 @@ namespace Core.StateMachine
 
             ContextEntities projectContext = ContextBuilder.BuildContext(installerStorage.ProjectsInstaller.GetTypes());
             projectContext.Services.Add(typeof(GameStateMachine), _gameStateMachine);
+            
             Container container = new(projectContext);
-
             container.AddConfig(installerStorage);
+            
             foreach (ScriptableObject config in configStorage.Configs)
             {
                 container.AddConfig(config);

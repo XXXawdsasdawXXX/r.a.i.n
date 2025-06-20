@@ -16,13 +16,13 @@ namespace UI.Windows.HUD
         private Cache<int> _lastUpdateMinute;
         private float _currentValue;
 
-        public override UniTask InitializeWindow()
+        public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameTime = Container.Instance.GetService<GameTime>();
 
             _lastUpdateMinute = new Cache<int>();
 
-            return UniTask.CompletedTask;
+            return base.InitializeWindow(manager);
         }
 
         public override void StartWindow()
