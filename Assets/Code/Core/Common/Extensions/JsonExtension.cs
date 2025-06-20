@@ -15,7 +15,8 @@ namespace Core.Extensions
             NullValueHandling = NullValueHandling.Ignore,
             Converters = new List<JsonConverter>()
             {
-                new Float2JsonConverter()
+                new Float2JsonConverter(),
+                new ReactiveFloatJsonConverter()
             }
         };
 

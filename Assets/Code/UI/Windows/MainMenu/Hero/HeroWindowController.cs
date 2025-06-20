@@ -86,7 +86,7 @@ namespace UI.Windows.MainMenu.Hero
 
         private void _updateSelectedHeroView(int heroIndex)
         {
-            if (_gameModel.Heroes.Count > heroIndex && _gameModel.LastHeroIndex != heroIndex)
+            if (_gameModel.Heroes.Count > heroIndex)
             {
                 _gameModel.LastHeroIndex = heroIndex;
                 view.BodyHeroView.SetActive(true);
@@ -104,9 +104,11 @@ namespace UI.Windows.MainMenu.Hero
         {
             view.HeroesRadioGroup.Pool.DisableAll();
 
-            foreach (HeroModel heroModel in _gameModel.Heroes)
+            for (int i = 0; i < _gameModel.Heroes.Count; i++)
             {
+                HeroModel heroModel = _gameModel.Heroes[i];
                 UIText text = view.HeroesRadioGroup.Pool.GetNext();
+                text.SetIndex(i);
                 text.SetText(heroModel.Name);
             }
         }
