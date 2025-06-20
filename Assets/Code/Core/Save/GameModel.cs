@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Data;
 using Core.ServiceLocator;
 
 namespace Core.Save
@@ -13,8 +14,8 @@ namespace Core.Save
         public List<HeroModel> Heroes;
         public List<WorldModel> Worlds;
 
-        public int LastHeroIndex;
-        public int LastWorldIndex;
+        public ReactiveProperty<int> LastHeroIndex;
+        public ReactiveProperty<int> LastWorldIndex;
         
         public DateTime GameEnterTime;
         public DateTime GameExitTime;
@@ -26,6 +27,9 @@ namespace Core.Save
             
             Heroes = new List<HeroModel>();
             Worlds = new List<WorldModel>();
+            
+            LastWorldIndex = new ReactiveProperty<int>(0);
+            LastHeroIndex = new ReactiveProperty<int>(0);
         }
         
         public void CopyFrom(GameModel model)
@@ -35,6 +39,9 @@ namespace Core.Save
             
             Heroes = model?.Heroes ?? new List<HeroModel>();
             Worlds = model?.Worlds ?? new List<WorldModel>();
+            
+            LastWorldIndex = model.LastWorldIndex ?? new ReactiveProperty<int>(0);
+            LastHeroIndex = model.LastHeroIndex ?? new ReactiveProperty<int>(0);
 
             GameEnterTime = model?.GameEnterTime ?? default;
             GameExitTime = model?.GameExitTime ?? default;

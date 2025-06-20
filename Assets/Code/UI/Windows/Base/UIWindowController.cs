@@ -1,3 +1,5 @@
+using Core.Save;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace UI.Windows.Base
@@ -9,12 +11,29 @@ namespace UI.Windows.Base
 
         protected void OnEnable()
         {
-            subscribeToEvents(true);
+            SubscribeToEvents(true);
         }
 
         private void OnDisable()
         {
-            subscribeToEvents(false);
+            SubscribeToEvents(false);
+        }
+
+        public virtual UniTask InitializeWindow()
+        {
+            return UniTask.CompletedTask;
+        }
+
+        public virtual void LoadWindow(GameModel model)
+        {
+        }
+
+        public virtual void StartWindow()
+        {
+        }
+
+        public virtual void SubscribeToEvents(bool flag)
+        {
         }
 
         public void Open()
@@ -25,10 +44,6 @@ namespace UI.Windows.Base
         public void Close()
         {
             view.Close();
-        }
-
-        protected virtual void subscribeToEvents(bool flag)
-        {
         }
 
 #if UNITY_EDITOR

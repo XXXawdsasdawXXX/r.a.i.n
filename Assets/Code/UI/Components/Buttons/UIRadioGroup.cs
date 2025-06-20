@@ -36,6 +36,19 @@ namespace UI.Components
             Pool.Changed -= _updateSubscriptionToButtons;
         }
 
+        public void Select(int index)
+        {
+            if (SelectedButtons.Count >= MaxSelectedCount)
+            {
+                T element = SelectedButtons.Dequeue();
+                element.Deselect();
+            }
+            
+            T newSelectedElement = Pool.Enabled[index];
+            SelectedButtons.Enqueue(newSelectedElement);
+            newSelectedElement.Select();
+        }
+
         private void _updateSubscriptionToButtons()
         {
             foreach (T element in Pool.All)

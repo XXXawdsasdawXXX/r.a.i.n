@@ -14,63 +14,55 @@ using UI.Windows.Base;
 
 namespace UI.Windows.HUD.QA
 {
-    public class HUDQAController : UIWindowController<HUDQAView>, IInitializeListener, IStartListener, ISubscriber
+    public class HUDQAController : UIWindowController<HUDQAView>
     {
         public bool IsInitialized { get; set; }
-       
+
         private ResourceStorage _resourceStorage;
         private Health _heroHealth;
         private UserProvider _userProvider;
 
-        public UniTask Initialize()
+        public override UniTask InitializeWindow()
         {
             _resourceStorage = Container.Instance.GetService<ResourceStorage>();
 
             _userProvider = Container.Instance.GetService<UserProvider>();
-            
+
             return UniTask.CompletedTask;
         }
 
-        public UniTask GameStart()
+        public override void StartWindow()
         {
             List<EResource> resourceTypes = Enum.GetValues(typeof(EResource)).Cast<EResource>().ToList();
 
             view.DropDownResourceType.DropDown.ClearOptions();
 
-           view.DropDownResourceType.SetOptions(resourceTypes);
-
-            return UniTask.CompletedTask;
-        }
-        
-        public void Subscribe()
-        {
-            _userProvider.HeroCreated += _onHeroCreated;
+            view.DropDownResourceType.SetOptions(resourceTypes);
         }
 
-        public void Unsubscribe()
-        {
-            _userProvider.HeroCreated -= _onHeroCreated;
-        }
-
-        protected override void subscribeToEvents(bool flag)
+        public override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
+                _userProvider.HeroCreated += _onHeroCreated;
+
                 view.ButtonOpen.Clicked += Open;
                 view.ButtonClose.Clicked += Close;
-             
+
                 view.ButtonAddResource.Clicked += _addResource;
-                
+
                 view.ButtonAddHP.Clicked += _addHp;
                 view.ButtonRemoveHP.Clicked += _removeHP;
             }
             else
             {
+                _userProvider.HeroCreated -= _onHeroCreated;
+
                 view.ButtonOpen.Clicked -= Open;
                 view.ButtonClose.Clicked -= Close;
-             
+
                 view.ButtonAddResource.Clicked -= _addResource;
-                
+
                 view.ButtonAddHP.Clicked -= _addHp;
                 view.ButtonRemoveHP.Clicked -= _removeHP;
             }
@@ -98,7 +90,6 @@ namespace UI.Windows.HUD.QA
             }
             else
             {
-                
                 Log.Info(this, $"int parse lose {view.InputFieldHP.Value}");
             }
         }

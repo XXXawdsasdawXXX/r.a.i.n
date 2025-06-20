@@ -12,8 +12,7 @@ using UnityEngine;
 
 namespace UI.Windows.MainMenu.Game
 {
-    public class GameWindowController : UIWindowController<GameWindowView>, 
-        IInitializeListener, ILoadListener, ISubscriber
+    public class GameWindowController : UIWindowController<GameWindowView>
     {
         public bool IsInitialized { get; set; }
         
@@ -22,7 +21,7 @@ namespace UI.Windows.MainMenu.Game
         private ConnectionHandler _connectionHandler;
         private GameStateMachine _gameStateMachine;
 
-        public UniTask Initialize()
+        public override UniTask InitializeWindow()
         {
             _gameModel = Container.Instance.GetService<GameModel>();
             _connectionHandler = Container.Instance.GetService<ConnectionHandler>();
@@ -33,41 +32,35 @@ namespace UI.Windows.MainMenu.Game
             return UniTask.CompletedTask;
         }
 
-        protected override void OnDestroy()
-        {
-            Unsubscribe();
-            base.OnDestroy();
-        }
-
-        public void Subscribe()
-        {
-            windowManager.GetWindow<HeroWindowController>().HeroListChanged += _updateObjectLockerState;
-            
-            view.ButtonContinue.Clicked += _continueGame;
-            view.ButtonJoin.Clicked += _openJoinWindow;
-            view.TextUserIP.Clicked += _copyIpToBuffer;
-            view.WorldsRadioGroup.Selected += _changeSelectedWorld;
-        }
-
-        public UniTask GameLoad(GameModel model)
+        public override void LoadWindow(GameModel model)
         {
             view.TextUserIP.SetText($"IP: {ConnectionHandler.GetLocalIPAddress()}");
             
             _updateObjectLockerState();
             
             _updateWorldList();
-            
-            return UniTask.CompletedTask;
         }
-        
-        public void Unsubscribe()
+
+        public override void SubscribeToEvents(bool flag)
         {
-            windowManager.GetWindow<HeroWindowController>().HeroListChanged -= _updateObjectLockerState;
+            if (flag)
+            {
+                windowManager.GetWindow<HeroWindowController>().HeroListChanged += _updateObjectLockerState;
             
-            view.ButtonContinue.Clicked -= _continueGame;
-            view.ButtonJoin.Clicked -= _openJoinWindow;
-            view.TextUserIP.Clicked -= _copyIpToBuffer;
-            view.WorldsRadioGroup.Selected -= _changeSelectedWorld;
+                view.ButtonContinue.Clicked += _continueGame;
+                view.ButtonJoin.Clicked += _openJoinWindow;
+                view.TextUserIP.Clicked += _copyIpToBuffer;
+                view.WorldsRadioGroup.Selected += _changeSelectedWorld;
+            }
+            else
+            {
+                windowManager.GetWindow<HeroWindowController>().HeroListChanged -= _updateObjectLockerState;
+            
+                view.ButtonContinue.Clicked -= _continueGame;
+                view.ButtonJoin.Clicked -= _openJoinWindow;
+                view.TextUserIP.Clicked -= _copyIpToBuffer;
+                view.WorldsRadioGroup.Selected -= _changeSelectedWorld;
+            }
         }
 
         private void _continueGame()
@@ -89,7 +82,7 @@ namespace UI.Windows.MainMenu.Game
 
         private void _changeSelectedWorld(int worldIndex)
         {
-            _gameModel.LastWorldIndex = worldIndex;
+            _gameModel.LastWorldIndex.Value = worldIndex;
         }
 
         private void _copyIpToBuffer()
@@ -99,7 +92,7 @@ namespace UI.Windows.MainMenu.Game
 
         private void _updateWorldList()
         {
-            if (_gameModel.Worlds.Count > _gameModel.LastWorldIndex)
+            if (_gameModel.Worlds.Count > _gameModel.LastWorldIndex.Value)
             {
                 view.WorldsRadioGroup.Pool.DisableAll();
             
@@ -110,11 +103,11 @@ namespace UI.Windows.MainMenu.Game
                     worldTabView.SetText(modelWorld.Name);
                 }
                 
-                view.WorldsRadioGroup.Pool.Enabled[_gameModel.LastWorldIndex].Select();
+                view.WorldsRadioGroup.Pool.Enabled[_gameModel.LastWorldIndex.Value].Select();
             }
             
-            view.ButtonContinue.SetInteractable(_gameModel.Worlds.Count > _gameModel.LastWorldIndex);
-            view.ButtonDelete.SetInteractable(_gameModel.Worlds.Count > _gameModel.LastWorldIndex);
+            view.ButtonContinue.SetInteractable(_gameModel.Worlds.Count > _gameModel.LastWorldIndex.Value);
+            view.ButtonDelete.SetInteractable(_gameModel.Worlds.Count > _gameModel.LastWorldIndex.Value);
         }
     }
 }

@@ -5,19 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Json.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Json/ReactiveFloatJsonConverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Json/ReactiveFloatJsonConverter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Json/ReactiveIntJsonConverter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Json/ReactiveIntJsonConverter.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Float2JsonConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Json/Float2JsonConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Float2JsonConverter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Conversion/Json/Float2JsonConverter.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/JsonExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Common/Extensions/JsonExtension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioGroup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioGroup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIElementPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIElementPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/IWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/IWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameResources/HudResourcesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameResources/HudResourcesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameTime/HUDGameTimeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameTime/HUDGameTimeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection/ConnectionWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection/ConnectionWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Delete/DeleteWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Delete/DeleteWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Game/GameWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Game/GameWindowController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewGame/NewGameWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewGame/NewGameWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/000webfont SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/000webfont SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Core.csproj.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave/infoCard-hero.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/GameSave/infoCard-hero.prefab.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,7 +235,7 @@
       <workItem from="1750268192167" duration="8860000" />
       <workItem from="1750364969678" duration="1712000" />
       <workItem from="1750408736824" duration="12000" />
-      <workItem from="1750435858036" duration="301000" />
+      <workItem from="1750435858036" duration="2749000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>
@@ -324,26 +334,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs</url>
-          <line>106</line>
-          <properties documentPath="C:\Users\user\Documents\GitHub\tiny_thing\Assets\Code\UI\Windows\MainMenu\Hero\HeroWindowController.cs" initialLine="106" containingFunctionPresentation="method '_updatePressesList'">
-            <startOffsets>
-              <option value="3350" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3399" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs</url>
-          <line>88</line>
+          <line>83</line>
           <properties documentPath="C:\Users\user\Documents\GitHub\tiny_thing\Assets\Code\UI\Windows\MainMenu\Hero\HeroWindowController.cs" initialLine="88" containingFunctionPresentation="method '_updateSelectedHeroView'">
             <startOffsets>
-              <option value="2757" />
+              <option value="2690" />
             </startOffsets>
             <endOffsets>
-              <option value="2797" />
+              <option value="2730" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="15" />

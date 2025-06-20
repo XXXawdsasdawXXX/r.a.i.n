@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.GameLoop;
 using Core.Save;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
@@ -13,8 +12,7 @@ using UI.Windows.MainMenu.NewHero;
 
 namespace UI.Windows.MainMenu.Hero
 {
-    public class HeroWindowController : UIWindowController<HeroWindowView>,
-        IInitializeListener, ILoadListener, IStartListener, ISubscriber
+    public class HeroWindowController : UIWindowController<HeroWindowView>
     {
         public event Action HeroListChanged;
         public bool IsInitialized { get; set; }
@@ -22,7 +20,7 @@ namespace UI.Windows.MainMenu.Hero
         private GameModel _gameModel;
 
 
-        public UniTask Initialize()
+        public override UniTask InitializeWindow()
         {
             _gameModel = Container.Instance.GetService<GameModel>();
             
@@ -31,43 +29,39 @@ namespace UI.Windows.MainMenu.Hero
             return UniTask.CompletedTask;
         }
 
-        public UniTask GameStart()
+        public override void LoadWindow(GameModel model)
         {
-            return UniTask.CompletedTask;
-        }
-
-        public void Subscribe()
-        {
-            view.ButtonNew.Clicked += _openNewHeroWindow;
-            view.ButtonDelete.Clicked += _openDeleteHeroWindow;
-            view.ButtonSettings.Clicked += _openHeroSettingsWindow;
-            view.HeroesRadioGroup.Selected += _updateSelectedHeroView;
-     
-            windowManager.GetWindow<NewHeroWindowController>().HeroCreated += _updatePressesList;
-            windowManager.GetWindow<DeleteWindowController>().PressDeleted += _updatePressesList;
-        }
-
-        public UniTask GameLoad(GameModel model)
-        {
-            _updatePressesList();
+            _updateHeroesList();
 
             _updateOptionButtonsView();
 
-            _updateSelectedHeroView(model.LastHeroIndex);
-
-            return UniTask.CompletedTask;
+            _updateSelectedHeroView(model.LastHeroIndex.Value);
         }
 
-        public void Unsubscribe()
+        public override void SubscribeToEvents(bool flag)
         {
-            view.ButtonNew.Clicked -= _openNewHeroWindow;
-            view.ButtonDelete.Clicked -= _openDeleteHeroWindow;
-            view.ButtonSettings.Clicked -= _openHeroSettingsWindow;
-            view.HeroesRadioGroup.Selected -= _updateSelectedHeroView;
+            if (flag)
+            {
+                view.ButtonNew.Clicked += _openNewHeroWindow;
+                view.ButtonDelete.Clicked += _openDeleteHeroWindow;
+                view.ButtonSettings.Clicked += _openHeroSettingsWindow;
+                view.HeroesRadioGroup.Selected += _updateSelectedHeroView;
+     
+                windowManager.GetWindow<NewHeroWindowController>().HeroCreated += _updateHeroesList;
+                windowManager.GetWindow<DeleteWindowController>().PressDeleted += _updateHeroesList;
+            }
+            else
+            {
+                view.ButtonNew.Clicked -= _openNewHeroWindow;
+                view.ButtonDelete.Clicked -= _openDeleteHeroWindow;
+                view.ButtonSettings.Clicked -= _openHeroSettingsWindow;
+                view.HeroesRadioGroup.Selected -= _updateSelectedHeroView;
          
-            windowManager.GetWindow<NewHeroWindowController>().HeroCreated -= _updatePressesList;
-            windowManager.GetWindow<DeleteWindowController>().PressDeleted -= _updatePressesList;
+                windowManager.GetWindow<NewHeroWindowController>().HeroCreated -= _updateHeroesList;
+                windowManager.GetWindow<DeleteWindowController>().PressDeleted -= _updateHeroesList;
+            }
         }
+        
 
         private void _openNewHeroWindow()
         {
@@ -88,11 +82,12 @@ namespace UI.Windows.MainMenu.Hero
         {
             if (_gameModel.Heroes.Count > heroIndex)
             {
-                _gameModel.LastHeroIndex = heroIndex;
+                _gameModel.LastHeroIndex.Value = heroIndex;
                 view.BodyHeroView.SetActive(true);
                 view.HeroCard.SetModel(new UIHeroCardView.Model(
                     _gameModel.Heroes[heroIndex].Name, 
                     _gameModel.Heroes[heroIndex].GameTime.ToString()));
+                view.HeroesRadioGroup.Select(heroIndex);
             }
             else
             {
@@ -100,16 +95,22 @@ namespace UI.Windows.MainMenu.Hero
             }
         }
 
-        private void _updatePressesList()
+        private void _updateHeroesList()
         {
             view.HeroesRadioGroup.Pool.DisableAll();
-
-            for (int i = 0; i < _gameModel.Heroes.Count; i++)
+            
+            if (_gameModel.Heroes != null && _gameModel.Heroes.Count > 0)
             {
-                HeroModel heroModel = _gameModel.Heroes[i];
-                UIText text = view.HeroesRadioGroup.Pool.GetNext();
-                text.SetIndex(i);
-                text.SetText(heroModel.Name);
+                for (int i = 0; i < _gameModel.Heroes.Count; i++)
+                {
+                    HeroModel heroModel = _gameModel.Heroes[i];
+                    UIText text = view.HeroesRadioGroup.Pool.GetNext();
+                    text.SetIndex(i);
+                    text.SetText(heroModel.Name);
+                    text.Deselect();
+                }
+                
+                view.HeroesRadioGroup.Pool.SortByIndex();
             }
         }
 

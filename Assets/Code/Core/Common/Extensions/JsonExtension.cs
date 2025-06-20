@@ -16,7 +16,8 @@ namespace Core.Extensions
             Converters = new List<JsonConverter>()
             {
                 new Float2JsonConverter(),
-                new ReactiveFloatJsonConverter()
+                new ReactiveFloatJsonConverter(),
+                new ReactiveIntJsonConverter(),
             }
         };
 

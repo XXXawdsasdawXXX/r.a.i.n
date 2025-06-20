@@ -1,4 +1,3 @@
-using Core.GameLoop;
 using Core.Network;
 using Core.ServiceLocator;
 using Core.StateMachine;
@@ -8,7 +7,7 @@ using UnityEngine;
 
 namespace UI.Windows.MainMenu.Connection.Legacy
 {
-    public class ConnectionWindowController : UIWindowController<ConnectionWindowView>, IInitializeListener
+    public class ConnectionWindowController : UIWindowController<ConnectionWindowView>
     {
         public bool IsInitialized { get; set; }
         
@@ -16,7 +15,7 @@ namespace UI.Windows.MainMenu.Connection.Legacy
         
         private GameStateMachine _gameStateMachine;
 
-        public UniTask Initialize()
+        public override UniTask InitializeWindow()
         {
             _gameStateMachine = Container.Instance.GetService<GameStateMachine>();
             
@@ -30,7 +29,7 @@ namespace UI.Windows.MainMenu.Connection.Legacy
             return UniTask.CompletedTask;
         }
         
-        protected override void subscribeToEvents(bool flag)
+        public override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {

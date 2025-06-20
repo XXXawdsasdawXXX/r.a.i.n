@@ -9,21 +9,21 @@ using UnityEngine;
 
 namespace UI.Windows.MainMenu.DeleteHero
 {
-    public class DeleteWindowController  : UIWindowController<DeleteWindowView>, IInitializeListener
+    public class DeleteWindowController  : UIWindowController<DeleteWindowView>
     {
         public event Action PressDeleted;
         public bool IsInitialized { get; set; }
       
         private GameModel _gameModel;
 
-        public UniTask Initialize()
+        public override UniTask InitializeWindow()
         {
             _gameModel = Container.Instance.GetService<GameModel>();
             
             return UniTask.CompletedTask;
         }
 
-        protected override void subscribeToEvents(bool flag)
+        public override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {

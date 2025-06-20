@@ -52,6 +52,18 @@ namespace UI.Components
 
             return entity;
         }
+
+        public void SortByIndex()
+        {
+            Enabled.Sort((a, b) => a.Index.CompareTo(b.Index));
+
+            for (int i = 0; i < Enabled.Count; i++)
+            {
+                Enabled[i].transform.SetSiblingIndex(i);
+            }
+
+            Changed?.Invoke();
+        }
         
         public void Disable(TUIElement entity)
         {

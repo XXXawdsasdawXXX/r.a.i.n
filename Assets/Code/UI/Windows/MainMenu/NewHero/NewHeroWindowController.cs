@@ -7,7 +7,7 @@ using UI.Windows.Base;
 
 namespace UI.Windows.MainMenu.NewHero
 {
-    public class NewHeroWindowController : UIWindowController<NewHeroWindowView>, IInitializeListener, ILoadListener
+    public class NewHeroWindowController : UIWindowController<NewHeroWindowView>
     {
         public event Action HeroCreated;
         
@@ -15,20 +15,14 @@ namespace UI.Windows.MainMenu.NewHero
 
         private GameModel _gameModel;
         
-        
-        public UniTask Initialize()
+        public override UniTask InitializeWindow()
         {
             _gameModel = Container.Instance.GetService<GameModel>();
             
             return UniTask.CompletedTask;
         }
 
-        public UniTask GameLoad(GameModel model)
-        {
-            return UniTask.CompletedTask;
-        }
-
-        protected override void subscribeToEvents(bool flag)
+        public override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {

@@ -6,20 +6,20 @@ using UI.Windows.Base;
 
 namespace UI.Windows.MainMenu.NewGame
 {
-    public class NewGameWindowController : UIWindowController<NewGameWindowView>, IInitializeListener
+    public class NewGameWindowController : UIWindowController<NewGameWindowView>
     {
         public bool IsInitialized { get; set; }
         
         private GameModel _gameModel;
         
-        public UniTask Initialize()
+        public override UniTask InitializeWindow()
         {
             _gameModel = Container.Instance.GetService<GameModel>();
         
             return UniTask.CompletedTask;
         }
         
-        protected override void subscribeToEvents(bool flag)
+        public override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {

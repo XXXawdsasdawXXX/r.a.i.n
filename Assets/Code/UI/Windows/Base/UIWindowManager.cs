@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.GameLoop;
+using Core.Save;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
 
 namespace UI.Windows.Base
 {
-    public class UIWindowManager : Essential.Mono, IService, IInitializeListener
+    public class UIWindowManager : Essential.Mono, IService, IInitializeListener, IStartListener, ILoadListener, ISubscriber
     {
         public bool IsInitialized { get; set; }
 
@@ -27,11 +28,47 @@ namespace UI.Windows.Base
                 Type type = windowController.GetType();
                 
                 _windowControllers.Add(type, windowController);
+
+                windowController.InitializeWindow();
             }
             
             return UniTask.CompletedTask;
         }
 
+        public UniTask GameStart()
+        {
+            foreach ((Type _, IWindowController windowController) in _windowControllers)
+            {
+                windowController.StartWindow();
+            }
+            return UniTask.CompletedTask;
+        }
+
+        public UniTask GameLoad(GameModel model)
+        {
+            foreach ((Type _, IWindowController windowController) in _windowControllers)
+            {
+                windowController.LoadWindow(model);
+            }
+            return UniTask.CompletedTask;
+        }
+
+        public void Subscribe()
+        {
+            foreach ((Type _, IWindowController windowController) in _windowControllers)
+            {
+                windowController.SubscribeToEvents(true);
+            }
+        }
+
+        public void Unsubscribe()
+        {
+            foreach ((Type _, IWindowController windowController) in _windowControllers)
+            {
+                windowController.SubscribeToEvents(false);
+            }
+        }
+        
         public void OpenWindow<T>() where T : class, IWindowController
         {
             Type type = typeof(T);
@@ -77,5 +114,7 @@ namespace UI.Windows.Base
             
             return null;
         }
+
+    
     }
 }

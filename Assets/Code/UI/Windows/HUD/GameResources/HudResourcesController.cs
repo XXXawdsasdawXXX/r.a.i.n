@@ -8,7 +8,7 @@ using UI.Windows.Base;
 
 namespace UI.Windows.HUD.GameResources
 {
-    public class HudResourcesController : UIWindowController<HudResourcesView>, IInitializeListener, ISubscriber
+    public class HudResourcesController : UIWindowController<HudResourcesView>
     {
         public bool IsInitialized { get; set; }
         
@@ -16,7 +16,7 @@ namespace UI.Windows.HUD.GameResources
        
         private Dictionary<EResource, UIResourceBoxView> _resourcesView;
 
-        public UniTask Initialize()
+        public override UniTask InitializeWindow()
         {
             _resourceStorage = Container.Instance.GetService<ResourceStorage>();
             _resourcesView = new Dictionary<EResource, UIResourceBoxView>();
@@ -31,11 +31,9 @@ namespace UI.Windows.HUD.GameResources
             return UniTask.CompletedTask;
         }
 
-        public UniTask GameStart()
+        public override void StartWindow()
         {
             _updateResourcesView(_resourceStorage.Collection);
-            
-            return UniTask.CompletedTask;
         }
 
         public void Subscribe()

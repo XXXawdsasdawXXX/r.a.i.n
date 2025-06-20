@@ -7,10 +7,7 @@ using UI.Windows.Base;
 
 namespace UI.Windows.HUD
 {
-    public class HUDGameTimeController : UIWindowController<HUDGameTimeView>,
-        IInitializeListener,
-        IStartListener,
-        IUpdateListener
+    public class HUDGameTimeController : UIWindowController<HUDGameTimeView>, IUpdateListener
     {
         public bool IsInitialized { get; set; }
         public string RuntimeListenerName => "HUDWindowController";
@@ -19,7 +16,7 @@ namespace UI.Windows.HUD
         private Cache<int> _lastUpdateMinute;
         private float _currentValue;
 
-        public UniTask Initialize()
+        public override UniTask InitializeWindow()
         {
             _gameTime = Container.Instance.GetService<GameTime>();
 
@@ -28,11 +25,9 @@ namespace UI.Windows.HUD
             return UniTask.CompletedTask;
         }
 
-        public UniTask GameStart()
+        public override void StartWindow()
         {
             Open();
-
-            return UniTask.CompletedTask;
         }
 
         public void GameUpdate(float deltaTime)
