@@ -731,11 +731,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_AnchorMax.y
@@ -743,7 +743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_AnchorMin.y
@@ -751,11 +751,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 20
+      value: 0.1552
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_LocalPosition.x
@@ -791,7 +791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8167912829234913411, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -808,6 +808,10 @@ PrefabInstance:
     - target: {fileID: 8987897342535203933, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_fontSize
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987897342535203933, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
+      propertyPath: m_margin.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8987897342535203933, guid: f89e62f8915751e41a0b2397b7e1a363, type: 3}
       propertyPath: m_fontSizeBase

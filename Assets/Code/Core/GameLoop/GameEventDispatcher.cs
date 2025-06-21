@@ -71,7 +71,6 @@ namespace Core.GameLoop
 
         public void Dispose()
         {
-   
             foreach (ISubscriber subscriber in _subscribers)
             {
                 subscriber.Unsubscribe();
@@ -326,7 +325,7 @@ namespace Core.GameLoop
             {
                 subscriber.Unsubscribe();
             }
-
+            
             _saveService.Save();
 
             foreach (IExitListener listener in _exitListeners)

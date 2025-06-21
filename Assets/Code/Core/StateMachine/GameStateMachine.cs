@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Core.StateMachine
 {
-    public class GameStateMachine : IService, IExitListener
+    public class GameStateMachine : IService
     {
         private readonly Dictionary<Type, IState> _states;
         
@@ -47,10 +47,6 @@ namespace Core.StateMachine
             
             await _states[type].Enter();
         }
-
-        public void GameExit()
-        {
-            _currentState?.Exit();
-        }
+        
     }
 }

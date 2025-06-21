@@ -7,37 +7,10 @@
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/GameModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/WorldModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/WorldModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextEntities.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/ServiceLocator/ContextEntities.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/GameStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/GameStateMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/BootstrapState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/MainMenuState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/MainMenuState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Params/PersonName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Params/PersonName.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioGroup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIRadioGroup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIGhostTab.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIGhostTab.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/IWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/IWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameResources/HudResourcesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameResources/HudResourcesController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameTime/HUDGameTimeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameTime/HUDGameTimeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection/ConnectionWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Connection/ConnectionWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Delete/DeleteWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Delete/DeleteWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Game/GameWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Game/GameWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewGame/NewGameWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewGame/NewGameWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/World/UIPersonName.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/World/UIPersonName.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/IntoGame/text_small_game.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/IntoGame/text_small_game.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/hero.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/000webfont SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/000webfont SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -246,7 +219,8 @@
       <workItem from="1750268192167" duration="8860000" />
       <workItem from="1750364969678" duration="1712000" />
       <workItem from="1750408736824" duration="12000" />
-      <workItem from="1750435858036" duration="9211000" />
+      <workItem from="1750435858036" duration="9807000" />
+      <workItem from="1750520509946" duration="551000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>
