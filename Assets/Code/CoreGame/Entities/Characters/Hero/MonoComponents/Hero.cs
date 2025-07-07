@@ -48,7 +48,7 @@ namespace CoreGame.Entities.Characters.Hero
                 InputManager input = Container.Instance.GetService<InputManager>();
                 HeroSettings heroSettings = Container.Instance.GetConfig<HeroSettings>();
                 
-                Model = Container.Instance.GetService<GameModel>().GetCurrentHeroModel(); 
+                Model = Container.Instance.GetService<GameModel>().Hero; 
                 
                 Movement movement = new(Rigidbody, input.Direction, heroSettings.MoveSpeed);
                 Components.Add(typeof(Movement), movement);

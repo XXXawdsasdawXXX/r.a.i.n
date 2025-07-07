@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using UI.Components;
 using UI.Windows.Base;
 using UI.Windows.MainMenu.Connection.Legacy;
+using UI.Windows.MainMenu.Delete;
 using UI.Windows.MainMenu.Hero;
 using UnityEngine;
 
@@ -14,12 +15,11 @@ namespace UI.Windows.MainMenu.Game
 {
     public class GameWindowController : UIWindowController<GameWindowView>
     {
-        public bool IsInitialized { get; set; }
-        
         private GameModel _gameModel;
         private HeroWindowController _heroWindow;
         private ConnectionHandler _connectionHandler;
         private GameStateMachine _gameStateMachine;
+        private DeleteWindowController _deleteWindow;
 
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
@@ -28,6 +28,7 @@ namespace UI.Windows.MainMenu.Game
             _gameStateMachine = Container.Instance.GetService<GameStateMachine>();
 
             _heroWindow = manager.GetWindow<HeroWindowController>();
+            _deleteWindow = manager.GetWindow<DeleteWindowController>();
             
             view.WorldsRadioGroup.Initialize();
             
@@ -48,6 +49,7 @@ namespace UI.Windows.MainMenu.Game
                 _heroWindow.HeroListChanged += _updateObjectLockerState;
             
                 view.ButtonContinue.Clicked += _continueGame;
+                view.ButtonDelete.Clicked += _openDeleteWindow;
                 view.ButtonJoin.Clicked += _openJoinWindow;
                 view.TextUserIP.Clicked += _copyIpToBuffer;
                 view.WorldsRadioGroup.Selected += _changeSelectedWorld;
@@ -62,6 +64,25 @@ namespace UI.Windows.MainMenu.Game
                 view.WorldsRadioGroup.Selected -= _changeSelectedWorld;
             }
         }
+
+        private void _openDeleteWindow()
+        {
+            _deleteWindow.SetObserved(
+                _gameModel.World.Name, 
+                success: () =>
+                {
+                    _gameModel.Worlds.RemoveAt(_gameModel.LastWorldIndex.Value);
+                    
+                    int lastWorldIndex = _gameModel.Worlds.IndexOf(_gameModel.GetNearestWorldByExitTime());
+                    
+                    _gameModel.LastWorldIndex.Value = lastWorldIndex >= 0 ? lastWorldIndex : 0;
+
+                    _updateView();
+                });
+            
+            windowManager.OpenWindow<DeleteWindowController>();
+        }
+
         private void _continueGame()
         {
             _connectionHandler.StartHost();
@@ -104,6 +125,7 @@ namespace UI.Windows.MainMenu.Game
 
                     worldTabView.SetText(modelWorld.Name);
                     worldTabView.SetIndex(i);
+                    worldTabView.Deselect();
                 }
 
                 view.WorldsRadioGroup.Select(_gameModel.LastWorldIndex.Value);

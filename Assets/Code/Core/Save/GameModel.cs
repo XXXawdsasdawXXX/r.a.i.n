@@ -1,30 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Data;
 using Core.ServiceLocator;
+using Newtonsoft.Json;
 
 namespace Core.Save
 {
     [Serializable]
     public class GameModel : IService
     {
-        public HeroModel Hero;
-        public WorldModel World;
-        
-        public List<HeroModel> Heroes;
-        public List<WorldModel> Worlds;
-
-        public ReactiveProperty<int> LastHeroIndex;
-        public ReactiveProperty<int> LastWorldIndex;
-        
         public DateTime GameEnterTime;
         public DateTime GameExitTime;
         
+        public ReactiveProperty<int> LastHeroIndex;
+        public ReactiveProperty<int> LastWorldIndex;
+        
+        public List<HeroModel> Heroes;
+        public List<WorldModel> Worlds;
+        
+
+        [JsonIgnore]
+        public WorldModel World
+        {
+            get
+            {
+                if (LastWorldIndex?.Value >= 0  && Worlds?.Count > LastWorldIndex?.Value)
+                {
+                    return Worlds[LastWorldIndex.Value];
+                }
+
+                if (LastWorldIndex != null)
+                {
+                    LastWorldIndex.Value = 0;
+                }
+
+                return null;
+            }
+        }
+        
+        [JsonIgnore]
+        public HeroModel Hero
+        {
+            get
+            {
+                if (LastHeroIndex?.Value >= 0  && Heroes?.Count > LastHeroIndex?.Value)
+                {
+                    return Heroes[LastHeroIndex.Value];
+                }
+
+                if (LastHeroIndex != null)
+                {
+                    LastHeroIndex.Value = 0;
+                }
+
+                return null;
+            }
+        }
+        
+        
         public GameModel()
         {
-            World = new WorldModel();
-            Hero = new HeroModel();
-            
             Heroes = new List<HeroModel>();
             Worlds = new List<WorldModel>();
             
@@ -34,9 +70,6 @@ namespace Core.Save
         
         public void CopyFrom(GameModel model)
         {
-            World = model?.World ?? new WorldModel();
-            Hero = model?.Hero ?? new HeroModel();
-            
             Heroes = model?.Heroes ?? new List<HeroModel>();
             Worlds = model?.Worlds ?? new List<WorldModel>();
             
@@ -46,17 +79,25 @@ namespace Core.Save
             GameEnterTime = model?.GameEnterTime ?? default;
             GameExitTime = model?.GameExitTime ?? default;
         }
-
-        public HeroModel GetCurrentHeroModel()
+        
+        public HeroModel GetNearestHeroByExitTime()
         {
-            if (LastHeroIndex.Value < Heroes.Count)
+            if (Heroes == null || Heroes.Count == 0)
             {
-                return Heroes[LastHeroIndex.Value];
+                return null;
             }
 
-            throw new Exception($"Model has error with hero index. " +
-                                $"Index = {LastWorldIndex.Value}. " +
-                                $"Heroes count = {Heroes.Count}");
+            return Heroes.OrderBy(h => Math.Abs((GameEnterTime - h.ExitTime).Ticks)).FirstOrDefault();
+        }
+
+        public WorldModel GetNearestWorldByExitTime()
+        {
+            if (Worlds == null || Worlds.Count == 0)
+            {
+                return null;
+            }
+
+            return Worlds.OrderBy(w => Math.Abs((GameEnterTime - w.ExitTime).Ticks)).FirstOrDefault();
         }
     }
 }

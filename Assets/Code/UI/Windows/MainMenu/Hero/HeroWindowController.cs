@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Save;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using UI.Components;
 using UI.Windows.Base;
-using UI.Windows.MainMenu.DeleteHero;
+using UI.Windows.MainMenu.Delete;
 using UI.Windows.MainMenu.HeroSettings;
 using UI.Windows.MainMenu.NewHero;
 
@@ -15,17 +13,23 @@ namespace UI.Windows.MainMenu.Hero
     public class HeroWindowController : UIWindowController<HeroWindowView>
     {
         public event Action HeroListChanged;
-        public bool IsInitialized { get; set; }
-        
+
+        private NewHeroWindowController _newHeroWindow;
+        private DeleteWindowController _deleteWindow;
+
         private GameModel _gameModel;
+        
 
 
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameModel = Container.Instance.GetService<GameModel>();
-            
+
+            _newHeroWindow = manager.GetWindow<NewHeroWindowController>();
+            _deleteWindow = manager.GetWindow<DeleteWindowController>();
+
             view.HeroesRadioGroup.Initialize();
-            
+
             return base.InitializeWindow(manager);
         }
 
@@ -46,9 +50,9 @@ namespace UI.Windows.MainMenu.Hero
                 view.ButtonDelete.Clicked += _openDeleteHeroWindow;
                 view.ButtonSettings.Clicked += _openHeroSettingsWindow;
                 view.HeroesRadioGroup.Selected += _updateSelectedHeroView;
-     
-                windowManager.GetWindow<NewHeroWindowController>().HeroCreated += _updateHeroesList;
-                windowManager.GetWindow<DeleteWindowController>().PressDeleted += _updateHeroesList;
+                view.HeroesRadioGroup.Selected += _updateSelectedHeroValue;
+
+                _newHeroWindow.HeroCreated += _updateHeroesList;
             }
             else
             {
@@ -56,13 +60,12 @@ namespace UI.Windows.MainMenu.Hero
                 view.ButtonDelete.Clicked -= _openDeleteHeroWindow;
                 view.ButtonSettings.Clicked -= _openHeroSettingsWindow;
                 view.HeroesRadioGroup.Selected -= _updateSelectedHeroView;
-         
-                windowManager.GetWindow<NewHeroWindowController>().HeroCreated -= _updateHeroesList;
-                windowManager.GetWindow<DeleteWindowController>().PressDeleted -= _updateHeroesList;
+                view.HeroesRadioGroup.Selected -= _updateSelectedHeroValue;
+
+                _newHeroWindow.HeroCreated -= _updateHeroesList;
             }
         }
         
-
         private void _openNewHeroWindow()
         {
             windowManager.OpenWindow<NewHeroWindowController>();
@@ -76,29 +79,23 @@ namespace UI.Windows.MainMenu.Hero
         private void _openDeleteHeroWindow()
         {
             windowManager.OpenWindow<DeleteWindowController>();
-        }
 
-        private void _updateSelectedHeroView(int heroIndex)
-        {
-            if (_gameModel.Heroes.Count > heroIndex)
+            _deleteWindow.SetObserved(_gameModel.Hero.Name, () =>
             {
-                _gameModel.LastHeroIndex.Value = heroIndex;
-                view.BodyHeroView.SetActive(true);
-                view.HeroCard.SetModel(new UIHeroCardView.Model(
-                    _gameModel.Heroes[heroIndex].Name, 
-                    _gameModel.Heroes[heroIndex].GameTime.ToString()));
-                view.HeroesRadioGroup.Select(heroIndex);
-            }
-            else
-            {
-                view.BodyHeroView.SetActive(false);
-            }
+                _gameModel.Heroes.RemoveAt(_gameModel.LastHeroIndex.Value);
+
+                int lastHeroIndex = _gameModel.Heroes.IndexOf(_gameModel.GetNearestHeroByExitTime());
+                _gameModel.LastHeroIndex.Value = lastHeroIndex >= 0 ? lastHeroIndex : 0;
+                
+                _updateHeroesList();
+                _updateOptionButtonsView();
+            });
         }
 
         private void _updateHeroesList()
         {
-            view.HeroesRadioGroup.Pool.DisableAll();
-            
+            view.HeroesRadioGroup.Clear();
+
             if (_gameModel.Heroes != null && _gameModel.Heroes.Count > 0)
             {
                 for (int i = 0; i < _gameModel.Heroes.Count; i++)
@@ -109,30 +106,44 @@ namespace UI.Windows.MainMenu.Hero
                     text.SetText(heroModel.Name);
                     text.Deselect();
                 }
-                
+
                 view.HeroesRadioGroup.Pool.SortByIndex();
+            }
+            
+            _updateSelectedHeroView(_gameModel.LastHeroIndex.Value);
+
+            HeroListChanged?.Invoke();
+        }
+
+        private void _updateSelectedHeroValue(int heroIndex)
+        {
+            if (_gameModel.Heroes.Count > heroIndex && heroIndex >= 0)
+            {
+                _gameModel.LastHeroIndex.Value = heroIndex;
+            }
+        }
+        
+        private void _updateSelectedHeroView(int heroIndex)
+        {
+            if (_gameModel.Heroes.Count > heroIndex && heroIndex >= 0)
+            {
+                view.BodyHeroView.SetActive(true);
+                view.HeroCard.SetModel(new UIHeroCardView.Model(
+                    _gameModel.Heroes[heroIndex].Name,
+                    _gameModel.Heroes[heroIndex].GameTime.ToString()));
+                view.HeroesRadioGroup.Select(heroIndex);
+            }
+            else
+            {
+                view.BodyHeroView.SetActive(false);
             }
         }
 
         private void _updateOptionButtonsView()
         {
-            bool isHasHero = _getLastHeroIndex(_gameModel.Heroes) >= 0;
+            bool isHasHero = _gameModel.Heroes.Count >= 0;
             view.ButtonDelete.SetInteractable(isHasHero);
             view.ButtonSettings.SetInteractable(isHasHero);
-        }
-
-        private static int _getLastHeroIndex(List<HeroModel> heroes)
-        {
-            if (heroes == null || heroes.Count == 0)
-            {
-                return -1;
-            }
-
-            return heroes
-                .Select((hero, index) => new { Hero = hero, Index = index })
-                .OrderByDescending(x => x.Hero.LastGameExitTime)
-                .First()
-                .Index;
         }
     }
 }

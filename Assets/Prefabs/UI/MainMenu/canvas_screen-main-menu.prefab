@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6833679729046101446}
   m_Layer: 5
-  m_Name: =====windows-informations=====
+  m_Name: windows-informations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 7871521458400798874}
   - component: {fileID: 6062268962722184870}
   m_Layer: 5
-  m_Name: =====contentBox-game=====
+  m_Name: window-game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -499,7 +499,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 6062268962722184870}
-  windowManager: {fileID: 5503755533306193387}
 --- !u!114 &6062268962722184870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -987,7 +986,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 3460330511415683611}
-  windowManager: {fileID: 5503755533306193387}
 --- !u!114 &3460330511415683611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1057,7 +1055,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 189012228873172833}
-  windowManager: {fileID: 5503755533306193387}
 --- !u!114 &189012228873172833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,7 +1214,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 7543184035083912450}
-  windowManager: {fileID: 5503755533306193387}
 --- !u!114 &7543184035083912450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,7 +1400,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 6761715199485759089}
-  windowManager: {fileID: 5503755533306193387}
   _connectionHandler: {fileID: 707261668071790126}
 --- !u!114 &707261668071790126
 MonoBehaviour:
@@ -1487,7 +1482,7 @@ GameObject:
   - component: {fileID: 4444285294756952701}
   - component: {fileID: 4738503302699358437}
   m_Layer: 5
-  m_Name: =====grid-view=====
+  m_Name: grid-view
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1700,7 +1695,7 @@ GameObject:
   - component: {fileID: 3823248606535646754}
   - component: {fileID: 5688237876127792361}
   m_Layer: 5
-  m_Name: =====contentBox-heroes=====
+  m_Name: window-hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1743,7 +1738,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 5688237876127792361}
-  windowManager: {fileID: 5503755533306193387}
 --- !u!114 &5688237876127792361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3995,17 +3989,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5804854720261378547, guid: be4fb4848a644a049b09c0dad8c129bf, type: 3}
   m_PrefabInstance: {fileID: 4920219703364408701}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5503755533306193387 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 588113098010243222, guid: be4fb4848a644a049b09c0dad8c129bf, type: 3}
-  m_PrefabInstance: {fileID: 4920219703364408701}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 703d3c9b34e948e9b5c13d0501346db5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5066967318458375597
 PrefabInstance:
   m_ObjectHideFlags: 0

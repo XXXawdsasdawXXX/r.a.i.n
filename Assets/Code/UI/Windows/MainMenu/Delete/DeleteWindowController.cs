@@ -1,55 +1,54 @@
 ﻿using System;
-using Core.GameLoop;
-using Core.Save;
-using Core.ServiceLocator;
-using Cysharp.Threading.Tasks;
 using UI.Windows.Base;
-using UI.Windows.MainMenu.Delete;
 using UnityEngine;
 
-namespace UI.Windows.MainMenu.DeleteHero
+namespace UI.Windows.MainMenu.Delete
 {
     public class DeleteWindowController  : UIWindowController<DeleteWindowView>
     {
-        public event Action PressDeleted;
-        public bool IsInitialized { get; set; }
-      
-        private GameModel _gameModel;
-
-        public override UniTask InitializeWindow(UIWindowManager manager)
-        {
-            _gameModel = Container.Instance.GetService<GameModel>();
-            
-            return base.InitializeWindow(manager);
-        }
+        private event Action _callback;
+        
 
         public override void SubscribeToEvents(bool flag)
         {
             if (flag)
             {
-                view.ButtonDelete.Clicked += _invokeDelete;
+                view.ButtonDelete.Clicked += _invokeCallback;
             }
             else
             {
-                view.ButtonDelete.Clicked -= _invokeDelete;
+                view.ButtonDelete.Clicked -= _invokeCallback;
             }
         }
 
-        public void SetObservedObject(string objectName)
+        public void SetObserved(string objectName, Action success)
         {
-            view.TextName.SetText(objectName);
+            _callback = success;
+            view.TextName.SetText($"Delete '{objectName}'?");
             view.TextName.gameObject.SetActive(!string.IsNullOrEmpty(objectName));
+            view.ObjectIcon.SetActive(false);
         }
-        
-        public void SetObservedIcon(Sprite objectSprite)
+
+        public void SetObserved(Sprite objectSprite, Action success)
         {
+            _callback = success;
             view.ImageIcon.SetSprite(objectSprite);
             view.ObjectIcon.SetActive(objectSprite != null);
         }
-        
-        private void _invokeDelete()
+
+        public void Dispose()
         {
-            PressDeleted?.Invoke();
+            _callback = null;
+        }
+
+        private void _invokeCallback()
+        {
+            _callback?.Invoke();
+            _callback = null;
+            
+            view.TextName.SetText(string.Empty);
+            
+            Close();
         }
     }
 }

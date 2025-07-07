@@ -3,7 +3,7 @@ using Core.Save;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using UI.Windows.Base;
-using UI.Windows.MainMenu.DeleteHero;
+using UI.Windows.MainMenu.Delete;
 
 namespace UI.Windows.MainMenu.NewHero
 {
@@ -45,7 +45,7 @@ namespace UI.Windows.MainMenu.NewHero
                 Name = view.InputFieldHeroName.Value,
                 Health = 100,
                 GameTime = default,
-                LastGameExitTime = default
+                ExitTime = default
             });
             
             HeroCreated?.Invoke();

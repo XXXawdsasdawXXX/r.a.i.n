@@ -7,7 +7,6 @@ namespace UI.Windows.MainMenu.Game
     public class GameWindowView : UIWindowView
     {
         [field: SerializeField] public GameObject ObjectLocker { get; private set; }
-        
         [field: SerializeField] public UIText TextUserIP { get; private set; }
         [field: SerializeField] public UIButton ButtonContinue { get; private set; }
         [field: SerializeField] public UIButton ButtonJoin { get; private set; }
