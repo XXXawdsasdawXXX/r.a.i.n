@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="" />
+    <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
+    </list>
     <list id="8240115f-6e3a-4cd6-bfd3-fc8a48a5ab01" name="Compilation" comment="">
       <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Editor/CustomPlayButton/BookmarkSetting.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/CustomPlayButton/BookmarkSetting.asset" afterDir="false" />
@@ -248,7 +250,7 @@
       <workItem from="1750867368291" duration="3865000" />
       <workItem from="1751045277834" duration="350000" />
       <workItem from="1751292780621" duration="1326000" />
-      <workItem from="1756204290791" duration="1112000" />
+      <workItem from="1756204290791" duration="2871000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>
@@ -287,7 +289,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756234319436</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="upd">
+      <option name="closed" value="true" />
+      <created>1756235803886</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1756235803886</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,7 +330,8 @@
     <MESSAGE value="update ui" />
     <MESSAGE value="update fmod banks" />
     <MESSAGE value="asset and audiobanks upd" />
-    <option name="LAST_COMMIT_MESSAGE" value="asset and audiobanks upd" />
+    <MESSAGE value="upd" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
