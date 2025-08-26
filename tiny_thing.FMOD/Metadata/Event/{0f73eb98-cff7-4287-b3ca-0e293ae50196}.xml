@@ -112,6 +112,8 @@
 			<destination>{ae6e922d-04f1-4860-a878-be47d65c96bd}</destination>
 			<destination>{86c2b1c1-3fe0-4910-9639-f68a190e1da6}</destination>
 			<destination>{2d63b6cc-2179-40d7-91c7-94f5f4d9a715}</destination>
+			<destination>{b017377a-3880-4a5f-ab5d-02422676ae44}</destination>
+			<destination>{846ffcd2-dd90-4a41-8995-05b661051ba8}</destination>
 			<destination>{19c3a765-844e-4de3-9e5d-196e5754902c}</destination>
 		</relationship>
 	</object>
@@ -195,12 +197,58 @@
 			<value>12000</value>
 		</property>
 		<property name="resonance">
-			<value>1.51999998</value>
+			<value>1.22000003</value>
 		</property>
 	</object>
 	<object class="DistortionEffect" id="{2d63b6cc-2179-40d7-91c7-94f5f4d9a715}">
 		<property name="level">
-			<value>0.354999989</value>
+			<value>0.389999986</value>
+		</property>
+	</object>
+	<object class="MultibandEqEffect" id="{b017377a-3880-4a5f-ab5d-02422676ae44}">
+		<property name="filterTypeA">
+			<value>9</value>
+		</property>
+		<property name="filterTypeB">
+			<value>9</value>
+		</property>
+		<property name="filterTypeC">
+			<value>9</value>
+		</property>
+		<property name="frequencyA">
+			<value>12774.9814</value>
+		</property>
+		<property name="frequencyB">
+			<value>171.685715</value>
+		</property>
+		<property name="frequencyC">
+			<value>180</value>
+		</property>
+		<property name="qualityA">
+			<value>0.100000001</value>
+		</property>
+		<property name="qualityB">
+			<value>0.519999981</value>
+		</property>
+		<property name="qualityC">
+			<value>3</value>
+		</property>
+		<property name="gainA">
+			<value>5.55465126</value>
+		</property>
+		<property name="gainB">
+			<value>-4.84762192</value>
+		</property>
+		<property name="gainC">
+			<value>-10.5</value>
+		</property>
+	</object>
+	<object class="HighpassEffect" id="{846ffcd2-dd90-4a41-8995-05b661051ba8}">
+		<property name="cutoff">
+			<value>180</value>
+		</property>
+		<property name="resonance">
+			<value>1.5999999</value>
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{19c3a765-844e-4de3-9e5d-196e5754902c}" />

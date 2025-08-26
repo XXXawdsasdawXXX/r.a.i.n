@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="" />
     <list id="8240115f-6e3a-4cd6-bfd3-fc8a48a5ab01" name="Compilation" comment="">
       <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Editor/CustomPlayButton/BookmarkSetting.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/CustomPlayButton/BookmarkSetting.asset" afterDir="false" />
@@ -35,6 +32,12 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "CMD094"
+  }
+}]]></component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/XXXawdsasdawXXX/tiny_thing.git",
@@ -49,6 +52,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Delete/DeleteWindowController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://C:/Github/tiny_thing/Assets/Editor/CustomPlayButton/BookmarkSetting.asset" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Github/tiny_thing/Assets/Editor/CustomPlayButton/BookmarkSetting.asset.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Github/tiny_thing/Assets/Plugins/FMOD/Resources/FMODStudioSettings.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Github/tiny_thing/Assets/Scenes/Game_0.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@8042b29ff8/Runtime/CompilerServices/StateMachineRunner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@8042b29ff8/Runtime/Internal/PooledDelegate.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Unity.Mathematics/float2.gen.cs" root0="SKIP_HIGHLIGHTING" />
@@ -243,7 +248,7 @@
       <workItem from="1750867368291" duration="3865000" />
       <workItem from="1751045277834" duration="350000" />
       <workItem from="1751292780621" duration="1326000" />
-      <workItem from="1756204290791" duration="348000" />
+      <workItem from="1756204290791" duration="1112000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>
@@ -274,7 +279,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756204522638</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="asset and audiobanks upd">
+      <option name="closed" value="true" />
+      <created>1756234319436</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1756234319436</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,7 +319,8 @@
     <MESSAGE value="window-connection.prefab" />
     <MESSAGE value="update ui" />
     <MESSAGE value="update fmod banks" />
-    <option name="LAST_COMMIT_MESSAGE" value="update fmod banks" />
+    <MESSAGE value="asset and audiobanks upd" />
+    <option name="LAST_COMMIT_MESSAGE" value="asset and audiobanks upd" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
