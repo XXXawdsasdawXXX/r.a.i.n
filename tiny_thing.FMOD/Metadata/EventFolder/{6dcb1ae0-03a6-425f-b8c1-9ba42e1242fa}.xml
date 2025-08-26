@@ -5,7 +5,7 @@
 			<value>Snapshots</value>
 		</property>
 		<relationship name="folder">
-			<destination>{6bf615d4-4b77-4d47-a14a-c9c49f6b1c4b}</destination>
+			<destination>{78920e77-2c40-48d9-9d07-da07a67577c3}</destination>
 		</relationship>
 	</object>
 </objects>
