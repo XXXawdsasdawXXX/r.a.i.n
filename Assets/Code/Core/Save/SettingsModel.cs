@@ -7,13 +7,15 @@ namespace Core.Save
     public class SettingsModel
     {
         public float SFXVolume;
+        public float MusicVolume;
        
         public List<string> PreviousConnectedIPs;
         public int LastConnectedIPIndex;
 
         public SettingsModel()
         {
-            SFXVolume = 1;
+            SFXVolume = 0.7f;
+            MusicVolume = 0.7f;
             PreviousConnectedIPs = new List<string>();
             LastConnectedIPIndex = 0;
         }

@@ -7,7 +7,7 @@ namespace UI.Windows.Base
     {
         public UniTask InitializeWindow(UIWindowManager manager);
         
-        public void LoadWindow(GameModel model);
+        public void LoadWindow(GameModel game);
 
         public void StartWindow();
 

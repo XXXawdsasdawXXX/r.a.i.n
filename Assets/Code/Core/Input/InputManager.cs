@@ -29,6 +29,11 @@ namespace Core.Input
             {
                 Key = KeyCode.Mouse0,
                 Action = EInputAction.LeftClick
+            },
+            new()
+            {
+                Key = KeyCode.Escape,
+                Action = EInputAction.Esc
             }
         };
 

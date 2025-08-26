@@ -72,7 +72,33 @@ namespace Core.Save
             }
         }
 
-        public GameModel LoadGameModel(string slotId) 
+        public GameModel LoadLastGameModel()
+        {
+            if (string.IsNullOrEmpty(ModelsContainer.LastSlot))
+            {
+                ModelsContainer.LastSlot = _lastSlot;
+            }
+            
+            Log.Info(this, $"Load last game model. slot - {ModelsContainer.LastSlot}");
+            
+            return LoadGameModel(ModelsContainer.LastSlot);
+        }
+
+        public void DeleteGameModel(string slotId)
+        {
+            if (ModelsContainer.Slots.Remove(slotId))
+            {
+                if (ModelsContainer.LastSlot == slotId)
+                {
+                    ModelsContainer.LastSlot = null;
+                    LastUsedSlot = null;
+                }
+
+                File.WriteAllText(SavePath, ModelsContainer.AsJson());
+            }
+        }
+
+        private GameModel LoadGameModel(string slotId) 
         {
             try
             {
@@ -97,32 +123,6 @@ namespace Core.Save
             {
                 Debug.LogError($"Load failed: {e.Source} {e.Message}");
                 return null;
-            }
-        }
-
-        public GameModel LoadLastGameModel()
-        {
-            if (string.IsNullOrEmpty(ModelsContainer.LastSlot))
-            {
-                ModelsContainer.LastSlot = _lastSlot;
-            }
-            
-            Log.Info(this, $"Load last game model. slot - {ModelsContainer.LastSlot}");
-            
-            return LoadGameModel(ModelsContainer.LastSlot);
-        }
-
-        public void DeleteGameModel(string slotId)
-        {
-            if (ModelsContainer.Slots.Remove(slotId))
-            {
-                if (ModelsContainer.LastSlot == slotId)
-                {
-                    ModelsContainer.LastSlot = null;
-                    LastUsedSlot = null;
-                }
-
-                File.WriteAllText(SavePath, ModelsContainer.AsJson());
             }
         }
 

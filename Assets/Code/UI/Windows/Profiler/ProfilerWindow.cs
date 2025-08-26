@@ -18,7 +18,7 @@ namespace UI.Windows.Profiler
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.F1))
             {
                 _body.SetActive(!_body.activeSelf);
             }

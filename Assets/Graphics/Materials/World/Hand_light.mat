@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Hand_light
   m_Shader: {fileID: 4800000, guid: f3622b3ac1631ea409b0f5811034f3a9, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - GLOWTEX_ON
   m_InvalidKeywords:
@@ -19,6 +21,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -105,7 +108,7 @@ Material:
     - _DistortAmount: 0.5
     - _DistortTexXSpeed: 5
     - _DistortTexYSpeed: 5
-    - _EditorDrawers: 2
+    - _EditorDrawers: 6
     - _FadeAmount: 0.395
     - _FadeBurnGlow: 126
     - _FadeBurnTransition: 0.192

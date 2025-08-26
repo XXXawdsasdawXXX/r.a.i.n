@@ -20,17 +20,9 @@ namespace Core.Audio
         {
             _audioLibrary = Container.Instance.GetConfig<AudioLibrary>();
 
-        Log.Info(this, $"_audioLibrary != null {_audioLibrary != null}", Color.red);            
             return UniTask.CompletedTask;
         }
         
-        /*
-        public void OneShot(EventReference eventReference)
-        {
-            RuntimeManager.PlayOneShot(eventReference);
-        }
-        */
-
         public void OneShot(string eventKey)
         {
             EventReference eventReference = _audioLibrary.Events.Get(eventKey);
@@ -44,7 +36,5 @@ namespace Core.Audio
             
             RuntimeManager.PlayOneShot(eventReference, position);
         }
-
-   
     }
 }

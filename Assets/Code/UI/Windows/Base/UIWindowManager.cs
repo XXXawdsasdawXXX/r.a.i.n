@@ -17,7 +17,8 @@ namespace UI.Windows.Base
         private readonly Dictionary<Type, IWindowController> _windowControllers = new();
         
         private IWindowController _openedWindow;
-        
+
+
         public async UniTask Initialize()
         {
             _windows = GetComponentsInChildren<IWindowController>(true);
@@ -114,7 +115,5 @@ namespace UI.Windows.Base
             
             return null;
         }
-
-    
     }
 }
