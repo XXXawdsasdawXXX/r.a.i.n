@@ -9,6 +9,7 @@ using UI.Windows.Base;
 using UI.Windows.MainMenu.Connection.Legacy;
 using UI.Windows.MainMenu.Delete;
 using UI.Windows.MainMenu.Hero;
+using UI.Windows.MainMenu.NewGame;
 using UnityEngine;
 
 namespace UI.Windows.MainMenu.Game
@@ -20,7 +21,9 @@ namespace UI.Windows.MainMenu.Game
         private ConnectionHandler _connectionHandler;
         private GameStateMachine _gameStateMachine;
         private DeleteWindowController _deleteWindow;
+        private NewGameWindowController _newGameWindow;
 
+        
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameModel = Container.Instance.GetService<GameModel>();
@@ -29,6 +32,7 @@ namespace UI.Windows.MainMenu.Game
 
             _heroWindow = manager.GetWindow<HeroWindowController>();
             _deleteWindow = manager.GetWindow<DeleteWindowController>();
+            _newGameWindow = manager.GetWindow<NewGameWindowController>();
             
             view.WorldsRadioGroup.Initialize();
             
@@ -47,7 +51,8 @@ namespace UI.Windows.MainMenu.Game
             if (flag)
             {
                 _heroWindow.HeroListChanged += _updateObjectLockerState;
-            
+                _newGameWindow.AddedMadel += _updateView;
+                
                 view.ButtonContinue.Clicked += _continueGame;
                 view.ButtonDelete.Clicked += _openDeleteWindow;
                 view.ButtonJoin.Clicked += _openJoinWindow;
@@ -57,6 +62,7 @@ namespace UI.Windows.MainMenu.Game
             else
             {
                 _heroWindow.HeroListChanged -= _updateObjectLockerState;
+                _newGameWindow.AddedMadel -= _updateView;
             
                 view.ButtonContinue.Clicked -= _continueGame;
                 view.ButtonJoin.Clicked -= _openJoinWindow;
@@ -132,6 +138,8 @@ namespace UI.Windows.MainMenu.Game
                 
                 view.WorldsRadioGroup.Pool.SortByIndex();
             }
+            
+            view.Scroll.SetViewPosition((float)_gameModel.LastWorldIndex.Value / _gameModel.Worlds.Count);
             
             view.ButtonContinue.SetInteractable(_gameModel.Worlds.Count > _gameModel.LastWorldIndex.Value);
             view.ButtonDelete.SetInteractable(_gameModel.Worlds.Count > _gameModel.LastWorldIndex.Value);

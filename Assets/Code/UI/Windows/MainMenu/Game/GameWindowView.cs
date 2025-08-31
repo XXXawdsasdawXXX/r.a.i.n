@@ -12,5 +12,6 @@ namespace UI.Windows.MainMenu.Game
         [field: SerializeField] public UIButton ButtonJoin { get; private set; }
         [field: SerializeField] public UIButton ButtonDelete { get; private set; }
         [field: SerializeField] public UIRadioGroup<UIText> WorldsRadioGroup { get; private set; }
+        [field: SerializeField] public UIScroll Scroll { get; private set; }
     }
 }

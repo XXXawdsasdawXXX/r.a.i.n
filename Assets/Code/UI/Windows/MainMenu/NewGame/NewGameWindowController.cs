@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Save;
 using Core.ServiceLocator;
 using Core.TIme;
@@ -11,6 +13,8 @@ namespace UI.Windows.MainMenu.NewGame
     {
         public bool IsInitialized { get; set; }
 
+        public event Action AddedMadel; 
+        
         private GameModel _gameModel;
         private UtcTime _utcTime;
 
@@ -48,6 +52,13 @@ namespace UI.Windows.MainMenu.NewGame
 
         private void _addWorld()
         {
+            bool containsName = _gameModel.Worlds.Any(world => world.Name.Equals(view.InputFieldGameName.Value));
+
+            if (containsName)
+            {
+                return;
+            }
+            
             _gameModel.Worlds.Add(new WorldModel
             {
                 Name = view.InputFieldGameName.Value,
@@ -57,6 +68,8 @@ namespace UI.Windows.MainMenu.NewGame
             });
 
             _gameModel.LastWorldIndex.Value = _gameModel.Worlds.Count - 1;
+            
+            AddedMadel?.Invoke();
         }
     }
 }

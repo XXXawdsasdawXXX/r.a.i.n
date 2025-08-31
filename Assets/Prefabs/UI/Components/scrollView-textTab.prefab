@@ -12,13 +12,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: scrollView-textTab
       objectReference: {fileID: 0}
+    - target: {fileID: 2621563026770175408, guid: 83806c62b0cae664fbbc7d3d61bea124, type: 3}
+      propertyPath: <Scroll>k__BackingField
+      value: 
+      objectReference: {fileID: 7296531898643069475}
     - target: {fileID: 4496675845399465563, guid: 83806c62b0cae664fbbc7d3d61bea124, type: 3}
       propertyPath: m_Size
-      value: 0.49999976
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4496675845399465563, guid: 83806c62b0cae664fbbc7d3d61bea124, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7670144193700700115, guid: 83806c62b0cae664fbbc7d3d61bea124, type: 3}
       propertyPath: m_AnchorMax.x
@@ -180,3 +184,14 @@ MonoBehaviour:
     <Enabled>k__BackingField: []
     _root: {fileID: 3868242949767488690}
     _prefab: {fileID: 5836890331206030497, guid: 9d39722c280514c4185ca2b130b7b933, type: 3}
+--- !u!114 &7296531898643069475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4325719878442152615, guid: 83806c62b0cae664fbbc7d3d61bea124, type: 3}
+  m_PrefabInstance: {fileID: 6434085129233025156}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4934260201873434325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

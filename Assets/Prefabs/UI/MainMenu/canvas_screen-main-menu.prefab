@@ -518,6 +518,7 @@ MonoBehaviour:
   <ButtonJoin>k__BackingField: {fileID: 867966103001391950}
   <ButtonDelete>k__BackingField: {fileID: 8477316409300113945}
   <WorldsRadioGroup>k__BackingField: {fileID: 2609820155673987780}
+  <Scroll>k__BackingField: {fileID: 357027755280449676}
 --- !u!1 &2613908365041500278
 GameObject:
   m_ObjectHideFlags: 0
@@ -2570,6 +2571,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: text-button-contnue
       objectReference: {fileID: 0}
+    - target: {fileID: 4885750621309047196, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885750621309047196, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4885750621309047196, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.85665214
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText-continue
@@ -3890,7 +3903,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3446287159901458899, guid: be4fb4848a644a049b09c0dad8c129bf, type: 3}
       propertyPath: m_BlockingMask.m_Bits
-      value: 55
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5804854720261378547, guid: be4fb4848a644a049b09c0dad8c129bf, type: 3}
       propertyPath: m_Pivot.x
@@ -5217,6 +5230,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5393427fe4df2344195ebe1b51325812, type: 3}
+--- !u!114 &357027755280449676 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9019548948144188724, guid: 5393427fe4df2344195ebe1b51325812, type: 3}
+  m_PrefabInstance: {fileID: 8781936951735594424}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6404bb40093d4fba898cafcacaec9d6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2609820155673987780 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6766734012934907772, guid: 5393427fe4df2344195ebe1b51325812, type: 3}

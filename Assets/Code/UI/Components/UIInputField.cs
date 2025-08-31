@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI.Components
 {
-    public class UIInputField : MonoBehaviour
+    public sealed class UIInputField : Essential.Mono
     {
         public event Action<string> Changed;
         public string Value => _inputField.text;
@@ -21,7 +21,7 @@ namespace UI.Components
             _inputField.SetTextWithoutNotify(text);
         }
 
-        protected virtual void EndEdit(string value)
+        private void EndEdit(string value)
         {
             Changed?.Invoke(value);
         }
