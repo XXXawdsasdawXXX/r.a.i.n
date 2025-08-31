@@ -19,9 +19,45 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{955b0e9b-7c8d-4b8f-bc12-f60756011ebc}">
 		<relationship name="effects">
+			<destination>{7a3957fe-fb4c-4285-b38a-e8a066035fdd}</destination>
+			<destination>{14481c85-3b33-478a-8580-093c6c0e1ad2}</destination>
+			<destination>{9d6aff3b-8b4c-4844-ac13-b4504a1df4e3}</destination>
 			<destination>{16779ac9-6731-4c18-855a-b0a7787092c0}</destination>
+			<destination>{a0ea5dbe-3f74-4824-a929-9f370c2a3432}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{9ba22742-ad7d-4063-aa20-33fe65b78c7c}" />
+	<object class="ChorusEffect" id="{7a3957fe-fb4c-4285-b38a-e8a066035fdd}">
+		<property name="rate">
+			<value>4.80000019</value>
+		</property>
+		<property name="depth">
+			<value>100</value>
+		</property>
+		<property name="mix">
+			<value>14</value>
+		</property>
+	</object>
+	<object class="DistortionEffect" id="{14481c85-3b33-478a-8580-093c6c0e1ad2}">
+		<property name="level">
+			<value>0.179999992</value>
+		</property>
+	</object>
+	<object class="PannerEffect" id="{9d6aff3b-8b4c-4844-ac13-b4504a1df4e3}">
+		<property name="overridingOutputFormat">
+			<value>0</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{16779ac9-6731-4c18-855a-b0a7787092c0}" />
+	<object class="DelayEffect" id="{a0ea5dbe-3f74-4824-a929-9f370c2a3432}">
+		<property name="delay">
+			<value>58</value>
+		</property>
+		<property name="feedback">
+			<value>16.5</value>
+		</property>
+		<property name="level">
+			<value>-41</value>
+		</property>
+	</object>
 </objects>
