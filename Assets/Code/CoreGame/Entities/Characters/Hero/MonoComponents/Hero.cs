@@ -83,7 +83,6 @@ namespace CoreGame.Entities.Characters.Hero
 
         private void _onHealthChanged()
         {
-            Log.Info(this, $"{Model == null} {Health == null}");
             if (IsOwner && Model != null)
             {
                 Model.Health = Health.Current;

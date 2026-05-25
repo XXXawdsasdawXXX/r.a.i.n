@@ -8,10 +8,10 @@ namespace CoreGame.Entities.Params
     {
         public event Action Changed;
         public event Action TookDamage;
-        public float Current => _health.Value;
-        public float Max => 100;
+        public int Current => _health.Value;
+        public int Max => 100;
 
-        private readonly SyncVar<float> _health = new();
+        private readonly SyncVar<int> _health = new();
 
         public override void OnStartClient()
         {
@@ -28,7 +28,7 @@ namespace CoreGame.Entities.Params
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void Set(float value)
+        public void Set(int value)
         {
             _health.Value = value;
 
@@ -36,7 +36,7 @@ namespace CoreGame.Entities.Params
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void UpdateHealth(float value)
+        public void UpdateHealth(int value)
         {
             _health.Value += value;
 
@@ -45,10 +45,10 @@ namespace CoreGame.Entities.Params
 
         public float GetNormalize()
         {
-            return _health.Value / Max;
+            return (float)_health.Value / Max;
         }
 
-        private void _onHealthChange(float prev, float next, bool asserver)
+        private void _onHealthChange(int prev, int next, bool asserver)
         {
             Changed?.Invoke();
 
