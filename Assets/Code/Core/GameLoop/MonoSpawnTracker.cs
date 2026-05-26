@@ -45,7 +45,7 @@ namespace Core.GameLoop
             InstanceFinder.ServerManager.OnDespawn -= _onMonoDestroyed;*/
         }
         
-        private void _onMonoStarted(Essential.Mono obj)
+        /*private void _onMonoStarted(Essential.Mono obj)
         {
             if (obj is IGameListener gameListener && _observeMono.Add(obj))
             {
@@ -60,6 +60,6 @@ namespace Core.GameLoop
             {
                 _gameEventDispatcher.RemoveListener(gameListener);
             }
-        }
+        }*/
     }
 }

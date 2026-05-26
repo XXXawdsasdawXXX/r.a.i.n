@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Data.RangeFloat;
 using UnityEngine;
 
 namespace CoreGame.Card
@@ -8,7 +9,7 @@ namespace CoreGame.Card
     {
         [field: SerializeField] public EEffectType Type { get; private set; }
         [field: SerializeField] public EEffectTarget Target { get; private set; }
-        [field: SerializeField] public float BaseValue { get; private set; }
+        [field: SerializeField,MinMaxRangeFloat(0,20)] public RangedFloat BaseValue { get; private set; }
         [field: SerializeField] public EStatScaling Scaling { get; private set; }
         [field: SerializeField] public float ScalingFactor { get; private set; }
     

@@ -5,58 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleModel.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleSide.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleSide.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleUnit.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleUnit.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardBattleState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardBattleState.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardConfiguration.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardEffectConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardEffectConfiguration.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CompanionConfiguration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CompanionConfiguration.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattleLine.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattleLine.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattleMode.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattleMode.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattlePhase.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattlePhase.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/ECardType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/ECardType.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EEffectTarget.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EEffectTarget.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EEffectType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EEffectType.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EStatScaling.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EStatScaling.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EStatusType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EStatusType.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/StatusEffect.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/StatusEffect.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/shelf/window-connection_prefab.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/shelf/window-connection_prefab.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetProvider.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/ConnectionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/ConnectionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/HeroModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/GameStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/GameStateMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/StateMachine/States/CoreGameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/HeroSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Installers.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Installers/CoreGameInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/CoreGameInstaller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Installers/CoreGameInstaller.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/CoreGameInstaller.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/UIDropDown.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/UIDropDown.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Materials/World/World.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Materials/World/World.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/MainMenu/canvas_screen-main-menu.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Fonts/square_pixel-7.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardEffectConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardEffectConfiguration.cs" afterDir="false" />
     </list>
     <list id="8240115f-6e3a-4cd6-bfd3-fc8a48a5ab01" name="Compilation" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -284,6 +237,8 @@
       <workItem from="1779705186144" duration="2653000" />
       <workItem from="1779708985343" duration="884000" />
       <workItem from="1779718551164" duration="2412000" />
+      <workItem from="1779749858279" duration="2497000" />
+      <workItem from="1779798455019" duration="96000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>

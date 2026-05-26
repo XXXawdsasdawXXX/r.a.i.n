@@ -17,7 +17,7 @@ namespace Core.Save
     {
         private static readonly string SavePath = Path.Combine(Application.persistentDataPath, "save_slots.dat");
         private static readonly string Password = _generateKey();
-        private static readonly string HmacKey = "HMAC_SECRET_KEY_123";
+        //private static readonly string HmacKey = "HMAC_SECRET_KEY_123";
 
         public SaveContainer ModelsContainer => _container ??= _loadContainer();
 
@@ -25,20 +25,6 @@ namespace Core.Save
 
         private const bool _useEncryption = false;
         public bool IsInitialized { get; set; }
-
-        public string LastUsedSlot
-        {
-            get => ParrelSyncUtility.IsClone() ? "clone" : _lastSlot;
-            private set
-            {
-                if (ParrelSyncUtility.IsClone())
-                {
-                    return;
-                }
-
-                _lastSlot = value;
-            }
-        }
 
         private SaveSettings _saveSettings;
 
@@ -82,6 +68,20 @@ namespace Core.Save
             Log.Info(this, $"Load last game model. slot - {ModelsContainer.LastSlot}");
             
             return LoadGameModel(ModelsContainer.LastSlot);
+        }
+
+        public string LastUsedSlot
+        {
+            get => ParrelSyncUtility.IsClone() ? "clone" : _lastSlot;
+            private set
+            {
+                if (ParrelSyncUtility.IsClone())
+                {
+                    return;
+                }
+
+                _lastSlot = value;
+            }
         }
 
         public void DeleteGameModel(string slotId)

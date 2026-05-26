@@ -116,7 +116,7 @@ namespace Core.GameLoop
 
             if (listener is IInitializeListener initListener && !initListener.IsInitialized)
             {
-                initListener.Initialize();
+                await initListener.Initialize();
 
                 initListener.IsInitialized = true;
             }
