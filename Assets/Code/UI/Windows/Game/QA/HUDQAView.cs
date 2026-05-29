@@ -19,5 +19,7 @@ namespace UI.Windows.HUD.QA
         [field: SerializeField] public UIButton ButtonAddResource { get; private set; }
         [field: SerializeField] public UIInputField InputFieldResource { get; private set; }
         [field: SerializeField] public UIDropDown DropDownResourceType { get; private set; }
+        [field: Space, Header("Other")]
+        [field: SerializeField] public UIButton ButtonMainMenu { get; private set; }
     }
 }

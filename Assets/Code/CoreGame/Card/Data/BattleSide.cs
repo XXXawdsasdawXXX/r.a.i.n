@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CoreGame.Card
+namespace CoreGame.Card.Data
 {
     public class BattleSide
     {

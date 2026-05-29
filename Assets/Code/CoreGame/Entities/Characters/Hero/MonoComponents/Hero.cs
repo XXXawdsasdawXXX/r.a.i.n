@@ -26,6 +26,7 @@ namespace CoreGame.Entities.Characters.Hero
         [field: SerializeField] public HeroAnimation Animation { get; private set; }
         [field: SerializeField] public HeroItemController ItemController { get; private set; }
         
+        
         public override void OnStartClient()
         {
             /*Log.Info(this, $"on start client {IsOwner}", UnityEngine.Color.black);
@@ -48,8 +49,8 @@ namespace CoreGame.Entities.Characters.Hero
                 InputManager input = Container.Instance.GetService<InputManager>();
                 HeroSettings heroSettings = Container.Instance.GetConfig<HeroSettings>();
                 
-                Model = Container.Instance.GetService<GameModel>().Hero; 
-                
+                Model = Container.Instance.GetService<GameModel>().Hero;
+       
                 Movement movement = new(Rigidbody, input.Direction, heroSettings.MoveSpeed);
                 Components.Add(typeof(Movement), movement);
                 

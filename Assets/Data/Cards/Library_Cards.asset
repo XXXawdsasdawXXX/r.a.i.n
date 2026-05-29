@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68a8bc0444c4967bc1e877a5d7f775b, type: 3}
+  m_Name: Library_Cards
+  m_EditorClassIdentifier: 
+  <AllCards>k__BackingField:
+    _assets:
+    - {fileID: 11400000, guid: 5cbddd4ac9295f84b8d81bdf7e140a86, type: 2}
+    - {fileID: 11400000, guid: 6ee765cb680333a4195a801fd2fd4995, type: 2}
+  <DefaultCardsDeck>k__BackingField:
+  - {fileID: 11400000, guid: 5cbddd4ac9295f84b8d81bdf7e140a86, type: 2}
+  - {fileID: 11400000, guid: 5cbddd4ac9295f84b8d81bdf7e140a86, type: 2}
+  - {fileID: 11400000, guid: 5cbddd4ac9295f84b8d81bdf7e140a86, type: 2}
+  - {fileID: 11400000, guid: 5cbddd4ac9295f84b8d81bdf7e140a86, type: 2}
+  - {fileID: 11400000, guid: 6ee765cb680333a4195a801fd2fd4995, type: 2}

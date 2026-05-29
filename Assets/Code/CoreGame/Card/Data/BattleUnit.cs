@@ -3,7 +3,7 @@ using System.Linq;
 using Core.Save;
 using GameKit.Dependencies.Utilities;
 
-namespace CoreGame.Card
+namespace CoreGame.Card.Data
 {
     public class BattleUnit
     {
@@ -30,14 +30,23 @@ namespace CoreGame.Card
         public float CritChance;
         public float DodgeChance;
         public float StunChance;
-    
-        public static BattleUnit FromHero(HeroModel hero, CardLibrary library)
+        
+        public int MoveLineCost;
+        public HeroStats Stats;
+        public EBattleLine Line;
+
+
+        public static BattleUnit FromHero(HeroModel hero, AllCardCollection library)
         {
-            var unit = new BattleUnit();
-            unit.UnitId = hero.Name;
-            unit.MaxHP = 100 + hero.Stats.Endurance * 10;
-            unit.HP = hero.Health;
-            unit.MaxEnergy = 100 + hero.Stats.Endurance * 5;
+            BattleUnit unit = new()
+            {
+                UnitId = hero.Name,
+                MaxHP = 100 + hero.Stats.Endurance * 10,
+                HP = hero.Health,
+                MaxEnergy = 100 + hero.Stats.Endurance * 5,
+                Stats = hero.Stats
+            };
+            
             unit.Energy = unit.MaxEnergy;
             unit.HandLimit = 7; // TODO: + прокачка колоды
             unit.CritChance = hero.Stats.Agility * 0.02f;
@@ -56,6 +65,33 @@ namespace CoreGame.Card
             unit.Deck.Shuffle();
         
             return unit;
+        }
+
+        public static BattleUnit FromCompanion(CompanionConfiguration effectCompanionPrefab, string ownerId)
+        {
+            return new BattleUnit
+            {
+                UnitId = null,
+                OwnerId = ownerId,
+                IsCompanion = false,
+                HP = 50,
+                MaxHP = 50,
+                Armor = 0,
+                Energy = 0,
+                MaxEnergy = 0,
+                HandLimit = 0,
+                IsInArmorStance = false,
+                ArmorStanceTurnsLeft = 0,
+                Statuses = null,
+                Hand = null,
+                Deck = null,
+                Discard = null,
+                CritChance = 0,
+                DodgeChance = 0,
+                StunChance = 0,
+                MoveLineCost = 0,
+                Stats = null
+            };
         }
     }
 }

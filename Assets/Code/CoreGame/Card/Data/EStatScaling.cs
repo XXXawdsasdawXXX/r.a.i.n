@@ -1,4 +1,4 @@
-﻿namespace CoreGame.Card
+﻿namespace CoreGame.Card.Data
 {
     public enum EStatScaling
     {

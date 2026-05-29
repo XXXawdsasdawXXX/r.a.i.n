@@ -14,6 +14,7 @@ namespace Core.Network
 
         private readonly Dictionary<Type, object> _heroComponents = new();
 
+        
         public void SetConnection(NetworkConnection connection)
         {
             Connection = connection;

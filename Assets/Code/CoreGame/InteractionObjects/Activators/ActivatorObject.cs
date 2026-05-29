@@ -1,5 +1,4 @@
 ﻿using Core.GameLoop;
-using Essential;
 using FishNet;
 using FishNet.Connection;
 using UnityEngine;
@@ -7,15 +6,15 @@ using Channel = FishNet.Transporting.Channel;
 
 namespace CoreGame.InteractionObjects.Activators
 {
-    public class Laptop : InteractionObject, ISubscriber
+    public class ActivatorObject : InteractionObject, ISubscriber
     {
-        [SerializeField] private GameObject _viewDisplay;
+        [SerializeField] private GameObject _view;
 
         private ActivatorBroadcast _activatorBroadcast;
 
         public override void StartInteraction()
         {
-            _viewDisplay.SetActive(!_activatorBroadcast.IsActive);
+            _view.SetActive(!_activatorBroadcast.IsActive);
 
             base.StartInteraction();
         }
@@ -29,7 +28,6 @@ namespace CoreGame.InteractionObjects.Activators
 
         public void Unsubscribe()
         {
-            Log.Info(this, "unsubscribe", new Color(0.4f, 0.5f, 0.5f));
             Trigger.InteractionPerformed -= _onInteractionPerformed;
             InstanceFinder.ClientManager?.UnregisterBroadcast<ActivatorBroadcast>(_onServerSendChanged);
             InstanceFinder.ServerManager?.UnregisterBroadcast<ActivatorBroadcast>(_onClientRequestChanged);

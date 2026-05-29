@@ -26,12 +26,12 @@ namespace UI.Components
         [Header("Can be null")]
         [SerializeField, CanBeNull] private UISelectableAnimation _selectableAnimation;
         
-        void IPoolableUIElement.Enable()
+        public virtual void Enable()
         {
             body.SetActive(true);
         }
 
-        void IPoolableUIElement.Disable()
+        public virtual void Disable()
         {
             body.SetActive(false);
         }

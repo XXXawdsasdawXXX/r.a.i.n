@@ -19,7 +19,6 @@ MonoBehaviour:
     _assets:
     - {fileID: 6790191599092600512, guid: f57d2d0891a5cb54bbf2e0514539f406, type: 3}
     - {fileID: 3081301137537393607, guid: 87e05de4c0c40a1418996abd44ce0c85, type: 3}
-    - {fileID: 6395590355646006443, guid: 6b0f33e43f111eb4babd1e70f6321586, type: 3}
   <UIElements>k__BackingField:
     _assets:
     - {fileID: 6422474678841146688, guid: 9d39722c280514c4185ca2b130b7b933, type: 3}

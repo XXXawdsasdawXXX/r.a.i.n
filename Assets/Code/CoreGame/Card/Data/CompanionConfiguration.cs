@@ -2,7 +2,7 @@
 using UnityEditor.Animations;
 using UnityEngine;
 
-namespace CoreGame.Card
+namespace CoreGame.Card.Data
 {
     [CreateAssetMenu(fileName = "Companion_", menuName = "Game/Battle/Companion")]
     public class CompanionConfiguration : ScriptableObject

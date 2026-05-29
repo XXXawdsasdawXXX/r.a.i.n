@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CoreGame.Card
+namespace CoreGame.Card.Data
 {
     [Flags]
     public enum ECardType

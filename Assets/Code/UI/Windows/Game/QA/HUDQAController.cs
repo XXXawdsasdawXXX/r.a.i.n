@@ -4,11 +4,13 @@ using System.Linq;
 using Core.GameLoop;
 using Core.Network;
 using Core.ServiceLocator;
+using Core.StateMachine;
 using CoreGame.Entities.Characters.Hero;
 using CoreGame.Entities.Params;
 using CoreGame.Harvest;
 using Cysharp.Threading.Tasks;
 using Essential;
+using FishNet;
 using TMPro;
 using UI.Windows.Base;
 
@@ -21,11 +23,13 @@ namespace UI.Windows.HUD.QA
         private ResourceStorage _resourceStorage;
         private Health _heroHealth;
         private UserProvider _userProvider;
+        private GameStateMachine _gameStateMachine;
+
 
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _resourceStorage = Container.Instance.GetService<ResourceStorage>();
-
+            _gameStateMachine = Container.Instance.GetService<GameStateMachine>();
             _userProvider = Container.Instance.GetService<UserProvider>();
 
             return base.InitializeWindow(manager);
@@ -53,6 +57,8 @@ namespace UI.Windows.HUD.QA
 
                 view.ButtonAddHP.Clicked += _addHp;
                 view.ButtonRemoveHP.Clicked += _removeHP;
+
+                view.ButtonMainMenu.Clicked += _loadMainMenu;
             }
             else
             {
@@ -65,7 +71,16 @@ namespace UI.Windows.HUD.QA
 
                 view.ButtonAddHP.Clicked -= _addHp;
                 view.ButtonRemoveHP.Clicked -= _removeHP;
+                
+                view.ButtonMainMenu.Clicked -= _loadMainMenu;
             }
+        }
+
+        private void _loadMainMenu()
+        {
+            InstanceFinder.ClientManager.StopConnection();
+            InstanceFinder.ServerManager.StopConnection(true);
+           _gameStateMachine.SwitchState(typeof(MainMenuState));
         }
 
         private void _onHeroCreated()

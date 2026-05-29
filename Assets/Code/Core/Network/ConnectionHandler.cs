@@ -16,6 +16,7 @@ namespace Core.Network
         [SerializeField] private string _serverIP = "192.168.1.100";
         [SerializeField] private ushort _port = 7777;
      
+        
         private void OnEnable()
         {
             InstanceFinder.ClientManager.OnClientConnectionState += OnClientConnectionState;
@@ -56,8 +57,7 @@ namespace Core.Network
       
             Debug.Log($"[Host] Сервер запущен на {GetLocalIPAddress()}:{_port}");
         }
-        
-        
+
         public void StartServer()
         {
             if (InstanceFinder.NetworkManager.TransportManager.Transport is Tugboat tugboat)
@@ -74,10 +74,10 @@ namespace Core.Network
 
         private void OnClientConnectionState(ClientConnectionStateArgs args)
         {
-            if (args.ConnectionState == LocalConnectionState.Stopping)
+            /*if (args.ConnectionState == LocalConnectionState.Stopping)
             {
                 UnityEditor.EditorApplication.isPlaying = false;
-            }
+            }*/
         }
 
         public static string GetLocalIPAddress()

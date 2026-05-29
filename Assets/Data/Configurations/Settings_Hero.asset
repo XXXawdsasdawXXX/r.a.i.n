@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3beea7635048e68a56496b76adc74b, type: 3}
   m_Name: Settings_Hero
   m_EditorClassIdentifier: 
+  <MoveSpeed>k__BackingField: 100
+  <DefaultDeck>k__BackingField:
+  - {fileID: 11400000, guid: 5cbddd4ac9295f84b8d81bdf7e140a86, type: 2}
+  - {fileID: 11400000, guid: 5cbddd4ac9295f84b8d81bdf7e140a86, type: 2}
+  - {fileID: 11400000, guid: 5cbddd4ac9295f84b8d81bdf7e140a86, type: 2}
+  - {fileID: 11400000, guid: 5cbddd4ac9295f84b8d81bdf7e140a86, type: 2}
+  - {fileID: 11400000, guid: 6ee765cb680333a4195a801fd2fd4995, type: 2}
   <DamageTween>k__BackingField:
     Color: {r: 0.9245283, g: 0.40993235, b: 0.40993235, a: 1}
     Duration: 0.1
+    Ease: 0

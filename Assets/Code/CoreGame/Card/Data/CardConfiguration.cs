@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoreGame.Card
+namespace CoreGame.Card.Data
 {
     [CreateAssetMenu(fileName = "Card_", menuName = "Game/Battle/Card")]
     public class CardConfiguration : ScriptableObject

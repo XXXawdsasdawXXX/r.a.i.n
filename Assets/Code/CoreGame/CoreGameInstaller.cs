@@ -2,6 +2,7 @@
 using Core.ServiceLocator;
 using CoreGame._Test;
 using CoreGame.Camera;
+using CoreGame.Card.Logic;
 using CoreGame.Entities.Characters.Controllers;
 using CoreGame.Grid;
 using CoreGame.Harvest;
@@ -28,6 +29,8 @@ namespace CoreGame
                 //hero
                 typeof(Movement),
                 typeof(Miner),
+                //cards
+                typeof(BattleService)
             };
         }
     }

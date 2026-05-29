@@ -1,7 +1,7 @@
 ﻿using Core.Save;
 using UnityEngine;
 
-namespace CoreGame.Card
+namespace CoreGame.Card.Data
 {
     public class CardBattleState
     {

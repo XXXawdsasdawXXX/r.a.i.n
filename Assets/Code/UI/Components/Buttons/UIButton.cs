@@ -17,6 +17,7 @@ namespace UI.Components
         
         private AudioService _audio;
 
+        
         public UniTask Initialize()
         {
             _audio = Container.Instance.GetService<AudioService>();

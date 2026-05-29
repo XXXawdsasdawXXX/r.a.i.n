@@ -5,11 +5,124 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleService.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleValidator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardApplyStatusProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardApplyStatusProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardArmorProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardArmorProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardDamageProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardDamageProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardEnergyProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardEnergyProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardHealEffectProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardHealEffectProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardInjectParasiteEnemyProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardInjectParasiteEnemyProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardInjectParasiteProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardInjectParasiteProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardParasiteProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardParasiteProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardSummonCompanionProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardSummonCompanionProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/ICardProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/ICardProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/NetworkBattleService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/NetworkBattleService.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/ECharacterState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/ECharacterState.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/BattleActivatorObject.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/BattleActivatorObject.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardHandDeck.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardHandDeck/CardHandDeckController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardHandDeck/CardHandDeckController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardHandDeck/CardHandDeckView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardHandDeck/CardHandDeckView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStep.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStep/CardStepController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStep/CardStepController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStep/CardStepView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStep/CardStepView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStepEnergy.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStepEnergy/CardStepEnergyController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStepEnergy/CardStepEnergyController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStepEnergy/CardStepEnergyView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStepEnergy/CardStepEnergyView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardWindowController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardWindowController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardWindowView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardWindowView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/HUDWindowController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/HUDWindowController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/HUDWindowView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/HUDWindowView.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/GameEventDispatcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/GameLoop/MonoSpawnTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Save/SaveService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetKey.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/AssetManagement/AssetKey.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/ConnectionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/ConnectionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/Core/Network/UserProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Core/Network/UserProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/CardLibrary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/CardLibrary.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleSide.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleSide.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleUnit.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardBattleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardBattleState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardConfiguration.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardEffectConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardEffectConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CompanionConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CompanionConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattleLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattleLine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattleMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattleMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattlePhase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EBattlePhase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/ECardType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/ECardType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EEffectTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EEffectTarget.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EEffectType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EEffectType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EStatScaling.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EStatScaling.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EStatusType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/EStatusType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/StatusEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/StatusEffect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/CoreGameInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/CoreGameInstaller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/Data/HeroSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/Data/HeroSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Hero/MonoComponents/Hero.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/Laptop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/ActivatorObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/Laptop.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/ActivatorObject.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Buttons/UIButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Components/Selected/UISelectable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Components/Selected/UISelectable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameResources.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameResources.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameResources/HudResourcesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameResources/HudResourcesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameResources/HudResourcesController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameResources/HudResourcesController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameResources/HudResourcesView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameResources/HudResourcesView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameResources/HudResourcesView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameResources/HudResourcesView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameTime.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameTime.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameTime/HUDGameTimeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameTime/HUDGameTimeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameTime/HUDGameTimeController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameTime/HUDGameTimeController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameTime/HUDGameTimeView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameTime/HUDGameTimeView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/GameTime/HUDGameTimeView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/HUD/GameTime/HUDGameTimeView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/Pause.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Pause.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/Pause/PauseWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Pause/PauseWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/Pause/PauseWindowController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Pause/PauseWindowController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/Pause/PauseWindowView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Pause/PauseWindowView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/Pause/PauseWindowView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Pause/PauseWindowView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/QA.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/QA/HUDQAController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/QA/HUDQAController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/QA/HUDQAView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/HUD/QA/HUDQAView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/QA/HUDQAView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Configurations/Library_Asset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Configurations/Library_Asset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Configurations/Settings_Hero.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Configurations/Settings_Hero.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/canvas_screen-core-game.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/canvas_screen-core-game.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/window-game-HUD.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/window-game-HUD.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Storage_Config.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Storage_Config.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/UI.csproj.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tiny_thing.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/tiny_thing.sln.DotSettings" afterDir="false" />
     </list>
     <list id="8240115f-6e3a-4cd6-bfd3-fc8a48a5ab01" name="Compilation" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -238,7 +351,14 @@
       <workItem from="1779708985343" duration="884000" />
       <workItem from="1779718551164" duration="2412000" />
       <workItem from="1779749858279" duration="2497000" />
-      <workItem from="1779798455019" duration="96000" />
+      <workItem from="1779798455019" duration="1249000" />
+      <workItem from="1779883583288" duration="2996000" />
+      <workItem from="1779917132056" duration="4078000" />
+      <workItem from="1779980838211" duration="1597000" />
+      <workItem from="1779988929567" duration="8422000" />
+      <workItem from="1780000264367" duration="1613000" />
+      <workItem from="1780049196934" duration="6434000" />
+      <workItem from="1780065992017" duration="991000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>
@@ -380,19 +500,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/Hero/HeroWindowController.cs</url>
-          <line>133</line>
-          <properties documentPath="C:\Users\user\Documents\GitHub\tiny_thing\Assets\Code\UI\Windows\MainMenu\Hero\HeroWindowController.cs" containingFunctionPresentation="Method '_updateSelectedHeroView'">
-            <startOffsets>
-              <option value="4492" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4532" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
