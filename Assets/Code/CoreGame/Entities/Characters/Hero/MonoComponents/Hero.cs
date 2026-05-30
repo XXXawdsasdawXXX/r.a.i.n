@@ -50,6 +50,7 @@ namespace CoreGame.Entities.Characters.Hero
                 HeroSettings heroSettings = Container.Instance.GetConfig<HeroSettings>();
                 
                 Model = Container.Instance.GetService<GameModel>().Hero;
+                Model.Id = OwnerId.ToString();
        
                 Movement movement = new(Rigidbody, input.Direction, heroSettings.MoveSpeed);
                 Components.Add(typeof(Movement), movement);

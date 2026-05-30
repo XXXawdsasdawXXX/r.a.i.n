@@ -6,9 +6,9 @@ namespace CoreGame.Card.Logic.CardProcessors
     {
         public void Process(CardEffectConfiguration effect, BattleUnit actor, BattleUnit target, BattleModel battle)
         {
-            BattleSide targetSide = battle.ActiveSide.Hero.OwnerId == actor.OwnerId
-                ? battle.WaitingSide
-                : battle.ActiveSide;
+            BattleSide targetSide = battle.SideA.Hero.OwnerId == actor.OwnerId
+                ? battle.SideB
+                : battle.SideA;
             
             for (int i = 0; i < effect.ParasiteCount; i++)
             {

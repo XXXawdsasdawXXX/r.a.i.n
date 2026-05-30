@@ -6,6 +6,8 @@ namespace Core.Save
     [Serializable]
     public class HeroModel
     {
+        public string Id;
+        
         public string Name;
         public int Health;
         public int Armor;
@@ -17,7 +19,6 @@ namespace Core.Save
     
         public List<string> CardCollection; // все карты которые есть у игрока (id)
         public List<string> Deck;           // собранная колода (id), макс 30
-       
         
         public HeroModel()
         {

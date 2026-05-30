@@ -6,15 +6,11 @@ namespace CoreGame.Card.Data
     {
         public string BattleId;
         public EBattleMode Mode;
-        public EBattlePhase Phase;
     
-        public BattleSide ActiveSide;
-        public BattleSide WaitingSide;
+        public BattleSide SideA;
+        public BattleSide SideB;
     
         public int TurnNumber;
         public float TurnTimeRemaining;
-    
-        // для дуэли
-        public Dictionary<string, int> Stakes = new();
     }
 }

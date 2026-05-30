@@ -1,5 +1,7 @@
 ﻿using Core.Network;
 using Core.ServiceLocator;
+using CoreGame.Card.Data;
+using CoreGame.Card.Logic;
 using CoreGame.Entities.Characters.Hero;
 using Cysharp.Threading.Tasks;
 using UI.Windows.Base;
@@ -11,11 +13,15 @@ namespace UI.Windows.Card.CardDeck
         public bool IsInitialized { get; set; }
         
         private UserProvider _userProvider;
+        private BattleService _battleService;
 
-        
+
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _userProvider = Container.Instance.GetService<UserProvider>();
+            _battleService = Container.Instance.GetService<BattleService>();
+            
+            view.InitializePool();
             
             return base.InitializeWindow(manager);
         }
@@ -27,10 +33,12 @@ namespace UI.Windows.Card.CardDeck
             if (flag)
             {
                 _userProvider.HeroCreated += _onHeroCreated;
+                _battleService.TurnStarted += _updateHand;
             }
             else
             {
                 _userProvider.HeroCreated -= _onHeroCreated;
+                _battleService.TurnStarted -= _updateHand;
             }
         }
 
@@ -39,9 +47,19 @@ namespace UI.Windows.Card.CardDeck
             view.SetHeroStats(_userProvider.GetHeroComponent<Hero>().Model.Stats);   
         }
 
-        private void SetHandCards()
+        private void _updateHand(BattleModel battleModel)
         {
-            //view.SetCards(); //todo set dech
+            string myId = _userProvider.Id;
+    
+            BattleSide mySide = battleModel.SideA.Hero.OwnerId == myId
+                ? battleModel.SideA
+                : battleModel.SideB;
+
+            bool isMyTurn = battleModel.SideA.Hero.OwnerId == myId;
+
+            view.SetHeroStats(mySide.Hero.Stats);
+            view.SetCards(mySide.Hero.Hand);
+            view.SetInteractable(isMyTurn);
         }
     }
 }

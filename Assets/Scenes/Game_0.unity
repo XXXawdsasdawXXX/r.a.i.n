@@ -352,7 +352,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Trigger>k__BackingField: {fileID: 1442524582}
-  _view: {fileID: 202316786}
+  _view: {fileID: 1978309339}
+  _model:
+    Name: enemy
+    Health: 100
+    Armor: 0
+    Stats:
+      Agility: 0
+      Strength: 0
+      Endurance: 0
+      Intellect: 0
+    CardCollection: []
+    Deck:
+    - 1
+    - 1
+    - 0
 --- !u!1001 &347614925
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1461,7 +1475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Trigger>k__BackingField: {fileID: 2121122730}
-  _view: {fileID: 0}
+  _view: {fileID: 1069976921}
 --- !u!1 &1868212180
 GameObject:
   m_ObjectHideFlags: 0

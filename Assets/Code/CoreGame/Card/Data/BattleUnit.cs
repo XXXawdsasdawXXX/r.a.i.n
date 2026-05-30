@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Save;
+using CoreGame.Card.Logic.AI;
 using GameKit.Dependencies.Utilities;
 
 namespace CoreGame.Card.Data
@@ -17,14 +18,15 @@ namespace CoreGame.Card.Data
         public int Energy;
         public int MaxEnergy;
         public int HandLimit;       // базово 7
-    
+        public HeroStats Stats;
+
+        public IEnemyAI AI;
+        
         public bool IsInArmorStance;
         public int ArmorStanceTurnsLeft;
     
         public List<StatusEffect> Statuses = new();
-        public List<CardBattleState> Hand = new();
         public List<CardBattleState> Deck = new();
-        public List<CardBattleState> Discard = new();
     
         // считаем из HeroStats при входе в бой
         public float CritChance;
@@ -32,7 +34,6 @@ namespace CoreGame.Card.Data
         public float StunChance;
         
         public int MoveLineCost;
-        public HeroStats Stats;
         public EBattleLine Line;
 
 
@@ -57,6 +58,7 @@ namespace CoreGame.Card.Data
             unit.Deck = hero.Deck
                 .Select(id => new CardBattleState 
                 { 
+                    OwnerId = hero.Id,
                     Config = library.Get(id),
                     ChargesLeft = library.Get(id).Charges
                 })

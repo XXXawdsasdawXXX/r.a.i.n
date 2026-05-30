@@ -2,10 +2,12 @@
 {
     public enum EBattlePhase
     {
-        WaitingStart,
-        PlayerTurn,
-        EnemyTurn,
+        WaitingBattle,
+        StartBattle,
+        StartTurn,
+        FirstSideTurn,
+        SecondSideTurn,
         Resolution,
-        Finished
+        Finished,
     }
 }

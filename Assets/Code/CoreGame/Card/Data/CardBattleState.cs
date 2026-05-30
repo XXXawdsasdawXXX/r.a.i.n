@@ -6,6 +6,8 @@ namespace CoreGame.Card.Data
     public class CardBattleState
     {
         public CardConfiguration Config;
+
+        public string OwnerId;
         public int ChargesLeft;    // копия из Config.Charges при входе в бой
         public bool IsParasite;    // замешана паразитом, при разыгрывании - особый эффект
     

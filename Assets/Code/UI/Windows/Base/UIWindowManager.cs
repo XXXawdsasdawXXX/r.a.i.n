@@ -16,7 +16,7 @@ namespace UI.Windows.Base
         
         private readonly Dictionary<Type, IWindowController> _windowControllers = new();
         
-        private IWindowController _openedWindow;
+        private IWindowController _lastOpenedWindow;
 
 
         public async UniTask Initialize()
@@ -69,27 +69,50 @@ namespace UI.Windows.Base
                 windowController.SubscribeToEvents(false);
             }
         }
-        
+
         public void OpenWindow<T>() where T : class, IWindowController
         {
             Type type = typeof(T);
             
+            _checkCollection<T>(type);
+
+            _windowControllers[type].Open();
+        }
+        
+        public void CloseWindow<T>() where T : class, IWindowController
+        {
+            Type type = typeof(T);
+            
+            _checkCollection<T>(type);
+
+            _windowControllers[type].Close();
+        }
+        
+        public void SwitchWindow<T>() where T : class, IWindowController
+        {
+            Type type = typeof(T);
+            
+            _checkCollection<T>(type);
+            
+            _lastOpenedWindow?.Close();
+                    
+            _lastOpenedWindow = _windowControllers[type];
+                    
+            _lastOpenedWindow.Open();
+        }
+
+        private void _checkCollection<T>(Type type) where T : class, IWindowController
+        {
             if (!_windowControllers.ContainsKey(type))
             {
                 foreach (IWindowController window in _windows)
                 {
-                    if (window is T) 
+                    if (window is T)
                     {
                         _windowControllers.Add(type, window);
                     }
                 }
             }
-            
-            _openedWindow?.Close();
-                    
-            _openedWindow = _windowControllers[type];
-                    
-            _openedWindow.Open();
         }
 
         public T GetWindow<T>() where T : class, IWindowController

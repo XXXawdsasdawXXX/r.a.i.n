@@ -8,7 +8,6 @@ using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using Essential;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Core.StateMachine
 {

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Core.Save;
-using CoreGame.Card;
 using CoreGame.Card.Data;
 using UI.Components;
 using UI.Windows.Base;
@@ -14,9 +12,13 @@ namespace UI.Windows.Card.CardDeck
         public List<CardView> CurrentCards => _cardsPool.Enabled;
 
         [SerializeField] private UIElementPool<CardView> _cardsPool;
-        
+
         private HeroStats _heroStats;
 
+        public void InitializePool()
+        {
+            _cardsPool.Initialize();
+        }
         
         public void SetHeroStats(HeroStats heroStats)
         {
@@ -48,6 +50,13 @@ namespace UI.Windows.Card.CardDeck
                 };
             }
         }
-        
+
+        public void SetInteractable(bool isMyTurn)
+        {
+            foreach (CardView cardView in _cardsPool.Enabled)
+            {
+                cardView.SetInteractable(isMyTurn);
+            }
+        }
     }
 }

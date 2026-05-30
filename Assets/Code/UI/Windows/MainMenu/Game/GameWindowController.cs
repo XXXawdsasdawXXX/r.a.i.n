@@ -86,7 +86,7 @@ namespace UI.Windows.MainMenu.Game
                     _updateView();
                 });
             
-            windowManager.OpenWindow<DeleteWindowController>();
+            windowManager.SwitchWindow<DeleteWindowController>();
         }
 
         private void _continueGame()
@@ -103,7 +103,7 @@ namespace UI.Windows.MainMenu.Game
 
         private void _openJoinWindow()
         {
-            windowManager.OpenWindow<ConnectionWindowController>();
+            windowManager.SwitchWindow<ConnectionWindowController>();
         }
 
         private void _changeSelectedWorld(int worldIndex)

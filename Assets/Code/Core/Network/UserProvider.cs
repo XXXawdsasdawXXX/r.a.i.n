@@ -11,6 +11,7 @@ namespace Core.Network
         public event Action HeroCreated; 
         public NetworkConnection Connection { get; private set; }
         public NetworkObject Hero { get; private set; }
+        public string Id { get; private set; }
 
         private readonly Dictionary<Type, object> _heroComponents = new();
 
@@ -18,6 +19,7 @@ namespace Core.Network
         public void SetConnection(NetworkConnection connection)
         {
             Connection = connection;
+            Id = Connection.ClientId.ToString();
         }
 
         public void SetHero(NetworkObject hero)

@@ -68,17 +68,17 @@ namespace UI.Windows.MainMenu.Hero
         
         private void _openNewHeroWindow()
         {
-            windowManager.OpenWindow<NewHeroWindowController>();
+            windowManager.SwitchWindow<NewHeroWindowController>();
         }
 
         private void _openHeroSettingsWindow()
         {
-            windowManager.OpenWindow<HeroSettingsWindowController>();
+            windowManager.SwitchWindow<HeroSettingsWindowController>();
         }
 
         private void _openDeleteHeroWindow()
         {
-            windowManager.OpenWindow<DeleteWindowController>();
+            windowManager.SwitchWindow<DeleteWindowController>();
 
             _deleteWindow.SetObserved(_gameModel.Hero.Name, () =>
             {

@@ -4,6 +4,5 @@ namespace UI.Windows.Game.HUD
 {
     public class HUDWindowView : UIWindowView
     {
-        
     }
 }

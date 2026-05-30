@@ -7,7 +7,7 @@ namespace CoreGame.Card.Logic
     {
         public bool CanPlayCard(BattleModel battle, string unitId, int cardIndex, string targetId)
         {
-            if (battle.Phase != EBattlePhase.PlayerTurn)
+            if (battle.Phase != EBattlePhase.SecondSideTurn)
             {
                 return false;
             }
@@ -53,7 +53,7 @@ namespace CoreGame.Card.Logic
 
         public bool CanMoveLine(BattleModel battle, BattleUnit unit)
         {
-            if (battle.Phase != EBattlePhase.PlayerTurn)
+            if (battle.Phase != EBattlePhase.SecondSideTurn)
             {
                 return false;
             }
@@ -73,8 +73,8 @@ namespace CoreGame.Card.Logic
 
         private BattleUnit _findUnit(string unitId, BattleModel battle)
         {
-            return battle.ActiveSide.GetAllUnits()
-                .Concat(battle.WaitingSide.GetAllUnits())
+            return battle.SideA.GetAllUnits()
+                .Concat(battle.SideB.GetAllUnits())
                 .FirstOrDefault(u => u.UnitId == unitId);
         }
     }

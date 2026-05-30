@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Save;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic.CardProcessors;
@@ -30,6 +32,55 @@ namespace CoreGame.Card.Logic
                 EStatScaling.Endurance => stats.Endurance * effect.ScalingFactor,
                 _                      => 0f
             };
+        }
+        
+        public void ApplyCard(BattleUnit actor, CardBattleState card, BattleUnit primaryTarget, BattleModel battle)
+        {
+            actor.Energy -= card.GetEnergyCost(actor.Stats);
+
+            foreach (CardEffectConfiguration effect in card.Config.Effects)
+            {
+                if (_cardProcessors.ContainsKey(effect.Type))
+                {
+                    _cardProcessors[effect.Type].Process(effect, actor, primaryTarget, battle);
+                }
+            }
+        }
+        
+        public void TickStatuses(BattleUnit unit, BattleModel battle)
+        {
+            foreach (StatusEffect status in unit.Statuses.ToList())
+            {
+                _tickStatus(status, unit);
+
+                status.Duration--;
+                if (status.Duration <= 0)
+                    unit.Statuses.Remove(status);
+            }
+        }
+
+        private void _tickStatus(StatusEffect status, BattleUnit unit)
+        {
+            switch (status.Type)
+            {
+                case EStatusType.Bleed:
+                case EStatusType.Poison:
+                case EStatusType.Burn:
+                    unit.HP -= status.Value;
+                    break;
+
+                case EStatusType.Regeneration:
+                    unit.HP = Math.Min(unit.MaxHP, unit.HP + status.Value);
+                    break;
+
+                case EStatusType.Stun:
+                    // обрабатывается в BattleValidator
+                    break;
+
+                case EStatusType.ArmorStance:
+                    // обрабатывается в BattleValidator
+                    break;
+            }
         }
     }
 }
