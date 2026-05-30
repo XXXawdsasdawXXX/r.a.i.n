@@ -14,11 +14,7 @@ namespace CoreGame.Card.Logic.StateMachine
     {
         public bool IsInitialized { get; set; }
         public ReactiveProperty<EBattlePhase> Phase { get; } = new(EBattlePhase.WaitingBattle);
-
-        public BattleProcessor Processor { get; } = new();
-        public BattleValidator Validator { get; } = new();
-        public BattleModel Model { get; private set; }
-        public CardLibrary CardLibrary;
+  
         
         
         public BattleStateMachine()
@@ -37,7 +33,6 @@ namespace CoreGame.Card.Logic.StateMachine
 
         public UniTask Initialize()
         {
-            CardLibrary = Container.Instance.GetConfig<CardLibrary>();
          
             return UniTask.CompletedTask;
         }
@@ -59,26 +54,6 @@ namespace CoreGame.Card.Logic.StateMachine
             return base.setState(type);
         }
 
-        public BattleModel CreateBattle(HeroModel firstSide, HeroModel secondSide, EBattleMode mode = EBattleMode.PvE)
-        {
-            Model = new BattleModel
-            {
-                BattleId = Guid.NewGuid().ToString(),
-                Mode = mode,
-                TurnNumber = 0,
-                TurnTimeRemaining = 60f,
-                SideA = _buildSide(firstSide, CardLibrary.AllCards),
-                SideB = _buildSide(secondSide, CardLibrary.AllCards)
-            };
-            
-            SwitchState(typeof(StartBattleState));
-
-            return Model;
-        }
-        
-        private static BattleSide _buildSide(HeroModel hero, AllCardCollection library)
-        {
-            return new BattleSide(BattleUnit.FromHero(hero, library));
-        }
+      
     }
 }

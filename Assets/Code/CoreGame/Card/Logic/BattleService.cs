@@ -5,6 +5,7 @@ using Core.Save;
 using Core.ServiceLocator;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic.AI;
+using CoreGame.Card.Logic.StateMachine;
 using Cysharp.Threading.Tasks;
 using GameKit.Dependencies.Utilities;
 
@@ -18,29 +19,55 @@ namespace CoreGame.Card.Logic
         public event Action<BattleModel> BattleFinished;
 
         public bool IsInitialized { get; set; }
+        
+        public BattleProcessor Processor { get; } = new();
+        public BattleValidator Validator { get; } = new();
+        public BattleModel Model { get; private set; }
+        
+        public CardLibrary CardLibrary;
 
-       
-
+        private BattleStateMachine _battleStateMachine = new BattleStateMachine();
+        
 
         public UniTask Initialize()
         {
+            CardLibrary = Container.Instance.GetConfig<CardLibrary>();
 
             return UniTask.CompletedTask;
         }
 
         // --- Старт боя ---
 
-      
+        public BattleModel CreateBattle(HeroModel firstSide, HeroModel secondSide, EBattleMode mode = EBattleMode.PvE)
+        {
+            Model = new BattleModel
+            {
+                BattleId = Guid.NewGuid().ToString(),
+                Mode = mode,
+                TurnNumber = 0,
+                TurnTimeRemaining = 60f,
+                SideA = new BattleSide(BattleUnit.FromHero(firstSide, CardLibrary.AllCards)),
+                SideB = new BattleSide(BattleUnit.FromHero(secondSide, CardLibrary.AllCards))
+            };
+            
+            _battleStateMachine.SwitchState(typeof(StartBattleState));
 
-        // --- Действия игрока ---
-
+            return Model;
+        }
+        
         public bool TryPlayCard(string unitId, int cardIndex, string targetId)
         {
             if (!Validator.CanPlayCard(Model, unitId, cardIndex, targetId))
+            {
                 return false;
+            }
 
+            BattleSide side = _battleStateMachine.Phase.Value == EBattlePhase.FirstSideTurn
+                ? Model.SideA
+                : Model.SideB;
+            
             BattleUnit actor = _findUnit(unitId);
-            CardBattleState card = actor.Hand[cardIndex];
+            CardBattleState card = side.Hand[cardIndex];
             BattleUnit target = _findUnit(targetId);
 
             Processor.ApplyCard(actor, card, target, Model);
@@ -54,6 +81,7 @@ namespace CoreGame.Card.Logic
             return true;
         }
 
+        /*
         public bool TryMoveLine(string unitId)
         {
             BattleUnit unit = _findUnit(unitId);
@@ -67,30 +95,7 @@ namespace CoreGame.Card.Logic
                 : EBattleLine.Frontline;
 
             return true;
-        }
-
-        public void EndPhase(string ownerId)
-        {
-            if (Model.ActiveSide.Hero.OwnerId != ownerId)
-            {
-                return;
-            }
-
-            _processCompanions(Model.ActiveSide);
-            _processStatuses(Model.ActiveSide);
-            _processStatuses(Model.WaitingSide);
-
-            _swapSides();
-
-            _refillHand(Model.ActiveSide);
-
-            Model.TurnNumber++;
-            Model.TurnTimeRemaining = 60f;
-            Model.Phase = EBattlePhase.SecondSideTurn;
-
-            TurnStarted?.Invoke(Model);
-        }
-
+        }*/
 
         public void EndTurn(string ownerId)
         {
@@ -114,9 +119,10 @@ namespace CoreGame.Card.Logic
             TurnStarted?.Invoke(Model);
         }
 
+        
+
         // --- Внутренняя логика ---
 
-       
 
         private void _drawStartingHand(BattleSide side)
         {
@@ -202,11 +208,13 @@ namespace CoreGame.Card.Logic
 
         private void _checkBattleEnd()
         {
-            bool attackerDead = Model.ActiveSide.Hero.HP <= 0;
-            bool defenderDead = Model.WaitingSide.Hero.HP <= 0;
+            bool attackerDead = Model.SideA.Hero.HP <= 0;
+            bool defenderDead = Model.SideB.Hero.HP <= 0;
 
             if (!attackerDead && !defenderDead)
+            {
                 return;
+            }
 
             Model.Phase = EBattlePhase.Finished;
 

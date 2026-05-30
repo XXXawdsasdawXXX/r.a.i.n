@@ -21,7 +21,6 @@ namespace CoreGame.Card.Logic
             { EEffectType.InjectParasiteEnemy, new CardInjectParasiteEnemyProcessor()},
         };
         
-        
         public static float CalculateScaling(CardEffectConfiguration effect, HeroStats stats)
         {
             return effect.Scaling switch
@@ -54,6 +53,7 @@ namespace CoreGame.Card.Logic
                 _tickStatus(status, unit);
 
                 status.Duration--;
+               
                 if (status.Duration <= 0)
                     unit.Statuses.Remove(status);
             }
