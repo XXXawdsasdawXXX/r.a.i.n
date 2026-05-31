@@ -11,8 +11,7 @@ namespace Core.StateMachine
         
         protected TState currentState;
         
-        
-        public virtual async void SwitchState(Type type)
+        public async void SwitchState(Type type)
         {
             if (currentState != null)
             {
@@ -22,7 +21,7 @@ namespace Core.StateMachine
             await setState(type);
         }
 
-        protected virtual async  UniTask setState(Type type)
+        protected virtual async UniTask setState(Type type)
         {
             currentState = states[type];
 

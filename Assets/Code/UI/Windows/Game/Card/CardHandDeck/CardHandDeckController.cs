@@ -58,7 +58,7 @@ namespace UI.Windows.Card.CardDeck
             bool isMyTurn = battleModel.SideA.Hero.OwnerId == myId;
 
             view.SetHeroStats(mySide.Hero.Stats);
-            view.SetCards(mySide.Hero.Hand);
+            view.SetCards(mySide.Hand);
             view.SetInteractable(isMyTurn);
         }
     }

@@ -23,8 +23,8 @@ namespace CoreGame.Card.Logic.StateMachine
 
         public UniTask Enter()
         {
-            //todo load battle view
-
+            _machine.SwitchState(typeof(StartTurnState));
+            
             return UniTask.CompletedTask;
         }
 

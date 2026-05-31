@@ -5,13 +5,9 @@ namespace CoreGame.Card.Logic
 {
     public class BattleValidator
     {
+        /*
         public bool CanPlayCard(BattleModel battle, string unitId, int cardIndex, string targetId)
         {
-            if (battle.Phase != EBattlePhase.SecondSideTurn)
-            {
-                return false;
-            }
-
             BattleUnit actor = _findUnit(unitId, battle);
         
             if (actor == null)
@@ -70,6 +66,7 @@ namespace CoreGame.Card.Logic
 
             return true;
         }
+        */
 
         private BattleUnit _findUnit(string unitId, BattleModel battle)
         {

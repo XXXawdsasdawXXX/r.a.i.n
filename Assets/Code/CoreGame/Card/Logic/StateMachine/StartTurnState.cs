@@ -24,11 +24,15 @@ namespace CoreGame.Card.Logic.StateMachine
 
         public UniTask Enter()
         {
+            _machine.Model.TurnNumber++;
+            
+            // количество карт пока оставляем так, можем потом переделать правила
             _drawCards(_machine.Model.SideA, _machine.Model.SideA.Hero.HandLimit);
             _drawCards(_machine.Model.SideB, _machine.Model.SideB.Hero.HandLimit);
 
+            
+            _machine.SwitchState(typeof(FirstSideTurnState));
             return UniTask.CompletedTask;
-            // количество карт пока оставляем так, можем потом переделать правила
         }
 
         public UniTask Exit()

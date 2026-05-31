@@ -6,7 +6,7 @@ namespace CoreGame.Card.Logic.AI
 {
     public class PriorityAI : IEnemyAI
     {
-        public EnemyAction SelectAction(BattleUnit self, BattleModel battle)
+        public AIAction SelectAction(BattleUnit self, BattleModel battle)
         {
             BattleSide enemySide = battle.SideA.Hero.OwnerId == self.OwnerId
                 ? battle.SideB : battle.SideA;
@@ -15,7 +15,7 @@ namespace CoreGame.Card.Logic.AI
             CardBattleState card = _selectByPriority(self, enemySide);
             string targetId = _selectTarget(card, enemySide);
 
-            return new EnemyAction { Card = card, TargetId = targetId };
+            return new AIAction { Card = card, TargetId = targetId };
         }
 
         private CardBattleState _selectByPriority(BattleUnit self, BattleSide enemy)

@@ -4,10 +4,10 @@ namespace CoreGame.Card.Logic.AI
 {
     public interface IEnemyAI
     {
-        EnemyAction SelectAction(BattleUnit self, BattleModel battle);
+        AIAction SelectAction(BattleUnit self, BattleModel battle);
     }
 
-    public class EnemyAction
+    public class AIAction
     {
         public CardBattleState Card;
         public string TargetId;

@@ -40,7 +40,7 @@ namespace UI.Windows.Game.Card.CardStep
 
         private void _endStep()
         {
-            _battleService.EndTurn(_userProvider.Id);
+            _battleService.EndTurn();
         }
 
         private void _updateTurn(BattleModel obj)

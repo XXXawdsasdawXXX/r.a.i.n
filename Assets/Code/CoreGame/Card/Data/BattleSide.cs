@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Core.Save;
 
 namespace CoreGame.Card.Data
 {
@@ -7,18 +9,22 @@ namespace CoreGame.Card.Data
         public BattleUnit Hero;
         public List<BattleUnit> Companions = new();
 
-        public readonly List<CardBattleState> Hand = new();
-        public readonly List<CardBattleState> Deck = new();
-        public readonly List<CardBattleState> Discard = new();
 
         public BattleSide(BattleUnit hero)
         {
-            foreach (CardBattleState VARIABLE in hero.Deck)
-            {
-                
-            }
+            Hero = hero;
         }
         
+        public BattleUnit GetUnit(string id)
+        {
+            if (Hero.UnitId.Equals(id))
+            {
+                return Hero;
+            }
+
+            return Companions.FirstOrDefault(c => c.UnitId.Equals(id));
+        }
+
         public void AddCompanion(BattleUnit unit)
         {
             Companions.Add(unit);
@@ -32,7 +38,7 @@ namespace CoreGame.Card.Data
             Discard.RemoveAll(c => c.OwnerId == unit.UnitId);
             Companions.Remove(unit);
         }
-        
+
         public List<BattleUnit> GetAllUnits() 
         {
             var all = new List<BattleUnit> { Hero };

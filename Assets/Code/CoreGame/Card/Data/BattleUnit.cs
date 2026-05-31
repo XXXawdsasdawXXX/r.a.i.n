@@ -26,8 +26,7 @@ namespace CoreGame.Card.Data
         public int ArmorStanceTurnsLeft;
     
         public List<StatusEffect> Statuses = new();
-        public List<CardBattleState> Deck = new();
-    
+
         // считаем из HeroStats при входе в бой
         public float CritChance;
         public float DodgeChance;
@@ -37,6 +36,10 @@ namespace CoreGame.Card.Data
         public EBattleLine Line;
 
 
+        public List<CardBattleState> Hand = new();
+        public List<CardBattleState> Deck = new();
+        public List<CardBattleState> Discard = new();
+        
         public static BattleUnit FromHero(HeroModel hero, AllCardCollection library)
         {
             BattleUnit unit = new()
@@ -53,23 +56,14 @@ namespace CoreGame.Card.Data
             unit.CritChance = hero.Stats.Agility * 0.02f;
             unit.DodgeChance = hero.Stats.Agility * 0.015f;
             unit.StunChance = hero.Stats.Strength * 0.02f;
-        
-            // собираем колоду из id
-            unit.Deck = hero.Deck
-                .Select(id => new CardBattleState 
-                { 
-                    OwnerId = hero.Id,
-                    Config = library.Get(id),
-                    ChargesLeft = library.Get(id).Charges
-                })
-                .ToList();
-            
+
+            unit.Deck = _createDeck(unit.UnitId, hero.Deck, library);
             unit.Deck.Shuffle();
         
             return unit;
         }
 
-        public static BattleUnit FromCompanion(CompanionConfiguration effectCompanionPrefab, string ownerId)
+        public static BattleUnit FromCompanion(CompanionConfiguration companion, string ownerId)
         {
             return new BattleUnit
             {
@@ -86,7 +80,7 @@ namespace CoreGame.Card.Data
                 ArmorStanceTurnsLeft = 0,
                 Statuses = null,
                 Hand = null,
-                Deck = null,
+                Deck = _createDeck(companion.),
                 Discard = null,
                 CritChance = 0,
                 DodgeChance = 0,
@@ -94,6 +88,21 @@ namespace CoreGame.Card.Data
                 MoveLineCost = 0,
                 Stats = null
             };
+        }
+
+        private static List<CardBattleState> _createDeck(
+            string ownerId, 
+            IEnumerable<string> cardsId, 
+            AllCardCollection library)
+        {
+            return cardsId
+                .Select(id => new CardBattleState 
+                { 
+                    OwnerId = ownerId,
+                    Config = library.Get(id),
+                    ChargesLeft = library.Get(id).Charges
+                })
+                .ToList();
         }
     }
 }

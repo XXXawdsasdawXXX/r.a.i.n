@@ -18,21 +18,7 @@ namespace UI.Windows.Game.Card.CardStepEnergy
             
             return base.InitializeWindow(manager);
         }
-
-        public override void SubscribeToEvents(bool flag)
-        {
-            base.SubscribeToEvents(flag);
-
-            if (flag)
-            {
-                _battleService.CardPlayed += _updateEnergy;
-            }
-            else
-            {
-                _battleService.CardPlayed -= _updateEnergy;
-            }
-        }
-
+        
         private void _updateEnergy(BattleUnit unit, CardBattleState cardBattleState)
         {
             view.SetValue(unit.Energy, unit.MaxEnergy);

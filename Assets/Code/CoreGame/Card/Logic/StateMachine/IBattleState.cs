@@ -7,4 +7,11 @@ namespace CoreGame.Card.Logic.StateMachine
     {
         EBattlePhase Phase { get; }
     }
+    
+    public interface IAcceptPlayerInput
+    {
+        bool TryPlayCard(int cardIndex, string targetId);
+        bool TryMoveLine(string unitId);
+        void EndTurn();
+    }
 }
