@@ -9,7 +9,7 @@ namespace CoreGame.Card.Logic
 {
     public class BattleProcessor
     {
-        private Dictionary<EEffectType, ICardProcessor> _cardProcessors = new()
+        private readonly Dictionary<EEffectType, ICardProcessor> _cardProcessors = new()
         {
             { EEffectType.Damage, new CardDamageProcessor()},
             { EEffectType.Heal, new CardHealEffectProcessor()},

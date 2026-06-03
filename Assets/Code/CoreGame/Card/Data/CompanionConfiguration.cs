@@ -13,7 +13,7 @@ namespace CoreGame.Card.Data
         
         [field: SerializeField] public int Armor { get; private set; }
         
-        [field: SerializeField] public List<CardConfiguration> Cards { get; private set; }
+        [field: SerializeField] public List<string> Cards { get; private set; }
 
         [field: SerializeField] public AnimatorController AnimatorController { get; private set; }
     }

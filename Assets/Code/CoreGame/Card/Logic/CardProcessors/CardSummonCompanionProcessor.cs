@@ -1,4 +1,5 @@
-﻿using CoreGame.Card.Data;
+﻿using Core.ServiceLocator;
+using CoreGame.Card.Data;
 
 namespace CoreGame.Card.Logic.CardProcessors
 {
@@ -6,7 +7,12 @@ namespace CoreGame.Card.Logic.CardProcessors
     {
         public void Process(CardEffectConfiguration effect, BattleUnit actor, BattleUnit target, BattleModel battle)
         {
-            BattleUnit companion = BattleUnit.FromCompanion(effect.CompanionConfiguration, actor.OwnerId);
+            CardLibrary cardLibrary = Container.Instance.GetConfig<CardLibrary>();
+            
+            BattleUnit companion = BattleUnit.FromCompanion(
+                effect.CompanionConfiguration, 
+                actor.OwnerId, 
+                cardLibrary.AllCards);
 
             BattleSide ownerSide = battle.SideA.Hero.OwnerId == actor.OwnerId
                 ? battle.SideA

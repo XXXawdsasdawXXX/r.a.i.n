@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Save;
 using CoreGame.Card.Logic.AI;
@@ -63,8 +64,12 @@ namespace CoreGame.Card.Data
             return unit;
         }
 
-        public static BattleUnit FromCompanion(CompanionConfiguration companion, string ownerId)
+        public static BattleUnit FromCompanion(
+            CompanionConfiguration companion, 
+            string ownerId, 
+            AllCardCollection library)
         {
+            string id = Guid.NewGuid().ToString();
             return new BattleUnit
             {
                 UnitId = null,
@@ -80,7 +85,7 @@ namespace CoreGame.Card.Data
                 ArmorStanceTurnsLeft = 0,
                 Statuses = null,
                 Hand = null,
-                Deck = _createDeck(companion.),
+                Deck = _createDeck(id, companion.Cards, library),
                 Discard = null,
                 CritChance = 0,
                 DodgeChance = 0,
