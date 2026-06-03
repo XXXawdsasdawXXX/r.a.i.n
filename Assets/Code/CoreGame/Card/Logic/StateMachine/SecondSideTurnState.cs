@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic.AI;
 using Cysharp.Threading.Tasks;
@@ -11,12 +13,14 @@ namespace CoreGame.Card.Logic.StateMachine
         public EBattlePhase Phase => EBattlePhase.SecondSideTurn;
         public bool IsInitialized { get; set; }
 
-        
+        private CancellationTokenSource _cts;
+
+
         public SecondSideTurnState(BattleStateMachine machine)
         {
             _machine = machine;
         }
-        
+
         public UniTask Initialize()
         {
             return UniTask.CompletedTask;
@@ -24,13 +28,15 @@ namespace CoreGame.Card.Logic.StateMachine
 
         public UniTask Enter()
         {
-            _machine.Model.TurnTimeRemaining = BattleModel.MAX_TURN_TIME;
-
             if (_machine.Model.SideB.Hero.AI != null)
             {
                 _processAI();
             }
-            
+            else
+            {
+                _startTurnTimer().Forget();
+            }
+
             return UniTask.CompletedTask;
         }
 
@@ -104,7 +110,7 @@ namespace CoreGame.Card.Logic.StateMachine
         {
             _machine.SwitchState(typeof(TurnResolutionState));
         }
-        
+
         private void _processAI()
         {
             BattleUnit ai = _machine.Model.SideB.Hero;
@@ -129,20 +135,20 @@ namespace CoreGame.Card.Logic.StateMachine
                 }
 
                 _machine.Processor.ApplyCard(ai, action.Card, target, _machine.Model);
-            
+
                 _spendCard(ai, action.Card);
             }
 
             EndTurn();
         }
-        
-        
+
+
         private void _spendCard(BattleUnit actor, CardBattleState card)
         {
             if (card.Config.Charges > 0)
             {
                 card.ChargesLeft--;
-                
+
                 if (card.ChargesLeft <= 0)
                 {
                     actor.Hand.Remove(card);
@@ -153,6 +159,37 @@ namespace CoreGame.Card.Logic.StateMachine
             {
                 actor.Hand.Remove(card);
                 actor.Discard.Add(card);
+            }
+        }
+
+        private async UniTaskVoid _startTurnTimer()
+        {
+            _cts?.Dispose();
+            _cts = new CancellationTokenSource();
+            float endTime = UnityEngine.Time.time + BattleModel.MAX_TURN_TIME;
+
+            try
+            {
+                while (true)
+                {
+                    UniTask.Delay(TimeSpan.FromSeconds(1));
+                    
+                    float remaining = endTime - UnityEngine.Time.time;
+
+                    if (remaining <= 0)
+                    {
+                        _machine.Model.TurnTimeRemaining.Value = 0;
+                        EndTurn();
+                        return;
+                    }
+
+                    _machine.Model.TurnTimeRemaining.Value = remaining;
+
+                    await UniTask.Yield(_cts.Token);
+                }
+            }
+            catch (OperationCanceledException)
+            {
             }
         }
     }

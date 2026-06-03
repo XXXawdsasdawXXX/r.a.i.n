@@ -25,7 +25,7 @@ namespace UI.Windows.Card.CardDeck
             _heroStats = heroStats;
         }
         
-        public void SetCards(List<CardBattleState> cards)
+        public List<CardView> SetCards(List<CardBattleState> cards)
         {
             _cardsPool.DisableAll();
 
@@ -49,6 +49,8 @@ namespace UI.Windows.Card.CardDeck
                     _cardsPool.Disable(cardView);
                 };
             }
+
+            return _cardsPool.Enabled;
         }
 
         public void SetInteractable(bool isMyTurn)

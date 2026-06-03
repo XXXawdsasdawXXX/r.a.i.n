@@ -9,17 +9,17 @@ namespace UI.Windows.MainMenu.NewHero
 {
     public class NewHeroWindowController : UIWindowController<NewHeroWindowView>
     {
+        public bool IsInitialized { get; set; }
         public event Action HeroCreated;
         
-        public bool IsInitialized { get; set; }
-
         private GameModel _gameModel;
-        private DeleteWindowController _deleteWIndow;
+        private DeleteWindowController _deleteWindow;
 
+        
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameModel = Container.Instance.GetService<GameModel>();
-            _deleteWIndow = manager.GetWindow<DeleteWindowController>();
+            _deleteWindow = manager.GetWindow<DeleteWindowController>();
 
             return base.InitializeWindow(manager);
         }

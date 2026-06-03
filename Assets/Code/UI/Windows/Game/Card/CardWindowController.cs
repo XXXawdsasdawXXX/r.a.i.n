@@ -2,6 +2,7 @@
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic;
 using Cysharp.Threading.Tasks;
+using Essential;
 using UI.Windows.Base;
 
 namespace UI.Windows.Card.CardDeck
@@ -22,6 +23,8 @@ namespace UI.Windows.Card.CardDeck
         {
             base.SubscribeToEvents(flag);
 
+            Log.Info(this, "subscribe");
+            
             if (flag)
             {
                 _battleService.BattleStarted += _openView;
@@ -37,11 +40,13 @@ namespace UI.Windows.Card.CardDeck
         private void _closeView(BattleModel _)
         {
             view.Close();
+            Log.Info(this, "Close view");
         }
 
         private void _openView(BattleModel _)
         {
             view.Open();
+            Log.Info(this, "Open view");
         }
     }
 }

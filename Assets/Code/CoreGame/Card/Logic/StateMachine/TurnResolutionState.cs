@@ -21,7 +21,7 @@ namespace CoreGame.Card.Logic.StateMachine
         
         public UniTask Initialize()
         {
-            throw new System.NotImplementedException();
+            return  UniTask.CompletedTask;
         }
 
         public UniTask Enter()
@@ -46,7 +46,7 @@ namespace CoreGame.Card.Logic.StateMachine
 
         public UniTask Exit()
         {
-            throw new System.NotImplementedException();
+            return UniTask.CompletedTask;
         }
 
         private void _processCompanions(BattleSide side, BattleSide targetSide)

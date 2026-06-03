@@ -7,6 +7,7 @@ using GameKit.Dependencies.Utilities;
 
 namespace CoreGame.Card.Data
 {
+    [Serializable]
     public class BattleUnit
     {
         public string UnitId;
@@ -45,7 +46,7 @@ namespace CoreGame.Card.Data
         {
             BattleUnit unit = new()
             {
-                UnitId = hero.Name,
+                UnitId = hero.HeroId,
                 MaxHP = 100 + hero.Stats.Endurance * 10,
                 HP = hero.Health,
                 MaxEnergy = 100 + hero.Stats.Endurance * 5,

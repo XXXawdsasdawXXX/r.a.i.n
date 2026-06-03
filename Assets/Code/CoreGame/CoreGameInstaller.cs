@@ -3,6 +3,7 @@ using Core.ServiceLocator;
 using CoreGame._Test;
 using CoreGame.Camera;
 using CoreGame.Card.Logic;
+using CoreGame.Card.Logic.StateMachine;
 using CoreGame.Entities.Characters.Controllers;
 using CoreGame.Grid;
 using CoreGame.Harvest;
@@ -30,7 +31,8 @@ namespace CoreGame
                 typeof(Movement),
                 typeof(Miner),
                 //cards
-                typeof(BattleService)
+                typeof(BattleService),
+                typeof(BattleStateMachine)
             };
         }
     }

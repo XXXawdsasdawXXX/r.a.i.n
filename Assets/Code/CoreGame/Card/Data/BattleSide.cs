@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace CoreGame.Card.Data
 {
+    [Serializable]
     public class BattleSide
     {
-        public readonly BattleUnit Hero;
-        public readonly List<BattleUnit> Companions = new();
+        public BattleUnit Hero;
+        public List<BattleUnit> Companions = new();
         
-        private readonly List<CardBattleState> _mandatoryCards = new();
+        [SerializeField] private List<CardBattleState> _mandatoryCards = new();
         
         
         public BattleSide(BattleUnit hero, List<CardBattleState> mandatoryCards = null)
@@ -30,7 +33,7 @@ namespace CoreGame.Card.Data
         
         public List<BattleUnit> GetAllUnits() 
         {
-            var all = new List<BattleUnit> { Hero };
+            List<BattleUnit> all = new() { Hero };
             all.AddRange(Companions);
             return all;
         }

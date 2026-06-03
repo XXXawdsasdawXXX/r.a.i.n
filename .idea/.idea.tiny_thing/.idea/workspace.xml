@@ -5,14 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="540b8f42-2d63-4d71-ad37-73b5d9f5eb8c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/DebugBattleModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/DebugBattleModel.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.tiny_thing/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleSide.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleSide.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/BattleUnit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CompanionConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CompanionConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleProcessor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardSummonCompanionProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/CardProcessors/CardSummonCompanionProcessor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/StartTurnState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/StartTurnState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardBattleState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Data/CardBattleState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/BattleService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/BattleStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/BattleStateMachine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/FirstSideTurnState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/FirstSideTurnState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/SecondSideTurnState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/SecondSideTurnState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/TurnResolutionState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/TurnResolutionState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/CoreGameInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/CoreGameInstaller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/BattleActivatorObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/CoreGame/InteractionObjects/Activators/BattleActivatorObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Base/UIWindowManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardHandDeck/CardHandDeckController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardHandDeck/CardHandDeckController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardHandDeck/CardHandDeckView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardHandDeck/CardHandDeckView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStep/CardStepController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStep/CardStepController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStep/CardStepView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStep/CardStepView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStepEnergy/CardStepEnergyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardStepEnergy/CardStepEnergyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/Game/Card/CardWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/UI/Windows/MainMenu/NewHero/NewHeroWindowController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/canvas_screen-core-game.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/canvas_screen-core-game.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/card/window-card-battle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/CoreGame/card/window-card-battle.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game_0.unity" afterDir="false" />
     </list>
     <list id="8240115f-6e3a-4cd6-bfd3-fc8a48a5ab01" name="Compilation" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +58,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1fd52158108c4fe3a6817b50854eb75e46ac00/60/9338d830/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Core/Audio/AudioEvents/AudioEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Code/Core/Editor/ParrelSyncUtility.cs" root0="FORCE_HIGHLIGHTING" />
@@ -133,10 +151,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="21572">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="21572" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -256,7 +274,7 @@
       <workItem from="1780140831988" duration="3942000" />
       <workItem from="1780147559167" duration="4472000" />
       <workItem from="1780154161502" duration="10097000" />
-      <workItem from="1780416811349" duration="1952000" />
+      <workItem from="1780416811349" duration="13874000" />
     </task>
     <task id="LOCAL-00001" summary="hero harvest animation">
       <created>1746962947228</created>
@@ -374,19 +392,6 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Code/CoreGame/Entities/Characters/Character.cs</url>
-          <line>16</line>
-          <properties documentPath="C:\Users\user\Documents\GitHub\tiny_thing\Assets\Code\CoreGame\Entities\Characters\Character.cs" containingFunctionPresentation="Method 'GetCharacterComponent'">
-            <startOffsets>
-              <option value="488" />
-            </startOffsets>
-            <endOffsets>
-              <option value="510" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Code/UI/Components/UIGhostTab.cs</url>
           <line>40</line>
           <properties documentPath="C:\Users\user\Documents\GitHub\tiny_thing\Assets\Code\UI\Components\UIGhostTab.cs" containingFunctionPresentation="Method 'Enable'">
@@ -398,6 +403,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Code/CoreGame/Card/Logic/StateMachine/TurnResolutionState.cs</url>
+          <line>27</line>
+          <properties documentPath="C:\Users\user\Documents\GitHub\tiny_thing\Assets\Code\CoreGame\Card\Logic\StateMachine\TurnResolutionState.cs" initialLine="27" containingFunctionPresentation="method 'Enter'">
+            <startOffsets>
+              <option value="673" />
+            </startOffsets>
+            <endOffsets>
+              <option value="674" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

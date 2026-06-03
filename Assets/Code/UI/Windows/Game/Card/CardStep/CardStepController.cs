@@ -3,6 +3,7 @@ using Core.ServiceLocator;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic;
 using Cysharp.Threading.Tasks;
+using Essential;
 using UI.Windows.Base;
 using UI.Windows.Card.CardDeck.CardStep;
 
@@ -28,24 +29,39 @@ namespace UI.Windows.Game.Card.CardStep
 
             if (flag)
             {
+                _battleService.BattleStarted += _subscribeToTimer;
+                _battleService.BattleFinished += _dispose;
                 _battleService.TurnStarted += _updateTurn;
                 view.ButtonEndStep.Clicked += _endStep;
             }
             else
             {
+                _battleService.BattleStarted -= _subscribeToTimer;
+                _battleService.BattleFinished -= _dispose;
                 _battleService.TurnStarted -= _updateTurn;
                 view.ButtonEndStep.Clicked -= _endStep;
             }
         }
 
+        private void _subscribeToTimer(BattleModel model)
+        {
+            model.TurnTimeRemaining.SubscribeProperty(view.SetTime);
+        }
+
+        private void _dispose(BattleModel model)
+        {
+            model.TurnTimeRemaining.UnsubscribeProperty(view.SetTime);
+        }
+
         private void _endStep()
         {
+            Log.Info(this, "click");
             _battleService.EndTurn();
         }
 
-        private void _updateTurn(BattleModel obj)
+        private void _updateTurn(BattleModel model)
         {
-            view.SetStep(obj.TurnNumber.ToString());
+            view.SetStep(model.TurnNumber.ToString());
         }
     }
 }

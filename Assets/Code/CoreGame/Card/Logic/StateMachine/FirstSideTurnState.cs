@@ -1,15 +1,19 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using CoreGame.Card.Data;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace CoreGame.Card.Logic.StateMachine
 {
     public class FirstSideTurnState : IBattleState, IAcceptPlayerInput
     {
         private readonly BattleStateMachine _machine;
-        public EBattlePhase Phase => EBattlePhase.SecondSideTurn;
+        public EBattlePhase Phase => EBattlePhase.FirstSideTurn;
         public bool IsInitialized { get; set; }
 
+        private CancellationTokenSource _cts;
         
         public FirstSideTurnState(BattleStateMachine machine)
         {
@@ -22,8 +26,10 @@ namespace CoreGame.Card.Logic.StateMachine
         }
 
         public UniTask Enter()
-        {            
-            _machine.Model.TurnTimeRemaining = BattleModel.MAX_TURN_TIME;
+        {
+            Debug.Log("enter to first side step");
+            
+            _startTurnTimer().Forget();
 
             return UniTask.CompletedTask;
         }
@@ -84,6 +90,10 @@ namespace CoreGame.Card.Logic.StateMachine
 
         public void EndTurn()
         {
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
+            
             _machine.SwitchState(typeof(SecondSideTurnState));
         }
         
@@ -103,6 +113,35 @@ namespace CoreGame.Card.Logic.StateMachine
             {
                 actor.Hand.Remove(card);
                 actor.Discard.Add(card);
+            }
+        }
+        
+        private async UniTaskVoid _startTurnTimer()
+        {
+            _cts?.Dispose();
+            _cts = new CancellationTokenSource();
+            float endTime = UnityEngine.Time.time + BattleModel.MAX_TURN_TIME;
+
+            try
+            {
+                while (true)
+                {
+                    await UniTask.Delay(TimeSpan.FromSeconds(1));
+                    
+                    float remaining = endTime - UnityEngine.Time.time;
+
+                    if (remaining <= 0)
+                    {
+                        _machine.Model.TurnTimeRemaining.Value = 0;
+                        EndTurn();
+                        return;
+                    }
+
+                    _machine.Model.TurnTimeRemaining.Value = remaining;
+                }
+            }
+            catch (OperationCanceledException)
+            {
             }
         }
     }

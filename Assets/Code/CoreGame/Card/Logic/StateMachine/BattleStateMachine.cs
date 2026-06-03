@@ -8,16 +8,17 @@ using Core.ServiceLocator;
 using Core.StateMachine;
 using CoreGame.Card.Data;
 using Cysharp.Threading.Tasks;
+using Essential;
+using UnityEngine;
 
 namespace CoreGame.Card.Logic.StateMachine
 {
+    [Serializable]
     public sealed class BattleStateMachine : StateMachine<IBattleState>, IInitializeListener, ISubscriber
     {
         public bool IsInitialized { get; set; }
-        
         public IBattleState CurrentState => currentState;
-        public BattleModel Model { get; private set; }
-        
+        [field: SerializeField] public BattleModel Model { get; private set; } = new();
         public BattleProcessor Processor { get; } = new();
 
         private CardLibrary _cardLibrary;
@@ -28,7 +29,6 @@ namespace CoreGame.Card.Logic.StateMachine
             states = new Dictionary<Type, IBattleState>()
             {
                 { typeof(StartBattleState), new StartBattleState(this) },
-                { typeof(StartTurnState), new StartTurnState(this) },
                 { typeof(StartTurnState), new StartTurnState(this) },
                 { typeof(FirstSideTurnState), new FirstSideTurnState(this) },
                 { typeof(SecondSideTurnState), new SecondSideTurnState(this) },
@@ -56,6 +56,8 @@ namespace CoreGame.Card.Logic.StateMachine
         {
             Model.Phase.Value = states[type].Phase;
             
+            Log.Info(this, $"Set state {Model.Phase.Value}", Color.cyan);
+            
             return base.setState(type);
         }
 
@@ -67,7 +69,7 @@ namespace CoreGame.Card.Logic.StateMachine
                 Mode = mode,
                 Phase = new ReactiveProperty<EBattlePhase>(EBattlePhase.WaitingBattle),
                 TurnNumber = 0,
-                TurnTimeRemaining = 0,
+                TurnTimeRemaining = new ReactiveProperty<float>(0),
                 SideA = _buildSide(attacker),
                 SideB = _buildSide(defender),
             };
@@ -75,12 +77,6 @@ namespace CoreGame.Card.Logic.StateMachine
             SwitchState(typeof(StartBattleState));
         }
         
-        public void OnTimerExpired()
-        {
-            //todo как будто это должно быть внутри стейта
-            (currentState as IAcceptPlayerInput)?.EndTurn();
-        }
-
         public BattleUnit FindUnit(string unitId)
         {
             if (string.IsNullOrEmpty(unitId))

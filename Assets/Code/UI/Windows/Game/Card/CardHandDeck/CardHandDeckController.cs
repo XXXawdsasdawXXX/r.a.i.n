@@ -1,4 +1,5 @@
-﻿using Core.Network;
+﻿using System.Collections.Generic;
+using Core.Network;
 using Core.ServiceLocator;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic;
@@ -51,14 +52,19 @@ namespace UI.Windows.Card.CardDeck
         {
             string myId = _userProvider.Id;
     
-            BattleSide mySide = battleModel.SideA.Hero.OwnerId == myId
+            BattleSide mySide = battleModel.SideA.Hero.UnitId == myId
                 ? battleModel.SideA
                 : battleModel.SideB;
 
             bool isMyTurn = battleModel.SideA.Hero.OwnerId == myId;
 
             view.SetHeroStats(mySide.Hero.Stats);
-            view.SetCards(mySide.GetHand());
+            List<CardView> cards = view.SetCards(mySide.GetHand());
+            foreach (CardView cardView in cards)
+            {
+                
+            }
+            
             view.SetInteractable(isMyTurn);
         }
     }

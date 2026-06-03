@@ -18,8 +18,42 @@ namespace UI.Windows.Game.Card.CardStepEnergy
             
             return base.InitializeWindow(manager);
         }
-        
-        private void _updateEnergy(BattleUnit unit, CardBattleState cardBattleState)
+
+        public override void SubscribeToEvents(bool flag)
+        {
+            base.SubscribeToEvents(flag);
+           
+            if (flag)
+            {
+                _battleService.TurnStarted += _onStartNewTurn;
+            }
+            else
+            {
+                _battleService.TurnStarted -= _onStartNewTurn;
+            }
+        }
+
+        private void _onStartNewTurn(BattleModel model)
+        {
+            if (model.Phase.Value is EBattlePhase.FirstSideTurn)
+            {
+                view.Open();
+                _updateEnergy(model.SideA.Hero);
+                _battleService.CardPlayed += _onCardPlayed;
+            }
+            else
+            {
+                _battleService.CardPlayed -= _onCardPlayed;
+                view.Close();
+            }
+        }
+
+        private void _onCardPlayed(BattleModel model)
+        {
+            _updateEnergy(model.SideA.Hero);    
+        }
+
+        private void _updateEnergy(BattleUnit unit)
         {
             view.SetValue(unit.Energy, unit.MaxEnergy);
         }

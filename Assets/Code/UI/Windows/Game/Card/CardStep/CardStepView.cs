@@ -11,9 +11,11 @@ namespace UI.Windows.Card.CardDeck.CardStep
         [SerializeField] private UIText _textTime;
         [SerializeField] private UIText _textStep;
 
-        public void SetTime(string time)
+        
+        public void SetTime(float time)
         {
-            _textTime.SetText(time);
+            //todo optimaze allocation 
+            _textTime.SetText(time.ToString(@"mm\:ss"));
         }
 
         public void SetStep(string step)

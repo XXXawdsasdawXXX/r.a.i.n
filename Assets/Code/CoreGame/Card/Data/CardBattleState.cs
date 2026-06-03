@@ -1,8 +1,10 @@
-﻿using Core.Save;
+﻿using System;
+using Core.Save;
 using UnityEngine;
 
 namespace CoreGame.Card.Data
 {
+    [Serializable]
     public class CardBattleState
     {
         public CardConfiguration Config;

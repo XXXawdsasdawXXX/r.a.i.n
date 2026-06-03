@@ -8,7 +8,8 @@ using Essential;
 
 namespace UI.Windows.Base
 {
-    public class UIWindowManager : Essential.Mono, IService, IInitializeListener, IStartListener, ILoadListener, ISubscriber
+    public class UIWindowManager : Essential.Mono, IService, 
+        IInitializeListener, IStartListener, ILoadListener, ISubscriber
     {
         public bool IsInitialized { get; set; }
 
@@ -42,6 +43,7 @@ namespace UI.Windows.Base
             {
                 windowController.StartWindow();
             }
+            
             return UniTask.CompletedTask;
         }
 
@@ -51,13 +53,15 @@ namespace UI.Windows.Base
             {
                 windowController.LoadWindow(model);
             }
+            
             return UniTask.CompletedTask;
         }
 
         public void Subscribe()
         {
-            foreach ((Type _, IWindowController windowController) in _windowControllers)
+            foreach ((Type type, IWindowController windowController) in _windowControllers)
             {
+                 Log.Info(this, $"Subscribe {type.Name}");
                 windowController.SubscribeToEvents(true);
             }
         }

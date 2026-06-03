@@ -1,7 +1,9 @@
-﻿using Core.Data;
+﻿using System;
+using Core.Data;
 
 namespace CoreGame.Card.Data
 {
+    [Serializable]
     public class BattleModel
     {
         public const float MAX_TURN_TIME = 60;
@@ -13,7 +15,7 @@ namespace CoreGame.Card.Data
         public BattleSide SideB;
     
         public int TurnNumber;
-        public float TurnTimeRemaining;
+        public ReactiveProperty<float> TurnTimeRemaining;
         public ReactiveProperty<EBattlePhase> Phase;
     }
 }
