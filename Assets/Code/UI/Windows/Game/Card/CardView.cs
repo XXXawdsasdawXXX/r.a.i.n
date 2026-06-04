@@ -1,5 +1,6 @@
 ﻿using System;
 using CoreGame.Card.Data;
+using Essential;
 using UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,10 @@ namespace UI.Windows.Game.Card
         [Serializable]
         public struct Model
         {
+            /// <summary><see cref="CardConfiguration.Id"/> — тип карты из библиотеки.</summary>
             public string Id;
+            /// <summary>Уникальный экземпляр в бою; для <see cref="CardPlayRules.FindCardInHand"/> при дубликатах Id.</summary>
+            public string InstanceId;
             public string Name;
             public ECardType Type;
             public string Description;
@@ -22,7 +26,8 @@ namespace UI.Windows.Game.Card
         
         [field: SerializeField] public Model CurrentModel { get; private set; }
 
-        public event Action<string> UsedCard; 
+        /// <summary><see cref="Model.Id"/> (<see cref="CardConfiguration.Id"/>).</summary>
+        public event Action<string> CardClicked;
 
         [SerializeField] private UIText _textName;
         [SerializeField] private UIText _textType;
@@ -52,14 +57,16 @@ namespace UI.Windows.Game.Card
         {
             base.onClick();
             
-            UsedCard?.Invoke(CurrentModel.Id);
+            CardClicked?.Invoke(CurrentModel.InstanceId);
+            
+            Log.Info($"click to card with id {CurrentModel.Id}");
         }
 
         public override void Disable()
         {
             base.Disable();
 
-            UsedCard = null;
+            CardClicked = null;
         }
     }
 }

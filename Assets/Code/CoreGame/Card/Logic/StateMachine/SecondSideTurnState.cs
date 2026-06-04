@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using CoreGame.Card.Data;
+using CoreGame.Card.Logic;
 using CoreGame.Card.Logic.AI;
 using Cysharp.Threading.Tasks;
 
@@ -45,38 +46,16 @@ namespace CoreGame.Card.Logic.StateMachine
             return UniTask.CompletedTask;
         }
 
-        public bool TryPlayCard(int cardIndex, string targetId)
+        public bool TryPlayCard(string cardId, string targetId)
         {
-            BattleUnit actor = _machine.Model.SideB.Hero;
-
-            if (cardIndex < 0 || cardIndex >= actor.Hand.Count)
-            {
-                return false;
-            }
-
-            CardBattleState card = actor.Hand[cardIndex];
-            int cost = card.GetEnergyCost(actor.Stats);
-
-            if (actor.Energy < cost)
-            {
-                return false;
-            }
-
-            if (actor.Statuses.Any(s => s.Type == EStatusType.Stun))
-            {
-                return false;
-            }
-
-            if (actor.IsInArmorStance && card.Config.Type.HasFlag(ECardType.Attack))
-            {
-                return false;
-            }
-
-            BattleUnit target = _machine.FindUnit(targetId);
-            _machine.Processor.ApplyCard(actor, card, target, _machine.Model);
-            _spendCard(actor, card);
-
-            return true;
+            return CardPlayRules.TryPlay(
+                _machine.Model.SideB.Hero,
+                cardId,
+                targetId,
+                _machine.Model,
+                _machine.Processor,
+                _machine.FindUnit,
+                _spendCard);
         }
 
         public bool TryMoveLine(string unitId)

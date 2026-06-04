@@ -20,7 +20,6 @@ namespace Core.Network
 
         public bool IsInitialized { get; set; }
         protected NetworkManager networkManager { get; private set; }
-
         
         [SerializeField] protected NetworkObject prefab;
       

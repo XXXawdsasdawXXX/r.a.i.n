@@ -19,12 +19,13 @@ namespace Core.Network
         public void SetConnection(NetworkConnection connection)
         {
             Connection = connection;
-            Id = Connection.ClientId.ToString();
         }
 
         public void SetHero(NetworkObject hero)
         {
             Hero = hero;
+            
+            Id = hero.ObjectId.ToString();
             
             _heroComponents.Clear();
             

@@ -7,6 +7,9 @@ namespace CoreGame.Card.Data
     [Serializable]
     public class CardBattleState
     {
+        /// <summary>Уникальный id экземпляра карты в бою (дубликаты Config.Id в руке).</summary>
+        public string InstanceId;
+
         public CardConfiguration Config;
 
         public string OwnerId;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FishNet.Object.Synchronizing;
 
 namespace Core.Save
 {
@@ -25,7 +26,7 @@ namespace Core.Save
         {
             Name = "name";
             Health = 100;
-            
+
             GameTime = new TimeSpan();
             ExitTime = new TimeSpan();
 

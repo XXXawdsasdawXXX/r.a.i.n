@@ -38,11 +38,11 @@ namespace CoreGame.Card.Logic
             Log.Info(this, "Start battle");            
         }
 
-        public bool TryPlayCard(int cardIndex, string targetId)
+        public bool TryPlayCard(string cardId, string targetId)
         {
             if (_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput)
             {
-                if (acceptPlayerInput.TryPlayCard(cardIndex, targetId))
+                if (acceptPlayerInput.TryPlayCard(cardId, targetId))
                 {
                     CardPlayed?.Invoke(_machine.Model);
                     return true;

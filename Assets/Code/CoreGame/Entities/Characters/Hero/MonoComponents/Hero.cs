@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Core.GameLoop;
 using Core.Input;
+using Core.Network;
 using Core.Save;
 using Core.ServiceLocator;
 using CoreGame.Card;
@@ -40,7 +41,13 @@ namespace CoreGame.Entities.Characters.Hero
                 CardLibrary cardLibrary = Container.Instance.GetSO<CardLibrary>();
                 GameModel gameModel = Container.Instance.GetService<GameModel>();
                 
-                Model = _getHeroModel(gameModel.Hero, cardLibrary); 
+                Model = gameModel.Hero;
+                Model.HeroId = ObjectId.ToString();
+         
+                if (Model.Deck == null || Model.Deck.Count == 0)
+                {
+                    Model.Deck = cardLibrary.DefaultCardsDeck.ToList();
+                }
                 
                 Movement movement = new(Rigidbody, input.Direction, heroSettings.MoveSpeed);
                 Components.Add(typeof(Movement), movement);
@@ -71,18 +78,6 @@ namespace CoreGame.Entities.Characters.Hero
         public void Unsubscribe()
         {   
             Health.Changed -= _onHealthChanged;
-        }
-
-        private HeroModel _getHeroModel(HeroModel hero, CardLibrary library)
-        {
-            hero.HeroId = OwnerId.ToString();
-         
-            if (hero.Deck == null || hero.Deck.Count == 0)
-            {
-                hero.Deck = library.DefaultCardsDeck.ToList();
-            }
-
-            return hero;
         }
 
         private void _onHealthChanged()

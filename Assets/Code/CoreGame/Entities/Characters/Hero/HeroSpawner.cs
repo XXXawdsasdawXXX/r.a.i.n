@@ -15,6 +15,15 @@ namespace CoreGame.Entities.Characters.Hero
     public class HeroSpawner : NetworkPool, ISubscriber
     {
         private readonly Dictionary<NetworkConnection, NetworkObject> _heroes = new();
+        private UserProvider _userProvider;
+
+        
+        public override UniTask Initialize()
+        {
+            _userProvider = Container.Instance.GetService<UserProvider>();
+
+            return base.Initialize();
+        }
 
         public void Subscribe()
         {
@@ -37,7 +46,7 @@ namespace CoreGame.Entities.Characters.Hero
             _initializeHeroComponents(instance);
             
             _setUserHero(connection, instance);
-
+            
             return UniTask.CompletedTask;
         }
 

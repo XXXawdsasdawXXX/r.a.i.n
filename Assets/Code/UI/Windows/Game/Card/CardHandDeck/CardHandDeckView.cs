@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Save;
 using CoreGame.Card.Data;
 using UI.Components;
@@ -9,8 +10,6 @@ namespace UI.Windows.Game.Card.CardHandDeck
 {
     public class CardHandDeckView : UIWindowView
     {
-        public List<CardView> CurrentCards => _cardsPool.Enabled;
-
         [SerializeField] private UIElementPool<CardView> _cardsPool;
 
         private HeroStats _heroStats;
@@ -24,40 +23,40 @@ namespace UI.Windows.Game.Card.CardHandDeck
         {
             _heroStats = heroStats;
         }
-        
-        public List<CardView> SetCards(List<CardBattleState> cards)
+
+        /// <summary>Показывает руку героя. Пул остаётся во view; клики уходят через <paramref name="onCardClicked"/>.</summary>
+        public void DisplayHand(IReadOnlyList<CardBattleState> hand, Action<string> onCardClicked)
         {
             _cardsPool.DisableAll();
 
-            foreach (CardBattleState cardBattleState in cards)
+            foreach (CardBattleState cardBattleState in hand)
             {
                 CardView cardView = _cardsPool.GetNext();
-                
+
                 cardView.SetModel(new CardView.Model
                 {
                     Id = cardBattleState.Config.Id,
+                    InstanceId = cardBattleState.InstanceId,
                     Name = cardBattleState.Config.Name,
                     Type = cardBattleState.Config.Type,
-                    Description = "", //todo create description
+                    Description = "",
                     EnergyPrice = cardBattleState.GetEnergyCost(_heroStats),
                     CurrentCharge = cardBattleState.ChargesLeft,
                     MaxCharge = cardBattleState.Config.Charges
                 });
 
-                cardView.UsedCard += id =>
+                if (onCardClicked != null)
                 {
-                    _cardsPool.Disable(cardView);
-                };
+                    cardView.CardClicked += onCardClicked;
+                }
             }
-
-            return _cardsPool.Enabled;
         }
 
-        public void SetInteractable(bool isMyTurn)
+        public void SetInteractable(bool isInteractable)
         {
             foreach (CardView cardView in _cardsPool.Enabled)
             {
-                cardView.SetInteractable(isMyTurn);
+                cardView.SetInteractable(isInteractable);
             }
         }
     }

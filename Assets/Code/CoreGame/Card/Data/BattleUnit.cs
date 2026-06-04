@@ -47,6 +47,7 @@ namespace CoreGame.Card.Data
             BattleUnit unit = new()
             {
                 UnitId = hero.HeroId,
+                OwnerId = string.Empty,
                 MaxHP = 100 + hero.Stats.Endurance * 10,
                 HP = hero.Health,
                 MaxEnergy = 100 + hero.Stats.Endurance * 5,
@@ -73,7 +74,7 @@ namespace CoreGame.Card.Data
             string id = Guid.NewGuid().ToString();
             return new BattleUnit
             {
-                UnitId = null,
+                UnitId = Guid.NewGuid().ToString(),
                 OwnerId = ownerId,
                 IsCompanion = false,
                 HP = 50,
@@ -104,6 +105,7 @@ namespace CoreGame.Card.Data
             return cardsId
                 .Select(id => new CardBattleState 
                 { 
+                    InstanceId = Guid.NewGuid().ToString(),
                     OwnerId = ownerId,
                     Config = library.Get(id),
                     ChargesLeft = library.Get(id).Charges

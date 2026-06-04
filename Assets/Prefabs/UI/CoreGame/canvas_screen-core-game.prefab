@@ -2284,6 +2284,18 @@ PrefabInstance:
       propertyPath: <Index>k__BackingField
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8846619497605358097, guid: 41697e87128a27241af9bcb6e1bff27c, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8846619497605358097, guid: 41697e87128a27241af9bcb6e1bff27c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7841750413799554831, guid: 76f7aed52149b58409edf30dbe71ac41, type: 3}
+    - target: {fileID: 8846619497605358097, guid: 41697e87128a27241af9bcb6e1bff27c, type: 3}
+      propertyPath: m_FillMethod
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

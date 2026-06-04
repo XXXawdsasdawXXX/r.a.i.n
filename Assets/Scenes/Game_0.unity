@@ -354,7 +354,7 @@ MonoBehaviour:
   <Trigger>k__BackingField: {fileID: 1442524582}
   _view: {fileID: 1978309339}
   _model:
-    HeroId: 
+    HeroId: Some Hero Id
     Name: enemy
     Health: 100
     Armor: 0
@@ -1168,11 +1168,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b10903e557406eb48d49600a90ecb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _battleStateMachine:
-    <Model>k__BackingField:
-      BattleId: 
-      Mode: 0
-      TurnNumber: 0
+  _model:
+    BattleId: 
+    Mode: 0
+    SideA:
+      Hero:
+        UnitId: 
+        OwnerId: 
+        IsCompanion: 0
+        HP: 0
+        MaxHP: 0
+        Armor: 0
+        Energy: 0
+        MaxEnergy: 0
+        HandLimit: 0
+        Stats:
+          Agility: 0
+          Strength: 0
+          Endurance: 0
+          Intellect: 0
+        IsInArmorStance: 0
+        ArmorStanceTurnsLeft: 0
+        Statuses: []
+        CritChance: 0
+        DodgeChance: 0
+        StunChance: 0
+        MoveLineCost: 0
+        Line: 0
+        Hand: []
+        Deck: []
+        Discard: []
+      Companions: []
+      _mandatoryCards: []
+    SideB:
+      Hero:
+        UnitId: 
+        OwnerId: 
+        IsCompanion: 0
+        HP: 0
+        MaxHP: 0
+        Armor: 0
+        Energy: 0
+        MaxEnergy: 0
+        HandLimit: 0
+        Stats:
+          Agility: 0
+          Strength: 0
+          Endurance: 0
+          Intellect: 0
+        IsInArmorStance: 0
+        ArmorStanceTurnsLeft: 0
+        Statuses: []
+        CritChance: 0
+        DodgeChance: 0
+        StunChance: 0
+        MoveLineCost: 0
+        Line: 0
+        Hand: []
+        Deck: []
+        Discard: []
+      Companions: []
+      _mandatoryCards: []
+    TurnNumber: 0
 --- !u!4 &1778948533
 Transform:
   m_ObjectHideFlags: 0
