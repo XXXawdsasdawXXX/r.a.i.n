@@ -48,7 +48,7 @@ namespace Core.StateMachine
             }
             catch (Exception e)
             {
-                Log.Exception($"State machine can not set set {type.Name}",e);
+                Log.Exception($"State machine can not set state {type.Name}",e);
                 throw;
             }
         }

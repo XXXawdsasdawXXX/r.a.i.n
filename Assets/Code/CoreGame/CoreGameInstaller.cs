@@ -19,7 +19,9 @@ namespace CoreGame
         {
             return new[]
             {
+#if UNITY_EDITOR || DEBUG
                 typeof(TestService),
+#endif
                 //world
                 typeof(GameTime),
                 typeof(GridService),

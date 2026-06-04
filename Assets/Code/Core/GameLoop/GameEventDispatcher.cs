@@ -40,7 +40,7 @@ namespace Core.GameLoop
         {
             if (_isStarted)
             {
-                _notifyGameUpdate(Time.deltaTime);
+                _notifyGameUpdate(UnityEngine.Time.deltaTime);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Core.GameLoop
         {
             if (_isStarted)
             {
-                _notifyGameFixedUpdate(Time.fixedDeltaTime);
+                _notifyGameFixedUpdate(UnityEngine.Time.fixedDeltaTime);
             }
         }
 

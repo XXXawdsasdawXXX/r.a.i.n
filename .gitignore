@@ -108,5 +108,5 @@ fmod_editor.log
 /Assets/FMODStudioCache.meta
 
 /Assets/Graphics/Shaders/AllIn1SpriteShader
-.idea/.idea.tiny_thing/.idea/workspace.xml
-.idea/.idea.tiny_thing/.idea/workspace.xml
+.idea/**/workspace.xml
+.idea/workspace.xml
