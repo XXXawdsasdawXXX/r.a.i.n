@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.GameLoop;
 using Core.Input;
-using Core.Network;
 using Core.Save;
 using Core.ServiceLocator;
 using CoreGame.Card;
@@ -55,13 +56,17 @@ namespace CoreGame.Entities.Characters.Hero
                 Mainer mainer = new(Animation, Health);
                 Components.Add(typeof(Mainer), mainer);
                 
-                movement.Condition.Add(() => Health.Current > 0);
                 movement.Condition.Add(() => Animation.CurrentState is not 
                     AnimatorKey.ECharacterAnimationState.EAT and not 
                     AnimatorKey.ECharacterAnimationState.HARVEST);
                 
                 mainer.Condition.Add(() => input.Direction.Value == Vector2.zero);
-                mainer.Condition.Add(() => Health.Current > 0);
+
+                foreach (KeyValuePair<Type, ICharacterComponent> characterComponent in Components)
+                {
+                    characterComponent.Value.Condition.Add(() => Health.Current > 0);
+                    characterComponent.Value.Condition.Add(() => !Model.InBattle);
+                }
                 
                 Health.Set(Model.Health);
                 Name.SetName(Model.Name);

@@ -326,12 +326,12 @@ namespace Core.GameLoop
                 subscriber.Unsubscribe();
             }
             
-            _saveService.Save();
-
             foreach (IExitListener listener in _exitListeners)
             {
                 listener.GameExit();
             }
+
+            _saveService.Save();
 
             Log.Info(this, $"_notifyGameExit", Color.red);
             marker.End();

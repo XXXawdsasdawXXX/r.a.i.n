@@ -12,6 +12,7 @@ namespace Core.Save
         public string Name;
         public int Health;
         public int Armor;
+        public bool InBattle;
         
         public TimeSpan GameTime;
         public TimeSpan ExitTime;

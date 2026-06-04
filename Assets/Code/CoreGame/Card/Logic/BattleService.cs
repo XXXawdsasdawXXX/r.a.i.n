@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.GameLoop;
 using Core.Save;
 using Core.ServiceLocator;
@@ -6,11 +7,10 @@ using CoreGame.Card.Data;
 using CoreGame.Card.Logic.StateMachine;
 using Cysharp.Threading.Tasks;
 using Essential;
-using UnityEngine;
 
 namespace CoreGame.Card.Logic
 {
-    public class BattleService : IService, IInitializeListener
+    public class BattleService : IService, IInitializeListener, IExitListener
     {
         public bool IsInitialized { get; set; }
         public event Action<BattleModel> BattleStarted;
@@ -20,7 +20,8 @@ namespace CoreGame.Card.Logic
         
         private BattleStateMachine _machine;
 
-        
+        private List<HeroModel> _battleHeroes = new List<HeroModel>();
+
         public UniTask Initialize()
         {
             _machine = Container.Instance.GetService<BattleStateMachine>();
@@ -30,6 +31,11 @@ namespace CoreGame.Card.Logic
 
         public void StartBattle(HeroModel attacker, HeroModel defender, EBattleMode mode = EBattleMode.PvE)
         {
+            _battleHeroes.Add(attacker); 
+            _battleHeroes.Add(defender); 
+            attacker.InBattle = true;
+            defender.InBattle = true;
+            
             _machine.StartBattle(attacker, defender, mode);
             _machine.Model.Phase.SubscribeProperty(_onPhaseChanged);
             
@@ -87,11 +93,24 @@ namespace CoreGame.Card.Logic
                 case EBattlePhase.Resolution:
                     break;
                 case EBattlePhase.Finished:
+                    foreach (HeroModel hero in _battleHeroes)
+                    {
+                        hero.InBattle = false;
+                    }
+                    _battleHeroes.Clear();
                     _machine.Model.Phase.UnsubscribeProperty(_onPhaseChanged);
                     BattleFinished?.Invoke(_machine.Model);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(phase), phase, null);
+            }
+        }
+
+        public void GameExit()
+        {
+            foreach (HeroModel hero in _battleHeroes)
+            {
+                hero.InBattle = false;
             }
         }
     }
