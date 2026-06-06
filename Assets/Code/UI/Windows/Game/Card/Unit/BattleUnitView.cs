@@ -13,10 +13,9 @@ namespace UI.Windows.Game.Card.Unit
         public event System.Action Clicked;
 
         public UIHighlightMaterialController HighlightController { get; private set; }
-        public Material HighlightMaterialTemplate => BattleHighlightStyle.HighlightMaterial != null
-            ? BattleHighlightStyle.HighlightMaterial
-            : Render?.Image?.material;
+        public Material HighlightMaterialTemplate => BattleHighlightStyle.ResolveHighlightMaterial(Render?.Image?.material);
         [field: SerializeField] public UIImage Render { get; private set; }
+        [SerializeField] private UIHighlightMaterialController.EType _highlightType = UIHighlightMaterialController.EType.Outline;
         
         [field: Title("Params")]
         [field: SerializeField] public UIImage HealthFill { get; private set; }
@@ -55,7 +54,7 @@ namespace UI.Windows.Game.Card.Unit
 
         private void OnEnable()
         {
-            HighlightController = new UIHighlightMaterialController(Render.Image);
+            HighlightController = new UIHighlightMaterialController(Render.Image, _highlightType);
             Log.Info(this, $"[HighlightUnit] enable renderImage={Render?.Image != null} template={HighlightMaterialTemplate?.name ?? "null"}");
 
             if (_clickArea != null)

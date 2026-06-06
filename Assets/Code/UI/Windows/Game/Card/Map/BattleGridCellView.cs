@@ -2,8 +2,6 @@ using System;
 using CoreGame.Card.Data;
 using UI.Components;
 using UnityEngine;
-using UnityEngine.UI;
-using UI.Windows.Game.Card;
 using Essential;
 
 namespace UI.Windows.Game.Card.Map
@@ -17,12 +15,10 @@ namespace UI.Windows.Game.Card.Map
         [field: SerializeField] public int CellIndex { get; private set; }
         [field: SerializeField] public EBattleSideUi Side { get; private set; }
 
-        public Material HighlightMaterialTemplate => BattleHighlightStyle.HighlightMaterial != null
-            ? BattleHighlightStyle.HighlightMaterial
-            : Render?.Image?.material;
-        public Material OccupiedHighlightMaterialTemplate => BattleHighlightStyle.OccupiedHighlightMaterial != null
-            ? BattleHighlightStyle.OccupiedHighlightMaterial
-            : HighlightMaterialTemplate;
+        [SerializeField] private UIHighlightMaterialController.EType _highlightType = UIHighlightMaterialController.EType.Outline;
+
+        public Material HighlightMaterialTemplate => BattleHighlightStyle.ResolveHighlightMaterial(Render?.Image?.material);
+        public Material OccupiedHighlightMaterialTemplate => BattleHighlightStyle.ResolveOccupiedHighlightMaterial(Render?.Image?.material);
 
         public bool HasOccupiedHighlightBinding => OccupiedHighlightMaterialTemplate != null;
 
@@ -32,7 +28,7 @@ namespace UI.Windows.Game.Card.Map
 
         private void Awake()
         {
-            _uiHighlightController = new UIHighlightMaterialController(Render.Image);
+            _uiHighlightController = new UIHighlightMaterialController(Render.Image, _highlightType);
             Log.Info(this, $"[HighlightCell] awake renderImage={Render?.Image != null} side={Side} line={Line} cell={CellIndex} template={HighlightMaterialTemplate?.name ?? "null"}");
         }
 

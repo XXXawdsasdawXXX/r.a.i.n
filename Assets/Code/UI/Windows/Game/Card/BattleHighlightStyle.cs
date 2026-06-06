@@ -16,6 +16,8 @@ namespace UI.Windows.Game.Card
     {
         public static readonly Material HighlightMaterial = Resources.Load<Material>("Graphics/Materials/UI/material-ui-hightline");
         public static readonly Material OccupiedHighlightMaterial = HighlightMaterial;
+        private static readonly int _outlineColorId = Shader.PropertyToID("_OutlineColor");
+        private static readonly int _innerOutlineColorId = Shader.PropertyToID("_InnerOutlineColor");
 
 
         public static readonly Color AllyTargetColor = new Color(0.32f, 0.90f, 0.75f, 1f);
@@ -36,6 +38,36 @@ namespace UI.Windows.Game.Card
                 EBattleHighlightColorType.OccupiedCell => OccupiedCellColor,
                 _ => Color.clear
             };
+        }
+
+        public static Material ResolveHighlightMaterial(Material fallback)
+        {
+            if (IsHighlightCompatible(fallback))
+            {
+                return fallback;
+            }
+
+            return HighlightMaterial;
+        }
+
+        public static Material ResolveOccupiedHighlightMaterial(Material fallback)
+        {
+            if (IsHighlightCompatible(OccupiedHighlightMaterial))
+            {
+                return OccupiedHighlightMaterial;
+            }
+
+            return ResolveHighlightMaterial(fallback);
+        }
+
+        public static bool IsHighlightCompatible(Material material)
+        {
+            if (material == null)
+            {
+                return false;
+            }
+
+            return material.HasProperty(_outlineColorId) || material.HasProperty(_innerOutlineColorId);
         }
     }
 }
