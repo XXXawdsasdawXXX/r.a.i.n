@@ -39,6 +39,7 @@ namespace CoreGame.Card.Data
         public int LineCellIndex;
         public EAutoActionType AutoActionType;
         public float AutoActionValue;
+        public int CompanionCardsPerTurn = 1;
 
 
         public List<CardBattleState> Hand = new();
@@ -78,12 +79,14 @@ namespace CoreGame.Card.Data
             string ownerId, 
             AllCardCollection library)
         {
-            string id = Guid.NewGuid().ToString();
+            string unitId = Guid.NewGuid().ToString();
+            List<CardBattleState> companionDeck = _createDeck(unitId, companion.Cards, library);
+
             return new BattleUnit
             {
-                UnitId = Guid.NewGuid().ToString(),
+                UnitId = unitId,
                 OwnerId = ownerId,
-                IsCompanion = false,
+                IsCompanion = true,
                 HP = 50,
                 MaxHP = 50,
                 Armor = 0,
@@ -92,10 +95,10 @@ namespace CoreGame.Card.Data
                 HandLimit = 0,
                 IsInArmorStance = false,
                 ArmorStanceTurnsLeft = 0,
-                Statuses = null,
-                Hand = null,
-                Deck = _createDeck(id, companion.Cards, library),
-                Discard = null,
+                Statuses = new List<StatusEffect>(),
+                Hand = new List<CardBattleState>(),
+                Deck = companionDeck,
+                Discard = new List<CardBattleState>(),
                 CritChance = 0,
                 DodgeChance = 0,
                 StunChance = 0,
@@ -103,6 +106,7 @@ namespace CoreGame.Card.Data
                 Stats = null,
                 AutoActionType = EAutoActionType.GiveShieldToOwnerHero,
                 AutoActionValue = 4,
+                CompanionCardsPerTurn = UnityEngine.Mathf.Max(0, companion.CardsPerTurn),
                 Line = EBattleLine.Backline,
                 LineCellIndex = 1
             };
@@ -113,7 +117,14 @@ namespace CoreGame.Card.Data
             IEnumerable<string> cardsId, 
             AllCardCollection library)
         {
+            if (cardsId == null)
+            {
+                return new List<CardBattleState>();
+            }
+
             return cardsId
+                .Where(id => !string.IsNullOrEmpty(id))
+                .Where(id => library.Get(id) != null)
                 .Select(id => new CardBattleState 
                 { 
                     InstanceId = Guid.NewGuid().ToString(),

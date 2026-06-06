@@ -2,6 +2,7 @@
 {
     public enum EEffectTarget
     {
+        None,
         Self,
         SelectedEnemy,        // игрок выбирает цель
         AllEnemies,           // все враги обеих зон

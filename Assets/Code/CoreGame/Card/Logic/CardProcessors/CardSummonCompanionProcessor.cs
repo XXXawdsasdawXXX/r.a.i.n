@@ -14,24 +14,34 @@ namespace CoreGame.Card.Logic.CardProcessors
 
         public void Process(CardEffectConfiguration effect, BattleUnit actor, BattleUnit target, BattleModel battle)
         {
+            if (effect?.CompanionConfiguration == null || actor == null || battle == null)
+            {
+                return;
+            }
+
             BattleUnit companion = BattleUnit.FromCompanion(
                 effect.CompanionConfiguration, 
-                actor.OwnerId, 
+                actor.UnitId, 
                 _allCards);
 
-            BattleSide ownerSide = battle.SideA.Hero.OwnerId == actor.OwnerId
-                ? battle.SideA
-                : battle.SideB;
+            BattleSide ownerSide = BattleGridRules.GetOwnerSide(battle, actor);
+            if (ownerSide == null)
+            {
+                return;
+            }
 
             // спутник встаёт во frontline по умолчанию
             companion.Line = EBattleLine.Frontline;
 
-            if (effect.SummonDuration > 0)
+            int summonDuration = effect.SummonDuration > 0
+                ? effect.SummonDuration
+                : effect.CompanionConfiguration.LifetimeTurns;
+            if (summonDuration > 0)
             {
                 companion.Statuses.Add(new StatusEffect
                 {
                     Type = EStatusType.SummonDuration,
-                    Duration = effect.SummonDuration
+                    Duration = summonDuration
                 });
             }
 

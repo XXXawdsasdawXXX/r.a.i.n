@@ -32,7 +32,7 @@ namespace UI.Components
 
         protected override void onClick()
         {
-            _audio.OneShot(AudioEventLibrary.BUTTON_DOWN);   
+            _audio?.OneShot(AudioEventLibrary.BUTTON_DOWN);   
         }
 
         protected override void onEnter()
@@ -47,7 +47,7 @@ namespace UI.Components
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            _audio.OneShot(AudioEventLibrary.BUTTON_UP);
+            _audio?.OneShot(AudioEventLibrary.BUTTON_UP);
         }
     }
 }

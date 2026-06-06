@@ -1,4 +1,6 @@
-﻿using CoreGame.Card.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CoreGame.Card.Data;
 using CoreGame.Card.Logic.AI;
 using Cysharp.Threading.Tasks;
 
@@ -127,8 +129,42 @@ namespace CoreGame.Card.Logic.StateMachine
                 _machine.Processor.TickStatuses(unit, _machine.Model);
             }
 
+            List<string> removedCompanionIds = side.Companions
+                .Where(_shouldRemoveCompanion)
+                .Select(c => c.UnitId)
+                .ToList();
+
             //todo тоже вот нужно какой то фитбек во вьюху дать
-            side.Companions.RemoveAll(c => c.HP <= 0);
+            side.Companions.RemoveAll(_shouldRemoveCompanion);
+            _removeCompanionCards(side, removedCompanionIds);
+        }
+        
+        private static void _removeCompanionCards(BattleSide side, List<string> removedCompanionIds)
+        {
+            if (side == null || removedCompanionIds == null || removedCompanionIds.Count == 0)
+            {
+                return;
+            }
+
+            side.Hero.Hand.RemoveAll(card => card != null && removedCompanionIds.Contains(card.OwnerId));
+            side.Hero.Deck.RemoveAll(card => card != null && removedCompanionIds.Contains(card.OwnerId));
+            side.Hero.Discard.RemoveAll(card => card != null && removedCompanionIds.Contains(card.OwnerId));
+        }
+        
+        private static bool _shouldRemoveCompanion(BattleUnit companion)
+        {
+            if (companion == null)
+            {
+                return false;
+            }
+
+            if (companion.HP <= 0)
+            {
+                return true;
+            }
+
+            return companion.Statuses != null
+                   && companion.Statuses.Any(status => status.Type == EStatusType.SummonDuration && status.Duration <= 0);
         }
         
         private bool _isBattleFinished()

@@ -19,20 +19,29 @@ namespace CoreGame.Card.Logic
                 return;
             }
 
-            actor.Hand.Remove(card);
+            BattleUnit cardOwner = side.GetUnit(card.OwnerId) ?? actor;
+            if (cardOwner.Hand == null)
+            {
+                return;
+            }
+
+            if (!cardOwner.Hand.Remove(card))
+            {
+                return;
+            }
 
             if (card.Config != null && card.Config.Charges > 0)
             {
                 card.ChargesLeft--;
                 if (card.ChargesLeft > 0)
                 {
-                    actor.Discard.Add(card);
+                    cardOwner.Discard?.Add(card);
                 }
 
                 return;
             }
 
-            actor.Discard.Add(card);
+            cardOwner.Discard?.Add(card);
         }
     }
 }

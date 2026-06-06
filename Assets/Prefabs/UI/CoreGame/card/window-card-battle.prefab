@@ -414,6 +414,9 @@ MonoBehaviour:
   view: {fileID: 929223643284868842}
   _leftHeroView: {fileID: 3741399319073932470}
   _rightHeroView: {fileID: 3762167690526138404}
+  _leftCompanionRoot: {fileID: 6577756482152128314}
+  _rightCompanionRoot: {fileID: 397707268758233501}
+  _companionViewPrefab: {fileID: 3533144656889863165, guid: ba26d74fa669a9647a4dda5bdb4d4200, type: 3}
   _leftSideView: {fileID: 1090679273702622842}
   _rightSideView: {fileID: 828986110537948829}
 --- !u!114 &929223643284868842
@@ -1017,6 +1020,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2090753864341312259}
     m_Modifications:
+    - target: {fileID: 239472292073383578, guid: ba26d74fa669a9647a4dda5bdb4d4200, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 648557002448551474, guid: ba26d74fa669a9647a4dda5bdb4d4200, type: 3}
       propertyPath: m_Name
       value: battleUnit (1)

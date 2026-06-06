@@ -1198,6 +1198,7 @@ MonoBehaviour:
         StunChance: 0
         MoveLineCost: 0
         Line: 0
+        LineCellIndex: 0
         AutoActionType: 0
         AutoActionValue: 0
         Hand: []
@@ -1229,6 +1230,7 @@ MonoBehaviour:
         StunChance: 0
         MoveLineCost: 0
         Line: 0
+        LineCellIndex: 0
         AutoActionType: 0
         AutoActionValue: 0
         Hand: []

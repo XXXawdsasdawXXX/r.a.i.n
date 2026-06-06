@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 105619f215564347b7ce20b32725a858, type: 3}
+  m_Name: Companion_0
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: privet
+  <Health>k__BackingField: 50
+  <Armor>k__BackingField: 5
+  <Cards>k__BackingField:
+  - companion_0_attack_0
+  - companion_0_attack_0
+  - companion_0_attack_0
+  - companion_0_attack_0
+  - companion_0_attack_0
+  - companion_0_attack_0
+  <CardsPerTurn>k__BackingField: 1
+  <LifetimeTurns>k__BackingField: 4
+  <AnimatorController>k__BackingField: {fileID: 0}

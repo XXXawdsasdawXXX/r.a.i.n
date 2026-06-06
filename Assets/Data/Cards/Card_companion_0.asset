@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8dbb3f6a07b24384b074bfa537126271, type: 3}
-  m_Name: Card_armor_0
+  m_Name: Card_companion_0
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: armor_0
-  <Name>k__BackingField: "\u0417\u0430\u0449\u0438\u0442\u0430"
+  <Id>k__BackingField: companion_0
+  <Name>k__BackingField: "\u041F\u0440\u0438\u0437\u044B\u0432 \u043A\u043E\u043C\u043F\u0430\u043D\u044C\u043E\u043D\u0430"
   <Icon>k__BackingField: {fileID: 0}
-  <Type>k__BackingField: 4
-  <BaseEnergyCost>k__BackingField: 30
-  <Charges>k__BackingField: 0
+  <Type>k__BackingField: 2
+  <BaseEnergyCost>k__BackingField: 15
+  <Charges>k__BackingField: 1
   <Effects>k__BackingField:
-  - <Type>k__BackingField: 3
-    <Target>k__BackingField: 6
+  - <Type>k__BackingField: 5
+    <Target>k__BackingField: 0
     <BaseValue>k__BackingField:
-      MinValue: 9
-      MaxValue: 9
-    <Scaling>k__BackingField: 1
-    <ScalingFactor>k__BackingField: 1
+      MinValue: 0
+      MaxValue: 0
+    <Scaling>k__BackingField: 0
+    <ScalingFactor>k__BackingField: 0
     <ParasiteCard>k__BackingField: {fileID: 0}
     <ParasiteCount>k__BackingField: 0
-    <CompanionConfiguration>k__BackingField: {fileID: 0}
+    <CompanionConfiguration>k__BackingField: {fileID: 11400000, guid: 5977d47a5f9f0e947982931eb7dd556a, type: 2}
     <SummonDuration>k__BackingField: 0
     <StanceDuration>k__BackingField: 0
     <StatusType>k__BackingField: 0

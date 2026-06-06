@@ -17,6 +17,7 @@ namespace CoreGame.Card.Logic
                 CommandResult.CardCannotBePlayed => "Card cannot be played",
                 CommandResult.CardHasNoMoveEffect => "Card has no move effect",
                 CommandResult.CardApplyRejected => "Card application rejected by state",
+                CommandResult.TargetInvalid => "Selected target is invalid for this card",
                 CommandResult.MoveLineRejected => "Line switch rejected",
                 CommandResult.MoveApplyFailed => "Move apply failed",
                 _ => $"Unknown result: {result}"

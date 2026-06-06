@@ -32,6 +32,16 @@ namespace CoreGame.Card.Logic.StateMachine
             _startTurn(_machine.Model.SideA.Hero);
             _startTurn(_machine.Model.SideB.Hero);
 
+            foreach (BattleUnit companion in _machine.Model.SideA.Companions)
+            {
+                _startCompanionTurn(companion);
+            }
+
+            foreach (BattleUnit companion in _machine.Model.SideB.Companions)
+            {
+                _startCompanionTurn(companion);
+            }
+
             _machine.SwitchState(typeof(FirstSideTurnState));
             return UniTask.CompletedTask;
         }
@@ -76,6 +86,28 @@ namespace CoreGame.Card.Logic.StateMachine
             _drawCardsToHandLimit(unit);
         }
 
+        private static void _startCompanionTurn(BattleUnit companion)
+        {
+            if (companion == null || companion.HP <= 0 || companion.Hand == null || companion.Deck == null)
+            {
+                return;
+            }
+
+            int cardsPerTurn = UnityEngine.Mathf.Max(0, companion.CompanionCardsPerTurn);
+            if (cardsPerTurn <= 0 || companion.Deck.Count == 0)
+            {
+                return;
+            }
+
+            int drawCount = UnityEngine.Mathf.Min(cardsPerTurn, companion.Deck.Count);
+            for (int i = 0; i < drawCount; i++)
+            {
+                CardBattleState card = companion.Deck[0];
+                companion.Deck.RemoveAt(0);
+                companion.Hand.Add(card);
+            }
+        }
+
         private static void _drawCardsToHandLimit(BattleUnit unit)
         {
             int cardsToDraw = unit.HandLimit - unit.Hand.Count;
@@ -114,5 +146,7 @@ namespace CoreGame.Card.Logic.StateMachine
             unit.Discard.Clear();
             unit.Deck.Shuffle();
         }
+
+        
     }
 }

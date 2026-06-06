@@ -59,6 +59,13 @@ namespace CoreGame.Card.Logic
                 _tickStatus(status, unit);
 
                 status.Duration--;
+
+                // SummonDuration нужен с duration<=0 до конца резолва:
+                // TurnResolutionState удаляет компаньона и чистит его карты по этому флагу.
+                if (status.Type == EStatusType.SummonDuration)
+                {
+                    continue;
+                }
                
                 if (status.Duration <= 0)
                     unit.Statuses.Remove(status);

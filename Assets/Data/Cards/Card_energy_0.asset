@@ -16,13 +16,13 @@ MonoBehaviour:
   <Name>k__BackingField: "\u041F\u0440\u0438\u043B\u0438\u0432 \u044D\u043D\u0435\u0440\u0433\u0438\u0438"
   <Icon>k__BackingField: {fileID: 0}
   <Type>k__BackingField: 2
-  <BaseEnergyCost>k__BackingField: 30
+  <BaseEnergyCost>k__BackingField: 0
   <Charges>k__BackingField: 0
   <Effects>k__BackingField:
   - <Type>k__BackingField: 2
     <Target>k__BackingField: 0
     <BaseValue>k__BackingField:
-      MinValue: 10
+      MinValue: 20
       MaxValue: 20
     <Scaling>k__BackingField: 3
     <ScalingFactor>k__BackingField: 1

@@ -16,8 +16,9 @@ namespace CoreGame.Card.Logic
         CardCannotBePlayed = 8,
         CardHasNoMoveEffect = 9,
         CardApplyRejected = 10,
+        TargetInvalid = 11,
         
-        MoveLineRejected = 11,
-        MoveApplyFailed = 12
+        MoveLineRejected = 12,
+        MoveApplyFailed = 13
     }
 }

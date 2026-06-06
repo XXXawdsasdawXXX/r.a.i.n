@@ -19,6 +19,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: bd0bfa2cca76bd2478138842e622255e, type: 2}
     - {fileID: 11400000, guid: 2e2598c35fce4a24094ea803f07a6bef, type: 2}
     - {fileID: 11400000, guid: 01f40e5f49b84e4bb6dd4e8584fe4d0a, type: 2}
+    - {fileID: 11400000, guid: 9a23de9d39576a147bf66a7ef8124c25, type: 2}
+    - {fileID: 11400000, guid: df77ebe5f42a7a04c83cc81cf59b2bc3, type: 2}
   <DefaultCardsDeck>k__BackingField:
   - attack_0
   - attack_0
@@ -33,3 +35,4 @@ MonoBehaviour:
   - energy_0
   <MandatoryCardsInHand>k__BackingField:
   - move_0
+  - companion_0

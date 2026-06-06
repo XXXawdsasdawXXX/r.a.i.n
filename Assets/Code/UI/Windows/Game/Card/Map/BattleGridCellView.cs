@@ -14,12 +14,22 @@ namespace UI.Windows.Game.Card.Map
         [field: SerializeField] public EBattleSideUi Side { get; private set; }
 
         [SerializeField] private GameObject _highlight;
+        [SerializeField] private GameObject _occupiedHighlight;
+        public bool HasOccupiedHighlightBinding => _occupiedHighlight != null;
 
         public void SetHighlighted(bool value)
         {
             if (_highlight != null)
             {
                 _highlight.SetActive(value);
+            }
+        }
+        
+        public void SetOccupied(bool value)
+        {
+            if (_occupiedHighlight != null)
+            {
+                _occupiedHighlight.SetActive(value);
             }
         }
 

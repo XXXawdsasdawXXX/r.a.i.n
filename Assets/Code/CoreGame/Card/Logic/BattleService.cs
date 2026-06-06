@@ -68,6 +68,12 @@ namespace CoreGame.Card.Logic
             {
                 return CommandResult.CardCannotBePlayed;
             }
+            
+            BattleUnit target = _machine.FindUnit(targetId);
+            if (!_isValidTargetForCard(_machine.Model, activeSide, card, target))
+            {
+                return CommandResult.TargetInvalid;
+            }
 
             if (!acceptPlayerInput.TryPlayCard(cardId, targetId))
             {
@@ -158,6 +164,74 @@ namespace CoreGame.Card.Logic
             }
 
             return moved ? CommandResult.Success : CommandResult.MoveApplyFailed;
+        }
+        
+        public CommandResult TryPlaySummonCardToCellWithResult(string cardId, EBattleLine line, int cellIndex)
+        {
+            if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
+            {
+                return CommandResult.InvalidState;
+            }
+
+            if (!_tryGetActiveSide(out BattleSide activeSide))
+            {
+                return CommandResult.InvalidPhase;
+            }
+
+            if (cellIndex < 0 || cellIndex >= BattleGridRules.CELLS_PER_LINE)
+            {
+                return CommandResult.InvalidCell;
+            }
+
+            bool occupied = activeSide.GetAllUnits()
+                .Where(u => u != null && u.HP > 0)
+                .Any(u => u.Line == line && u.LineCellIndex == cellIndex);
+            if (occupied)
+            {
+                return CommandResult.TargetOccupied;
+            }
+
+            CardBattleState card = CardPlayRules.FindCardInHand(activeSide.GetHand(), cardId);
+            if (card == null)
+            {
+                return CommandResult.CardNotFound;
+            }
+
+            if (!CardPlayRules.CanPlayCard(activeSide.Hero, card))
+            {
+                return CommandResult.CardCannotBePlayed;
+            }
+
+            bool isSummonCard = card.Config.Effects != null
+                                && card.Config.Effects.Any(effect => effect.Type == EEffectType.SummonCompanion);
+            if (!isSummonCard)
+            {
+                return CommandResult.CardApplyRejected;
+            }
+
+            int companionsBefore = activeSide.Companions.Count;
+            if (!acceptPlayerInput.TryPlayCard(cardId, activeSide.Hero.UnitId))
+            {
+                return CommandResult.CardApplyRejected;
+            }
+
+            BattleUnit summoned = activeSide.Companions.Count > companionsBefore
+                ? activeSide.Companions[activeSide.Companions.Count - 1]
+                : activeSide.Companions.LastOrDefault();
+            if (summoned == null)
+            {
+                return CommandResult.CardApplyRejected;
+            }
+
+            bool moved = BattleGridRules.TryMoveUnitToCell(_machine.Model, summoned, line, cellIndex);
+            if (!moved)
+            {
+                return CommandResult.MoveApplyFailed;
+            }
+
+            CardPlayed?.Invoke(_machine.Model);
+            _tryFinishBattleAfterAction();
+            return CommandResult.Success;
         }
 
         public CommandResult EndTurnWithResult()
@@ -275,6 +349,80 @@ namespace CoreGame.Card.Logic
             return _machine?.Model == null
                 ? CommandResult.InvalidState
                 : CommandResult.InvalidPhase;
+        }
+
+        private static bool _isValidTargetForCard(BattleModel battle, BattleSide actorSide, CardBattleState card, BattleUnit target)
+        {
+            if (battle == null || actorSide == null || card?.Config?.Effects == null || card.Config.Effects.Count == 0)
+            {
+                return false;
+            }
+
+            bool hasManualTargetEffect = card.Config.Effects.Any(_requiresUnitSelection);
+            if (!hasManualTargetEffect)
+            {
+                return true;
+            }
+
+            if (target == null)
+            {
+                return false;
+            }
+
+            BattleSide targetSide = BattleGridRules.GetOwnerSide(battle, target);
+            if (targetSide == null)
+            {
+                return false;
+            }
+
+            foreach (CardEffectConfiguration effect in card.Config.Effects)
+            {
+                if (!_requiresUnitSelection(effect))
+                {
+                    continue;
+                }
+
+                bool isEnemy = !ReferenceEquals(targetSide, actorSide);
+                bool isSelf = target.UnitId == actorSide.Hero.UnitId;
+                bool isAlly = ReferenceEquals(targetSide, actorSide);
+                bool isCompanion = target.IsCompanion;
+
+                bool validByEffect = effect.Target switch
+                {
+                    EEffectTarget.Self => isSelf,
+                    EEffectTarget.SelectedAlly => isAlly,
+                    EEffectTarget.SelectedEnemy => isEnemy,
+                    EEffectTarget.EnemyCompanions => isEnemy && isCompanion,
+                    _ => false
+                };
+
+                if (validByEffect)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool _requiresUnitSelection(CardEffectConfiguration effect)
+        {
+            if (effect == null)
+            {
+                return false;
+            }
+
+            // Summon/move эффекты не требуют ручного выбора юнита-цели.
+            if (effect.Type == EEffectType.SummonCompanion || effect.Type == EEffectType.MoveLine)
+            {
+                return false;
+            }
+
+            EEffectTarget target = effect.Target;
+            return target == EEffectTarget.Self
+                   || target == EEffectTarget.SelectedAlly
+                   || target == EEffectTarget.SelectedEnemy
+                   || target == EEffectTarget.EnemyCompanions;
         }
     }
 }

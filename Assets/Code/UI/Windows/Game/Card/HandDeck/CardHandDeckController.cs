@@ -97,6 +97,20 @@ namespace UI.Windows.Game.Card.HandDeck
                     return;
                 }
             }
+            
+            if (_isSummonCard(card) && _cardWindowController != null)
+            {
+                if (_cardWindowController.TrySelectSummonCell(cardId))
+                {
+                    return;
+                }
+            }
+            
+            BattleSide mySide = _getMySide(_battleModel, myId);
+            if (_cardWindowController != null && _cardWindowController.TrySelectCardTarget(card, mySide))
+            {
+                return;
+            }
 
             string targetId = _resolveTargetId(_battleModel, myId, cardId);
             CommandResult playResult = _battleService.TryPlayCardWithResult(cardId, targetId);
@@ -206,6 +220,12 @@ namespace UI.Windows.Game.Card.HandDeck
         {
             return card?.Config?.Effects != null
                    && card.Config.Effects.Any(effect => effect.Type == EEffectType.MoveLine);
+        }
+        
+        private static bool _isSummonCard(CardBattleState card)
+        {
+            return card?.Config?.Effects != null
+                   && card.Config.Effects.Any(effect => effect.Type == EEffectType.SummonCompanion);
         }
     }
 }

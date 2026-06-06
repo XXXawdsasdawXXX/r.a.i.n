@@ -3,6 +3,7 @@ using CoreGame.Card.Data;
 using UI.Components;
 using UI.Windows.Base;
 using UnityEngine;
+using System.Linq;
 
 namespace UI.Windows.Game.Card.Unit
 {
@@ -16,6 +17,7 @@ namespace UI.Windows.Game.Card.Unit
         [field: SerializeField] public UIText HealthText { get; private set; }
         [field: SerializeField] public UIBattleStateIcon Armor { get; private set; }
         [field: SerializeField] public UIBattleStateIcon Attack { get; private set; }
+        [SerializeField] private UIText _companionInfo;
 
         [SerializeField] private UIButton _clickArea;
         [SerializeField] private GameObject _highlight;
@@ -38,6 +40,7 @@ namespace UI.Windows.Game.Card.Unit
 
             _setStateIcon(Armor, unit.Armor);
             _setStateIcon(Attack, unit.AutoActionType == EAutoActionType.AttackEnemyHero ? unit.AutoActionValue : 0f);
+            _setCompanionInfo(unit);
         }
 
         private void OnEnable()
@@ -84,6 +87,28 @@ namespace UI.Windows.Game.Card.Unit
             {
                 stateIcon.Value.SetText(Mathf.CeilToInt(value).ToString());
             }
+        }
+
+        private void _setCompanionInfo(BattleUnit unit)
+        {
+            if (_companionInfo == null)
+            {
+                return;
+            }
+
+            if (unit == null || !unit.IsCompanion)
+            {
+                _companionInfo.gameObject.SetActive(false);
+                return;
+            }
+
+            int turnsLeft = unit.Statuses?
+                .FirstOrDefault(status => status.Type == EStatusType.SummonDuration)?.Duration ?? 0;
+            bool isTemporary = turnsLeft > 0;
+
+            string lifeText = isTemporary ? $"Temporary: {turnsLeft} turn(s)" : "Lifetime: until death";
+            _companionInfo.SetText($"{lifeText} | Cards/turn: {Mathf.Max(0, unit.CompanionCardsPerTurn)}");
+            _companionInfo.gameObject.SetActive(true);
         }
     }
 }
