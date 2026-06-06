@@ -9,18 +9,23 @@ namespace CoreGame.Card.Logic
 {
     public class BattleProcessor
     {
-        private readonly Dictionary<EEffectType, ICardProcessor> _cardProcessors = new()
+        private readonly Dictionary<EEffectType, ICardProcessor> _cardProcessors;
+        
+        public BattleProcessor(AllCardCollection allCards)
         {
-            { EEffectType.Damage, new CardDamageProcessor()},
-            { EEffectType.Heal, new CardHealEffectProcessor()},
-            { EEffectType.AddEnergy, new CardEnergyProcessor()},
-            { EEffectType.AddArmor, new CardArmorProcessor()},
-            { EEffectType.MoveLine, new CardMoveLineProcessor()},
-            { EEffectType.ApplyStatus, new CardApplyStatusProcessor()},
-            { EEffectType.SummonCompanion, new CardSummonCompanionProcessor()},
-            { EEffectType.InjectParasite, new CardInjectParasiteProcessor()},
-            { EEffectType.InjectParasiteEnemy, new CardInjectParasiteEnemyProcessor()},
-        };
+            _cardProcessors = new Dictionary<EEffectType, ICardProcessor>
+            {
+                { EEffectType.Damage, new CardDamageProcessor() },
+                { EEffectType.Heal, new CardHealEffectProcessor() },
+                { EEffectType.AddEnergy, new CardEnergyProcessor() },
+                { EEffectType.AddArmor, new CardArmorProcessor() },
+                { EEffectType.MoveLine, new CardMoveLineProcessor() },
+                { EEffectType.ApplyStatus, new CardApplyStatusProcessor() },
+                { EEffectType.SummonCompanion, new CardSummonCompanionProcessor(allCards) },
+                { EEffectType.InjectParasite, new CardInjectParasiteProcessor() },
+                { EEffectType.InjectParasiteEnemy, new CardInjectParasiteEnemyProcessor() },
+            };
+        }
         
         public static float CalculateScaling(CardEffectConfiguration effect, HeroStats stats)
         {
@@ -40,9 +45,9 @@ namespace CoreGame.Card.Logic
 
             foreach (CardEffectConfiguration effect in card.Config.Effects)
             {
-                if (_cardProcessors.ContainsKey(effect.Type))
+                if (_cardProcessors.TryGetValue(effect.Type, out ICardProcessor processor))
                 {
-                    _cardProcessors[effect.Type].Process(effect, actor, primaryTarget, battle);
+                    processor.Process(effect, actor, primaryTarget, battle);
                 }
             }
         }

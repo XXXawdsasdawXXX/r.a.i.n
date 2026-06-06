@@ -19,27 +19,28 @@ namespace CoreGame.Card.Logic.StateMachine
         public bool IsInitialized { get; set; }
         public IBattleState CurrentState => currentState;
         [field: SerializeField] public BattleModel Model { get; private set; } = new();
-        public BattleProcessor Processor { get; } = new();
+        public BattleProcessor Processor { get; private set; }
 
         private CardLibrary _cardLibrary;
         
         
         public BattleStateMachine()
         {
-            states = new Dictionary<Type, IBattleState>()
-            {
-                { typeof(StartBattleState), new StartBattleState(this) },
-                { typeof(StartTurnState), new StartTurnState(this) },
-                { typeof(FirstSideTurnState), new FirstSideTurnState(this) },
-                { typeof(SecondSideTurnState), new SecondSideTurnState(this) },
-                { typeof(TurnResolutionState), new TurnResolutionState(this) },
-                { typeof(EndBattleState), new EndBattleState(this) },
-            };
         }
 
         public UniTask Initialize()
         {
             _cardLibrary = Container.Instance.GetSO<CardLibrary>();
+            Processor = new BattleProcessor(_cardLibrary.AllCards);
+            states = new Dictionary<Type, IBattleState>()
+            {
+                { typeof(StartBattleState), new StartBattleState(this) },
+                { typeof(StartTurnState), new StartTurnState(this, _cardLibrary) },
+                { typeof(FirstSideTurnState), new FirstSideTurnState(this) },
+                { typeof(SecondSideTurnState), new SecondSideTurnState(this) },
+                { typeof(TurnResolutionState), new TurnResolutionState(this) },
+                { typeof(EndBattleState), new EndBattleState(this) },
+            };
             
             return UniTask.CompletedTask;
         }

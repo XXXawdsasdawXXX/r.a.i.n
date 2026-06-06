@@ -99,9 +99,10 @@ namespace UI.Windows.Game.Card.HandDeck
             }
 
             string targetId = _resolveTargetId(_battleModel, myId, cardId);
-            if (!_battleService.TryPlayCard(cardId, targetId))
+            CommandResult playResult = _battleService.TryPlayCardWithResult(cardId, targetId);
+            if (playResult != CommandResult.Success)
             {
-                Log.Info(this, $"Card play rejected. cardId={cardId}, target={targetId}");
+                Log.Info(this, $"Card play rejected. cardId={cardId}, target={targetId}, reason={CommandResultText.ToDebugText(playResult)}");
                 return;
             }
 

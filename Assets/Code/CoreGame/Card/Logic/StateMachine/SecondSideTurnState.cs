@@ -62,7 +62,7 @@ namespace CoreGame.Card.Logic.StateMachine
                 _machine.Model,
                 _machine.Processor,
                 _machine.FindUnit,
-                _spendCard);
+                CardSpendPolicy.Spend);
         }
 
         public bool TryMoveLine(string unitId)
@@ -131,43 +131,10 @@ namespace CoreGame.Card.Logic.StateMachine
 
                 _machine.Processor.ApplyCard(ai, action.Card, target, _machine.Model);
 
-                _spendCard(_machine.Model.SideB, ai, action.Card);
+                CardSpendPolicy.Spend(_machine.Model.SideB, ai, action.Card);
             }
 
             EndTurn();
-        }
-
-
-        private static void _spendCard(BattleSide side, BattleUnit actor, CardBattleState card)
-        {
-            if (card == null)
-            {
-                return;
-            }
-
-            if (side.ContainsMandatoryCard(card))
-            {
-                // Mandatory-карты не должны попадать в deck/discard.
-                // На следующем ходу создается новая обязательная копия через EnsureMandatoryCard().
-                side.RemoveMandatoryCard(card);
-                return;
-            }
-
-            if (card.Config.Charges > 0)
-            {
-                card.ChargesLeft--;
-
-                if (card.ChargesLeft <= 0)
-                {
-                    actor.Hand.Remove(card);
-                    actor.Discard.Remove(card);
-                }
-            }
-            else
-            {
-                actor.Hand.Remove(card);
-                actor.Discard.Add(card);
-            }
         }
 
         private async UniTaskVoid _startTurnTimer()

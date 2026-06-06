@@ -1,18 +1,23 @@
-﻿using Core.ServiceLocator;
+﻿using Core.Save;
 using CoreGame.Card.Data;
 
 namespace CoreGame.Card.Logic.CardProcessors
 {
     public class CardSummonCompanionProcessor : ICardProcessor
     {
+        private readonly AllCardCollection _allCards;
+
+        public CardSummonCompanionProcessor(AllCardCollection allCards)
+        {
+            _allCards = allCards;
+        }
+
         public void Process(CardEffectConfiguration effect, BattleUnit actor, BattleUnit target, BattleModel battle)
         {
-            CardLibrary cardLibrary = Container.Instance.GetSO<CardLibrary>();
-            
             BattleUnit companion = BattleUnit.FromCompanion(
                 effect.CompanionConfiguration, 
                 actor.OwnerId, 
-                cardLibrary.AllCards);
+                _allCards);
 
             BattleSide ownerSide = battle.SideA.Hero.OwnerId == actor.OwnerId
                 ? battle.SideA

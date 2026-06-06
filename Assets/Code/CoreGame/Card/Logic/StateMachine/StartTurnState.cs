@@ -1,5 +1,4 @@
 ﻿using CoreGame.Card.Data;
-using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using GameKit.Dependencies.Utilities;
 
@@ -11,11 +10,13 @@ namespace CoreGame.Card.Logic.StateMachine
         public bool IsInitialized { get; set; }
 
         private readonly BattleStateMachine _machine;
+        private readonly CardLibrary _cardLibrary;
 
         
-        public StartTurnState(BattleStateMachine machine)
+        public StartTurnState(BattleStateMachine machine, CardLibrary cardLibrary)
         {
             _machine = machine;
+            _cardLibrary = cardLibrary;
         }
 
         public UniTask Initialize()
@@ -42,12 +43,10 @@ namespace CoreGame.Card.Logic.StateMachine
 
         private void _ensureMandatoryMovementCards()
         {
-            CardLibrary cardLibrary = Container.Instance.GetSO<CardLibrary>();
-
-            if (cardLibrary.MandatoryCardsInHand == null || cardLibrary.MandatoryCardsInHand.Length == 0)
+            if (_cardLibrary.MandatoryCardsInHand == null || _cardLibrary.MandatoryCardsInHand.Length == 0)
             {
                 // fallback для старых данных
-                CardConfiguration legacyMoveCard = cardLibrary.AllCards.Get("move_0") ?? cardLibrary.AllCards.Get("energy_0");
+                CardConfiguration legacyMoveCard = _cardLibrary.AllCards.Get("move_0") ?? _cardLibrary.AllCards.Get("energy_0");
                 if (legacyMoveCard == null)
                 {
                     return;
@@ -58,9 +57,9 @@ namespace CoreGame.Card.Logic.StateMachine
                 return;
             }
 
-            foreach (string cardId in cardLibrary.MandatoryCardsInHand)
+            foreach (string cardId in _cardLibrary.MandatoryCardsInHand)
             {
-                CardConfiguration card = cardLibrary.AllCards.Get(cardId);
+                CardConfiguration card = _cardLibrary.AllCards.Get(cardId);
                 if (card == null)
                 {
                     continue;

@@ -55,7 +55,11 @@ namespace UI.Windows.Game.Card.Turn
         private void _endStep()
         {
             Log.Info(this, "click");
-            _battleService.EndTurn();
+            CommandResult result = _battleService.EndTurnWithResult();
+            if (result != CommandResult.Success)
+            {
+                Log.Info(this, $"End turn rejected. reason={CommandResultText.ToDebugText(result)}");
+            }
         }
 
         private void _updateTurn(BattleModel model)

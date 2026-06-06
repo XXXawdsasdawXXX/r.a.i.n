@@ -1,4 +1,5 @@
-﻿using Core.ServiceLocator;
+﻿using Core.Network;
+using Core.ServiceLocator;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic;
 using CoreGame.Entities.Characters.Hero;
@@ -13,23 +14,26 @@ namespace UI.Windows.Game.Card
 {
     public class CardWindowController : UIWindowController<CardWindowView>
     {
-        private BattleService _battleService;
-        private BattleModel _battleModel;
-        private string _pendingCardId;
-        private string _pendingMoveUnitId;
-        private BattleSide _pendingMoveSide;
-        private bool _isMoveTargetSelection;
-        private bool _isMoveCellSelection;
-
         [SerializeField] private BattleUnitView _leftHeroView;
         [SerializeField] private BattleUnitView _rightHeroView;
         [SerializeField] private BattleSideView _leftSideView;
         [SerializeField] private BattleSideView _rightSideView;
+        
+        private UserProvider _userProvider;
+        private BattleService _battleService;
+        
+        private BattleModel _battleModel;
+        private BattleSide _pendingMoveSide;
+        private string _pendingCardId;
+        private string _pendingMoveUnitId;
+        private bool _isMoveTargetSelection;
+        private bool _isMoveCellSelection;
 
         
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _battleService = Container.Instance.GetService<BattleService>();
+            _userProvider = Container.Instance.GetService<UserProvider>();
      
             _leftSideView.SetCellsHighlighted(false);
             _rightSideView.SetCellsHighlighted(false);
@@ -170,50 +174,10 @@ namespace UI.Windows.Game.Card
             _isMoveCellSelection = false;
             _leftHeroView.SetHighlighted(false);
             _rightHeroView.SetHighlighted(false);
-            _leftSideView?.SetCellsHighlighted(false);
-            _rightSideView?.SetCellsHighlighted(false);
+            _leftSideView.SetCellsHighlighted(false);
+            _rightSideView.SetCellsHighlighted(false);
         }
-
-        /// <summary>
-        /// Временный тестовый метод для первых тестов.
-        /// После выбора карты перемещения и юнита вызови из инспектора.
-        /// </summary>
-        [ContextMenu("Test Move -> Frontline Cell 0")]
-        private void _testMoveFrontline0()
-        {
-            _tryMoveToCell(EBattleLine.Frontline, 0);
-        }
-
-        [ContextMenu("Test Move -> Frontline Cell 1")]
-        private void _testMoveFrontline1()
-        {
-            _tryMoveToCell(EBattleLine.Frontline, 1);
-        }
-
-        [ContextMenu("Test Move -> Frontline Cell 2")]
-        private void _testMoveFrontline2()
-        {
-            _tryMoveToCell(EBattleLine.Frontline, 2);
-        }
-
-        [ContextMenu("Test Move -> Backline Cell 0")]
-        private void _testMoveBackline0()
-        {
-            _tryMoveToCell(EBattleLine.Backline, 0);
-        }
-
-        [ContextMenu("Test Move -> Backline Cell 1")]
-        private void _testMoveBackline1()
-        {
-            _tryMoveToCell(EBattleLine.Backline, 1);
-        }
-
-        [ContextMenu("Test Move -> Backline Cell 2")]
-        private void _testMoveBackline2()
-        {
-            _tryMoveToCell(EBattleLine.Backline, 2);
-        }
-
+        
         private void _tryMoveToCell(EBattleLine line, int cellIndex)
         {
             if (!_isMoveCellSelection || string.IsNullOrEmpty(_pendingMoveUnitId))
@@ -230,12 +194,13 @@ namespace UI.Windows.Game.Card
                 return;
             }
 
-            bool moved = _battleService.TryPlayMoveCardToCell(_pendingCardId, _pendingMoveUnitId, line, cellIndex);
-            Log.Info(this, $"[MoveUI] move result card={_pendingCardId} unit={_pendingMoveUnitId} to={line}/{cellIndex} moved={moved}");
+            CommandResult moveResult = _battleService.TryPlayMoveCardToCellWithResult(_pendingCardId, _pendingMoveUnitId, line, cellIndex);
+            bool moved = moveResult == CommandResult.Success;
+            Log.Info(this, $"[MoveUI] move result card={_pendingCardId} unit={_pendingMoveUnitId} to={line}/{cellIndex} reason={CommandResultText.ToDebugText(moveResult)}");
 
             if (!moved)
             {
-                Log.Info(this, "[MoveUI] move rejected. Card is not spent, try another cell.");
+                Log.Info(this, $"[MoveUI] move rejected. Card is not spent. {CommandResultText.ToDebugText(moveResult)}");
                 return;
             }
 
@@ -322,9 +287,10 @@ namespace UI.Windows.Game.Card
                 return;
             }
 
-            heroView.transform.SetParent(targetCell.transform, false);
-            heroView.transform.localPosition = Vector3.zero;
-            heroView.transform.localScale = Vector3.one;
+            Transform heroViewTransform = heroView.transform;
+            heroViewTransform.SetParent(targetCell.transform, false);
+            heroViewTransform.localPosition = Vector3.zero;
+            heroViewTransform.localScale = Vector3.one;
 
             Log.Info(this, $"[GridUI] anchor hero unit={hero.UnitId} line={hero.Line} cell={hero.LineCellIndex}");
         }
@@ -336,7 +302,7 @@ namespace UI.Windows.Game.Card
                 return null;
             }
 
-            Hero hero = Container.Instance.GetService<Core.Network.UserProvider>().GetHeroComponent<Hero>();
+            Hero hero = _userProvider.GetHeroComponent<Hero>();
             string heroId = hero?.Model?.HeroId;
 
             if (!string.IsNullOrEmpty(heroId))

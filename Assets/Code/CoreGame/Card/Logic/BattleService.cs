@@ -21,8 +21,9 @@ namespace CoreGame.Card.Logic
         
         private BattleStateMachine _machine;
 
-        private List<HeroModel> _battleHeroes = new List<HeroModel>();
+        private readonly List<HeroModel> _battleHeroes = new List<HeroModel>();
 
+        
         public UniTask Initialize()
         {
             _machine = Container.Instance.GetService<BattleStateMachine>();
@@ -45,149 +46,68 @@ namespace CoreGame.Card.Logic
             Log.Info(this, "Start battle");            
         }
 
-        public bool TryPlayCard(string cardId, string targetId)
-        {
-            if (_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput)
-            {
-                if (acceptPlayerInput.TryPlayCard(cardId, targetId))
-                {
-                    CardPlayed?.Invoke(_machine.Model);
-                    _tryFinishBattleAfterAction();
-                    return true;
-                }
-            }
-            
-            return false;
-        }
-
-        public bool TryMoveLine(string unitId)
-        {
-            if (!_tryGetActiveSide(out BattleSide activeSide))
-            {
-                return false;
-            }
-
-            BattleUnit unit = _machine.FindUnit(unitId);
-            if (unit == null)
-            {
-                return false;
-            }
-
-            BattleSide unitSide = BattleGridRules.GetOwnerSide(_machine.Model, unit);
-            if (!ReferenceEquals(unitSide, activeSide))
-            {
-                Log.Info(this, $"[TryMoveLine] reject foreign side unit={unitId}");
-                return false;
-            }
-
-            bool success = (_machine.CurrentState as IAcceptPlayerInput)?.TryMoveLine(unitId) ?? false;
-            Log.Info(this, $"[TryMoveLine] unit={unitId} success={success}");
-            if (success)
-            {
-                CardPlayed?.Invoke(_machine.Model);
-                _tryFinishBattleAfterAction();
-            }
-
-            return success;
-        }
-
-        public bool TryMoveToCell(string unitId, EBattleLine line, int cellIndex)
+        public CommandResult TryPlayCardWithResult(string cardId, string targetId)
         {
             if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
             {
-                return false;
+                return _resultFromState();
             }
 
             if (!_tryGetActiveSide(out BattleSide activeSide))
             {
-                return false;
+                return CommandResult.InvalidPhase;
             }
 
-            BattleUnit unit = _machine.FindUnit(unitId);
-            if (unit == null)
+            CardBattleState card = CardPlayRules.FindCardInHand(activeSide.GetHand(), cardId);
+            if (card == null)
             {
-                return false;
+                return CommandResult.CardNotFound;
             }
 
-            BattleSide side = BattleGridRules.GetOwnerSide(_machine.Model, unit);
-            if (side == null)
+            if (!CardPlayRules.CanPlayCard(activeSide.Hero, card))
             {
-                return false;
+                return CommandResult.CardCannotBePlayed;
             }
 
-            if (!ReferenceEquals(side, activeSide))
+            if (!acceptPlayerInput.TryPlayCard(cardId, targetId))
             {
-                Log.Info(this, $"[TryMoveToCell] reject foreign side unit={unitId}");
-                return false;
+                return CommandResult.CardApplyRejected;
             }
 
-            if (cellIndex < 0 || cellIndex >= BattleGridRules.CELLS_PER_LINE)
-            {
-                Log.Info(this, $"[TryMoveToCell] invalid cell index={cellIndex}");
-                return false;
-            }
-
-            bool occupied = side.GetAllUnits()
-                .Where(u => u != null && u.HP > 0)
-                .Where(u => u.UnitId != unit.UnitId)
-                .Any(u => u.Line == line && u.LineCellIndex == cellIndex);
-
-            if (occupied)
-            {
-                Log.Info(this, $"[TryMoveToCell] target occupied unit={unitId} target={line}/{cellIndex}");
-                return false;
-            }
-
-            bool needLineSwitch = unit.Line != line;
-            if (needLineSwitch && !acceptPlayerInput.TryMoveLine(unitId))
-            {
-                Log.Info(this, $"[TryMoveToCell] move-line failed unit={unitId}");
-                return false;
-            }
-
-            bool moved = BattleGridRules.TryMoveUnitToCell(_machine.Model, unit, line, cellIndex);
-            Log.Info(this, $"[TryMoveToCell] unit={unitId} target={line}/{cellIndex} moved={moved}");
-
-            if (moved)
-            {
-                CardPlayed?.Invoke(_machine.Model);
-            }
-
-            return moved;
+            CardPlayed?.Invoke(_machine.Model);
+            _tryFinishBattleAfterAction();
+            return CommandResult.Success;
         }
-
-        /// <summary>
-        /// Атомарное применение move-карты: если клетка невалидна — карта не тратится.
-        /// </summary>
-        public bool TryPlayMoveCardToCell(string cardId, string unitId, EBattleLine line, int cellIndex)
+        
+        public CommandResult TryPlayMoveCardToCellWithResult(string cardId, string unitId, EBattleLine line, int cellIndex)
         {
             if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
             {
-                return false;
+                return CommandResult.InvalidState;
             }
 
             if (!_tryGetActiveSide(out BattleSide activeSide))
             {
-                return false;
+                return CommandResult.InvalidPhase;
             }
 
             BattleUnit unit = _machine.FindUnit(unitId);
             if (unit == null)
             {
-                return false;
+                return CommandResult.UnitNotFound;
             }
 
             BattleSide unitSide = BattleGridRules.GetOwnerSide(_machine.Model, unit);
             if (!ReferenceEquals(unitSide, activeSide))
             {
                 Log.Info(this, $"[TryPlayMoveCardToCell] reject foreign side unit={unitId}");
-                return false;
+                return CommandResult.NotYourSide;
             }
 
             if (cellIndex < 0 || cellIndex >= BattleGridRules.CELLS_PER_LINE)
             {
                 Log.Info(this, $"[TryPlayMoveCardToCell] invalid cell index={cellIndex}");
-                return false;
+                return CommandResult.InvalidCell;
             }
 
             bool occupied = activeSide.GetAllUnits()
@@ -197,21 +117,21 @@ namespace CoreGame.Card.Logic
             if (occupied)
             {
                 Log.Info(this, $"[TryPlayMoveCardToCell] target occupied unit={unitId} target={line}/{cellIndex}");
-                return false;
+                return CommandResult.TargetOccupied;
             }
 
             CardBattleState card = CardPlayRules.FindCardInHand(activeSide.GetHand(), cardId);
             if (card == null)
             {
                 Log.Info(this, $"[TryPlayMoveCardToCell] card not found card={cardId}");
-                return false;
+                return CommandResult.CardNotFound;
             }
 
             BattleUnit actor = activeSide.Hero;
             if (!CardPlayRules.CanPlayCard(actor, card))
             {
                 Log.Info(this, $"[TryPlayMoveCardToCell] card can't be played card={cardId}");
-                return false;
+                return CommandResult.CardCannotBePlayed;
             }
             
             bool isMoveCard = card.Config.Effects != null
@@ -219,17 +139,15 @@ namespace CoreGame.Card.Logic
             if (!isMoveCard)
             {
                 Log.Info(this, $"[TryPlayMoveCardToCell] card has no MoveLine effect card={cardId}");
-                return false;
+                return CommandResult.CardHasNoMoveEffect;
             }
 
             if (!acceptPlayerInput.TryPlayCard(cardId, unitId))
             {
                 Log.Info(this, $"[TryPlayMoveCardToCell] play failed card={cardId} unit={unitId}");
-                return false;
+                return CommandResult.CardApplyRejected;
             }
 
-            // После успешной валидации и применения карты финально ставим юнита в выбранную клетку.
-            // Это не дает карте списаться на невалидной клетке и исключает частичный flow в UI.
             bool moved = BattleGridRules.TryMoveUnitToCell(_machine.Model, unit, line, cellIndex);
             Log.Info(this, $"[TryPlayMoveCardToCell] card={cardId} unit={unitId} target={line}/{cellIndex} moved={moved}");
 
@@ -239,12 +157,23 @@ namespace CoreGame.Card.Logic
                 _tryFinishBattleAfterAction();
             }
 
-            return moved;
+            return moved ? CommandResult.Success : CommandResult.MoveApplyFailed;
         }
 
-        public void EndTurn()
+        public CommandResult EndTurnWithResult()
         {
-            (_machine.CurrentState as IAcceptPlayerInput)?.EndTurn();
+            if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
+            {
+                return _resultFromState();
+            }
+            
+            if (!_tryGetActiveSide(out _))
+            {
+                return CommandResult.InvalidPhase;
+            }
+
+            acceptPlayerInput.EndTurn();
+            return CommandResult.Success;
         }
 
         public BattleUnit FindUnit(string unitId)
@@ -339,6 +268,13 @@ namespace CoreGame.Card.Logic
             }
 
             return false;
+        }
+
+        private CommandResult _resultFromState()
+        {
+            return _machine?.Model == null
+                ? CommandResult.InvalidState
+                : CommandResult.InvalidPhase;
         }
     }
 }
