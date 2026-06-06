@@ -54,7 +54,10 @@ namespace CoreGame.Card.Data
 
         public bool ContainsMandatoryCard(CardBattleState card)
         {
-            return card != null && _mandatoryCards.Contains(card);
+            return card != null
+                   && _mandatoryCards.Any(mandatory =>
+                       mandatory == card
+                       || (mandatory?.InstanceId != null && mandatory.InstanceId == card.InstanceId));
         }
 
         public void RemoveMandatoryCard(CardBattleState card)
@@ -69,7 +72,33 @@ namespace CoreGame.Card.Data
 
         public void EnsureMandatoryCard(CardConfiguration config, string ownerId)
         {
-            if (config == null || _mandatoryCards.Any(card => card.Config == config))
+            if (config == null)
+            {
+                return;
+            }
+
+            string configId = config.Id;
+            if (string.IsNullOrEmpty(configId))
+            {
+                return;
+            }
+
+            // Обязательная карта не должна "утекать" в обычные зоны.
+            _removeCardByConfigId(Hero?.Hand, configId);
+            _removeCardByConfigId(Hero?.Deck, configId);
+            _removeCardByConfigId(Hero?.Discard, configId);
+
+            List<CardBattleState> sameMandatoryCards = _mandatoryCards
+                .Where(card => card?.Config != null && card.Config.Id == configId)
+                .ToList();
+            if (sameMandatoryCards.Count > 1)
+            {
+                CardBattleState keep = sameMandatoryCards[0];
+                _mandatoryCards.RemoveAll(card => card?.Config != null && card.Config.Id == configId && !ReferenceEquals(card, keep));
+            }
+
+            CardBattleState existing = _mandatoryCards.FirstOrDefault(card => card?.Config != null && card.Config.Id == configId);
+            if (existing != null)
             {
                 return;
             }
@@ -81,6 +110,16 @@ namespace CoreGame.Card.Data
                 Config = config,
                 ChargesLeft = config.Charges
             });
+        }
+
+        private static void _removeCardByConfigId(List<CardBattleState> cards, string configId)
+        {
+            if (cards == null || string.IsNullOrEmpty(configId))
+            {
+                return;
+            }
+
+            cards.RemoveAll(card => card?.Config != null && card.Config.Id == configId);
         }
     }
 }

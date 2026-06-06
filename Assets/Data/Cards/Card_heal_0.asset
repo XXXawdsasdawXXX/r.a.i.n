@@ -20,10 +20,10 @@ MonoBehaviour:
   <Charges>k__BackingField: 0
   <Effects>k__BackingField:
   - <Type>k__BackingField: 1
-    <Target>k__BackingField: 6
+    <Target>k__BackingField: 10
     <BaseValue>k__BackingField:
-      MinValue: 0
-      MaxValue: 9
+      MinValue: 7
+      MaxValue: 16
     <Scaling>k__BackingField: 3
     <ScalingFactor>k__BackingField: 1
     <ParasiteCard>k__BackingField: {fileID: 0}

@@ -24,15 +24,10 @@ MonoBehaviour:
   <DefaultCardsDeck>k__BackingField:
   - attack_0
   - attack_0
-  - attack_0
-  - attack_0
   - heal_0
   - armor_0
   - armor_0
-  - move_0
   - energy_0
-  - energy_0
-  - energy_0
+  - companion_0
   <MandatoryCardsInHand>k__BackingField:
   - move_0
-  - companion_0

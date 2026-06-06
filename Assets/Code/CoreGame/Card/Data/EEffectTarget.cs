@@ -11,6 +11,7 @@
         AllAllies,
         AllCompanions, 
         EnemyCompanions,
-        SelectedAlly          // игрок выбирает союзника (для бафов)
+        SelectedAlly,         // игрок выбирает союзника (для бафов)
+        SelectedAnyAllyUnit   // игрок выбирает любого юнита своей стороны (герой или компаньон)
     }
 }

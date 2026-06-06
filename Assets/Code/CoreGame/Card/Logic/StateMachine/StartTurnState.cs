@@ -83,6 +83,7 @@ namespace CoreGame.Card.Logic.StateMachine
         private static void _startTurn(BattleUnit unit)
         {
             unit.Energy = unit.MaxEnergy;
+            _recycleHandToDeck(unit);
             _drawCardsToHandLimit(unit);
         }
 
@@ -94,7 +95,19 @@ namespace CoreGame.Card.Logic.StateMachine
             }
 
             int cardsPerTurn = UnityEngine.Mathf.Max(0, companion.CompanionCardsPerTurn);
-            if (cardsPerTurn <= 0 || companion.Deck.Count == 0)
+            if (cardsPerTurn <= 0)
+            {
+                return;
+            }
+
+            _recycleHandToDeck(companion);
+
+            if (companion.Deck.Count == 0)
+            {
+                _reshuffleDeck(companion);
+            }
+
+            if (companion.Deck.Count == 0)
             {
                 return;
             }
@@ -133,6 +146,18 @@ namespace CoreGame.Card.Logic.StateMachine
                 unit.Deck.RemoveAt(0);
                 unit.Hand.Add(card);
             }
+        }
+
+        private static void _recycleHandToDeck(BattleUnit unit)
+        {
+            if (unit?.Hand == null || unit.Deck == null || unit.Hand.Count == 0)
+            {
+                return;
+            }
+
+            unit.Deck.AddRange(unit.Hand);
+            unit.Hand.Clear();
+            unit.Deck.Shuffle();
         }
 
         private static void _reshuffleDeck(BattleUnit unit)

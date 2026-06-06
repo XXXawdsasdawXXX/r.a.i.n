@@ -417,6 +417,7 @@ namespace UI.Windows.Game.Card
                 {
                     EEffectTarget.Self => isSelf,
                     EEffectTarget.SelectedAlly => isAlly,
+                    EEffectTarget.SelectedAnyAllyUnit => isAlly,
                     EEffectTarget.SelectedEnemy => isEnemy,
                     EEffectTarget.EnemyCompanions => isEnemy && isCompanion,
                     _ => false
@@ -457,6 +458,7 @@ namespace UI.Windows.Game.Card
             EEffectTarget target = effect.Target;
             return target == EEffectTarget.SelectedEnemy
                    || target == EEffectTarget.SelectedAlly
+                   || target == EEffectTarget.SelectedAnyAllyUnit
                    || target == EEffectTarget.Self
                    || target == EEffectTarget.EnemyCompanions;
         }
