@@ -18,6 +18,7 @@ namespace CoreGame.Card.Logic
         public event Action<BattleModel> TurnStarted;
         public event Action<BattleModel> BattleFinished;
         public event Action<BattleModel> CardPlayed;
+        public event Action<BattleCardPlayedEvent> CardPlayedDetailed;
         
         private BattleStateMachine _machine;
 
@@ -27,18 +28,23 @@ namespace CoreGame.Card.Logic
         public UniTask Initialize()
         {
             _machine = Container.Instance.GetService<BattleStateMachine>();
+            _machine.CardPlayedFromStateMachine += _onCardPlayedFromStateMachine;
             
             return UniTask.CompletedTask;
         }
 
-        public void StartBattle(HeroModel attacker, HeroModel defender, EBattleMode mode = EBattleMode.PvE)
+        public void StartBattle(
+            HeroModel attacker,
+            HeroModel defender,
+            EBattleMode mode = EBattleMode.PvE,
+            EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal)
         {
             _battleHeroes.Add(attacker); 
             _battleHeroes.Add(defender); 
             attacker.InBattle = true;
             defender.InBattle = true;
             
-            _machine.StartBattle(attacker, defender, mode);
+            _machine.StartBattle(attacker, defender, mode, enemyDifficulty);
             _machine.Model.Phase.SubscribeProperty(_onPhaseChanged);
             
             BattleStarted?.Invoke(_machine.Model);
@@ -66,7 +72,7 @@ namespace CoreGame.Card.Logic
 
             if (!CardPlayRules.CanPlayCard(activeSide.Hero, card))
             {
-                return CommandResult.CardCannotBePlayed;
+                return CardPlayRules.GetPlayRejectionReason(activeSide.Hero, card);
             }
             
             BattleUnit target = _machine.FindUnit(targetId);
@@ -80,6 +86,12 @@ namespace CoreGame.Card.Logic
                 return CommandResult.CardApplyRejected;
             }
 
+            CardPlayedDetailed?.Invoke(new BattleCardPlayedEvent
+            {
+                ActorUnitId = activeSide.Hero?.UnitId,
+                TargetUnitId = target?.UnitId,
+                Card = card
+            });
             CardPlayed?.Invoke(_machine.Model);
             _tryFinishBattleAfterAction();
             return CommandResult.Success;
@@ -137,7 +149,7 @@ namespace CoreGame.Card.Logic
             if (!CardPlayRules.CanPlayCard(actor, card))
             {
                 Log.Info(this, $"[TryPlayMoveCardToCell] card can't be played card={cardId}");
-                return CommandResult.CardCannotBePlayed;
+                return CardPlayRules.GetPlayRejectionReason(actor, card);
             }
             
             bool isMoveCard = card.Config.Effects != null
@@ -159,6 +171,12 @@ namespace CoreGame.Card.Logic
 
             if (moved)
             {
+                CardPlayedDetailed?.Invoke(new BattleCardPlayedEvent
+                {
+                    ActorUnitId = actor?.UnitId,
+                    TargetUnitId = unit?.UnitId,
+                    Card = card
+                });
                 CardPlayed?.Invoke(_machine.Model);
                 _tryFinishBattleAfterAction();
             }
@@ -199,7 +217,7 @@ namespace CoreGame.Card.Logic
 
             if (!CardPlayRules.CanPlayCard(activeSide.Hero, card))
             {
-                return CommandResult.CardCannotBePlayed;
+                return CardPlayRules.GetPlayRejectionReason(activeSide.Hero, card);
             }
 
             bool isSummonCard = card.Config.Effects != null
@@ -229,6 +247,12 @@ namespace CoreGame.Card.Logic
                 return CommandResult.MoveApplyFailed;
             }
 
+            CardPlayedDetailed?.Invoke(new BattleCardPlayedEvent
+            {
+                ActorUnitId = activeSide.Hero?.UnitId,
+                TargetUnitId = summoned?.UnitId,
+                Card = card
+            });
             CardPlayed?.Invoke(_machine.Model);
             _tryFinishBattleAfterAction();
             return CommandResult.Success;
@@ -313,10 +337,21 @@ namespace CoreGame.Card.Logic
 
         public void GameExit()
         {
+            if (_machine != null)
+            {
+                _machine.CardPlayedFromStateMachine -= _onCardPlayedFromStateMachine;
+            }
+
             foreach (HeroModel hero in _battleHeroes)
             {
                 hero.InBattle = false;
             }
+        }
+
+        private void _onCardPlayedFromStateMachine(BattleCardPlayedEvent battleEvent)
+        {
+            CardPlayedDetailed?.Invoke(battleEvent);
+            CardPlayed?.Invoke(_machine?.Model);
         }
 
         private bool _tryGetActiveSide(out BattleSide activeSide)

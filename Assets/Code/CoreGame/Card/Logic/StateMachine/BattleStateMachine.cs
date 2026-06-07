@@ -7,6 +7,7 @@ using Core.Save;
 using Core.ServiceLocator;
 using Core.StateMachine;
 using CoreGame.Card.Data;
+using CoreGame.Card.Logic.AI;
 using Cysharp.Threading.Tasks;
 using Essential;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace CoreGame.Card.Logic.StateMachine
         public IBattleState CurrentState => currentState;
         [field: SerializeField] public BattleModel Model { get; private set; } = new();
         public BattleProcessor Processor { get; private set; }
+        public event Action<BattleCardPlayedEvent> CardPlayedFromStateMachine;
 
         private CardLibrary _cardLibrary;
         
@@ -62,8 +64,20 @@ namespace CoreGame.Card.Logic.StateMachine
             return base.setState(type);
         }
 
-        public void StartBattle(HeroModel attacker, HeroModel defender, EBattleMode mode = EBattleMode.PvE)
+        public void StartBattle(
+            HeroModel attacker,
+            HeroModel defender,
+            EBattleMode mode = EBattleMode.PvE,
+            EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal)
         {
+            BattleUnit attackerUnit = _buildUnit(attacker);
+            BattleUnit defenderUnit = _buildUnit(defender);
+
+            if (mode == EBattleMode.PvE)
+            {
+                defenderUnit.AI = new PriorityAI(enemyDifficulty);
+            }
+
             Model = new BattleModel
             {
                 BattleId = Guid.NewGuid().ToString(),
@@ -71,8 +85,8 @@ namespace CoreGame.Card.Logic.StateMachine
                 Phase = new ReactiveProperty<EBattlePhase>(EBattlePhase.WaitingBattle),
                 TurnNumber = 0,
                 TurnTimeRemaining = new ReactiveProperty<float>(0),
-                SideA = _buildSide(attacker),
-                SideB = _buildSide(defender),
+                SideA = new BattleSide(attackerUnit),
+                SideB = new BattleSide(defenderUnit),
             };
 
             SwitchState(typeof(StartBattleState));
@@ -89,10 +103,20 @@ namespace CoreGame.Card.Logic.StateMachine
                 .Concat(Model.SideB.GetAllUnits())
                 .FirstOrDefault(u => u.UnitId == unitId);
         }
-        
-        private BattleSide _buildSide(HeroModel hero)
+
+        public void NotifyCardPlayed(BattleCardPlayedEvent battleEvent)
         {
-            return new BattleSide(BattleUnit.FromHero(hero, _cardLibrary.AllCards));
+            if (battleEvent == null)
+            {
+                return;
+            }
+
+            CardPlayedFromStateMachine?.Invoke(battleEvent);
+        }
+        
+        private BattleUnit _buildUnit(HeroModel hero)
+        {
+            return BattleUnit.FromHero(hero, _cardLibrary.AllCards);
         }
     }
 }

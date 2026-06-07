@@ -1,67 +1,212 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Data.RangeInt;
 using CoreGame.Card.Data;
+using CoreGame.Card.Logic;
 
 namespace CoreGame.Card.Logic.AI
 {
     public class PriorityAI : IEnemyAI
     {
-        public AIAction SelectAction(BattleUnit self, BattleModel battle)
+        private readonly EEnemyAIDifficulty _difficulty;
+
+        public PriorityAI(EEnemyAIDifficulty difficulty = EEnemyAIDifficulty.Normal)
         {
-            BattleSide enemySide = battle.SideA.Hero.OwnerId == self.OwnerId
-                ? battle.SideB : battle.SideA;
-
-            // приоритеты по состоянию
-            CardBattleState card = _selectByPriority(self, enemySide);
-            string targetId = _selectTarget(card, enemySide);
-
-            return new AIAction { Card = card, TargetId = targetId };
+            _difficulty = difficulty;
         }
 
-        private CardBattleState _selectByPriority(BattleUnit self, BattleSide enemy)
+        public AIAction SelectAction(BattleSide selfSide, BattleUnit self, BattleModel battle)
         {
-            List<CardBattleState> playable = self.Hand
-                .Where(c => c.GetEnergyCost(self.Stats) <= self.Energy)
+            if (selfSide == null || self == null || battle == null)
+            {
+                return null;
+            }
+
+            BattleSide enemySide = ReferenceEquals(selfSide, battle.SideA) ? battle.SideB : battle.SideA;
+
+            List<CardBattleState> playableCards = selfSide.GetHand()
+                .Where(card => card != null)
+                .Where(card => _canUnitPlayCard(selfSide, self, card))
+                .Where(card => CardPlayRules.CanPlayCard(self, card))
                 .ToList();
 
-            if (playable.Count == 0)
+            if (playableCards.Count == 0)
             {
                 return null;
             }
 
-            // низкое HP — ищем лечение
-            if (self.HP / self.MaxHP < 0.3f)
+            List<AIAction> actions = _buildCandidateActions(selfSide, self, enemySide, playableCards);
+            if (actions.Count == 0)
             {
-                var heal = playable.FirstOrDefault(c => c.Config.Effects.Any(e => e.Type == EEffectType.Heal));
-               
-                if (heal != null)
-                {
-                    return heal;
-                }
+                return null;
             }
 
-            // у врага много статусов — добиваем атакой
-            if (enemy.Hero.Statuses.Count >= 2)
-            {
-                CardBattleState attack = playable.FirstOrDefault(c => c.Config.Type.HasFlag(ECardType.Attack));
-                if (attack != null)
-                {
-                    return attack;
-                }
-            }
-
-            return playable.OrderByDescending(c => c.GetEnergyCost(self.Stats)).First();
+            return _pickAction(actions, self, enemySide);
         }
 
-        private string _selectTarget(CardBattleState card, BattleSide enemy)
+        private static List<AIAction> _buildCandidateActions(
+            BattleSide selfSide,
+            BattleUnit self,
+            BattleSide enemySide,
+            List<CardBattleState> playableCards)
         {
-            if (card == null)
+            List<BattleUnit> enemyUnits = enemySide.GetAllUnits()
+                .Where(unit => unit != null && unit.HP > 0)
+                .ToList();
+            List<BattleUnit> allyUnits = selfSide.GetAllUnits()
+                .Where(unit => unit != null && unit.HP > 0)
+                .ToList();
+
+            List<AIAction> actions = new List<AIAction>();
+            foreach (CardBattleState card in playableCards)
             {
-                return null;
+                if (card?.Config?.Effects == null || card.Config.Effects.Count == 0)
+                {
+                    continue;
+                }
+
+                bool needsEnemySelection = card.Config.Effects.Any(effect =>
+                    effect != null
+                    && (effect.Target == EEffectTarget.SelectedEnemy || effect.Target == EEffectTarget.EnemyCompanions));
+                bool needsAllySelection = card.Config.Effects.Any(effect =>
+                    effect != null
+                    && (effect.Target == EEffectTarget.SelectedAlly || effect.Target == EEffectTarget.SelectedAnyAllyUnit));
+                bool needsSelfTarget = card.Config.Effects.Any(effect =>
+                    effect != null && effect.Target == EEffectTarget.Self);
+
+                if (needsSelfTarget)
+                {
+                    actions.Add(new AIAction { Card = card, Target = self });
+                    continue;
+                }
+
+                if (needsEnemySelection)
+                {
+                    foreach (BattleUnit target in enemyUnits)
+                    {
+                        bool companionOnly = card.Config.Effects.Any(effect => effect != null && effect.Target == EEffectTarget.EnemyCompanions);
+                        if (companionOnly && !target.IsCompanion)
+                        {
+                            continue;
+                        }
+
+                        actions.Add(new AIAction { Card = card, Target = target });
+                    }
+
+                    continue;
+                }
+
+                if (needsAllySelection)
+                {
+                    foreach (BattleUnit target in allyUnits)
+                    {
+                        actions.Add(new AIAction { Card = card, Target = target });
+                    }
+
+                    continue;
+                }
+
+                // Для all-target/без-таргета эффектов достаточно передать self.
+                actions.Add(new AIAction { Card = card, Target = self });
             }
 
-            //todo тут нужно поумнее придумать
-            return enemy.Hero.UnitId;
+            return actions;
+        }
+
+        private AIAction _pickAction(List<AIAction> actions, BattleUnit self, BattleSide enemySide)
+        {
+            switch (_difficulty)
+            {
+                case EEnemyAIDifficulty.Easy:
+                    return actions
+                        .OrderBy(action => action.Card.GetEnergyCost(self.Stats))
+                        .First();
+                case EEnemyAIDifficulty.Hard:
+                    return actions
+                        .OrderByDescending(action => _scoreAction(action, self, enemySide))
+                        .First();
+                default:
+                    return actions
+                        .OrderByDescending(action => _scoreAction(action, self, enemySide) + action.Card.GetEnergyCost(self.Stats) * 0.2f)
+                        .First();
+            }
+        }
+
+        private static float _scoreAction(AIAction action, BattleUnit self, BattleSide enemySide)
+        {
+            if (action?.Card?.Config?.Effects == null)
+            {
+                return float.MinValue;
+            }
+
+            float score = 0f;
+            BattleUnit target = action.Target;
+            foreach (CardEffectConfiguration effect in action.Card.Config.Effects)
+            {
+                if (effect == null)
+                {
+                    continue;
+                }
+
+                float effectValue = _getAvgValue(effect.BaseValue);
+
+                switch (effect.Type)
+                {
+                    case EEffectType.Damage:
+                        score += effectValue * 3f;
+                        if (target != null && target.HP <= effectValue)
+                        {
+                            score += 100f;
+                        }
+                        break;
+                    case EEffectType.Heal:
+                        score += self.HP < self.MaxHP * 0.4f ? effectValue * 2f : effectValue * 0.4f;
+                        break;
+                    case EEffectType.AddArmor:
+                        score += self.HP < self.MaxHP * 0.5f ? effectValue * 1.5f : effectValue * 0.7f;
+                        break;
+                    case EEffectType.AddEnergy:
+                        score += effectValue;
+                        break;
+                    case EEffectType.ApplyStatus:
+                        score += effectValue > 0 ? 8f : 4f;
+                        break;
+                    case EEffectType.SummonCompanion:
+                        score += 18f;
+                        break;
+                    case EEffectType.MoveLine:
+                        score += 3f;
+                        break;
+                    case EEffectType.InjectParasiteEnemy:
+                        score += 7f;
+                        break;
+                    case EEffectType.InjectParasite:
+                        score -= 5f;
+                        break;
+                }
+            }
+
+            if (enemySide?.Hero != null && enemySide.Hero.HP <= 25f && action.Card.Config.Type.HasFlag(ECardType.Attack))
+            {
+                score += 40f;
+            }
+
+            return score;
+        }
+
+        private static float _getAvgValue(RangedInt range)
+        {
+            return (range.MinValue + range.MaxValue) * 0.5f;
+        }
+
+        private static bool _canUnitPlayCard(BattleSide selfSide, BattleUnit self, CardBattleState card)
+        {
+            if (self.IsCompanion)
+            {
+                return card.OwnerId == self.UnitId;
+            }
+            
+            return card.OwnerId == self.UnitId || selfSide.ContainsMandatoryCard(card);
         }
     }
 }

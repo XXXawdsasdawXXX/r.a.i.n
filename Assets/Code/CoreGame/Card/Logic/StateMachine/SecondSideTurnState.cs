@@ -13,6 +13,7 @@ namespace CoreGame.Card.Logic.StateMachine
         private readonly BattleStateMachine _machine;
         public EBattlePhase Phase => EBattlePhase.SecondSideTurn;
         public bool IsInitialized { get; set; }
+        private const int AI_ACTION_DELAY_MS = 2000;
 
         private CancellationTokenSource _cts;
 
@@ -108,30 +109,55 @@ namespace CoreGame.Card.Logic.StateMachine
 
         private void _processAI()
         {
+            _processAIAsync().Forget();
+        }
+
+        private async UniTaskVoid _processAIAsync()
+        {
+            if (_machine.Model.Mode != EBattleMode.PvE)
+            {
+                _startTurnTimer().Forget();
+                return;
+            }
+
             BattleUnit ai = _machine.Model.SideB.Hero;
+            BattleSide aiSide = _machine.Model.SideB;
 
             while (true)
             {
-                AIAction action = ai.AI.SelectAction(ai, _machine.Model);
+                AIAction action = ai.AI.SelectAction(aiSide, ai, _machine.Model);
                 if (action?.Card == null)
                 {
                     break;
                 }
 
-                if (ai.Energy < action.Card.GetEnergyCost(ai.Stats))
-                {
-                    break;
-                }
-
-                BattleUnit target = _machine.FindUnit(action.TargetId);
+                BattleUnit target = action.Target;
                 if (target == null)
                 {
                     break;
                 }
 
-                _machine.Processor.ApplyCard(ai, action.Card, target, _machine.Model);
+                if (!CardPlayRules.TryPlay(
+                        aiSide,
+                        ai,
+                        action.Card.InstanceId,
+                        target.UnitId,
+                        _machine.Model,
+                        _machine.Processor,
+                        _machine.FindUnit,
+                        CardSpendPolicy.Spend))
+                {
+                    break;
+                }
 
-                CardSpendPolicy.Spend(_machine.Model.SideB, ai, action.Card);
+                _machine.NotifyCardPlayed(new BattleCardPlayedEvent
+                {
+                    ActorUnitId = ai.UnitId,
+                    TargetUnitId = target.UnitId,
+                    Card = action.Card
+                });
+
+                await UniTask.Delay(AI_ACTION_DELAY_MS);
             }
 
             EndTurn();

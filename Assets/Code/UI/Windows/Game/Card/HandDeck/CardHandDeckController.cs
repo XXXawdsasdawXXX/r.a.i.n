@@ -89,7 +89,26 @@ namespace UI.Windows.Game.Card.HandDeck
                 return;
             }
 
-            CardBattleState card = _findCard(_getMySide(_battleModel, myId), cardId);
+            BattleSide mySide = _getMySide(_battleModel, myId);
+            if (mySide?.Hero == null)
+            {
+                return;
+            }
+
+            CardBattleState card = _findCard(mySide, cardId);
+            if (card == null)
+            {
+                _showCommandError(CommandResult.CardNotFound);
+                return;
+            }
+
+            if (!CardPlayRules.CanPlayCard(mySide.Hero, card))
+            {
+                _showCommandError(CardPlayRules.GetPlayRejectionReason(mySide.Hero, card));
+                return;
+            }
+
+            _cardWindowController?.ClearCommandMessage();
             if (_isMoveCard(card) && _cardWindowController != null)
             {
                 if (_cardWindowController.TrySelectMoveTarget(cardId))
@@ -106,7 +125,6 @@ namespace UI.Windows.Game.Card.HandDeck
                 }
             }
             
-            BattleSide mySide = _getMySide(_battleModel, myId);
             if (_cardWindowController != null && _cardWindowController.TrySelectCardTarget(card, mySide))
             {
                 return;
@@ -116,12 +134,18 @@ namespace UI.Windows.Game.Card.HandDeck
             CommandResult playResult = _battleService.TryPlayCardWithResult(cardId, targetId);
             if (playResult != CommandResult.Success)
             {
+                _showCommandError(playResult);
                 Log.Info(this, $"Card play rejected. cardId={cardId}, target={targetId}, reason={CommandResultText.ToDebugText(playResult)}");
                 return;
             }
 
             Log.Info(this, $"Card play success. cardId={cardId}, target={targetId}");
             _refreshHand();
+        }
+
+        private void _showCommandError(CommandResult result)
+        {
+            _cardWindowController?.ShowCommandMessage(CommandResultText.ToDebugText(result));
         }
 
         private static BattleSide _getMySide(BattleModel battle, string playerId)

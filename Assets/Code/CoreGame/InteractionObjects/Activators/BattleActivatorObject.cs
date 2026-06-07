@@ -3,6 +3,7 @@ using Core.Network;
 using Core.Save;
 using Core.ServiceLocator;
 using CoreGame.Card.Logic;
+using CoreGame.Card.Data;
 using CoreGame.Entities.Characters.Hero;
 using Cysharp.Threading.Tasks;
 using Essential;
@@ -15,6 +16,7 @@ namespace CoreGame.InteractionObjects.Activators
         public bool IsInitialized { get; set; }
         
         [SerializeField] private HeroModel _model;
+        [SerializeField] private EEnemyAIDifficulty _enemyDifficulty = EEnemyAIDifficulty.Normal;
         
         private BattleService _battleService;
         private UserProvider _userProvider;
@@ -33,7 +35,11 @@ namespace CoreGame.InteractionObjects.Activators
             base.StartInteraction();
 
             Log.Info(this, "start interaction");
-            _battleService.StartBattle(_userProvider.GetHeroComponent<Hero>().Model, _model);
+            _battleService.StartBattle(
+                _userProvider.GetHeroComponent<Hero>().Model,
+                _model,
+                EBattleMode.PvE,
+                _enemyDifficulty);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Core.Network;
-using Core.ServiceLocator;
+﻿using Core.ServiceLocator;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic;
 using Cysharp.Threading.Tasks;
@@ -11,13 +10,11 @@ namespace UI.Windows.Game.Card.Turn
     public class CardStepController : UIWindowController<CardStepView>
     {
         private BattleService _battleService;
-        private UserProvider _userProvider;
 
         
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _battleService = Container.Instance.GetService<BattleService>();
-            _userProvider = Container.Instance.GetService<UserProvider>();
             
             return base.InitializeWindow(manager);
         }
@@ -65,6 +62,8 @@ namespace UI.Windows.Game.Card.Turn
         private void _updateTurn(BattleModel model)
         {
             view.SetStep(model.TurnNumber.ToString());
+            bool isMyTurn = model != null && model.Phase != null && model.Phase.Value == EBattlePhase.FirstSideTurn;
+            view.SetEndStepVisible(isMyTurn);
         }
     }
 }

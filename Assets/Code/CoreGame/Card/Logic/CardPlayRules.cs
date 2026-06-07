@@ -33,29 +33,34 @@ namespace CoreGame.Card.Logic
 
         public static bool CanPlayCard(BattleUnit actor, CardBattleState card)
         {
+            return GetPlayRejectionReason(actor, card) == CommandResult.Success;
+        }
+
+        public static CommandResult GetPlayRejectionReason(BattleUnit actor, CardBattleState card)
+        {
             if (actor == null || card?.Config == null)
             {
-                return false;
+                return CommandResult.CardCannotBePlayed;
             }
 
             int cost = card.GetEnergyCost(actor.Stats);
 
             if (actor.Energy < cost)
             {
-                return false;
+                return CommandResult.NotEnoughEnergy;
             }
 
             if (actor.Statuses.Any(s => s.Type == EStatusType.Stun))
             {
-                return false;
+                return CommandResult.UnitStunned;
             }
 
             if (actor.IsInArmorStance && card.Config.Type.HasFlag(ECardType.Attack))
             {
-                return false;
+                return CommandResult.AttackBlockedByArmorStance;
             }
 
-            return true;
+            return CommandResult.Success;
         }
 
         /// <summary>

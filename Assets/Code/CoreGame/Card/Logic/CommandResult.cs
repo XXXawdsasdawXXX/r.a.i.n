@@ -19,6 +19,10 @@ namespace CoreGame.Card.Logic
         TargetInvalid = 11,
         
         MoveLineRejected = 12,
-        MoveApplyFailed = 13
+        MoveApplyFailed = 13,
+        
+        NotEnoughEnergy = 14,
+        UnitStunned = 15,
+        AttackBlockedByArmorStance = 16
     }
 }

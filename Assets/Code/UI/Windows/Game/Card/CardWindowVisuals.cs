@@ -64,7 +64,29 @@ namespace UI.Windows.Game.Card
         {
             _leftHeroView?.Set(battleModel?.SideA?.Hero);
             _rightHeroView?.Set(battleModel?.SideB?.Hero);
+            _bindHeroUnitIds(battleModel);
             _updateCompanionViews(battleModel);
+        }
+
+        public void PlayCardEffect(string unitId, ECardType cardType)
+        {
+            if (string.IsNullOrEmpty(unitId))
+            {
+                return;
+            }
+
+            if (_tryPlayHeroEffect(_leftHeroView, unitId, cardType))
+            {
+                return;
+            }
+
+            if (_tryPlayHeroEffect(_rightHeroView, unitId, cardType))
+            {
+                return;
+            }
+
+            _tryPlayCompanionEffect(_leftCompanionViews, unitId, cardType);
+            _tryPlayCompanionEffect(_rightCompanionViews, unitId, cardType);
         }
 
         public void UpdateAnchors(BattleModel battleModel)
@@ -247,6 +269,67 @@ namespace UI.Windows.Game.Card
             if (view != null && _viewToUnitId.TryGetValue(view, out string unitId))
             {
                 CompanionClicked?.Invoke(unitId);
+            }
+        }
+
+        private void _bindHeroUnitIds(BattleModel battleModel)
+        {
+            _bindHeroUnitId(_leftHeroView, battleModel?.SideA?.Hero);
+            _bindHeroUnitId(_rightHeroView, battleModel?.SideB?.Hero);
+        }
+
+        private void _bindHeroUnitId(BattleUnitView view, BattleUnit unit)
+        {
+            if (view == null)
+            {
+                return;
+            }
+
+            if (unit == null)
+            {
+                _viewToUnitId.Remove(view);
+            }
+            else
+            {
+                _viewToUnitId[view] = unit.UnitId;
+            }
+        }
+
+        private bool _tryPlayHeroEffect(BattleUnitView heroView, string unitId, ECardType cardType)
+        {
+            if (heroView == null || !_viewToUnitId.TryGetValue(heroView, out string heroUnitId))
+            {
+                return false;
+            }
+
+            if (heroUnitId != unitId)
+            {
+                return false;
+            }
+
+            heroView.PlayCardFx(cardType);
+            return true;
+        }
+
+        private void _tryPlayCompanionEffect(List<BattleUnitView> views, string unitId, ECardType cardType)
+        {
+            if (views == null)
+            {
+                return;
+            }
+
+            foreach (BattleUnitView view in views)
+            {
+                if (view == null)
+                {
+                    continue;
+                }
+
+                if (_viewToUnitId.TryGetValue(view, out string mappedUnitId) && mappedUnitId == unitId)
+                {
+                    view.PlayCardFx(cardType);
+                    return;
+                }
             }
         }
 

@@ -29,8 +29,8 @@ namespace CoreGame.Card.Logic.StateMachine
             _processAutoActions(_machine.Model.SideA, _machine.Model.SideB);
             _processAutoActions(_machine.Model.SideB, _machine.Model.SideA);
 
-            _processCompanions(_machine.Model.SideA, _machine.Model.SideB);
-            _processCompanions(_machine.Model.SideB, _machine.Model.SideA);
+            _processCompanions(_machine.Model.SideA);
+            _processCompanions(_machine.Model.SideB);
             
             _processStatuses(_machine.Model.SideA);
             _processStatuses(_machine.Model.SideB);
@@ -97,7 +97,7 @@ namespace CoreGame.Card.Logic.StateMachine
             }
         }
 
-        private void _processCompanions(BattleSide side, BattleSide targetSide)
+        private void _processCompanions(BattleSide side)
         {
             foreach (BattleUnit companion in side.Companions)
             {
@@ -106,18 +106,24 @@ namespace CoreGame.Card.Logic.StateMachine
                     continue;
                 }
 
-                AIAction action = companion.AI.SelectAction(companion, _machine.Model);
+                AIAction action = companion.AI.SelectAction(side, companion, _machine.Model);
 
                 if (action == null)
                 {
                     continue;
                 }
 
-                BattleUnit target = targetSide.GetUnit(action.TargetId);
+                BattleUnit target = action.Target;
 
                 if (target != null)
                 {
                     _machine.Processor.ApplyCard(companion, action.Card, target, _machine.Model);
+                    _machine.NotifyCardPlayed(new BattleCardPlayedEvent
+                    {
+                        ActorUnitId = companion.UnitId,
+                        TargetUnitId = target.UnitId,
+                        Card = action.Card
+                    });
                 }
             }
         }

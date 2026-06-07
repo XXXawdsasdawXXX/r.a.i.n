@@ -23,5 +23,15 @@ namespace UI.Windows.Game.Card.Turn
         {
             _textStep.SetText(step);
         }
+
+        public void SetEndStepVisible(bool visible)
+        {
+            if (ButtonEndStep == null)
+            {
+                return;
+            }
+
+            ButtonEndStep.gameObject.SetActive(visible);
+        }
     }
 }

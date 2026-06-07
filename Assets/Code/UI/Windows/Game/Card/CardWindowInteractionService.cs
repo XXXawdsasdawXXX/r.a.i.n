@@ -14,16 +14,22 @@ namespace UI.Windows.Game.Card
         private readonly CardWindowVisuals _visuals;
         private readonly UserProvider _userProvider;
         private readonly BattleService _battleService;
+        private readonly Action<string> _showCommandMessage;
         private readonly CardWindowSelectionState _selectionState = new CardWindowSelectionState();
         private readonly CardWindowTargetingRules _targetingRules;
 
         private BattleModel _battleModel;
 
-        public CardWindowInteractionService(CardWindowVisuals visuals, UserProvider userProvider, BattleService battleService)
+        public CardWindowInteractionService(
+            CardWindowVisuals visuals,
+            UserProvider userProvider,
+            BattleService battleService,
+            Action<string> showCommandMessage = null)
         {
             _visuals = visuals;
             _userProvider = userProvider;
             _battleService = battleService;
+            _showCommandMessage = showCommandMessage;
             _targetingRules = new CardWindowTargetingRules(
                 unit => BattleGridRules.GetOwnerSide(_battleModel, unit),
                 _findSideByHeroUnitId);
@@ -244,6 +250,7 @@ namespace UI.Windows.Game.Card
 
             if (!moved)
             {
+                _showCommandError(moveResult);
                 Log.Info(this, $"[MoveUI] move rejected. Card is not spent. {CommandResultText.ToDebugText(moveResult)}");
                 return;
             }
@@ -275,6 +282,7 @@ namespace UI.Windows.Game.Card
             CommandResult playResult = _battleService.TryPlaySummonCardToCellWithResult(_selectionState.PendingSummonCardId, cell.Line, cell.CellIndex);
             if (playResult != CommandResult.Success)
             {
+                _showCommandError(playResult);
                 Log.Info(this, $"[SummonUI] summon rejected. reason={CommandResultText.ToDebugText(playResult)}");
                 return;
             }
@@ -302,6 +310,7 @@ namespace UI.Windows.Game.Card
             CommandResult playResult = _battleService.TryPlayCardWithResult(_selectionState.PendingTargetCard.InstanceId, targetUnitId);
             if (playResult != CommandResult.Success)
             {
+                _showCommandError(playResult);
                 Log.Info(this, $"[TargetUI] card play rejected. reason={CommandResultText.ToDebugText(playResult)}");
                 return;
             }
@@ -417,6 +426,11 @@ namespace UI.Windows.Game.Card
             BattleSide mySide = _getMySide();
             BattleSide targetSide = BattleGridRules.GetOwnerSide(_battleModel, unit);
             return mySide != null && targetSide != null && ReferenceEquals(mySide, targetSide);
+        }
+
+        private void _showCommandError(CommandResult result)
+        {
+            _showCommandMessage?.Invoke(CommandResultText.ToDebugText(result));
         }
     }
 }

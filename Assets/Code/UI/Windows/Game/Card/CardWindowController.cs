@@ -24,6 +24,7 @@ namespace UI.Windows.Game.Card
         private CardWindowVisuals _visuals;
         private CardWindowInteractionService _interactionService;
 
+        
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _battleService = Container.Instance.GetService<BattleService>();
@@ -41,7 +42,8 @@ namespace UI.Windows.Game.Card
             _interactionService = new CardWindowInteractionService(
                 _visuals,
                 Container.Instance.GetService<Core.Network.UserProvider>(),
-                _battleService);
+                _battleService,
+                ShowCommandMessage);
 
             _visuals.ValidateInspectorBindings(this);
             _visuals.SetGridHighlighted(false);
@@ -59,6 +61,7 @@ namespace UI.Windows.Game.Card
                 _battleService.BattleFinished += _onBattleFinished;
                 _battleService.TurnStarted += _onBattleUpdated;
                 _battleService.CardPlayed += _onBattleUpdated;
+                _battleService.CardPlayedDetailed += _onCardPlayedDetailed;
                 _battleService.TurnStarted += _onTurnStarted;
                 _leftHeroView.Clicked += _onLeftHeroClicked;
                 _rightHeroView.Clicked += _onRightHeroClicked;
@@ -74,6 +77,7 @@ namespace UI.Windows.Game.Card
                 _battleService.BattleFinished -= _onBattleFinished;
                 _battleService.TurnStarted -= _onBattleUpdated;
                 _battleService.CardPlayed -= _onBattleUpdated;
+                _battleService.CardPlayedDetailed -= _onCardPlayedDetailed;
                 _battleService.TurnStarted -= _onTurnStarted;
                 _leftHeroView.Clicked -= _onLeftHeroClicked;
                 _rightHeroView.Clicked -= _onRightHeroClicked;
@@ -100,15 +104,27 @@ namespace UI.Windows.Game.Card
             return _interactionService != null && _interactionService.TrySelectCardTarget(card, mySide);
         }
 
+        public void ShowCommandMessage(string message)
+        {
+            view?.ShowCommandMessage(message);
+        }
+
+        public void ClearCommandMessage()
+        {
+            view?.ClearCommandMessage();
+        }
+
         private void _onBattleStarted(BattleModel model)
         {
             view.Open();
+            view.ClearCommandMessage();
             _onBattleUpdated(model);
         }
 
         private void _onBattleFinished(BattleModel _)
         {
             view.Close();
+            view.ClearCommandMessage();
             _interactionService?.ResetSelections();
         }
 
@@ -117,8 +133,19 @@ namespace UI.Windows.Game.Card
             _interactionService?.SetBattleModel(battleModel);
         }
 
+        private void _onCardPlayedDetailed(BattleCardPlayedEvent battleEvent)
+        {
+            if (battleEvent?.Card?.Config == null)
+            {
+                return;
+            }
+
+            _visuals?.PlayCardEffect(battleEvent.ActorUnitId, battleEvent.Card.Config.Type);
+        }
+
         private void _onTurnStarted(BattleModel _)
         {
+            view.ClearCommandMessage();
             _interactionService?.ResetSelections();
         }
 

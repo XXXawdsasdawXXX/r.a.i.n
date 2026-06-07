@@ -20,6 +20,9 @@ namespace CoreGame.Card.Logic
                 CommandResult.TargetInvalid => "Selected target is invalid for this card",
                 CommandResult.MoveLineRejected => "Line switch rejected",
                 CommandResult.MoveApplyFailed => "Move apply failed",
+                CommandResult.NotEnoughEnergy => "Not enough energy",
+                CommandResult.UnitStunned => "Unit is stunned",
+                CommandResult.AttackBlockedByArmorStance => "Attack cards are blocked by armor stance",
                 _ => $"Unknown result: {result}"
             };
         }
