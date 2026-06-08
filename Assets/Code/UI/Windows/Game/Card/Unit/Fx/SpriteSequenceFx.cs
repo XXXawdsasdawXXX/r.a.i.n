@@ -1,9 +1,9 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UI.Windows.Game.Card.Unit.Impacts;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace UI.Windows.Game.Card.Unit.Fx
 {
@@ -23,28 +23,42 @@ namespace UI.Windows.Game.Card.Unit.Fx
                 return;
             }
 
-            // Базовый frame-by-frame стиль без внешних библиотек.
             float duration = Mathf.Max(0.05f, settings.Duration);
-            int steps = Mathf.Max(2, settings.Steps);
-            float stepDuration = duration / steps;
             float maxScale = Mathf.Max(1f, settings.Scale);
+            Color baseColor = _view.GetDefaultRenderColor();
+            Color flashColor = settings.Color;
+            flashColor.a = baseColor.a;
 
-            overlayImage.gameObject.SetActive(true);
+            overlayImage.color = baseColor;
+            _view.SetImpactScale(1f);
 
-            for (int i = 0; i < steps; i++)
+            Sequence sequence = DOTween.Sequence()
+                .SetUpdate(true)
+                .Append(DOVirtual.Float(0f, 1f, duration * 0.25f, t =>
+                {
+                    overlayImage.color = Color.Lerp(baseColor, flashColor, t);
+                    _view.SetImpactScale(Mathf.Lerp(1f, maxScale, t));
+                }))
+                .Append(DOVirtual.Float(0f, 1f, duration * 0.25f, t =>
+                {
+                    overlayImage.color = Color.Lerp(flashColor, baseColor, t);
+                    _view.SetImpactScale(Mathf.Lerp(maxScale, 1f, t));
+                }))
+                .Append(DOVirtual.Float(0f, 1f, duration * 0.25f, t =>
+                {
+                    overlayImage.color = Color.Lerp(baseColor, flashColor, t);
+                    _view.SetImpactScale(Mathf.Lerp(1f, maxScale, t));
+                }))
+                .Append(DOVirtual.Float(0f, 1f, duration * 0.25f, t =>
+                {
+                    overlayImage.color = Color.Lerp(flashColor, baseColor, t);
+                    _view.SetImpactScale(Mathf.Lerp(maxScale, 1f, t));
+                }))
+                .SetLink(_view.gameObject, LinkBehaviour.KillOnDisable);
+
+            using (cancellationToken.Register(() => sequence.Kill()))
             {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                float t = (float)i / Mathf.Max(1, steps - 1);
-                float alpha = Mathf.Sin(t * Mathf.PI) * settings.Color.a;
-                float scale = Mathf.Lerp(1f, maxScale, Mathf.Sin(t * Mathf.PI));
-
-                Color c = settings.Color;
-                c.a = alpha;
-                overlayImage.color = c;
-                _view.SetImpactScale(scale);
-
-                await UniTask.Delay(TimeSpan.FromSeconds(stepDuration), cancellationToken: cancellationToken);
+                await sequence.AsyncWaitForCompletion().AsUniTask();
             }
         }
     }

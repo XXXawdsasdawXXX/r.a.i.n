@@ -62,6 +62,8 @@ namespace UI.Windows.Game.Card
 
         public void UpdateUnits(BattleModel battleModel)
         {
+            _leftHeroView?.SetSide(false);
+            _rightHeroView?.SetSide(true);
             _leftHeroView?.Set(battleModel?.SideA?.Hero);
             _rightHeroView?.Set(battleModel?.SideB?.Hero);
             _bindHeroUnitIds(battleModel);
@@ -224,6 +226,8 @@ namespace UI.Windows.Game.Card
                 return;
             }
 
+            bool isRightSide = ReferenceEquals(root, _rightCompanionRoot);
+
             if (side == null)
             {
                 foreach (BattleUnitView view in views)
@@ -233,6 +237,7 @@ namespace UI.Windows.Game.Card
                         continue;
                     }
 
+                    view.SetSide(isRightSide);
                     view.Set(null);
                     _viewToUnitId.Remove(view);
                 }
@@ -250,6 +255,7 @@ namespace UI.Windows.Game.Card
                     continue;
                 }
 
+                view.SetSide(isRightSide);
                 BattleUnit unit = i < side.Companions.Count ? side.Companions[i] : null;
                 view.Set(unit);
 
@@ -274,6 +280,7 @@ namespace UI.Windows.Game.Card
             while (pool.Count < count)
             {
                 BattleUnitView view = UnityEngine.Object.Instantiate(_companionViewPrefab, root);
+                view.SetSide(ReferenceEquals(root, _rightCompanionRoot));
                 view.Clicked += () => _onCompanionClicked(view);
                 IGameListener[] listeners = view.GetComponentsInChildren<IGameListener>(true);
                 if (listeners.Length > 0)

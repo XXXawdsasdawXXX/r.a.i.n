@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using UI.Windows.Game.Card.Unit.Fx;
 using UI.Windows.Game.Card.Unit.Impacts;
+using UnityEngine.UI;
 
 namespace UI.Windows.Game.Card.Unit
 {
@@ -33,7 +34,6 @@ namespace UI.Windows.Game.Card.Unit
 
         [Title("Play Card FX")]
         [SerializeField] private RectTransform _fxRoot;
-        [SerializeField] private UIImage _fxOverlay;
         [SerializeField] private ECardImpactType _defaultCardImpactType = ECardImpactType.ShaderPulse;
         [SerializeField] private UnitFxSettings _defaultCardFxSettings = new UnitFxSettings();
         [SerializeField] private List<CardFxBinding> _cardFxBindings = new List<CardFxBinding>();
@@ -46,6 +46,8 @@ namespace UI.Windows.Game.Card.Unit
         private readonly Dictionary<ECardImpactType, ICardImpact> _cardImpacts = new Dictionary<ECardImpactType, ICardImpact>();
         private readonly Dictionary<EUnitImpactType, IUnitImpact> _unitImpacts = new Dictionary<EUnitImpactType, IUnitImpact>();
         private UnitFxRunner _fxRunner;
+        private Color _defaultRenderColor = Color.white;
+        private bool _isRightSide;
 
 
         
@@ -60,6 +62,7 @@ namespace UI.Windows.Game.Card.Unit
             }
 
             Open();
+            _applyRenderMirror();
 
             float maxHp = Mathf.Max(1f, unit.MaxHP);
             float hp = Mathf.Max(0f, unit.HP);
@@ -72,9 +75,17 @@ namespace UI.Windows.Game.Card.Unit
             _setCompanionInfo(unit);
         }
 
+        public void SetSide(bool isRightSide)
+        {
+            _isRightSide = isRightSide;
+            _applyRenderMirror();
+        }
+
         private void OnEnable()
         {
             HighlightController = new UIHighlightMaterialController(Render.Image, _highlightType);
+            _cacheRenderDefaults();
+            _applyRenderMirror();
             _fxRunner = new UnitFxRunner(this);
             _initializeImpactDictionaries();
             Log.Info(this, $"[HighlightUnit] enable renderImage={Render?.Image != null} template={HighlightMaterialTemplate?.name ?? "null"}");
@@ -224,35 +235,66 @@ namespace UI.Windows.Game.Card.Unit
 
         public bool TryGetImpactTargets(out RectTransform fxRoot, out UnityEngine.UI.Image overlayImage)
         {
-            fxRoot = _fxRoot;
-            overlayImage = _fxOverlay != null ? _fxOverlay.Image : null;
+            fxRoot = _fxRoot != null ? _fxRoot : transform as RectTransform;
+            overlayImage = Render != null ? Render.Image : null;
             return fxRoot != null && overlayImage != null;
         }
 
         public void SetImpactScale(float scale)
         {
-            if (_fxRoot == null)
+            RectTransform target = _fxRoot != null ? _fxRoot : transform as RectTransform;
+            if (target == null)
             {
                 return;
             }
 
-            _fxRoot.localScale = Vector3.one * Mathf.Max(0.01f, scale);
+            target.localScale = Vector3.one * Mathf.Max(0.01f, scale);
         }
 
         public void ResetImpactVisualState()
         {
-            if (_fxRoot != null)
+            if (_fxRoot != null || transform is RectTransform)
             {
-                _fxRoot.localScale = Vector3.one;
+                RectTransform target = _fxRoot != null ? _fxRoot : transform as RectTransform;
+                target.localScale = Vector3.one;
             }
 
-            if (_fxOverlay?.Image == null)
+            if (Render?.Image == null)
             {
                 return;
             }
 
-            _fxOverlay.Image.gameObject.SetActive(false);
-            _fxOverlay.Image.color = new Color(_fxOverlay.Image.color.r, _fxOverlay.Image.color.g, _fxOverlay.Image.color.b, 0f);
+            Render.Image.color = _defaultRenderColor;
+            _applyRenderMirror();
+        }
+
+        public Color GetDefaultRenderColor()
+        {
+            return _defaultRenderColor;
+        }
+
+        private void _cacheRenderDefaults()
+        {
+            if (Render?.Image == null)
+            {
+                return;
+            }
+
+            _defaultRenderColor = Render.Image.color;
+        }
+
+        private void _applyRenderMirror()
+        {
+            if (Render?.Image == null)
+            {
+                return;
+            }
+
+            RectTransform rect = Render.Image.rectTransform;
+            Vector3 scale = rect.localScale;
+            float x = Mathf.Abs(scale.x) > 0.001f ? Mathf.Abs(scale.x) : 1f;
+            scale.x = _isRightSide ? -x : x;
+            rect.localScale = scale;
         }
 
         [Serializable]

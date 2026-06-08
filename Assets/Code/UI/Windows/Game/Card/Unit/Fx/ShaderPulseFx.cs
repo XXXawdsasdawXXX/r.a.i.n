@@ -1,9 +1,9 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UI.Windows.Game.Card.Unit.Impacts;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace UI.Windows.Game.Card.Unit.Fx
 {
@@ -18,75 +18,38 @@ namespace UI.Windows.Game.Card.Unit.Fx
 
         public async UniTask Play(UnitFxSettings settings, CancellationToken cancellationToken)
         {
-            if (_view == null || settings == null || !_view.TryGetImpactTargets(out RectTransform fxRoot, out Image overlayImage))
+            if (_view == null || settings == null || !_view.TryGetImpactTargets(out RectTransform _, out Image overlayImage))
             {
                 return;
             }
 
             float duration = Mathf.Max(0.05f, settings.Duration);
-            float upPart = duration * 0.4f;
-            float downPart = duration * 0.6f;
-            Color targetColor = settings.Color;
             float targetScale = Mathf.Max(1f, settings.Scale);
+            Color baseColor = _view.GetDefaultRenderColor();
+            Color toColor = settings.Color;
+            toColor.a = baseColor.a;
 
-            overlayImage.gameObject.SetActive(true);
-            overlayImage.color = new Color(targetColor.r, targetColor.g, targetColor.b, 0f);
+            overlayImage.color = baseColor;
             _view.SetImpactScale(1f);
 
-            await _lerpAlphaAndScale(
-                overlayImage,
-                _view,
-                0f,
-                targetColor.a,
-                1f,
-                targetScale,
-                upPart,
-                cancellationToken);
+            Sequence sequence = DOTween.Sequence()
+                .SetUpdate(true)
+                .Append(DOVirtual.Float(0f, 1f, duration * 0.4f, t =>
+                {
+                    overlayImage.color = Color.Lerp(baseColor, toColor, t);
+                    _view.SetImpactScale(Mathf.Lerp(1f, targetScale, t));
+                }))
+                .Append(DOVirtual.Float(0f, 1f, duration * 0.6f, t =>
+                {
+                    overlayImage.color = Color.Lerp(toColor, baseColor, t);
+                    _view.SetImpactScale(Mathf.Lerp(targetScale, 1f, t));
+                }))
+                .SetLink(_view.gameObject, LinkBehaviour.KillOnDisable);
 
-            await _lerpAlphaAndScale(
-                overlayImage,
-                _view,
-                targetColor.a,
-                0f,
-                targetScale,
-                1f,
-                downPart,
-                cancellationToken);
-        }
-
-        private static async UniTask _lerpAlphaAndScale(
-            Image overlayImage,
-            BattleUnitView view,
-            float fromAlpha,
-            float toAlpha,
-            float fromScale,
-            float toScale,
-            float duration,
-            CancellationToken cancellationToken)
-        {
-            if (duration <= 0f)
+            using (cancellationToken.Register(() => sequence.Kill()))
             {
-                return;
+                await sequence.AsyncWaitForCompletion().AsUniTask();
             }
-
-            float endTime = Time.unscaledTime + duration;
-            while (Time.unscaledTime < endTime)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                float t = 1f - Mathf.Clamp01((endTime - Time.unscaledTime) / duration);
-
-                Color color = overlayImage.color;
-                color.a = Mathf.Lerp(fromAlpha, toAlpha, t);
-                overlayImage.color = color;
-                view.SetImpactScale(Mathf.Lerp(fromScale, toScale, t));
-
-                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken);
-            }
-
-            Color final = overlayImage.color;
-            final.a = toAlpha;
-            overlayImage.color = final;
-            view.SetImpactScale(toScale);
         }
     }
 }
