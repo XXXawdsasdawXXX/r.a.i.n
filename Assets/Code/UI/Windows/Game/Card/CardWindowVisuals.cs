@@ -89,6 +89,27 @@ namespace UI.Windows.Game.Card
             _tryPlayCompanionEffect(_rightCompanionViews, unitId, cardType);
         }
 
+        public void PlayReactionEffect(string unitId, EEffectType effectType)
+        {
+            if (string.IsNullOrEmpty(unitId))
+            {
+                return;
+            }
+
+            if (_tryPlayHeroReaction(_leftHeroView, unitId, effectType))
+            {
+                return;
+            }
+
+            if (_tryPlayHeroReaction(_rightHeroView, unitId, effectType))
+            {
+                return;
+            }
+
+            _tryPlayCompanionReaction(_leftCompanionViews, unitId, effectType);
+            _tryPlayCompanionReaction(_rightCompanionViews, unitId, effectType);
+        }
+
         public void UpdateAnchors(BattleModel battleModel)
         {
             if (battleModel == null)
@@ -328,6 +349,44 @@ namespace UI.Windows.Game.Card
                 if (_viewToUnitId.TryGetValue(view, out string mappedUnitId) && mappedUnitId == unitId)
                 {
                     view.PlayCardFx(cardType);
+                    return;
+                }
+            }
+        }
+
+        private bool _tryPlayHeroReaction(BattleUnitView heroView, string unitId, EEffectType effectType)
+        {
+            if (heroView == null || !_viewToUnitId.TryGetValue(heroView, out string heroUnitId))
+            {
+                return false;
+            }
+
+            if (heroUnitId != unitId)
+            {
+                return false;
+            }
+
+            heroView.PlayReactionFx(effectType);
+            return true;
+        }
+
+        private void _tryPlayCompanionReaction(List<BattleUnitView> views, string unitId, EEffectType effectType)
+        {
+            if (views == null)
+            {
+                return;
+            }
+
+            foreach (BattleUnitView view in views)
+            {
+                if (view == null)
+                {
+                    continue;
+                }
+
+                if (_viewToUnitId.TryGetValue(view, out string mappedUnitId) && mappedUnitId == unitId)
+                {
+                    view.PlayReactionFx(effectType);
                     return;
                 }
             }

@@ -5,15 +5,16 @@ using UI.Windows.Base;
 using UnityEngine;
 using System.Linq;
 using Essential;
-using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using UI.Windows.Game.Card.Unit.Fx;
+using UI.Windows.Game.Card.Unit.Impacts;
 
 namespace UI.Windows.Game.Card.Unit
 {
     public class BattleUnitView : UIWindowView
     {
-        public event System.Action Clicked;
+        public event Action Clicked;
 
         public UIHighlightMaterialController HighlightController { get; private set; }
         public Material HighlightMaterialTemplate => BattleHighlightStyle.ResolveHighlightMaterial(Render?.Image?.material);
@@ -33,15 +34,18 @@ namespace UI.Windows.Game.Card.Unit
         [Title("Play Card FX")]
         [SerializeField] private RectTransform _fxRoot;
         [SerializeField] private UIImage _fxOverlay;
-        [SerializeField] private CardFxPreset _defaultFxPreset = new CardFxPreset(new Color(0.35f, 0.65f, 1f, 0.6f), 1.08f, 0.45f);
-        [SerializeField] private List<CardFxBinding> _cardFxBindings = new List<CardFxBinding>
-        {
-            new CardFxBinding(ECardType.Attack, new CardFxPreset(new Color(1f, 0.35f, 0.35f, 0.6f), 1.1f, 0.4f)),
-            new CardFxBinding(ECardType.Summon, new CardFxPreset(new Color(0.55f, 1f, 0.45f, 0.6f), 1.12f, 0.5f)),
-            new CardFxBinding(ECardType.Spell, new CardFxPreset(new Color(0.35f, 0.65f, 1f, 0.6f), 1.08f, 0.45f)),
-        };
+        [SerializeField] private ECardImpactType _defaultCardImpactType = ECardImpactType.ShaderPulse;
+        [SerializeField] private UnitFxSettings _defaultCardFxSettings = new UnitFxSettings();
+        [SerializeField] private List<CardFxBinding> _cardFxBindings = new List<CardFxBinding>();
 
-        private Sequence _cardFxSequence;
+        [Title("Reaction FX")]
+        [SerializeField] private EUnitImpactType _defaultUnitImpactType = EUnitImpactType.SpriteSequence;
+        [SerializeField] private UnitFxSettings _defaultReactionFxSettings = new UnitFxSettings();
+        [SerializeField] private List<EffectReactionBinding> _effectReactionBindings = new List<EffectReactionBinding>();
+
+        private readonly Dictionary<ECardImpactType, ICardImpact> _cardImpacts = new Dictionary<ECardImpactType, ICardImpact>();
+        private readonly Dictionary<EUnitImpactType, IUnitImpact> _unitImpacts = new Dictionary<EUnitImpactType, IUnitImpact>();
+        private UnitFxRunner _fxRunner;
 
 
         
@@ -71,6 +75,8 @@ namespace UI.Windows.Game.Card.Unit
         private void OnEnable()
         {
             HighlightController = new UIHighlightMaterialController(Render.Image, _highlightType);
+            _fxRunner = new UnitFxRunner(this);
+            _initializeImpactDictionaries();
             Log.Info(this, $"[HighlightUnit] enable renderImage={Render?.Image != null} template={HighlightMaterialTemplate?.name ?? "null"}");
 
             if (_clickArea != null)
@@ -83,12 +89,7 @@ namespace UI.Windows.Game.Card.Unit
         {
             Log.Info(this, "[HighlightUnit] disable reset");
             HighlightController?.Reset();
-            _cardFxSequence?.Kill();
-            _cardFxSequence = null;
-            if (_fxOverlay != null)
-            {
-                _fxOverlay.gameObject.SetActive(false);
-            }
+            _fxRunner?.Stop();
 
             if (_clickArea != null)
             {
@@ -103,16 +104,25 @@ namespace UI.Windows.Game.Card.Unit
 
         public void PlayCardFx(ECardType cardType)
         {
-            if (_fxRoot == null || _fxOverlay == null || _fxOverlay.Image == null)
+            CardFxBinding binding = _resolveCardBinding(cardType);
+            ECardImpactType impactType = binding != null ? binding.ImpactType : _defaultCardImpactType;
+            if (_cardImpacts.TryGetValue(impactType, out ICardImpact impact))
             {
-                return;
+                _fxRunner?.Play(impact, binding?.Settings ?? _defaultCardFxSettings);
             }
-
-            CardFxPreset preset = _resolvePreset(cardType);
-            _cardFxSequence = _playFxSequence(preset);
         }
 
-        private CardFxPreset _resolvePreset(ECardType cardType)
+        public void PlayReactionFx(EEffectType effectType)
+        {
+            EffectReactionBinding binding = _resolveReactionBinding(effectType);
+            EUnitImpactType impactType = binding != null ? binding.ImpactType : _defaultUnitImpactType;
+            if (_unitImpacts.TryGetValue(impactType, out IUnitImpact impact))
+            {
+                _fxRunner?.Play(impact, binding?.Settings ?? _defaultReactionFxSettings);
+            }
+        }
+
+        private CardFxBinding _resolveCardBinding(ECardType cardType)
         {
             foreach (CardFxBinding binding in _cardFxBindings)
             {
@@ -123,36 +133,41 @@ namespace UI.Windows.Game.Card.Unit
 
                 if (cardType.HasFlag(binding.Matches))
                 {
-                    return binding.Preset ?? _defaultFxPreset;
+                    return binding;
                 }
             }
 
-            return _defaultFxPreset;
+            return null;
         }
 
-        private Sequence _playFxSequence(CardFxPreset preset)
+        private EffectReactionBinding _resolveReactionBinding(EEffectType effectType)
         {
-            _cardFxSequence?.Kill();
-
-            Color fxColor = preset != null ? preset.Color : _defaultFxPreset.Color;
-            float duration = Mathf.Max(0.05f, preset != null ? preset.Duration : _defaultFxPreset.Duration);
-            float punch = Mathf.Max(1f, preset != null ? preset.PunchScale : _defaultFxPreset.PunchScale);
-
-            _fxOverlay.Image.color = new Color(fxColor.r, fxColor.g, fxColor.b, 0f);
-            _fxOverlay.gameObject.SetActive(true);
-            _fxRoot.localScale = Vector3.one;
-
-            return DOTween.Sequence()
-                .SetLink(gameObject, LinkBehaviour.KillOnDisable)
-                .Append(_fxOverlay.Image.DOFade(fxColor.a, duration * 0.4f))
-                .Join(_fxRoot.DOScale(punch, duration * 0.4f))
-                .Append(_fxOverlay.Image.DOFade(0f, duration * 0.6f))
-                .Join(_fxRoot.DOScale(1f, duration * 0.6f))
-                .OnComplete(() =>
+            foreach (EffectReactionBinding binding in _effectReactionBindings)
+            {
+                if (binding == null)
                 {
-                    _fxOverlay.gameObject.SetActive(false);
-                    _cardFxSequence = null;
-                });
+                    continue;
+                }
+
+                if (binding.Matches == effectType)
+                {
+                    return binding;
+                }
+            }
+
+            return null;
+        }
+
+        private void _initializeImpactDictionaries()
+        {
+            _cardImpacts.Clear();
+            _unitImpacts.Clear();
+
+            _cardImpacts[ECardImpactType.ShaderPulse] = new ShaderPulseFx(this);
+            _cardImpacts[ECardImpactType.SpriteSequence] = new SpriteSequenceFx(this);
+
+            _unitImpacts[EUnitImpactType.ShaderPulse] = new ShaderPulseFx(this);
+            _unitImpacts[EUnitImpactType.SpriteSequence] = new SpriteSequenceFx(this);
         }
 
         private static void _setStateIcon(UIBattleStateIcon stateIcon, float value)
@@ -199,43 +214,95 @@ namespace UI.Windows.Game.Card.Unit
             Log.Info(this, "[HighlightUnit] destroy dispose");
             HighlightController?.Dispose();
             HighlightController = null;
+            _fxRunner?.Stop();
+            _fxRunner = null;
+            _cardImpacts.Clear();
+            _unitImpacts.Clear();
             
             base.OnDestroy();
+        }
+
+        public bool TryGetImpactTargets(out RectTransform fxRoot, out UnityEngine.UI.Image overlayImage)
+        {
+            fxRoot = _fxRoot;
+            overlayImage = _fxOverlay != null ? _fxOverlay.Image : null;
+            return fxRoot != null && overlayImage != null;
+        }
+
+        public void SetImpactScale(float scale)
+        {
+            if (_fxRoot == null)
+            {
+                return;
+            }
+
+            _fxRoot.localScale = Vector3.one * Mathf.Max(0.01f, scale);
+        }
+
+        public void ResetImpactVisualState()
+        {
+            if (_fxRoot != null)
+            {
+                _fxRoot.localScale = Vector3.one;
+            }
+
+            if (_fxOverlay?.Image == null)
+            {
+                return;
+            }
+
+            _fxOverlay.Image.gameObject.SetActive(false);
+            _fxOverlay.Image.color = new Color(_fxOverlay.Image.color.r, _fxOverlay.Image.color.g, _fxOverlay.Image.color.b, 0f);
         }
 
         [Serializable]
         private sealed class CardFxBinding
         {
             [SerializeField] private ECardType _matches;
-            [SerializeField] private CardFxPreset _preset = new CardFxPreset(new Color(0.35f, 0.65f, 1f, 0.6f), 1.08f, 0.45f);
+            [SerializeField] private ECardImpactType _impactType = ECardImpactType.ShaderPulse;
+            [SerializeField] private UnitFxSettings _settings = new UnitFxSettings();
 
             public ECardType Matches => _matches;
-            public CardFxPreset Preset => _preset;
+            public ECardImpactType ImpactType => _impactType;
+            public UnitFxSettings Settings => _settings;
 
-            public CardFxBinding(ECardType matches, CardFxPreset preset)
+            public CardFxBinding(ECardType matches, ECardImpactType impactType, UnitFxSettings settings)
             {
                 _matches = matches;
-                _preset = preset;
+                _impactType = impactType;
+                _settings = settings;
             }
         }
 
         [Serializable]
-        private sealed class CardFxPreset
+        private sealed class EffectReactionBinding
         {
-            [SerializeField] private Color _color = new Color(0.35f, 0.65f, 1f, 0.6f);
-            [SerializeField] private float _punchScale = 1.08f;
-            [SerializeField] private float _duration = 0.45f;
+            [SerializeField] private EEffectType _matches;
+            [SerializeField] private EUnitImpactType _impactType = EUnitImpactType.SpriteSequence;
+            [SerializeField] private UnitFxSettings _settings = new UnitFxSettings();
 
-            public Color Color => _color;
-            public float PunchScale => _punchScale;
-            public float Duration => _duration;
+            public EEffectType Matches => _matches;
+            public EUnitImpactType ImpactType => _impactType;
+            public UnitFxSettings Settings => _settings;
 
-            public CardFxPreset(Color color, float punchScale, float duration)
+            public EffectReactionBinding(EEffectType matches, EUnitImpactType impactType, UnitFxSettings settings)
             {
-                _color = color;
-                _punchScale = punchScale;
-                _duration = duration;
+                _matches = matches;
+                _impactType = impactType;
+                _settings = settings;
             }
+        }
+
+        private enum ECardImpactType
+        {
+            ShaderPulse = 0,
+            SpriteSequence = 1
+        }
+
+        private enum EUnitImpactType
+        {
+            ShaderPulse = 0,
+            SpriteSequence = 1
         }
     }
 }

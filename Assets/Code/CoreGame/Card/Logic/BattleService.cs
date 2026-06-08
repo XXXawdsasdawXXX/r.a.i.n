@@ -90,7 +90,8 @@ namespace CoreGame.Card.Logic
             {
                 ActorUnitId = activeSide.Hero?.UnitId,
                 TargetUnitId = target?.UnitId,
-                Card = card
+                Card = card,
+                EffectTypes = _collectEffectTypes(card)
             });
             CardPlayed?.Invoke(_machine.Model);
             _tryFinishBattleAfterAction();
@@ -175,7 +176,8 @@ namespace CoreGame.Card.Logic
                 {
                     ActorUnitId = actor?.UnitId,
                     TargetUnitId = unit?.UnitId,
-                    Card = card
+                    Card = card,
+                    EffectTypes = _collectEffectTypes(card)
                 });
                 CardPlayed?.Invoke(_machine.Model);
                 _tryFinishBattleAfterAction();
@@ -251,7 +253,8 @@ namespace CoreGame.Card.Logic
             {
                 ActorUnitId = activeSide.Hero?.UnitId,
                 TargetUnitId = summoned?.UnitId,
-                Card = card
+                Card = card,
+                EffectTypes = _collectEffectTypes(card)
             });
             CardPlayed?.Invoke(_machine.Model);
             _tryFinishBattleAfterAction();
@@ -352,6 +355,20 @@ namespace CoreGame.Card.Logic
         {
             CardPlayedDetailed?.Invoke(battleEvent);
             CardPlayed?.Invoke(_machine?.Model);
+        }
+
+        private static List<EEffectType> _collectEffectTypes(CardBattleState card)
+        {
+            if (card?.Config?.Effects == null || card.Config.Effects.Count == 0)
+            {
+                return new List<EEffectType>();
+            }
+
+            return card.Config.Effects
+                .Where(effect => effect != null)
+                .Select(effect => effect.Type)
+                .Distinct()
+                .ToList();
         }
 
         private bool _tryGetActiveSide(out BattleSide activeSide)

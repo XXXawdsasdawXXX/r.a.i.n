@@ -140,7 +140,18 @@ namespace UI.Windows.Game.Card
                 return;
             }
 
-            _visuals?.PlayCardEffect(battleEvent.ActorUnitId, battleEvent.Card.Config.Type);
+            string actorUnitId = !string.IsNullOrEmpty(battleEvent.Card.OwnerId)
+                ? battleEvent.Card.OwnerId
+                : battleEvent.ActorUnitId;
+            _visuals?.PlayCardEffect(actorUnitId, battleEvent.Card.Config.Type);
+
+            if (!string.IsNullOrEmpty(battleEvent.TargetUnitId) && battleEvent.EffectTypes != null)
+            {
+                foreach (EEffectType effectType in battleEvent.EffectTypes)
+                {
+                    _visuals?.PlayReactionEffect(battleEvent.TargetUnitId, effectType);
+                }
+            }
         }
 
         private void _onTurnStarted(BattleModel _)

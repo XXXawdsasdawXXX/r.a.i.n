@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using System.Collections.Generic;
 using CoreGame.Card.Data;
-using CoreGame.Card.Logic;
 using CoreGame.Card.Logic.AI;
 using Cysharp.Threading.Tasks;
 
@@ -13,7 +13,8 @@ namespace CoreGame.Card.Logic.StateMachine
         private readonly BattleStateMachine _machine;
         public EBattlePhase Phase => EBattlePhase.SecondSideTurn;
         public bool IsInitialized { get; set; }
-        private const int AI_ACTION_DELAY_MS = 2000;
+        
+        private const int AI_ACTION_DELAY_MS = 1000;
 
         private CancellationTokenSource _cts;
 
@@ -154,13 +155,28 @@ namespace CoreGame.Card.Logic.StateMachine
                 {
                     ActorUnitId = ai.UnitId,
                     TargetUnitId = target.UnitId,
-                    Card = action.Card
+                    Card = action.Card,
+                    EffectTypes = _collectEffectTypes(action.Card)
                 });
 
                 await UniTask.Delay(AI_ACTION_DELAY_MS);
             }
 
             EndTurn();
+        }
+
+        private static List<EEffectType> _collectEffectTypes(CardBattleState card)
+        {
+            if (card?.Config?.Effects == null || card.Config.Effects.Count == 0)
+            {
+                return new List<EEffectType>();
+            }
+
+            return card.Config.Effects
+                .Where(effect => effect != null)
+                .Select(effect => effect.Type)
+                .Distinct()
+                .ToList();
         }
 
         private async UniTaskVoid _startTurnTimer()

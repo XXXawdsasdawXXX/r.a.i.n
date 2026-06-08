@@ -122,7 +122,8 @@ namespace CoreGame.Card.Logic.StateMachine
                     {
                         ActorUnitId = companion.UnitId,
                         TargetUnitId = target.UnitId,
-                        Card = action.Card
+                        Card = action.Card,
+                        EffectTypes = _collectEffectTypes(action.Card)
                     });
                 }
             }
@@ -178,6 +179,20 @@ namespace CoreGame.Card.Logic.StateMachine
             bool sideADead = _machine.Model.SideA.Hero.HP <= 0;
             bool sideBDead = _machine.Model.SideB.Hero.HP <= 0;
             return sideADead || sideBDead;
+        }
+
+        private static List<EEffectType> _collectEffectTypes(CardBattleState card)
+        {
+            if (card?.Config?.Effects == null || card.Config.Effects.Count == 0)
+            {
+                return new List<EEffectType>();
+            }
+
+            return card.Config.Effects
+                .Where(effect => effect != null)
+                .Select(effect => effect.Type)
+                .Distinct()
+                .ToList();
         }
     }
 }

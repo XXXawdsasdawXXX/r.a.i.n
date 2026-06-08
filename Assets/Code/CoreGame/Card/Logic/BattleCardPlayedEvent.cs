@@ -1,4 +1,5 @@
 using CoreGame.Card.Data;
+using System.Collections.Generic;
 
 namespace CoreGame.Card.Logic
 {
@@ -7,5 +8,6 @@ namespace CoreGame.Card.Logic
         public string ActorUnitId;
         public string TargetUnitId;
         public CardBattleState Card;
+        public List<EEffectType> EffectTypes;
     }
 }
