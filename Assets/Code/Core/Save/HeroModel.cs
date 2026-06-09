@@ -21,6 +21,8 @@ namespace Core.Save
     
         public List<string> CardCollection; // все карты которые есть у игрока (id)
         public List<string> Deck;           // собранная колода (id), макс 30
+        public List<SavedDeckDefinition> Decks;
+        public string SelectedDeckId;
         
         
         public HeroModel()
@@ -35,6 +37,8 @@ namespace Core.Save
 
             CardCollection = new List<string>();
             Deck = new List<string>();
+            Decks = new List<SavedDeckDefinition>();
+            SelectedDeckId = string.Empty;
         }
     }
     

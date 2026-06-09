@@ -16,6 +16,7 @@ namespace CoreGame.InteractionObjects.Activators
         
         [SerializeField] private HeroModel _model;
         [SerializeField] private EEnemyAIDifficulty _enemyDifficulty = EEnemyAIDifficulty.Normal;
+        [SerializeField] private EnemyDeckProfile _enemyDeckProfile;
         
         private BattleService _battleService;
         private UserProvider _userProvider;
@@ -37,7 +38,8 @@ namespace CoreGame.InteractionObjects.Activators
                 _userProvider.GetHeroComponent<Hero>().Model,
                 _model,
                 EBattleMode.PvE,
-                _enemyDifficulty);
+                _enemyDifficulty,
+                _enemyDeckProfile);
         }
     }
 }

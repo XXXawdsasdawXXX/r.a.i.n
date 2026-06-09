@@ -6,6 +6,7 @@ using Core.Input;
 using Core.Save;
 using Core.ServiceLocator;
 using CoreGame.Card;
+using CoreGame.Card.Data;
 using CoreGame.Entities.Animation;
 using CoreGame.Entities.Characters.Controllers;
 using CoreGame.Entities.Params;
@@ -46,6 +47,26 @@ namespace CoreGame.Entities.Characters.Hero
                 {
                     Debug.Log("Set new deck for hero");
                     Model.Deck = cardLibrary.DefaultCardsDeck.ToList();
+                }
+
+                if (Model.Decks == null)
+                {
+                    Model.Decks = new List<SavedDeckDefinition>();
+                }
+
+                if (Model.Decks.Count == 0)
+                {
+                    Model.Decks.Add(new SavedDeckDefinition
+                    {
+                        Id = "player_default",
+                        Name = "Default Deck",
+                        Cards = Model.Deck.ToList()
+                    });
+                }
+
+                if (string.IsNullOrEmpty(Model.SelectedDeckId))
+                {
+                    Model.SelectedDeckId = Model.Decks[0].Id;
                 }
                 
                 Movement movement = new(Rigidbody, input.Direction, heroSettings.MoveSpeed);

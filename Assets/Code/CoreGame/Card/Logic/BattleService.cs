@@ -36,14 +36,15 @@ namespace CoreGame.Card.Logic
             HeroModel attacker,
             HeroModel defender,
             EBattleMode mode = EBattleMode.PvE,
-            EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal)
+            EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal,
+            EnemyDeckProfile enemyDeckProfile = null)
         {
             _battleHeroes.Add(attacker); 
             _battleHeroes.Add(defender); 
             attacker.InBattle = true;
             defender.InBattle = true;
             
-            _machine.StartBattle(attacker, defender, mode, enemyDifficulty);
+            _machine.StartBattle(attacker, defender, mode, enemyDifficulty, enemyDeckProfile);
             _machine.Model.Phase.SubscribeProperty(_onPhaseChanged);
             
             BattleStarted?.Invoke(_machine.Model);

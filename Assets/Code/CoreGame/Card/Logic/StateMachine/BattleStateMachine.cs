@@ -7,6 +7,7 @@ using Core.Save;
 using Core.ServiceLocator;
 using Core.StateMachine;
 using CoreGame.Card.Data;
+using CoreGame.Card.Logic;
 using CoreGame.Card.Logic.AI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace CoreGame.Card.Logic.StateMachine
         public event Action<BattleCardPlayedEvent> CardPlayedFromStateMachine;
 
         private CardLibrary _cardLibrary;
+        private IDeckRepository _deckRepository;
         
         
         public BattleStateMachine()
@@ -32,6 +34,7 @@ namespace CoreGame.Card.Logic.StateMachine
         public UniTask Initialize()
         {
             _cardLibrary = Container.Instance.GetSO<CardLibrary>();
+            _deckRepository = new DeckRepository();
             Processor = new BattleProcessor(_cardLibrary.AllCards);
             states = new Dictionary<Type, IBattleState>()
             {
@@ -65,13 +68,21 @@ namespace CoreGame.Card.Logic.StateMachine
             HeroModel attacker,
             HeroModel defender,
             EBattleMode mode = EBattleMode.PvE,
-            EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal)
+            EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal,
+            EnemyDeckProfile enemyDeckProfile = null)
         {
-            BattleUnit attackerUnit = _buildUnit(attacker);
-            BattleUnit defenderUnit = _buildUnit(defender);
+            DeckDefinition attackerDeck = _deckRepository.ResolvePlayerDeck(attacker, _cardLibrary);
+            DeckDefinition defenderDeck = _deckRepository.ResolveEnemyDeck(defender, enemyDeckProfile, _cardLibrary);
+            BattleUnit attackerUnit = _buildUnit(attacker, attackerDeck);
+            BattleUnit defenderUnit = _buildUnit(defender, defenderDeck);
 
             if (mode == EBattleMode.PvE)
             {
+                if (enemyDeckProfile != null)
+                {
+                    enemyDifficulty = enemyDeckProfile.Difficulty;
+                }
+
                 defenderUnit.AI = new PriorityAI(enemyDifficulty);
             }
 
@@ -111,9 +122,9 @@ namespace CoreGame.Card.Logic.StateMachine
             CardPlayedFromStateMachine?.Invoke(battleEvent);
         }
         
-        private BattleUnit _buildUnit(HeroModel hero)
+        private BattleUnit _buildUnit(HeroModel hero, DeckDefinition deck)
         {
-            return BattleUnit.FromHero(hero, _cardLibrary.AllCards);
+            return BattleUnit.FromHero(hero, deck?.Cards, _cardLibrary.AllCards);
         }
     }
 }

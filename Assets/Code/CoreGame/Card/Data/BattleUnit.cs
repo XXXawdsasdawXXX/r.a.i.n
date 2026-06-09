@@ -46,7 +46,7 @@ namespace CoreGame.Card.Data
         public List<CardBattleState> Deck = new();
         public List<CardBattleState> Discard = new();
         
-        public static BattleUnit FromHero(HeroModel hero, AllCardCollection library)
+        public static BattleUnit FromHero(HeroModel hero, IEnumerable<string> deckCards, AllCardCollection library)
         {
             BattleUnit unit = new()
             {
@@ -68,7 +68,7 @@ namespace CoreGame.Card.Data
             unit.DodgeChance = hero.Stats.Agility * 0.015f;
             unit.StunChance = hero.Stats.Strength * 0.02f;
 
-            unit.Deck = _createDeck(unit.UnitId, hero.Deck, library);
+            unit.Deck = _createDeck(unit.UnitId, deckCards, library);
             unit.Deck.Shuffle();
         
             return unit;
