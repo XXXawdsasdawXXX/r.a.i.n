@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Id>k__BackingField: bleed_0
   <Name>k__BackingField: "\u0420\u0432\u0430\u043D\u0430\u044F \u0440\u0430\u043D\u0430"
-  <Icon>k__BackingField: {fileID: 0}
+  <Description>k__BackingField: "\u041D\u0430\u043D\u043E\u0441\u0438\u0442 \u0443\u0440\u043E\u043D
+    \u0438 \u0432\u0435\u0448\u0430\u0435\u0442 \u043A\u0440\u043E\u0432\u043E\u0442\u0435\u0447\u0435\u043D\u0438\u0435
+    \u043D\u0430 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u0445\u043E\u0434\u043E\u0432."
+  <Icon>k__BackingField: {fileID: 1211020173, guid: 2108807abfc86d14ca66bffc909af46f, type: 3}
   <Type>k__BackingField: 33
   <BaseEnergyCost>k__BackingField: 18
   <Charges>k__BackingField: 0

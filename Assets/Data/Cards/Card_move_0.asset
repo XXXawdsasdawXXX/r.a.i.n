@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Id>k__BackingField: move_0
   <Name>k__BackingField: "\u0421\u043C\u0435\u043D\u0430 \u043B\u0438\u043D\u0438\u0438"
-  <Icon>k__BackingField: {fileID: 0}
+  <Description>k__BackingField: "\u041C\u0435\u043D\u044F\u0435\u0442 \u043A\u043B\u0435\u0442\u043A\u0443
+    \u0446\u0435\u043B\u0438"
+  <Icon>k__BackingField: {fileID: -1474870609, guid: 2108807abfc86d14ca66bffc909af46f, type: 3}
   <Type>k__BackingField: 16
   <BaseEnergyCost>k__BackingField: 8
   <Charges>k__BackingField: 0

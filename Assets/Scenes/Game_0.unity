@@ -371,6 +371,10 @@ MonoBehaviour:
     - heal_0
     - energy_0
     - armor_0
+    Decks: []
+    SelectedDeckId: 
+  _enemyDifficulty: 1
+  _enemyDeckProfile: {fileID: 0}
 --- !u!1001 &347614925
 PrefabInstance:
   m_ObjectHideFlags: 0

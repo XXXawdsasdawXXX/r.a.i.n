@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Id>k__BackingField: companion_0_attack_0
   <Name>k__BackingField: "\u0410\u0442\u0430\u043A\u0430 \u043A\u043E\u043C\u043F\u0430\u043D\u044C\u043E\u043D\u0430"
-  <Icon>k__BackingField: {fileID: 0}
+  <Description>k__BackingField: "\u0411\u0430\u0437\u043E\u0432\u0430\u044F \u0430\u0442\u0430\u043A\u0430
+    \u043F\u0440\u0438\u0437\u0432\u0430\u043D\u043D\u043E\u0433\u043E \u043A\u043E\u043C\u043F\u0430\u043D\u044C\u043E\u043D\u0430."
+  <Icon>k__BackingField: {fileID: 660238937, guid: 2108807abfc86d14ca66bffc909af46f, type: 3}
   <Type>k__BackingField: 1
   <BaseEnergyCost>k__BackingField: 0
   <Charges>k__BackingField: 0
