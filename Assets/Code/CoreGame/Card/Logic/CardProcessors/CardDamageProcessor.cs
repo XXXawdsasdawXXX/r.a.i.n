@@ -8,7 +8,7 @@ namespace CoreGame.Card.Logic.CardProcessors
         public void Process(CardEffectConfiguration effect, BattleUnit actor, BattleUnit target, BattleModel battle)
         {
             // крит
-            float value = effect.BaseValue.GetRandomValue();
+            float value = BattleProcessor.CalculateEffectValue(effect, actor);
             bool isCrit = UnityEngine.Random.value < actor.CritChance;
 
             if (isCrit)

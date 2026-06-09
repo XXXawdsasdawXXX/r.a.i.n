@@ -6,7 +6,8 @@ namespace CoreGame.Card.Logic.CardProcessors
     {
         public void Process(CardEffectConfiguration effect, BattleUnit actor, BattleUnit target, BattleModel battle)
         {
-            target.Armor += effect.BaseValue.GetRandomValue();
+            float armorValue = BattleProcessor.CalculateEffectValue(effect, actor);
+            target.Armor += armorValue;
         }
     }
 }

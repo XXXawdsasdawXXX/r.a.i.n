@@ -21,13 +21,22 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 01f40e5f49b84e4bb6dd4e8584fe4d0a, type: 2}
     - {fileID: 11400000, guid: 9a23de9d39576a147bf66a7ef8124c25, type: 2}
     - {fileID: 11400000, guid: df77ebe5f42a7a04c83cc81cf59b2bc3, type: 2}
+    - {fileID: 11400000, guid: e3f312b76b5f4ce5a4f1b9f2d6050a11, type: 2}
+    - {fileID: 11400000, guid: 2f6fd8f694fb4d95b3f4f85393f9784b, type: 2}
+    - {fileID: 11400000, guid: a7de3f7788a2463e8a4f8f220ce17af4, type: 2}
+    - {fileID: 11400000, guid: b6c15bba2de44f7cbab7a9c03e76be51, type: 2}
+    - {fileID: 11400000, guid: 5c029d7c4dbf4dd08d7555f1faa724a1, type: 2}
   <DefaultCardsDeck>k__BackingField:
   - attack_0
   - attack_0
+  - bleed_0
   - heal_0
   - armor_0
-  - armor_0
+  - draw_0
   - energy_0
+  - regen_0
+  - aoe_0
+  - stun_0
   - companion_0
   <MandatoryCardsInHand>k__BackingField:
   - move_0

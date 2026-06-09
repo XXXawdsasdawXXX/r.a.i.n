@@ -183,6 +183,9 @@ namespace CoreGame.Card.Logic.AI
                     case EEffectType.InjectParasite:
                         score -= 5f;
                         break;
+                    case EEffectType.DrawCards:
+                        score += self.Hand.Count <= 2 ? effectValue * 2f : effectValue * 0.8f;
+                        break;
                 }
             }
 

@@ -24,11 +24,17 @@ namespace CoreGame.Card.Logic
                 { EEffectType.SummonCompanion, new CardSummonCompanionProcessor(allCards) },
                 { EEffectType.InjectParasite, new CardInjectParasiteProcessor() },
                 { EEffectType.InjectParasiteEnemy, new CardInjectParasiteEnemyProcessor() },
+                { EEffectType.DrawCards, new CardDrawCardsProcessor() },
             };
         }
         
         public static float CalculateScaling(CardEffectConfiguration effect, HeroStats stats)
         {
+            if (effect == null || stats == null)
+            {
+                return 0f;
+            }
+
             return effect.Scaling switch
             {
                 EStatScaling.Strength  => stats.Strength  * effect.ScalingFactor,
@@ -37,6 +43,18 @@ namespace CoreGame.Card.Logic
                 EStatScaling.Endurance => stats.Endurance * effect.ScalingFactor,
                 _                      => 0f
             };
+        }
+
+        public static float CalculateEffectValue(CardEffectConfiguration effect, BattleUnit actor)
+        {
+            if (effect == null)
+            {
+                return 0f;
+            }
+
+            float baseValue = effect.BaseValue.GetRandomValue();
+            float scalingValue = CalculateScaling(effect, actor?.Stats);
+            return baseValue + scalingValue;
         }
         
         public void ApplyCard(BattleUnit actor, CardBattleState card, BattleUnit primaryTarget, BattleModel battle)

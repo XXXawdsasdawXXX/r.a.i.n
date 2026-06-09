@@ -16,7 +16,7 @@ MonoBehaviour:
   <Name>k__BackingField: "\u0421\u043C\u0435\u043D\u0430 \u043B\u0438\u043D\u0438\u0438"
   <Icon>k__BackingField: {fileID: 0}
   <Type>k__BackingField: 16
-  <BaseEnergyCost>k__BackingField: 15
+  <BaseEnergyCost>k__BackingField: 8
   <Charges>k__BackingField: 0
   <Effects>k__BackingField:
   - <Type>k__BackingField: 9

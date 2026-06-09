@@ -15,7 +15,7 @@ namespace CoreGame.Card.Logic.CardProcessors
             if (existing != null)
             {
                 existing.Duration += effect.StatusDuration;
-                existing.Value = Math.Max(existing.Value, effect.BaseValue.GetRandomValue());
+                existing.Value = Math.Max(existing.Value, BattleProcessor.CalculateEffectValue(effect, actor));
             }
             else
             {
@@ -23,7 +23,7 @@ namespace CoreGame.Card.Logic.CardProcessors
                 {
                     Type = effect.StatusType,
                     Duration = effect.StatusDuration,
-                    Value = effect.BaseValue.GetRandomValue(),
+                    Value = BattleProcessor.CalculateEffectValue(effect, actor),
                     //SourceCardId = effect.id
                 });
             }

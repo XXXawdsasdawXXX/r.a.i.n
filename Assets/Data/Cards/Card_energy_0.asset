@@ -16,16 +16,16 @@ MonoBehaviour:
   <Name>k__BackingField: "\u041F\u0440\u0438\u043B\u0438\u0432 \u044D\u043D\u0435\u0440\u0433\u0438\u0438"
   <Icon>k__BackingField: {fileID: 0}
   <Type>k__BackingField: 2
-  <BaseEnergyCost>k__BackingField: 0
+  <BaseEnergyCost>k__BackingField: 6
   <Charges>k__BackingField: 0
   <Effects>k__BackingField:
   - <Type>k__BackingField: 2
     <Target>k__BackingField: 0
     <BaseValue>k__BackingField:
-      MinValue: 20
+      MinValue: 14
       MaxValue: 20
     <Scaling>k__BackingField: 3
-    <ScalingFactor>k__BackingField: 1
+    <ScalingFactor>k__BackingField: 0.7
     <ParasiteCard>k__BackingField: {fileID: 0}
     <ParasiteCount>k__BackingField: 0
     <CompanionConfiguration>k__BackingField: {fileID: 0}

@@ -7,7 +7,8 @@ namespace CoreGame.Card.Logic.CardProcessors
     {
         public void Process(CardEffectConfiguration effect, BattleUnit actor, BattleUnit target, BattleModel battle)
         {
-            target.HP = Math.Min(target.MaxHP, target.HP + effect.BaseValue.GetRandomValue());
+            float healValue = BattleProcessor.CalculateEffectValue(effect, actor);
+            target.HP = Math.Min(target.MaxHP, target.HP + healValue);
         }
     }
 }

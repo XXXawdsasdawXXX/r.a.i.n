@@ -7,7 +7,8 @@ namespace CoreGame.Card.Logic.CardProcessors
     {
         public void Process(CardEffectConfiguration effect, BattleUnit actor, BattleUnit target, BattleModel battle)
         {
-            actor.Energy = Math.Min(actor.MaxEnergy, actor.Energy + effect.BaseValue.GetRandomValue());
+            float energyValue = BattleProcessor.CalculateEffectValue(effect, actor);
+            actor.Energy = Math.Min(actor.MaxEnergy, actor.Energy + (int)energyValue);
         }
     }
 }
