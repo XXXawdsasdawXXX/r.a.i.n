@@ -26,28 +26,44 @@ namespace CoreGame.Entities.Characters.Hero
 
         public void Subscribe()
         {
+        }
+
+        public void Unsubscribe()
+        {
+        }
+
+        public override void OnStartServer()
+        {
+            base.OnStartServer();
+
             networkManager.SceneManager.OnClientLoadedStartScenes += _sceneManagerOnClientLoadedStartScenes;
             networkManager.ServerManager.OnRemoteConnectionState += _serverManagerOnRemoveConnection;
 
             _spawnMissingHeroes();
         }
 
-        public void Unsubscribe()
+        public override void OnStopServer()
         {
             networkManager.SceneManager.OnClientLoadedStartScenes -= _sceneManagerOnClientLoadedStartScenes;
             networkManager.ServerManager.OnRemoteConnectionState -= _serverManagerOnRemoveConnection;
+
+            base.OnStopServer();
         }
-        
+
         protected override UniTask onSpawned(NetworkObject instance, NetworkConnection connection)
         {
+            if (!IsServerInitialized)
+            {
+                return UniTask.CompletedTask;
+            }
+
             networkManager.SceneManager.AddOwnerToDefaultScene(instance);
 
             _heroes[connection] = instance;
-            
+
             _initializeHeroComponents(instance);
-            
             _setUserHero(connection, instance);
-            
+
             return UniTask.CompletedTask;
         }
 
@@ -81,7 +97,7 @@ namespace CoreGame.Entities.Characters.Hero
 
         private void _spawnMissingHeroes()
         {
-            if (!networkManager.IsServerStarted)
+            if (!networkManager.IsServerStarted || !IsServerInitialized)
             {
                 return;
             }
@@ -90,10 +106,21 @@ namespace CoreGame.Entities.Characters.Hero
             {
                 _trySpawnHero(connection);
             }
+
+            NetworkConnection localConnection = networkManager.ClientManager.Connection;
+            if (localConnection.IsValid)
+            {
+                _trySpawnHero(localConnection);
+            }
         }
 
         private void _trySpawnHero(NetworkConnection connection)
         {
+            if (!IsServerInitialized)
+            {
+                return;
+            }
+
             if (!connection.IsValid || !connection.IsAuthenticated)
             {
                 return;

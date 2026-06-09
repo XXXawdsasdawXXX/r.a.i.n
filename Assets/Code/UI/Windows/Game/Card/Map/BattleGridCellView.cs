@@ -75,10 +75,11 @@ namespace UI.Windows.Game.Card.Map
             Clicked?.Invoke(this);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             _uiHighlightController?.Dispose();
             _uiHighlightController = null;
+            base.OnDestroy();
         }
     }
 
