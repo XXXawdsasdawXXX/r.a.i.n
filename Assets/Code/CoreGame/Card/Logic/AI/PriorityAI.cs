@@ -22,8 +22,7 @@ namespace CoreGame.Card.Logic.AI
                 return null;
             }
 
-            BattleSide enemySide = BattleParticipantResolver.GetEnemySideFor(selfSide, battle);
-            List<BattleUnit> enemyUnits = _collectEnemyUnits(selfSide, battle);
+            BattleSide enemySide = ReferenceEquals(selfSide, battle.SideA) ? battle.SideB : battle.SideA;
 
             List<CardBattleState> playableCards = selfSide.GetHand()
                 .Where(card => card != null)
@@ -36,7 +35,7 @@ namespace CoreGame.Card.Logic.AI
                 return null;
             }
 
-            List<AIAction> actions = _buildCandidateActions(selfSide, self, enemyUnits, playableCards);
+            List<AIAction> actions = _buildCandidateActions(selfSide, self, enemySide, playableCards);
             if (actions.Count == 0)
             {
                 return null;
@@ -45,36 +44,15 @@ namespace CoreGame.Card.Logic.AI
             return _pickAction(actions, self, enemySide);
         }
 
-        private static List<BattleUnit> _collectEnemyUnits(BattleSide selfSide, BattleModel battle)
-        {
-            List<BattleUnit> enemyUnits = new();
-
-            if (battle.Mode == EBattleMode.CoOpPvE && ReferenceEquals(selfSide, battle.SideB))
-            {
-                enemyUnits.AddRange(battle.SideA.GetAllUnits());
-                if (battle.HasAllySide)
-                {
-                    enemyUnits.AddRange(battle.AllySide.GetAllUnits());
-                }
-            }
-            else
-            {
-                BattleSide enemySide = BattleParticipantResolver.GetEnemySideFor(selfSide, battle);
-                if (enemySide != null)
-                {
-                    enemyUnits.AddRange(enemySide.GetAllUnits());
-                }
-            }
-
-            return enemyUnits.Where(unit => unit != null && unit.HP > 0).ToList();
-        }
-
         private static List<AIAction> _buildCandidateActions(
             BattleSide selfSide,
             BattleUnit self,
-            List<BattleUnit> enemyUnits,
+            BattleSide enemySide,
             List<CardBattleState> playableCards)
         {
+            List<BattleUnit> enemyUnits = enemySide.GetAllUnits()
+                .Where(unit => unit != null && unit.HP > 0)
+                .ToList();
             List<BattleUnit> allyUnits = selfSide.GetAllUnits()
                 .Where(unit => unit != null && unit.HP > 0)
                 .ToList();

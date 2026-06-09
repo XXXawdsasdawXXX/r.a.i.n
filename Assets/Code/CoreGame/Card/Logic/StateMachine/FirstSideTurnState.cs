@@ -81,13 +81,7 @@ namespace CoreGame.Card.Logic.StateMachine
             _cts?.Cancel();
             _cts?.Dispose();
             _cts = null;
-
-            if (_machine.Model.HasAllySide)
-            {
-                _machine.SwitchState(typeof(AllySideTurnState));
-                return;
-            }
-
+            
             _machine.SwitchState(typeof(SecondSideTurnState));
         }
         

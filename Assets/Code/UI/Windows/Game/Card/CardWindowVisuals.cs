@@ -73,28 +73,6 @@ namespace UI.Windows.Game.Card
             _tryRefreshHoveredUnitTooltip();
         }
 
-        private void _updateCoOpLeftCompanions(BattleModel battleModel)
-        {
-            List<BattleUnit> leftTeamUnits = new();
-            if (battleModel?.HasAllySide == true && battleModel.AllySide?.Hero != null)
-            {
-                leftTeamUnits.Add(battleModel.AllySide.Hero);
-            }
-
-            if (battleModel?.SideA?.Companions != null)
-            {
-                leftTeamUnits.AddRange(battleModel.SideA.Companions);
-            }
-
-            if (battleModel?.HasAllySide == true && battleModel.AllySide?.Companions != null)
-            {
-                leftTeamUnits.AddRange(battleModel.AllySide.Companions);
-            }
-
-            _setCompanionUnits(_leftCompanionViews, leftTeamUnits, _leftCompanionRoot, false);
-            _setCompanionViews(_rightCompanionViews, battleModel?.SideB, _rightCompanionRoot);
-        }
-
         public void PlayCardEffect(string unitId, ECardType cardType)
         {
             if (string.IsNullOrEmpty(unitId))
@@ -252,51 +230,8 @@ namespace UI.Windows.Game.Card
 
         private void _updateCompanionViews(BattleModel battleModel)
         {
-            if (battleModel?.Mode == EBattleMode.CoOpPvE)
-            {
-                _updateCoOpLeftCompanions(battleModel);
-                return;
-            }
-
             _setCompanionViews(_leftCompanionViews, battleModel?.SideA, _leftCompanionRoot);
             _setCompanionViews(_rightCompanionViews, battleModel?.SideB, _rightCompanionRoot);
-        }
-
-        private void _setCompanionUnits(
-            List<BattleUnitView> views,
-            List<BattleUnit> units,
-            Transform root,
-            bool isRightSide)
-        {
-            if (views == null)
-            {
-                return;
-            }
-
-            int count = units?.Count ?? 0;
-            _ensureCompanionPoolSize(views, count, root);
-
-            for (int i = 0; i < views.Count; i++)
-            {
-                BattleUnitView view = views[i];
-                if (view == null)
-                {
-                    continue;
-                }
-
-                view.SetSide(isRightSide);
-                BattleUnit unit = i < count ? units[i] : null;
-                view.Set(unit);
-
-                if (unit == null)
-                {
-                    _viewToUnitId.Remove(view);
-                }
-                else
-                {
-                    _viewToUnitId[view] = unit.UnitId;
-                }
-            }
         }
 
         private void _setCompanionViews(List<BattleUnitView> views, BattleSide side, Transform root)

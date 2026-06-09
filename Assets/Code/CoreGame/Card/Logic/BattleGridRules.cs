@@ -37,22 +37,12 @@ namespace CoreGame.Card.Logic
 
         public static BattleSide GetOwnerSide(BattleModel battle, BattleUnit unit)
         {
-            if (battle == null || unit == null)
-            {
-                return null;
-            }
-
-            if (battle.SideA != null && battle.SideA.GetAllUnits().Contains(unit))
+            if (battle.SideA.GetAllUnits().Contains(unit))
             {
                 return battle.SideA;
             }
 
-            if (battle.HasAllySide && battle.AllySide != null && battle.AllySide.GetAllUnits().Contains(unit))
-            {
-                return battle.AllySide;
-            }
-
-            if (battle.SideB != null && battle.SideB.GetAllUnits().Contains(unit))
+            if (battle.SideB.GetAllUnits().Contains(unit))
             {
                 return battle.SideB;
             }

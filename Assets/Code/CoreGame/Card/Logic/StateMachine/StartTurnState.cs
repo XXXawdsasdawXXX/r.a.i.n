@@ -32,22 +32,9 @@ namespace CoreGame.Card.Logic.StateMachine
             _startTurn(_machine.Model.SideA.Hero);
             _startTurn(_machine.Model.SideB.Hero);
 
-            if (_machine.Model.HasAllySide)
-            {
-                _startTurn(_machine.Model.AllySide.Hero);
-            }
-
             foreach (BattleUnit companion in _machine.Model.SideA.Companions)
             {
                 _startCompanionTurn(companion);
-            }
-
-            if (_machine.Model.HasAllySide)
-            {
-                foreach (BattleUnit companion in _machine.Model.AllySide.Companions)
-                {
-                    _startCompanionTurn(companion);
-                }
             }
 
             foreach (BattleUnit companion in _machine.Model.SideB.Companions)
@@ -77,11 +64,6 @@ namespace CoreGame.Card.Logic.StateMachine
 
                 _machine.Model.SideA.EnsureMandatoryCard(legacyMoveCard, _machine.Model.SideA.Hero.UnitId);
                 _machine.Model.SideB.EnsureMandatoryCard(legacyMoveCard, _machine.Model.SideB.Hero.UnitId);
-                if (_machine.Model.HasAllySide)
-                {
-                    _machine.Model.AllySide.EnsureMandatoryCard(legacyMoveCard, _machine.Model.AllySide.Hero.UnitId);
-                }
-
                 return;
             }
 
@@ -95,10 +77,6 @@ namespace CoreGame.Card.Logic.StateMachine
 
                 _machine.Model.SideA.EnsureMandatoryCard(card, _machine.Model.SideA.Hero.UnitId);
                 _machine.Model.SideB.EnsureMandatoryCard(card, _machine.Model.SideB.Hero.UnitId);
-                if (_machine.Model.HasAllySide)
-                {
-                    _machine.Model.AllySide.EnsureMandatoryCard(card, _machine.Model.AllySide.Hero.UnitId);
-                }
             }
         }
 

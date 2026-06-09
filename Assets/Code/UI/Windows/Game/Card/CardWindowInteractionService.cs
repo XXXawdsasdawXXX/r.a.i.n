@@ -63,7 +63,7 @@ namespace UI.Windows.Game.Card
             _visuals?.SetHeroesHighlight(false, EBattleHighlightColorType.AllyTarget, false, EBattleHighlightColorType.AllyTarget);
 
             BattleSide mySide = _getMySide();
-            if (_isLeftTeamSide(mySide))
+            if (ReferenceEquals(mySide, _battleModel.SideA))
             {
                 _visuals?.SetHeroesHighlight(true, EBattleHighlightColorType.AllyTarget, false, EBattleHighlightColorType.AllyTarget);
                 _visuals?.SetCompanionHighlights(true, false, EBattleHighlightColorType.AllyTarget);
@@ -188,7 +188,7 @@ namespace UI.Windows.Game.Card
                 return;
             }
 
-            bool isLeftMoveSide = _isLeftTeamSide(_selectionState.PendingMoveSide);
+            bool isLeftMoveSide = ReferenceEquals(_selectionState.PendingMoveSide, _battleModel?.SideA);
             bool isOwnCell = isLeftMoveSide
                 ? cell.Side == EBattleSideUi.Left
                 : cell.Side == EBattleSideUi.Right;
@@ -252,7 +252,7 @@ namespace UI.Windows.Game.Card
             }
 
             BattleSide mySide = _getMySide();
-            bool isLeft = _isLeftTeamSide(mySide);
+            bool isLeft = ReferenceEquals(mySide, _battleModel.SideA);
             bool isOwnCell = isLeft ? cell.Side == EBattleSideUi.Left : cell.Side == EBattleSideUi.Right;
             if (!isOwnCell)
             {
@@ -339,7 +339,22 @@ namespace UI.Windows.Game.Card
 
         private BattleSide _findSideByHeroUnitId(string heroUnitId)
         {
-            return BattleParticipantResolver.GetSideForPlayer(_battleModel, heroUnitId);
+            if (_battleModel == null || string.IsNullOrEmpty(heroUnitId))
+            {
+                return null;
+            }
+
+            if (_battleModel.SideA?.Hero?.UnitId == heroUnitId)
+            {
+                return _battleModel.SideA;
+            }
+
+            if (_battleModel.SideB?.Hero?.UnitId == heroUnitId)
+            {
+                return _battleModel.SideB;
+            }
+
+            return null;
         }
 
         private BattleSide _getMySide()
@@ -350,26 +365,22 @@ namespace UI.Windows.Game.Card
             }
 
             Hero hero = _userProvider.GetHeroComponent<Hero>();
-            string heroId = !string.IsNullOrEmpty(_userProvider.Id)
-                ? _userProvider.Id
-                : hero?.Model?.HeroId;
+            string heroId = hero?.Model?.HeroId;
 
-            return BattleParticipantResolver.GetSideForPlayer(_battleModel, heroId) ?? _battleModel.SideA;
-        }
-
-        private bool _isLeftTeamSide(BattleSide side)
-        {
-            if (_battleModel == null || side == null)
+            if (!string.IsNullOrEmpty(heroId))
             {
-                return false;
+                if (_battleModel.SideA.Hero.UnitId == heroId)
+                {
+                    return _battleModel.SideA;
+                }
+
+                if (_battleModel.SideB.Hero.UnitId == heroId)
+                {
+                    return _battleModel.SideB;
+                }
             }
 
-            if (ReferenceEquals(side, _battleModel.SideA))
-            {
-                return true;
-            }
-
-            return _battleModel.HasAllySide && ReferenceEquals(side, _battleModel.AllySide);
+            return _battleModel.SideA;
         }
 
         private bool _isEnemyHero(BattleUnit unit)

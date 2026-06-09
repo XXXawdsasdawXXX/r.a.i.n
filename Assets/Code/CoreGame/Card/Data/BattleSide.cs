@@ -52,38 +52,6 @@ namespace CoreGame.Card.Data
             return hand;
         }
 
-        /// <summary>
-        /// Рука, доступная конкретному герою: его обязательные карты, его колода в руке
-        /// и карты компаньонов, которых призвал именно этот герой.
-        /// </summary>
-        public List<CardBattleState> GetHandForOwner(string heroUnitId)
-        {
-            List<CardBattleState> hand = new();
-
-            if (string.IsNullOrEmpty(heroUnitId) || Hero == null)
-            {
-                return hand;
-            }
-
-            hand.AddRange(_mandatoryCards.Where(card =>
-                card != null && (string.IsNullOrEmpty(card.OwnerId) || card.OwnerId == heroUnitId)));
-
-            if (Hero.UnitId == heroUnitId)
-            {
-                hand.AddRange(Hero.Hand);
-            }
-
-            foreach (BattleUnit companion in Companions)
-            {
-                if (companion != null && companion.OwnerId == heroUnitId)
-                {
-                    hand.AddRange(companion.Hand);
-                }
-            }
-
-            return hand;
-        }
-
         public bool ContainsMandatoryCard(CardBattleState card)
         {
             return card != null
