@@ -9,15 +9,33 @@ namespace CoreGame.InteractionObjects.Activators
     public class ActivatorObject : InteractionObject, ISubscriber
     {
         [SerializeField] private GameObject _view;
+        [SerializeField] private string _activatorId;
 
-        private ActivatorBroadcast _activatorBroadcast;
+        private bool _isActive;
+
+        protected string ActivatorId => _activatorId;
 
         public override void StartInteraction()
         {
-            _view.SetActive(!_activatorBroadcast.IsActive);
+            if (_view != null)
+            {
+                _view.SetActive(!_isActive);
+            }
 
             base.StartInteraction();
         }
+
+        private void Awake()
+        {
+            _ensureActivatorId();
+        }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            _ensureActivatorId();
+        }
+#endif
 
         public void Subscribe()
         {
@@ -35,42 +53,70 @@ namespace CoreGame.InteractionObjects.Activators
 
         private void _onInteractionPerformed()
         {
+            ActivatorBroadcast broadcast = _getActivatorBroadcast();
+
             if (InstanceFinder.IsClientStarted)
             {
-                InstanceFinder.ClientManager.Broadcast(_getActivatorBroadcast());
+                InstanceFinder.ClientManager.Broadcast(broadcast);
             }
             else if (InstanceFinder.IsServerStarted)
             {
-                InstanceFinder.ServerManager.Broadcast(_getActivatorBroadcast());
+                InstanceFinder.ServerManager.Broadcast(broadcast);
             }
         }
 
         private void _onClientRequestChanged(NetworkConnection network, ActivatorBroadcast broadcast, Channel channel)
         {
+            if (string.IsNullOrEmpty(broadcast.ObjectID))
+            {
+                return;
+            }
+
             InstanceFinder.ServerManager.Broadcast(broadcast);
         }
 
         private void _onServerSendChanged(ActivatorBroadcast broadcast, Channel channel)
         {
-            _activatorBroadcast = broadcast;
+            if (string.IsNullOrEmpty(broadcast.ObjectID) || broadcast.ObjectID != _activatorId)
+            {
+                return;
+            }
 
+            _isActive = broadcast.IsActive;
             StartInteraction();
         }
 
         private ActivatorBroadcast _getActivatorBroadcast()
         {
-            //todo все объекты с этим бродкастом реагируют на вызов одного.
-            return string.IsNullOrEmpty(_activatorBroadcast.ObjectID)
-                ? new ActivatorBroadcast()
-                {
-                    ObjectID = gameObject.GetInstanceID().ToString(),
-                    IsActive = true
-                }
-                : new ActivatorBroadcast()
-                {
-                    ObjectID = _activatorBroadcast.ObjectID,
-                    IsActive = !_activatorBroadcast.IsActive
-                };
+            return new ActivatorBroadcast
+            {
+                ObjectID = _activatorId,
+                IsActive = !_isActive
+            };
+        }
+
+        private void _ensureActivatorId()
+        {
+            if (!string.IsNullOrEmpty(_activatorId))
+            {
+                return;
+            }
+
+            _activatorId = _buildHierarchyPath();
+        }
+
+        private string _buildHierarchyPath()
+        {
+            string path = name;
+            Transform parent = transform.parent;
+
+            while (parent != null)
+            {
+                path = parent.name + "/" + path;
+                parent = parent.parent;
+            }
+
+            return $"{gameObject.scene.name}/{path}";
         }
     }
 }
