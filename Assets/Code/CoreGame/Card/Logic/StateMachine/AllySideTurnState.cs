@@ -1,26 +1,25 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace CoreGame.Card.Logic.StateMachine
 {
-    public class FirstSideTurnState : IBattleState, IAcceptPlayerInput
+    public class AllySideTurnState : IBattleState, IAcceptPlayerInput
     {
         private readonly BattleStateMachine _machine;
-        public EBattlePhase Phase => EBattlePhase.FirstSideTurn;
+        public EBattlePhase Phase => EBattlePhase.AllySideTurn;
         public bool IsInitialized { get; set; }
 
         private CancellationTokenSource _cts;
-        
-        public FirstSideTurnState(BattleStateMachine machine)
+
+        public AllySideTurnState(BattleStateMachine machine)
         {
             _machine = machine;
         }
-        
+
         public UniTask Initialize()
         {
             return UniTask.CompletedTask;
@@ -28,11 +27,12 @@ namespace CoreGame.Card.Logic.StateMachine
 
         public UniTask Enter()
         {
-            Debug.Log("enter to first side step");
+            if (_machine.Model.AllySide?.Hero != null)
+            {
+                _machine.Model.AllySide.Hero.Energy = _machine.Model.AllySide.Hero.MaxEnergy;
+            }
 
-            _machine.Model.SideA.Hero.Energy = _machine.Model.SideA.Hero.MaxEnergy;
             _machine.Model.TurnTimeRemaining.Value = BattleModel.MAX_TURN_TIME;
-            
             _startTurnTimer().Forget();
 
             return UniTask.CompletedTask;
@@ -50,8 +50,8 @@ namespace CoreGame.Card.Logic.StateMachine
         public bool TryPlayCard(string cardId, string targetId)
         {
             return CardPlayRules.TryPlay(
-                _machine.Model.SideA,
-                _machine.Model.SideA.Hero,
+                _machine.Model.AllySide,
+                _machine.Model.AllySide.Hero,
                 cardId,
                 targetId,
                 _machine.Model,
@@ -63,10 +63,25 @@ namespace CoreGame.Card.Logic.StateMachine
         public bool TryMoveLine(string unitId)
         {
             BattleUnit unit = _machine.FindUnit(unitId);
-            if (unit == null) return false;
-            if (!ReferenceEquals(BattleGridRules.GetOwnerSide(_machine.Model, unit), _machine.Model.SideA)) return false;
-            if (unit.Energy < unit.MoveLineCost) return false;
-            if (unit.Statuses.Any(s => s.Type == EStatusType.Stun)) return false;
+            if (unit == null)
+            {
+                return false;
+            }
+
+            if (!ReferenceEquals(BattleGridRules.GetOwnerSide(_machine.Model, unit), _machine.Model.AllySide))
+            {
+                return false;
+            }
+
+            if (unit.Energy < unit.MoveLineCost)
+            {
+                return false;
+            }
+
+            if (unit.Statuses.Any(s => s.Type == EStatusType.Stun))
+            {
+                return false;
+            }
 
             unit.Energy -= unit.MoveLineCost;
             unit.Line = unit.Line == EBattleLine.Frontline
@@ -82,15 +97,9 @@ namespace CoreGame.Card.Logic.StateMachine
             _cts?.Dispose();
             _cts = null;
 
-            if (_machine.Model.HasAllySide)
-            {
-                _machine.SwitchState(typeof(AllySideTurnState));
-                return;
-            }
-
             _machine.SwitchState(typeof(SecondSideTurnState));
         }
-        
+
         private async UniTaskVoid _startTurnTimer()
         {
             _cts?.Dispose();
@@ -102,7 +111,7 @@ namespace CoreGame.Card.Logic.StateMachine
                 while (true)
                 {
                     await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: _cts.Token);
-                    
+
                     float remaining = endTime - UnityEngine.Time.time;
 
                     if (remaining <= 0)

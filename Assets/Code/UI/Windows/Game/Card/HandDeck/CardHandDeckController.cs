@@ -75,7 +75,7 @@ namespace UI.Windows.Game.Card.HandDeck
             bool isMyTurn = _isMyTurn(_battleModel, myId);
 
             view.SetHeroStats(mySide.Hero.Stats);
-            view.DisplayHand(mySide.GetHand(), _onCardClicked);
+            view.DisplayHand(mySide.GetHandForOwner(myId), _onCardClicked);
             view.SetInteractable(isMyTurn);
         }
 
@@ -147,38 +147,13 @@ namespace UI.Windows.Game.Card.HandDeck
 
         private static BattleSide _getMySide(BattleModel battle, string playerId)
         {
-            if (!string.IsNullOrEmpty(playerId))
-            {
-                if (battle.SideA.Hero.UnitId == playerId)
-                {
-                    return battle.SideA;
-                }
-
-                if (battle.SideB.Hero.UnitId == playerId)
-                {
-                    return battle.SideB;
-                }
-            }
-
-            // Fallback для первого тика, когда id еще может быть не синхронизирован.
-            return battle.SideA;
+            BattleSide side = BattleParticipantResolver.GetSideForPlayer(battle, playerId);
+            return side ?? battle.SideA;
         }
 
         private static bool _isMyTurn(BattleModel battle, string playerId)
         {
-            if (string.IsNullOrEmpty(playerId))
-            {
-                return false;
-            }
-
-            bool isSideA = battle.SideA.Hero.UnitId == playerId;
-
-            return battle.Phase.Value switch
-            {
-                EBattlePhase.FirstSideTurn => isSideA,
-                EBattlePhase.SecondSideTurn => !isSideA,
-                _ => false
-            };
+            return BattleParticipantResolver.IsMyTurn(battle, playerId);
         }
 
         private string _getLocalHeroId()
@@ -199,9 +174,7 @@ namespace UI.Windows.Game.Card.HandDeck
         private static string _resolveTargetId(BattleModel battle, string playerId, string cardId)
         {
             BattleSide mySide = _getMySide(battle, playerId);
-            BattleSide enemySide = ReferenceEquals(mySide, battle.SideA)
-                ? battle.SideB
-                : battle.SideA;
+            BattleSide enemySide = _getEnemySide(battle, mySide);
 
             CardBattleState selectedCard = _findCard(mySide, cardId);
             if (selectedCard?.Config?.Effects == null || selectedCard.Config.Effects.Count == 0)
@@ -221,7 +194,8 @@ namespace UI.Windows.Game.Card.HandDeck
 
         private static CardBattleState _findCard(BattleSide mySide, string cardId)
         {
-            return CardPlayRules.FindCardInHand(mySide.GetHand(), cardId);
+            string ownerId = mySide?.Hero?.UnitId;
+            return CardPlayRules.FindCardInHand(mySide?.GetHandForOwner(ownerId), cardId);
         }
 
         private static bool _isEnemyTarget(EEffectTarget target)
@@ -247,6 +221,17 @@ namespace UI.Windows.Game.Card.HandDeck
         {
             return card?.Config?.Effects != null
                    && card.Config.Effects.Any(effect => effect.Type == EEffectType.SummonCompanion);
+        }
+
+        private static BattleSide _getEnemySide(BattleModel battle, BattleSide mySide)
+        {
+            if (battle.Mode == EBattleMode.CoOpPvE
+                && (ReferenceEquals(mySide, battle.SideA) || ReferenceEquals(mySide, battle.AllySide)))
+            {
+                return battle.SideB;
+            }
+
+            return ReferenceEquals(mySide, battle.SideA) ? battle.SideB : battle.SideA;
         }
     }
 }

@@ -98,6 +98,32 @@ namespace CoreGame.Entities.Characters.Hero
 
         private void _serverManagerOnRemoveConnection(NetworkConnection connection, RemoteConnectionStateArgs state)
         {
+            _heroes.Remove(connection);
+        }
+
+        public bool TryGetHero(NetworkConnection connection, out Hero hero)
+        {
+            hero = null;
+
+            if (connection == null || !_heroes.TryGetValue(connection, out NetworkObject heroObject))
+            {
+                return false;
+            }
+
+            hero = heroObject.GetComponent<Hero>();
+            return hero != null;
+        }
+
+        public IEnumerable<(NetworkConnection connection, Hero hero)> GetAllHeroes()
+        {
+            foreach (KeyValuePair<NetworkConnection, NetworkObject> pair in _heroes)
+            {
+                Hero hero = pair.Value?.GetComponent<Hero>();
+                if (hero != null)
+                {
+                    yield return (pair.Key, hero);
+                }
+            }
         }
     }
 }

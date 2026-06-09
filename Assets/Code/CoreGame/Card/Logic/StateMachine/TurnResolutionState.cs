@@ -26,13 +26,32 @@ namespace CoreGame.Card.Logic.StateMachine
 
         public UniTask Enter()
         {
-            _processAutoActions(_machine.Model.SideA, _machine.Model.SideB);
-            _processAutoActions(_machine.Model.SideB, _machine.Model.SideA);
+            if (_machine.Model.Mode == EBattleMode.CoOpPvE)
+            {
+                _processAutoActions(_machine.Model.SideA, _machine.Model.SideB);
+                _processAutoActions(_machine.Model.AllySide, _machine.Model.SideB);
+                _processAutoActions(_machine.Model.SideB, _machine.Model.SideA);
+            }
+            else
+            {
+                _processAutoActions(_machine.Model.SideA, _machine.Model.SideB);
+                _processAutoActions(_machine.Model.SideB, _machine.Model.SideA);
+            }
 
             _processCompanions(_machine.Model.SideA);
+            if (_machine.Model.HasAllySide)
+            {
+                _processCompanions(_machine.Model.AllySide);
+            }
+
             _processCompanions(_machine.Model.SideB);
             
             _processStatuses(_machine.Model.SideA);
+            if (_machine.Model.HasAllySide)
+            {
+                _processStatuses(_machine.Model.AllySide);
+            }
+
             _processStatuses(_machine.Model.SideB);
 
             if (_isBattleFinished())
@@ -183,6 +202,13 @@ namespace CoreGame.Card.Logic.StateMachine
         {
             bool sideADead = _machine.Model.SideA.Hero.HP <= 0;
             bool sideBDead = _machine.Model.SideB.Hero.HP <= 0;
+
+            if (_machine.Model.Mode == EBattleMode.CoOpPvE)
+            {
+                bool allyDead = _machine.Model.AllySide?.Hero == null || _machine.Model.AllySide.Hero.HP <= 0;
+                return (sideADead && allyDead) || sideBDead;
+            }
+
             return sideADead || sideBDead;
         }
 

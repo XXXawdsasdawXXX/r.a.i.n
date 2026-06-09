@@ -115,7 +115,7 @@ namespace CoreGame.Card.Logic.StateMachine
 
         private async UniTaskVoid _processAIAsync()
         {
-            if (_machine.Model.Mode != EBattleMode.PvE)
+            if (_machine.Model.Mode is not (EBattleMode.PvE or EBattleMode.CoOpPvE))
             {
                 _startTurnTimer().Forget();
                 return;

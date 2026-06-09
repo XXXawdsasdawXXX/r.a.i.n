@@ -41,6 +41,7 @@ namespace CoreGame.Card.Logic.StateMachine
                 { typeof(StartBattleState), new StartBattleState(this) },
                 { typeof(StartTurnState), new StartTurnState(this, _cardLibrary) },
                 { typeof(FirstSideTurnState), new FirstSideTurnState(this) },
+                { typeof(AllySideTurnState), new AllySideTurnState(this) },
                 { typeof(SecondSideTurnState), new SecondSideTurnState(this) },
                 { typeof(TurnResolutionState), new TurnResolutionState(this) },
                 { typeof(EndBattleState), new EndBattleState(this) },
@@ -71,19 +72,40 @@ namespace CoreGame.Card.Logic.StateMachine
             EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal,
             EnemyDeckProfile enemyDeckProfile = null)
         {
-            DeckDefinition attackerDeck = _deckRepository.ResolvePlayerDeck(attacker, _cardLibrary);
-            DeckDefinition defenderDeck = _deckRepository.ResolveEnemyDeck(defender, enemyDeckProfile, _cardLibrary);
-            BattleUnit attackerUnit = _buildUnit(attacker, attackerDeck);
-            BattleUnit defenderUnit = _buildUnit(defender, defenderDeck);
+            StartBattle(attacker, defender, null, mode, enemyDifficulty, enemyDeckProfile);
+        }
 
-            if (mode == EBattleMode.PvE)
+        public void StartBattle(
+            HeroModel sideAHero,
+            HeroModel sideBHero,
+            HeroModel allyHero,
+            EBattleMode mode = EBattleMode.PvE,
+            EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal,
+            EnemyDeckProfile enemyDeckProfile = null)
+        {
+            DeckDefinition sideADeck = _deckRepository.ResolvePlayerDeck(sideAHero, _cardLibrary);
+            DeckDefinition sideBDeck = _deckRepository.ResolveEnemyDeck(sideBHero, enemyDeckProfile, _cardLibrary);
+            BattleUnit sideAUnit = _buildUnit(sideAHero, sideADeck);
+            BattleUnit sideBUnit = _buildUnit(sideBHero, sideBDeck);
+
+            bool isCoOp = mode == EBattleMode.CoOpPvE && allyHero != null;
+            BattleSide allySide = null;
+
+            if (isCoOp)
+            {
+                DeckDefinition allyDeck = _deckRepository.ResolvePlayerDeck(allyHero, _cardLibrary);
+                BattleUnit allyUnit = _buildUnit(allyHero, allyDeck);
+                allySide = new BattleSide(allyUnit);
+            }
+
+            if (mode is EBattleMode.PvE or EBattleMode.CoOpPvE)
             {
                 if (enemyDeckProfile != null)
                 {
                     enemyDifficulty = enemyDeckProfile.Difficulty;
                 }
 
-                defenderUnit.AI = new PriorityAI(enemyDifficulty);
+                sideBUnit.AI = new PriorityAI(enemyDifficulty);
             }
 
             Model = new BattleModel
@@ -93,8 +115,9 @@ namespace CoreGame.Card.Logic.StateMachine
                 Phase = new ReactiveProperty<EBattlePhase>(EBattlePhase.WaitingBattle),
                 TurnNumber = 0,
                 TurnTimeRemaining = new ReactiveProperty<float>(0),
-                SideA = new BattleSide(attackerUnit),
-                SideB = new BattleSide(defenderUnit),
+                SideA = new BattleSide(sideAUnit),
+                SideB = new BattleSide(sideBUnit),
+                AllySide = allySide,
             };
 
             SwitchState(typeof(StartBattleState));
@@ -107,9 +130,13 @@ namespace CoreGame.Card.Logic.StateMachine
                 return null;
             }
 
-            return Model.SideA.GetAllUnits()
-                .Concat(Model.SideB.GetAllUnits())
-                .FirstOrDefault(u => u.UnitId == unitId);
+            IEnumerable<BattleUnit> units = Model.SideA.GetAllUnits().Concat(Model.SideB.GetAllUnits());
+            if (Model.HasAllySide)
+            {
+                units = units.Concat(Model.AllySide.GetAllUnits());
+            }
+
+            return units.FirstOrDefault(u => u.UnitId == unitId);
         }
 
         public void NotifyCardPlayed(BattleCardPlayedEvent battleEvent)
@@ -120,6 +147,20 @@ namespace CoreGame.Card.Logic.StateMachine
             }
 
             CardPlayedFromStateMachine?.Invoke(battleEvent);
+        }
+
+        public void EnsureClientModelShell()
+        {
+            if (Model?.Phase != null)
+            {
+                return;
+            }
+
+            Model = new BattleModel
+            {
+                Phase = new ReactiveProperty<EBattlePhase>(EBattlePhase.WaitingBattle),
+                TurnTimeRemaining = new ReactiveProperty<float>(0),
+            };
         }
         
         private BattleUnit _buildUnit(HeroModel hero, DeckDefinition deck)

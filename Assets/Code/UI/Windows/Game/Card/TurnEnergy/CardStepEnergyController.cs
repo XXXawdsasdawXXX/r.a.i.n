@@ -84,37 +84,13 @@ namespace UI.Windows.Game.Card.TurnEnergy
 
         private static BattleSide _getMySide(BattleModel battle, string playerId)
         {
-            if (!string.IsNullOrEmpty(playerId))
-            {
-                if (battle.SideA.Hero.UnitId == playerId)
-                {
-                    return battle.SideA;
-                }
-
-                if (battle.SideB.Hero.UnitId == playerId)
-                {
-                    return battle.SideB;
-                }
-            }
-
-            return battle.SideA;
+            BattleSide side = BattleParticipantResolver.GetSideForPlayer(battle, playerId);
+            return side ?? battle.SideA;
         }
 
         private static bool _isMyTurn(BattleModel battle, string playerId)
         {
-            if (string.IsNullOrEmpty(playerId))
-            {
-                return false;
-            }
-
-            bool isSideA = battle.SideA.Hero.UnitId == playerId;
-
-            return battle.Phase.Value switch
-            {
-                EBattlePhase.FirstSideTurn => isSideA,
-                EBattlePhase.SecondSideTurn => !isSideA,
-                _ => false
-            };
+            return BattleParticipantResolver.IsMyTurn(battle, playerId);
         }
 
         private string _getLocalHeroId()
