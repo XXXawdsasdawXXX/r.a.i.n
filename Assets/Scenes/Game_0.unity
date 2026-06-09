@@ -286,7 +286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!70 &202316788
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1535,8 +1535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0b18dfdca05db4192017545a2b2318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Trigger>k__BackingField: {fileID: 1468239543}
-  _view: {fileID: 450880953}
+  <Trigger>k__BackingField: {fileID: 0}
+  _view: {fileID: 0}
   _activatorId: Game_0/laptop (2)
   _mode: 2
   _aiDefenderModel:
