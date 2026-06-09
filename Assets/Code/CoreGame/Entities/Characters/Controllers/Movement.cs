@@ -28,7 +28,7 @@ namespace CoreGame.Entities.Characters.Controllers
                 return;
             }
 
-            _body.velocity = _direction.Value.normalized * _speed * fixedDeltaTime;
+            _body.velocity = _direction.Value.normalized * _speed;
         }
     }
 }

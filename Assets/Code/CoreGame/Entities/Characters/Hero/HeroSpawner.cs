@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.GameLoop;
 using Core.Network;
+using Core.Scenes;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using FishNet.Connection;
@@ -15,11 +16,13 @@ namespace CoreGame.Entities.Characters.Hero
     {
         private readonly Dictionary<NetworkConnection, NetworkObject> _heroes = new();
         private UserProvider _userProvider;
+        private SceneService _sceneService;
 
         
         public override UniTask Initialize()
         {
             _userProvider = Container.Instance.GetService<UserProvider>();
+            _sceneService = Container.Instance.GetService<SceneService>();
 
             return base.Initialize();
         }
@@ -27,13 +30,20 @@ namespace CoreGame.Entities.Characters.Hero
         public void Subscribe()
         {
             networkManager.SceneManager.OnClientLoadedStartScenes += _sceneManagerOnClientLoadedStartScenes;
-            networkManager.ServerManager.OnRemoteConnectionState += _serverManagerOnRemoveConnection;
+            networkManager.ServerManager.OnRemoteConnectionState += _serverManagerOnRemoteConnectionState;
+            _sceneService.SceneLoaded += _onSceneLoaded;
+
+            if (IsServerStarted)
+            {
+                _spawnMissingHeroesForAllConnections();
+            }
         }
 
         public void Unsubscribe()
         {
             networkManager.SceneManager.OnClientLoadedStartScenes -= _sceneManagerOnClientLoadedStartScenes;
-            networkManager.ServerManager.OnRemoteConnectionState -= _serverManagerOnRemoveConnection;
+            networkManager.ServerManager.OnRemoteConnectionState -= _serverManagerOnRemoteConnectionState;
+            _sceneService.SceneLoaded -= _onSceneLoaded;
         }
         
         protected override UniTask onSpawned(NetworkObject instance, NetworkConnection connection)
@@ -43,7 +53,6 @@ namespace CoreGame.Entities.Characters.Hero
             _heroes[connection] = instance;
             
             _initializeHeroComponents(instance);
-            
             _setUserHero(connection, instance);
             
             return UniTask.CompletedTask;
@@ -69,6 +78,53 @@ namespace CoreGame.Entities.Characters.Hero
         
         private void _sceneManagerOnClientLoadedStartScenes(NetworkConnection connection, bool isServer)
         {
+            _trySpawnHero(connection);
+        }
+
+        private void _serverManagerOnRemoteConnectionState(NetworkConnection connection, RemoteConnectionStateArgs state)
+        {
+            if (state.ConnectionState == RemoteConnectionState.Started)
+            {
+                _trySpawnHero(connection);
+                return;
+            }
+
+            if (state.ConnectionState == RemoteConnectionState.Stopped)
+            {
+                _heroes.Remove(connection);
+            }
+        }
+
+        private void _onSceneLoaded(EScene scene)
+        {
+            if (scene != EScene.Game_0 || !IsServerStarted)
+            {
+                return;
+            }
+
+            _spawnMissingHeroesForAllConnections();
+        }
+
+        private void _spawnMissingHeroesForAllConnections()
+        {
+            if (!IsServerStarted)
+            {
+                return;
+            }
+
+            foreach (NetworkConnection connection in networkManager.ServerManager.Clients.Values)
+            {
+                _trySpawnHero(connection);
+            }
+        }
+
+        private void _trySpawnHero(NetworkConnection connection)
+        {
+            if (!IsServerStarted || connection == null || !connection.IsActive)
+            {
+                return;
+            }
+
             if (_heroes.ContainsKey(connection))
             {
                 return;
@@ -77,7 +133,7 @@ namespace CoreGame.Entities.Characters.Hero
             spawn(Vector3.zero, connection);
         }
 
-        [ObserversRpc]
+        [ObserversRpc(RunLocally = true)]
         private void _initializeHeroComponents(NetworkObject instance)
         {
             Hero hero = instance.GetComponent<Hero>();
@@ -94,11 +150,6 @@ namespace CoreGame.Entities.Characters.Hero
             UserProvider userProvider = Container.Instance.GetService<UserProvider>();
             userProvider.SetConnection(connection);
             userProvider.SetHero(instance);
-        }
-
-        private void _serverManagerOnRemoveConnection(NetworkConnection connection, RemoteConnectionStateArgs state)
-        {
-            _heroes.Remove(connection);
         }
 
         public bool TryGetHero(NetworkConnection connection, out Hero hero)
