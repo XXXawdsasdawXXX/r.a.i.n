@@ -38,16 +38,12 @@ namespace CoreGame.InteractionObjects.Activators
         {
             base.StartInteraction();
 
-            if (!InstanceFinder.IsServerStarted || _networkBattleService.IsNetworkBattle)
+            if (!InstanceFinder.IsServerStarted)
             {
                 return;
             }
 
             List<(NetworkConnection connection, Hero hero)> participants = _collectParticipants();
-            if (participants.Any(pair => pair.hero.Model.InBattle))
-            {
-                return;
-            }
             if (participants.Count < 2)
             {
                 Debug.LogWarning("[MultiplayerBattleActivator] Not enough players nearby to start multiplayer battle.");

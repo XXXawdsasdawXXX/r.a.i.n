@@ -34,14 +34,8 @@ namespace CoreGame.InteractionObjects.Activators
         {
             base.StartInteraction();
 
-            Hero hero = _userProvider.GetHeroComponent<Hero>();
-            if (hero?.Model == null || hero.Model.InBattle)
-            {
-                return;
-            }
-
             _battleService.StartBattle(
-                hero.Model,
+                _userProvider.GetHeroComponent<Hero>().Model,
                 _model,
                 EBattleMode.PvE,
                 _enemyDifficulty,
