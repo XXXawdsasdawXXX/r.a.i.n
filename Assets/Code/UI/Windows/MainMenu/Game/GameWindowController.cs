@@ -41,7 +41,7 @@ namespace UI.Windows.MainMenu.Game
 
         public override void LoadWindow(GameModel model)
         {
-            view.TextUserIP.SetText($"IP: {ConnectionHandler.GetLocalIPAddress()}");
+            view.TextUserIP.SetText($"IP: {_connectionHandler.GetHostAddressForClients()}");
             
             _updateView();
         }
@@ -113,7 +113,7 @@ namespace UI.Windows.MainMenu.Game
 
         private void _copyIpToBuffer()
         {
-            GUIUtility.systemCopyBuffer = $"{ConnectionHandler.GetLocalIPAddress()}";
+            GUIUtility.systemCopyBuffer = _connectionHandler.GetHostAddressForClients();
         }
 
         private void _updateView()

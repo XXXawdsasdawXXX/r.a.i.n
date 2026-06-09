@@ -10,16 +10,16 @@ namespace UI.Windows.MainMenu.Connection
     public class ConnectionWindowController : UIWindowController<ConnectionWindowView>
     {
         public bool IsInitialized { get; set; }
-        
-        [SerializeField] private ConnectionHandler _connectionHandler;
-        
+
+        private ConnectionHandler _connectionHandler;
         private GameStateMachine _gameStateMachine;
 
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameStateMachine = Container.Instance.GetService<GameStateMachine>();
-            
-            view.TextUserIP.SetText("your ip: " + ConnectionHandler.GetLocalIPAddress());
+            _connectionHandler = Container.Instance.GetService<ConnectionHandler>();
+
+            view.TextUserIP.SetText("your ip: " + _connectionHandler.GetHostAddressForClients());
           
             view.InputFieldHostIP.SetTextWithoutNotify(_connectionHandler.LastJoinedIP);
             
