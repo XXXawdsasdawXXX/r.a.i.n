@@ -1,3 +1,4 @@
+using Core.Localization;
 using Core.Network;
 using Core.ServiceLocator;
 using Core.StateMachine;
@@ -13,13 +14,15 @@ namespace UI.Windows.MainMenu.Connection
 
         private ConnectionHandler _connectionHandler;
         private GameStateMachine _gameStateMachine;
+        private LocalizationService _localization;
 
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _gameStateMachine = Container.Instance.GetService<GameStateMachine>();
             _connectionHandler = Container.Instance.GetService<ConnectionHandler>();
 
-            view.TextUserIP.SetText("your ip: " + _connectionHandler.GetHostAddressForClients());
+            _localization = Container.Instance.GetService<LocalizationService>();
+            _refreshIpLabel();
 
             view.InputFieldHostIP.SetTextWithoutNotify(_connectionHandler.LastJoinedIP);
 
@@ -36,13 +39,28 @@ namespace UI.Windows.MainMenu.Connection
                 view.ButtonServer.Clicked += ButtonServerOnClicked;
                 view.ButtonHost.Clicked += ButtonHostOnClicked;
                 view.ButtonClient.Clicked += ButtonClientOnClicked;
+                _localization.LocaleChanged += _onLocaleChanged;
             }
             else
             {
                 view.ButtonServer.Clicked -= ButtonServerOnClicked;
                 view.ButtonHost.Clicked -= ButtonHostOnClicked;
                 view.ButtonClient.Clicked -= ButtonClientOnClicked;
+                _localization.LocaleChanged -= _onLocaleChanged;
             }
+        }
+
+        private void _onLocaleChanged()
+        {
+            _refreshIpLabel();
+        }
+
+        private void _refreshIpLabel()
+        {
+            view.TextUserIP.SetText(_localization.Format(
+                LocalizationTables.MainMenu,
+                LocalizationKeys.MainMenu.ConnectionYourIp,
+                ConnectionHandler.GetLocalIPAddress()));
         }
 
         private void ButtonServerOnClicked()

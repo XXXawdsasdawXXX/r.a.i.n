@@ -7,8 +7,6 @@ namespace CoreGame.Card.Data
     public class CardConfiguration : ScriptableObject
     {
         [field: SerializeField] public string Id { get; private set; }
-        [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField, TextArea(2, 6)] public string Description { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField] public ECardType Type { get; private set; }
         [field: SerializeField] public int BaseEnergyCost { get; private set; }

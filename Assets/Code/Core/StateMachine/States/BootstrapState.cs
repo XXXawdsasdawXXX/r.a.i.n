@@ -1,5 +1,6 @@
 ﻿using Core.AssetManagement;
 using Core.GameLoop;
+using Core.Localization;
 using Core.Libraries.Assets;
 using Core.Libraries.Configs;
 using Core.Libraries.Installers;
@@ -26,6 +27,8 @@ namespace Core.StateMachine
         {
             Container container = await InitializeProjectContext();
 
+            await container.GetService<LocalizationService>().Initialize();
+            container.GetService<SaveService>().Initialize().Forget();
             container.GetService<GameEventDispatcher>().Initialize();
             
             LoadGame(container);
@@ -65,9 +68,6 @@ namespace Core.StateMachine
         private static void LoadGame(Container container)
         {
             SaveService saveService = container.GetService<SaveService>();
-         
-            saveService.Initialize();
-            
             GameModel model = container.GetService<GameModel>();
 
             GameModel loadedModel = saveService.LoadLastGameModel();

@@ -9,6 +9,7 @@
     "com.unity.2d.tilemap.extras": "3.1.3",
     "com.unity.collab-proxy": "2.7.1",
     "com.unity.feature.development": "1.0.1",
+    "com.unity.localization": "1.5.11",
     "com.unity.mathematics": "1.2.6",
     "com.unity.nuget.mono-cecil": "1.11.4",
     "com.unity.nuget.newtonsoft-json": "3.2.1",

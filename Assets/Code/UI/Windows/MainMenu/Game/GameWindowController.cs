@@ -1,4 +1,5 @@
 ﻿using Core.GameLoop;
+using Core.Localization;
 using Core.Network;
 using Core.Save;
 using Core.ServiceLocator;
@@ -22,6 +23,7 @@ namespace UI.Windows.MainMenu.Game
         private GameStateMachine _gameStateMachine;
         private DeleteWindowController _deleteWindow;
         private NewGameWindowController _newGameWindow;
+        private LocalizationService _localization;
 
         
         public override UniTask InitializeWindow(UIWindowManager manager)
@@ -33,6 +35,7 @@ namespace UI.Windows.MainMenu.Game
             _heroWindow = manager.GetWindow<HeroWindowController>();
             _deleteWindow = manager.GetWindow<DeleteWindowController>();
             _newGameWindow = manager.GetWindow<NewGameWindowController>();
+            _localization = Container.Instance.GetService<LocalizationService>();
             
             view.WorldsRadioGroup.Initialize();
             
@@ -41,9 +44,21 @@ namespace UI.Windows.MainMenu.Game
 
         public override void LoadWindow(GameModel model)
         {
-            view.TextUserIP.SetText($"IP: {_connectionHandler.GetHostAddressForClients()}");
-            
+            _refreshIpLabel();
             _updateView();
+        }
+
+        private void _onLocaleChanged()
+        {
+            _refreshIpLabel();
+        }
+
+        private void _refreshIpLabel()
+        {
+            view.TextUserIP.SetText(_localization.Format(
+                LocalizationTables.MainMenu,
+                LocalizationKeys.MainMenu.IpLabel,
+                _connectionHandler.GetHostAddressForClients()));
         }
 
         public override void SubscribeToEvents(bool flag)
@@ -58,6 +73,7 @@ namespace UI.Windows.MainMenu.Game
                 view.ButtonJoin.Clicked += _openJoinWindow;
                 view.TextUserIP.Clicked += _copyIpToBuffer;
                 view.WorldsRadioGroup.Selected += _changeSelectedWorld;
+                _localization.LocaleChanged += _onLocaleChanged;
             }
             else
             {
@@ -68,6 +84,7 @@ namespace UI.Windows.MainMenu.Game
                 view.ButtonJoin.Clicked -= _openJoinWindow;
                 view.TextUserIP.Clicked -= _copyIpToBuffer;
                 view.WorldsRadioGroup.Selected -= _changeSelectedWorld;
+                _localization.LocaleChanged -= _onLocaleChanged;
             }
         }
 

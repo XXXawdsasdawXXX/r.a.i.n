@@ -135,7 +135,7 @@ MonoBehaviour:
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
   m_RegexValue: 
-  m_GlobalPointSize: 14
+  m_GlobalPointSize: 25
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: c3837cf3a50d61e4fb71807b991909a6, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -224,8 +224,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -20, y: -13}
+  m_AnchoredPosition: {x: 0, y: 0.9809}
+  m_SizeDelta: {x: -20, y: -15.9617}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6337435799632019627
 MonoBehaviour:
@@ -329,13 +329,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3948271650349582716, guid: 04e773ece2268964084c711cb3c03112, type: 3}
+      propertyPath: _key
+      value: ui.main_menu.placeholder.enter_text
+      objectReference: {fileID: 0}
+    - target: {fileID: 3948271650349582716, guid: 04e773ece2268964084c711cb3c03112, type: 3}
+      propertyPath: _table
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 4389451258780315301, guid: 04e773ece2268964084c711cb3c03112, type: 3}
       propertyPath: m_text
-      value: enter text...
+      value: "\u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u0442\u0435\u043A\u0441\u0442..."
       objectReference: {fileID: 0}
     - target: {fileID: 4389451258780315301, guid: 04e773ece2268964084c711cb3c03112, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389451258780315301, guid: 04e773ece2268964084c711cb3c03112, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389451258780315301, guid: 04e773ece2268964084c711cb3c03112, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8809576631656040101, guid: 04e773ece2268964084c711cb3c03112, type: 3}
       propertyPath: m_Name
@@ -454,6 +470,22 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u200B"
       objectReference: {fileID: 0}
+    - target: {fileID: 4389451258780315301, guid: 7b934789a1b71b2469d4c5a28e7098fa, type: 3}
+      propertyPath: m_fontSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389451258780315301, guid: 7b934789a1b71b2469d4c5a28e7098fa, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c3837cf3a50d61e4fb71807b991909a6, type: 2}
+    - target: {fileID: 4389451258780315301, guid: 7b934789a1b71b2469d4c5a28e7098fa, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4389451258780315301, guid: 7b934789a1b71b2469d4c5a28e7098fa, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 6078023467649219001, guid: c3837cf3a50d61e4fb71807b991909a6, type: 2}
     - target: {fileID: 4389451258780315301, guid: 7b934789a1b71b2469d4c5a28e7098fa, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4285953654

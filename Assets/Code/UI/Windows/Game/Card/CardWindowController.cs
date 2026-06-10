@@ -1,4 +1,5 @@
-﻿using Core.ServiceLocator;
+﻿using Core.Localization;
+using Core.ServiceLocator;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic;
 using Cysharp.Threading.Tasks;
@@ -25,11 +26,13 @@ namespace UI.Windows.Game.Card
         private CardWindowVisuals _visuals;
         private CardWindowInteractionService _interactionService;
         private CardUnitHoverController _unitHoverController;
+        private LocalizationService _localization;
 
         
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _battleService = Container.Instance.GetService<BattleService>();
+            _localization = Container.Instance.GetService<LocalizationService>();
 
             _visuals = new CardWindowVisuals(
                 _leftHeroView,
@@ -75,6 +78,8 @@ namespace UI.Windows.Game.Card
                     _visuals.CompanionClicked += _onCompanionClicked;
                     _unitHoverController?.Bind(_visuals);
                 }
+
+                _localization.LocaleChanged += _onLocaleChanged;
             }
             else
             {
@@ -94,7 +99,15 @@ namespace UI.Windows.Game.Card
                 }
                 _unitHoverController?.Unbind();
                 _unitHoverController?.Hide();
+                _localization.LocaleChanged -= _onLocaleChanged;
             }
+        }
+
+        private void _onLocaleChanged()
+        {
+            _interactionService?.RefreshLocalization();
+            _interactionService?.RefreshLastCommandMessage();
+            _unitHoverController?.RefreshVisibleTooltip();
         }
 
         public bool TrySelectMoveTarget(string cardId)
@@ -119,6 +132,7 @@ namespace UI.Windows.Game.Card
 
         public void ClearCommandMessage()
         {
+            _interactionService?.ClearLastCommandResult();
             view?.ClearCommandMessage();
         }
 

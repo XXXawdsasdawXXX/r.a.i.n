@@ -59,6 +59,11 @@ namespace UI.Components
             DropDown.value = id;
         }
 
+        public void SetCurrentWithoutNotify(int id)
+        {
+            DropDown.SetValueWithoutNotify(id);
+        }
+
         private void _onChanged(int id)
         {
             Changed?.Invoke(id);

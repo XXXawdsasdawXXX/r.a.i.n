@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2803662898908111643}
   - component: {fileID: 4389451258780315301}
   - component: {fileID: 8657918380033388767}
+  - component: {fileID: 2611047655619058793}
+  - component: {fileID: 3948271650349582716}
   m_Layer: 5
   m_Name: text-
   m_TagString: Untagged
@@ -77,7 +79,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4285953654
   m_fontColor: {r: 0.46274513, g: 0.46274513, b: 0.46274513, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -149,4 +151,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a3a255050745feb29e88b5adaf26db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <AutoSelect>k__BackingField: 0
+  <Index>k__BackingField: 0
+  <IsSelected>k__BackingField: 0
+  <body>k__BackingField: {fileID: 8809576631656040101}
+  _selectableAnimation: {fileID: 0}
   _textMeshPro: {fileID: 4389451258780315301}
+--- !u!114 &2611047655619058793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8809576631656040101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8657918380033388767}
+        m_TargetAssemblyTypeName: UI.Components.UIText, UI
+        m_MethodName: SetText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &3948271650349582716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8809576631656040101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f8e2a17b3d49e6a9051c7d8e2f4a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiText: {fileID: 8657918380033388767}
+  _table: 
+  _key: 
+  _useAutoResolve: 1

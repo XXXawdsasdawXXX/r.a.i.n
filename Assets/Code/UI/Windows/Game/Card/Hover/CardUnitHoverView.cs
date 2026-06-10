@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Core.Localization;
 using CoreGame.Card.Data;
 using DG.Tweening;
 using UI.Components;
@@ -71,6 +72,7 @@ namespace UI.Windows.Game.Card.Hover
 
         private static string _buildUnitHoverInfo(BattleUnit unit)
         {
+            LocalizationService localization = LocalizationService.TryGet();
             StringBuilder builder = new StringBuilder(128);
             int sectionsCount = 0;
 
@@ -78,7 +80,11 @@ namespace UI.Windows.Game.Card.Hover
             bool isTemporary = summonTurnsLeft > 0;
             if (isTemporary)
             {
-                builder.AppendLine("Временный юнит");
+                builder.AppendLine(_getText(
+                    localization,
+                    LocalizationTables.Cards,
+                    LocalizationKeys.Cards.HoverTemporaryUnit,
+                    "Temporary unit"));
                 sectionsCount++;
             }
 
@@ -89,8 +95,12 @@ namespace UI.Windows.Game.Card.Hover
                     builder.AppendLine();
                 }
 
-                builder.Append("Авто-действие: ");
-                builder.Append(_getAutoActionDescription(unit.AutoActionType));
+                builder.Append(_getText(
+                    localization,
+                    LocalizationTables.Cards,
+                    LocalizationKeys.Cards.HoverAutoAction,
+                    "Auto-action: "));
+                builder.Append(_getAutoActionDescription(unit.AutoActionType, localization));
                 if (unit.AutoActionValue > 0f)
                 {
                     builder.Append(" (");
@@ -101,7 +111,7 @@ namespace UI.Windows.Game.Card.Hover
                 sectionsCount++;
             }
 
-            List<string> statusLines = _collectStatusLines(unit.Statuses);
+            List<string> statusLines = _collectStatusLines(unit.Statuses, localization);
             if (statusLines.Count > 0)
             {
                 if (sectionsCount > 0)
@@ -110,7 +120,11 @@ namespace UI.Windows.Game.Card.Hover
                     builder.AppendLine();
                 }
 
-                builder.AppendLine("Эффекты:");
+                builder.AppendLine(_getText(
+                    localization,
+                    LocalizationTables.Cards,
+                    LocalizationKeys.Cards.HoverEffects,
+                    "Effects:"));
                 foreach (string statusLine in statusLines)
                 {
                     builder.Append("- ");
@@ -127,17 +141,36 @@ namespace UI.Windows.Game.Card.Hover
                     builder.AppendLine();
                 }
 
-                builder.Append("Осталось ходов: ");
+                builder.Append(_getText(
+                    localization,
+                    LocalizationTables.Cards,
+                    LocalizationKeys.Cards.HoverTurnsLeft,
+                    "Turns left: "));
                 builder.Append(summonTurnsLeft);
                 sectionsCount++;
             }
 
             if (sectionsCount == 0)
             {
-                return "Нет активных эффектов";
+                return _getText(
+                    localization,
+                    LocalizationTables.Cards,
+                    LocalizationKeys.Cards.HoverNoEffects,
+                    "No active effects");
             }
 
             return builder.ToString();
+        }
+
+        private static string _getText(
+            LocalizationService localization,
+            string table,
+            string key,
+            string fallback)
+        {
+            return localization != null
+                ? localization.Get(table, key, fallback)
+                : fallback;
         }
 
         private static int _getSummonTurnsLeft(BattleUnit unit)
@@ -159,20 +192,36 @@ namespace UI.Windows.Game.Card.Hover
             return 0;
         }
 
-        private static string _getAutoActionDescription(EAutoActionType autoActionType)
+        private static string _getAutoActionDescription(
+            EAutoActionType autoActionType,
+            LocalizationService localization)
         {
             switch (autoActionType)
             {
                 case EAutoActionType.AttackEnemyHero:
-                    return "Атака вражеского героя";
+                    return _getText(
+                        localization,
+                        LocalizationTables.Cards,
+                        LocalizationKeys.Cards.HoverAttackEnemyHero,
+                        "Attack enemy hero");
                 case EAutoActionType.GiveShieldToOwnerHero:
-                    return "Щит союзному герою";
+                    return _getText(
+                        localization,
+                        LocalizationTables.Cards,
+                        LocalizationKeys.Cards.HoverShieldOwner,
+                        "Shield to allied hero");
                 default:
-                    return "Нет";
+                    return _getText(
+                        localization,
+                        LocalizationTables.Cards,
+                        LocalizationKeys.Cards.HoverNone,
+                        "None");
             }
         }
 
-        private static List<string> _collectStatusLines(List<StatusEffect> statuses)
+        private static List<string> _collectStatusLines(
+            List<StatusEffect> statuses,
+            LocalizationService localization)
         {
             List<string> lines = new List<string>();
             if (statuses == null || statuses.Count == 0)
@@ -187,65 +236,81 @@ namespace UI.Windows.Game.Card.Hover
                     continue;
                 }
 
-                StringBuilder line = new StringBuilder();
-                line.Append(_getStatusDisplayName(status.Type));
+                string statusKey = _getStatusKey(status.Type);
+                string fallbackName = status.Type.ToString();
+                string line = localization != null
+                    ? localization.BuildStatusLine(
+                        statusKey,
+                        fallbackName,
+                        status.Value,
+                        status.Duration)
+                    : _buildStatusLineFallback(status, fallbackName);
 
-                bool hasValue = status.Value > 0f;
-                bool hasDuration = status.Duration > 0;
-                if (hasValue || hasDuration)
-                {
-                    line.Append(" (");
-                    if (hasValue)
-                    {
-                        line.Append(Mathf.CeilToInt(status.Value));
-                    }
-
-                    if (hasDuration)
-                    {
-                        if (hasValue)
-                        {
-                            line.Append(", ");
-                        }
-
-                        line.Append(status.Duration);
-                        line.Append(" ход.");
-                    }
-
-                    line.Append(')');
-                }
-
-                lines.Add(line.ToString());
+                lines.Add(line);
             }
 
             return lines;
         }
 
-        private static string _getStatusDisplayName(EStatusType statusType)
+        private static string _buildStatusLineFallback(StatusEffect status, string fallbackName)
+        {
+            StringBuilder line = new StringBuilder();
+            line.Append(fallbackName);
+
+            bool hasValue = status.Value > 0f;
+            bool hasDuration = status.Duration > 0;
+            if (!hasValue && !hasDuration)
+            {
+                return line.ToString();
+            }
+
+            line.Append(" (");
+            if (hasValue)
+            {
+                line.Append(Mathf.CeilToInt(status.Value));
+            }
+
+            if (hasDuration)
+            {
+                if (hasValue)
+                {
+                    line.Append(", ");
+                }
+
+                line.Append(status.Duration);
+                line.Append(" turn.");
+            }
+
+            line.Append(')');
+            return line.ToString();
+        }
+
+        private static string _getStatusKey(EStatusType statusType)
         {
             switch (statusType)
             {
                 case EStatusType.Bleed:
-                    return "Кровотечение";
+                    return "bleed";
                 case EStatusType.Poison:
-                    return "Яд";
+                    return "poison";
                 case EStatusType.Burn:
-                    return "Горение";
+                    return "burn";
                 case EStatusType.Electro:
-                    return "Электро";
+                    return "electro";
                 case EStatusType.Stun:
-                    return "Оглушение";
+                    return "stun";
                 case EStatusType.Weak:
-                    return "Слабость";
+                    return "weak";
                 case EStatusType.Regeneration:
-                    return "Регенерация";
+                    return "regen";
                 case EStatusType.EnergyCostReduction:
-                    return "Снижение стоимости";
+                    return "cost_reduction";
                 case EStatusType.CritBoost:
-                    return "Крит-усиление";
+                    return "crit_boost";
                 case EStatusType.ArmorStance:
-                    return "Стойка брони";
+                    return "armor_stance";
                 default:
-                    return statusType.ToString();
+                    return statusType.ToString().ToLowerInvariant();
             }
         }
 

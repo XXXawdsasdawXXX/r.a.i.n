@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: CoreGame Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: CoreGame
+  m_TableCollectionNameGuidString: 6279e5137471426408a5c7aa76bfbf87
+  m_Entries:
+  - m_Id: 401539072
+    m_Key: ui.core_game.pause.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316288
+    m_Key: ui.core_game.pause.main_menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316289
+    m_Key: ui.core_game.battle_lobby.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316290
+    m_Key: ui.core_game.battle_lobby.status_label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316291
+    m_Key: ui.core_game.battle_lobby.hint_label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316292
+    m_Key: ui.core_game.battle_lobby.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316293
+    m_Key: ui.core_game.battle_lobby.cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316294
+    m_Key: ui.core_game.battle_lobby.status
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316295
+    m_Key: ui.core_game.battle_lobby.ready
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316296
+    m_Key: ui.core_game.battle_lobby.wait_partner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316297
+    m_Key: ui.core_game.battle_lobby.solo_pve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316298
+    m_Key: ui.core_game.battle_lobby.not_enough_pvp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316299
+    m_Key: ui.core_game.battle_lobby.start_current
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316300
+    m_Key: ui.core_game.hud.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316301
+    m_Key: ui.core_game.qa.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316302
+    m_Key: ui.core_game.qa.add_hp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316303
+    m_Key: ui.core_game.qa.remove_hp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316304
+    m_Key: ui.core_game.qa.add_resource
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316305
+    m_Key: ui.core_game.companion.temporary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316306
+    m_Key: ui.core_game.companion.lifetime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316307
+    m_Key: ui.core_game.companion.cards_per_turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 418316308
+    m_Key: ui.core_game.pause.language
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 317526009535791201
+  references:
+    version: 2
+    RefIds:
+    - rid: 317526009535791201
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1781123280303

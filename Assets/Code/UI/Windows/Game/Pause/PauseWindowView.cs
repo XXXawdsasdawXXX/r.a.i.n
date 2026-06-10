@@ -8,5 +8,6 @@ namespace UI.Windows.Game.Pause
     {
         [field: SerializeField] public UISlider SliderMusic { get; private set; }
         [field: SerializeField] public UISlider SliderSFX { get; private set; }
+        [field: SerializeField] public UIDropDown LanguageDropDown { get; private set; }
     }
 }

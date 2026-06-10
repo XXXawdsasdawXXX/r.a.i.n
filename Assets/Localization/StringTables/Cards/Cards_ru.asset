@@ -1,0 +1,311 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Cards_ru
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: ru
+  m_SharedData: {fileID: 11400000, guid: 9be185836fc09864aa7d1cc8bdf8a47c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 401539072
+    m_Localized: Удар с руки
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510592
+    m_Localized: Наносит сильный одиночный удар по врагу.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510593
+    m_Localized: Восстановление
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510594
+    m_Localized: Лечит всех героев
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510595
+    m_Localized: Рваная рана
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510596
+    m_Localized: Наносит урон и вешает кровотечение на несколько ходов.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510597
+    m_Localized: Прорыв
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510598
+    m_Localized: Добирает карты
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510599
+    m_Localized: Защита
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510600
+    m_Localized: Даёт герою дополнительную броню до конца боя.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510601
+    m_Localized: Осколки
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510602
+    m_Localized: Атакует всех врагов сразу; хороша против связок со спутниками.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510603
+    m_Localized: Прилив энергии
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510604
+    m_Localized: Восстанавливает энергию; чтобы разыграть ещё одну карту в ход.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510605
+    m_Localized: Смена линии
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510606
+    m_Localized: Меняет клетку цели
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510607
+    m_Localized: Живительность
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510608
+    m_Localized: Даёт эффект регенерации; вылечивает в конце 2х ходов.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510609
+    m_Localized: Контузия
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510610
+    m_Localized: Наносит урон и оглушает цель на следующий ход.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510611
+    m_Localized: Призыв компаньона
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510612
+    m_Localized: Призывает компаньона; который атакует и поддерживает вас каждый ход.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510613
+    m_Localized: Атака компаньона
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510614
+    m_Localized: Базовая атака призванного компаньона.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510615
+    m_Localized: privet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510616
+    m_Localized: Button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510617
+    m_Localized: Label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510618
+    m_Localized: Label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510619
+    m_Localized: Card type flag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510620
+    m_Localized: Card type flag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510621
+    m_Localized: Card type flag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510622
+    m_Localized: Card type flag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510623
+    m_Localized: Card type flag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510624
+    m_Localized: Card type flag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510625
+    m_Localized: Card type flag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510626
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510627
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510628
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510629
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510630
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510631
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510632
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510633
+    m_Localized: 
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510634
+    m_Localized: Duration suffix
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510635
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510636
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510637
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510638
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482112
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482113
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482114
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482115
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482116
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482117
+    m_Localized: Status effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482118
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482119
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482120
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482121
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482122
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482123
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482124
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482125
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482126
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482127
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482128
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482129
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482130
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482131
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482132
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482133
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482134
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482135
+    m_Localized: Battle command feedback
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

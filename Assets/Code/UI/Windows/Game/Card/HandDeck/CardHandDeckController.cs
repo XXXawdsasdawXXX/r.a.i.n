@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Core.Localization;
 using Core.Network;
 using Core.ServiceLocator;
 using CoreGame.Card.Data;
@@ -16,6 +17,7 @@ namespace UI.Windows.Game.Card.HandDeck
         private UserProvider _userProvider;
         private BattleService _battleService;
         private BattleModel _battleModel;
+        private LocalizationService _localization;
         
         [SerializeField] private CardWindowController _cardWindowController;
 
@@ -24,6 +26,7 @@ namespace UI.Windows.Game.Card.HandDeck
         {
             _userProvider = Container.Instance.GetService<UserProvider>();
             _battleService = Container.Instance.GetService<BattleService>();
+            _localization = Container.Instance.GetService<LocalizationService>();
             
             view.InitializePool();
             
@@ -39,13 +42,21 @@ namespace UI.Windows.Game.Card.HandDeck
                 _battleService.BattleStarted += _onBattleUpdated;
                 _battleService.TurnStarted += _onBattleUpdated;
                 _battleService.CardPlayed += _onBattleUpdated;
+                _localization.LocaleChanged += _onLocaleChanged;
             }
             else
             {
                 _battleService.BattleStarted -= _onBattleUpdated;
                 _battleService.TurnStarted -= _onBattleUpdated;
                 _battleService.CardPlayed -= _onBattleUpdated;
+                _localization.LocaleChanged -= _onLocaleChanged;
             }
+        }
+
+        private void _onLocaleChanged()
+        {
+            _refreshHand();
+            _refreshLastCommandMessage();
         }
 
         private void _onBattleUpdated(BattleModel battleModel)
@@ -112,6 +123,7 @@ namespace UI.Windows.Game.Card.HandDeck
             }
 
             _cardWindowController?.ClearCommandMessage();
+            _clearCommandError();
             if (_isMoveCard(card) && _cardWindowController != null)
             {
                 if (_cardWindowController.TrySelectMoveTarget(cardId))
@@ -144,9 +156,27 @@ namespace UI.Windows.Game.Card.HandDeck
             _refreshHand();
         }
 
+        private CommandResult? _lastCommandResult;
+
+        private void _clearCommandError()
+        {
+            _lastCommandResult = null;
+        }
+
         private void _showCommandError(CommandResult result)
         {
+            _lastCommandResult = result;
             _cardWindowController?.ShowCommandMessage(CommandResultText.ToDebugText(result));
+        }
+
+        private void _refreshLastCommandMessage()
+        {
+            if (_lastCommandResult == null)
+            {
+                return;
+            }
+
+            _showCommandError(_lastCommandResult.Value);
         }
 
         private static BattleSide _getMySide(BattleModel battle, string playerId)

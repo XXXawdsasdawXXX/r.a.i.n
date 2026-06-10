@@ -1,0 +1,316 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Cards Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Cards
+  m_TableCollectionNameGuidString: 9be185836fc09864aa7d1cc8bdf8a47c
+  m_Entries:
+  - m_Id: 401539072
+    m_Key: card.attack_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510592
+    m_Key: card.attack_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510593
+    m_Key: card.heal_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510594
+    m_Key: card.heal_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510595
+    m_Key: card.bleed_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510596
+    m_Key: card.bleed_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510597
+    m_Key: card.draw_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510598
+    m_Key: card.draw_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510599
+    m_Key: card.armor_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510600
+    m_Key: card.armor_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510601
+    m_Key: card.aoe_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510602
+    m_Key: card.aoe_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510603
+    m_Key: card.energy_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510604
+    m_Key: card.energy_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510605
+    m_Key: card.move_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510606
+    m_Key: card.move_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510607
+    m_Key: card.regen_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510608
+    m_Key: card.regen_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510609
+    m_Key: card.stun_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510610
+    m_Key: card.stun_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510611
+    m_Key: card.companion_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510612
+    m_Key: card.companion_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510613
+    m_Key: card.companion_0_attack_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510614
+    m_Key: card.companion_0_attack_0.description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510615
+    m_Key: companion.companion_0.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510616
+    m_Key: ui.cards.battle.end_step
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510617
+    m_Key: ui.cards.battle.time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510618
+    m_Key: ui.cards.battle.step
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510619
+    m_Key: ui.cards.type.attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510620
+    m_Key: ui.cards.type.spell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510621
+    m_Key: ui.cards.type.armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510622
+    m_Key: ui.cards.type.summon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510623
+    m_Key: ui.cards.type.buff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510624
+    m_Key: ui.cards.type.debuff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510625
+    m_Key: ui.cards.type.parasite
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510626
+    m_Key: ui.cards.hover.temporary_unit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510627
+    m_Key: ui.cards.hover.auto_action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510628
+    m_Key: ui.cards.hover.effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510629
+    m_Key: ui.cards.hover.turns_left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510630
+    m_Key: ui.cards.hover.no_effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510631
+    m_Key: ui.cards.hover.attack_enemy_hero
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510632
+    m_Key: ui.cards.hover.shield_owner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510633
+    m_Key: ui.cards.hover.none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510634
+    m_Key: ui.cards.hover.turn_short
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510635
+    m_Key: ui.cards.status.bleed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510636
+    m_Key: ui.cards.status.poison
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510637
+    m_Key: ui.cards.status.burn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 422510638
+    m_Key: ui.cards.status.electro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482112
+    m_Key: ui.cards.status.stun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482113
+    m_Key: ui.cards.status.weak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482114
+    m_Key: ui.cards.status.regen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482115
+    m_Key: ui.cards.status.cost_reduction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482116
+    m_Key: ui.cards.status.crit_boost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482117
+    m_Key: ui.cards.status.armor_stance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482118
+    m_Key: ui.cards.command.success
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482119
+    m_Key: ui.cards.command.invalid_state
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482120
+    m_Key: ui.cards.command.invalid_phase
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482121
+    m_Key: ui.cards.command.unit_not_found
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482122
+    m_Key: ui.cards.command.not_your_side
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482123
+    m_Key: ui.cards.command.invalid_cell
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482124
+    m_Key: ui.cards.command.target_occupied
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482125
+    m_Key: ui.cards.command.card_not_found
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482126
+    m_Key: ui.cards.command.cannot_play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482127
+    m_Key: ui.cards.command.no_move_effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482128
+    m_Key: ui.cards.command.apply_rejected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482129
+    m_Key: ui.cards.command.target_invalid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482130
+    m_Key: ui.cards.command.move_rejected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482131
+    m_Key: ui.cards.command.move_failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482132
+    m_Key: ui.cards.command.not_enough_energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482133
+    m_Key: ui.cards.command.unit_stunned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482134
+    m_Key: ui.cards.command.armor_blocked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 443482135
+    m_Key: ui.cards.command.unknown
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 317526009535791202
+  references:
+    version: 2
+    RefIds:
+    - rid: 317526009535791202
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1781123280569

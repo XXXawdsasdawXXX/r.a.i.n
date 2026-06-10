@@ -7,8 +7,6 @@ namespace CoreGame.Card.Data
     [CreateAssetMenu(fileName = "Companion_", menuName = "Game/Battle/Companion")]
     public class CompanionConfiguration : ScriptableObject
     {
-        [field: SerializeField] public string Name { get; private set; }
-        
         [field: SerializeField] public int Health { get; private set; }
         
         [field: SerializeField] public int Armor { get; private set; }

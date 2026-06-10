@@ -18,6 +18,7 @@ namespace UI.Windows.Game.Card
         private readonly CardWindowTargetingRules _targetingRules;
 
         private BattleModel _battleModel;
+        private CommandResult? _lastCommandResult;
 
         public CardWindowInteractionService(
             CardWindowVisuals visuals,
@@ -40,6 +41,16 @@ namespace UI.Windows.Game.Card
             _visuals?.UpdateUnits(battleModel);
             _visuals?.UpdateAnchors(battleModel);
             _visuals?.RefreshOccupiedCells(battleModel);
+        }
+
+        public void RefreshLocalization()
+        {
+            if (_battleModel == null)
+            {
+                return;
+            }
+
+            SetBattleModel(_battleModel);
         }
 
         public void ResetSelections()
@@ -427,8 +438,24 @@ namespace UI.Windows.Game.Card
             return BattleParticipantHelper.IsAllySide(_battleModel, mySide, targetSide);
         }
 
+        public void RefreshLastCommandMessage()
+        {
+            if (_lastCommandResult == null)
+            {
+                return;
+            }
+
+            _showCommandError(_lastCommandResult.Value);
+        }
+
+        public void ClearLastCommandResult()
+        {
+            _lastCommandResult = null;
+        }
+
         private void _showCommandError(CommandResult result)
         {
+            _lastCommandResult = result;
             _showCommandMessage?.Invoke(CommandResultText.ToDebugText(result));
         }
     }

@@ -37,10 +37,8 @@ namespace UI.Windows.Game.Card.HandDeck
                 {
                     Id = cardBattleState.Config.Id,
                     InstanceId = cardBattleState.InstanceId,
-                    Name = cardBattleState.Config.Name,
                     Type = cardBattleState.Config.Type,
                     Icon = cardBattleState.Config.Icon,
-                    Description = cardBattleState.Config.Description,
                     EnergyPrice = cardBattleState.GetEnergyCost(_heroStats),
                     CurrentCharge = cardBattleState.ChargesLeft,
                     MaxCharge = cardBattleState.Config.Charges

@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using Core.Localization;
 using CoreGame.Card.Data;
 using UI.Components;
 using UI.Windows.Base;
@@ -237,8 +238,11 @@ namespace UI.Windows.Game.Card.Unit
                 .FirstOrDefault(status => status.Type == EStatusType.SummonDuration)?.Duration ?? 0;
             bool isTemporary = turnsLeft > 0;
 
-            string lifeText = isTemporary ? $"Temporary: {turnsLeft} turn(s)" : "Lifetime: until death";
-            _companionInfo.SetText($"{lifeText} | Cards/turn: {Mathf.Max(0, unit.CompanionCardsPerTurn)}");
+            LocalizationService localization = LocalizationService.TryGet();
+            string companionInfo = localization != null
+                ? localization.BuildCompanionInfo(isTemporary, turnsLeft, Mathf.Max(0, unit.CompanionCardsPerTurn))
+                : $"{(isTemporary ? $"Temporary: {turnsLeft} turn(s)" : "Lifetime: until death")} | Cards/turn: {Mathf.Max(0, unit.CompanionCardsPerTurn)}";
+            _companionInfo.SetText(companionInfo);
             _companionInfo.gameObject.SetActive(true);
         }
         

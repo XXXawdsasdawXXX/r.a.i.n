@@ -1,3 +1,4 @@
+using Core.Localization;
 using Core.ServiceLocator;
 using CoreGame.Card.Logic;
 using CoreGame.Card.Logic.Network;
@@ -10,10 +11,13 @@ namespace UI.Windows.Game.BattleLobby
     public class BattleLobbyWindowController : UIWindowController<BattleLobbyWindowView>
     {
         private NetworkBattleService _networkBattleService;
+        private LocalizationService _localization;
+        private BattleLobbyState _lastLobbyState;
 
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _networkBattleService = Container.Instance.GetService<NetworkBattleService>();
+            _localization = Container.Instance.GetService<LocalizationService>();
             view.Close();
             return base.InitializeWindow(manager);
         }
@@ -31,12 +35,20 @@ namespace UI.Windows.Game.BattleLobby
                 _networkBattleService.LobbyStateChanged += _onLobbyStateChanged;
                 view.ButtonCancel.Clicked += _onCancelClicked;
                 view.ButtonStart.Clicked += _onStartClicked;
+                if (_localization != null)
+                {
+                    _localization.LocaleChanged += _onLocaleChanged;
+                }
             }
             else
             {
                 _networkBattleService.LobbyStateChanged -= _onLobbyStateChanged;
                 view.ButtonCancel.Clicked -= _onCancelClicked;
                 view.ButtonStart.Clicked -= _onStartClicked;
+                if (_localization != null)
+                {
+                    _localization.LocaleChanged -= _onLocaleChanged;
+                }
             }
         }
 
@@ -49,17 +61,34 @@ namespace UI.Windows.Game.BattleLobby
 
             if (!state.IsOpen)
             {
+                _lastLobbyState = default;
                 Close();
                 return;
             }
 
-            view.TextStatus.SetText(state.GetStatusText());
-            view.TextHint.SetText(state.GetHintText());
+            _lastLobbyState = state;
+            _applyLobbyTexts(state);
 
             view.ButtonStart.gameObject.SetActive(state.IsHost);
             view.ButtonStart.SetInteractable(state.CanStart);
 
             Open();
+        }
+
+        private void _onLocaleChanged()
+        {
+            if (!_lastLobbyState.IsOpen)
+            {
+                return;
+            }
+
+            _applyLobbyTexts(_lastLobbyState);
+        }
+
+        private void _applyLobbyTexts(BattleLobbyState state)
+        {
+            view.TextStatus.SetText(state.GetStatusText(_localization));
+            view.TextHint.SetText(state.GetHintText(_localization));
         }
 
         private void _onCancelClicked()

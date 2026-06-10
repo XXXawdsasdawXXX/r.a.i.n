@@ -1,7 +1,7 @@
 ﻿using System;
+using Core.Localization;
 using CoreGame.Card.Data;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,9 +17,7 @@ namespace UI.Windows.Game.Card
             public string Id;
             /// <summary>Уникальный экземпляр в бою; для <see cref="CardPlayRules.FindCardInHand"/> при дубликатах Id.</summary>
             public string InstanceId;
-            public string Name;
             public ECardType Type;
-            public string Description;
             public int EnergyPrice;
             public int CurrentCharge;
             public int MaxCharge;
@@ -38,8 +36,6 @@ namespace UI.Windows.Game.Card
         [SerializeField] private UIText _textCharge;
         [SerializeField] private Image _image;
 
-
-        
         public override void SetInteractable(bool isInteractable)
         {
             _image.raycastTarget = isInteractable;
@@ -48,13 +44,29 @@ namespace UI.Windows.Game.Card
         public void SetModel(Model model)
         {
             CurrentModel = model;
-            
-            _textName.SetText(model.Name);
-            _textType.SetText(model.Type.ToString());
+
+            LocalizationService localization = LocalizationService.TryGet();
+            string cardName = localization != null
+                ? localization.GetCardName(model.Id)
+                : model.Id;
+            string cardDescription = localization != null
+                ? localization.GetCardDescription(model.Id)
+                : string.Empty;
+            string cardType = localization != null
+                ? localization.GetCardTypeDisplayName(model.Type)
+                : model.Type.ToString();
+
+            _textName.SetText(cardName);
+            _textType.SetText(cardType);
             _textEnergyPrice.SetText(model.EnergyPrice.ToString());
-            _textDescription.SetText(model.Description);
+            _textDescription.SetText(cardDescription);
             _textCharge.SetText($"{model.CurrentCharge}/{model.MaxCharge}");
             _image.sprite = model.Icon;
+        }
+
+        public void RefreshLocalizedText()
+        {
+            SetModel(CurrentModel);
         }
 
         public void UpdateViewFromConfig(CardConfiguration config)
@@ -68,27 +80,23 @@ namespace UI.Windows.Game.Card
             {
                 Id = config.Id,
                 InstanceId = config.Id,
-                Name = config.Name,
                 Type = config.Type,
-                Description = config.Description,
                 EnergyPrice = config.BaseEnergyCost,
                 CurrentCharge = config.Charges,
-                MaxCharge = config.Charges
+                MaxCharge = config.Charges,
+                Icon = config.Icon
             });
         }
 
         protected override void onClick()
         {
             base.onClick();
-            
             CardClicked?.Invoke(CurrentModel.InstanceId);
-            
         }
 
         public override void Disable()
         {
             base.Disable();
-
             CardClicked = null;
         }
 

@@ -2,6 +2,7 @@ using System;
 using Core.Audio;
 using Core.GameLoop;
 using Core.Input;
+using Core.Localization;
 using Core.Network;
 using Core.Save;
 using Core.Scenes;
@@ -27,6 +28,7 @@ namespace Core.Installers
                 typeof(AudioService),
                 typeof(AudioGlobalVolume),
                 typeof(InputManager),
+                typeof(LocalizationService),
             };
         }
     }

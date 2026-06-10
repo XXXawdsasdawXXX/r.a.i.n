@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2803662898908111643}
   - component: {fileID: 4389451258780315301}
   - component: {fileID: 8657918380033388767}
+  - component: {fileID: 3948271650349582716}
   m_Layer: 5
   m_Name: text_small-
   m_TagString: Untagged
@@ -154,3 +155,19 @@ MonoBehaviour:
   <body>k__BackingField: {fileID: 8809576631656040101}
   _selectableAnimation: {fileID: 0}
   _textMeshPro: {fileID: 4389451258780315301}
+--- !u!114 &3948271650349582716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8809576631656040101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f8e2a17b3d49e6a9051c7d8e2f4a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiText: {fileID: 8657918380033388767}
+  _table: 
+  _key: 
+  _useAutoResolve: 1
