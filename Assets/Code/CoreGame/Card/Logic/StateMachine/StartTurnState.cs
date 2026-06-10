@@ -42,6 +42,16 @@ namespace CoreGame.Card.Logic.StateMachine
                 _startCompanionTurn(companion);
             }
 
+            if (_machine.Model.EnemySide != null)
+            {
+                _startTurn(_machine.Model.EnemySide.Hero);
+
+                foreach (BattleUnit companion in _machine.Model.EnemySide.Companions)
+                {
+                    _startCompanionTurn(companion);
+                }
+            }
+
             _machine.SwitchState(typeof(FirstSideTurnState));
             return UniTask.CompletedTask;
         }
@@ -64,6 +74,7 @@ namespace CoreGame.Card.Logic.StateMachine
 
                 _machine.Model.SideA.EnsureMandatoryCard(legacyMoveCard, _machine.Model.SideA.Hero.UnitId);
                 _machine.Model.SideB.EnsureMandatoryCard(legacyMoveCard, _machine.Model.SideB.Hero.UnitId);
+                _machine.Model.EnemySide?.EnsureMandatoryCard(legacyMoveCard, _machine.Model.EnemySide.Hero.UnitId);
                 return;
             }
 
@@ -77,6 +88,7 @@ namespace CoreGame.Card.Logic.StateMachine
 
                 _machine.Model.SideA.EnsureMandatoryCard(card, _machine.Model.SideA.Hero.UnitId);
                 _machine.Model.SideB.EnsureMandatoryCard(card, _machine.Model.SideB.Hero.UnitId);
+                _machine.Model.EnemySide?.EnsureMandatoryCard(card, _machine.Model.EnemySide.Hero.UnitId);
             }
         }
 

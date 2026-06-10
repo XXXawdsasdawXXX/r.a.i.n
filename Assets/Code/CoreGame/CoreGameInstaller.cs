@@ -31,7 +31,8 @@ namespace CoreGame
                 typeof(ResourceStorage),
                 //cards
                 typeof(BattleService),
-                typeof(BattleStateMachine)
+                typeof(BattleStateMachine),
+                typeof(NetworkBattleService)
             };
         }
     }

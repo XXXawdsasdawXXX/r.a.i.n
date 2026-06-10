@@ -1,6 +1,8 @@
-﻿using Core.ServiceLocator;
+﻿using Core.Network;
+using Core.ServiceLocator;
 using CoreGame.Card.Data;
 using CoreGame.Card.Logic;
+using CoreGame.Entities.Characters.Hero;
 using Cysharp.Threading.Tasks;
 using UI.Windows.Base;
 
@@ -9,11 +11,13 @@ namespace UI.Windows.Game.Card.Turn
     public class CardStepController : UIWindowController<CardStepView>
     {
         private BattleService _battleService;
+        private UserProvider _userProvider;
 
         
         public override UniTask InitializeWindow(UIWindowManager manager)
         {
             _battleService = Container.Instance.GetService<BattleService>();
+            _userProvider = Container.Instance.GetService<UserProvider>();
             
             return base.InitializeWindow(manager);
         }
@@ -50,14 +54,25 @@ namespace UI.Windows.Game.Card.Turn
 
         private void _endStep()
         {
-            CommandResult result = _battleService.EndTurnWithResult();
+            _battleService.EndTurnWithResult(_getLocalHeroId());
         }
 
         private void _updateTurn(BattleModel model)
         {
             view.SetStep(model.TurnNumber.ToString());
-            bool isMyTurn = model != null && model.Phase != null && model.Phase.Value == EBattlePhase.FirstSideTurn;
+            bool isMyTurn = BattleParticipantHelper.IsMyTurn(model, _getLocalHeroId());
             view.SetEndStepVisible(isMyTurn);
+        }
+
+        private string _getLocalHeroId()
+        {
+            if (!string.IsNullOrEmpty(_userProvider.Id))
+            {
+                return _userProvider.Id;
+            }
+
+            Hero hero = _userProvider.GetHeroComponent<Hero>();
+            return hero?.Model?.HeroId;
         }
     }
 }

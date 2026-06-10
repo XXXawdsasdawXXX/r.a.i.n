@@ -26,14 +26,14 @@ namespace CoreGame.Card.Logic.StateMachine
 
         public UniTask Enter()
         {
-            _processAutoActions(_machine.Model.SideA, _machine.Model.SideB);
-            _processAutoActions(_machine.Model.SideB, _machine.Model.SideA);
-
-            _processCompanions(_machine.Model.SideA);
-            _processCompanions(_machine.Model.SideB);
-            
-            _processStatuses(_machine.Model.SideA);
-            _processStatuses(_machine.Model.SideB);
+            if (_machine.Model.IsCoOp)
+            {
+                _processCoOpResolution();
+            }
+            else
+            {
+                _processDuelResolution();
+            }
 
             if (_isBattleFinished())
             {
@@ -52,8 +52,60 @@ namespace CoreGame.Card.Logic.StateMachine
             return UniTask.CompletedTask;
         }
 
+        private void _processDuelResolution()
+        {
+            _processAutoActions(_machine.Model.SideA, _machine.Model.SideB);
+            _processAutoActions(_machine.Model.SideB, _machine.Model.SideA);
+
+            _processCompanions(_machine.Model.SideA);
+            _processCompanions(_machine.Model.SideB);
+            
+            _processStatuses(_machine.Model.SideA);
+            _processStatuses(_machine.Model.SideB);
+        }
+
+        private void _processCoOpResolution()
+        {
+            BattleSide enemySide = _machine.Model.EnemySide;
+
+            _processAutoActions(_machine.Model.SideA, enemySide);
+            _processAutoActions(_machine.Model.SideB, enemySide);
+            _processAutoActions(enemySide, _pickCoOpTarget(enemySide));
+
+            _processCompanions(_machine.Model.SideA);
+            _processCompanions(_machine.Model.SideB);
+            _processCompanions(enemySide);
+            
+            _processStatuses(_machine.Model.SideA);
+            _processStatuses(_machine.Model.SideB);
+            _processStatuses(enemySide);
+        }
+
+        private BattleSide _pickCoOpTarget(BattleSide enemySide)
+        {
+            bool sideADead = _machine.Model.SideA?.Hero == null || _machine.Model.SideA.Hero.HP <= 0;
+            bool sideBDead = _machine.Model.SideB?.Hero == null || _machine.Model.SideB.Hero.HP <= 0;
+
+            if (sideADead && !sideBDead)
+            {
+                return _machine.Model.SideB;
+            }
+
+            if (sideBDead && !sideADead)
+            {
+                return _machine.Model.SideA;
+            }
+
+            return _machine.Model.TurnNumber % 2 == 0 ? _machine.Model.SideA : _machine.Model.SideB;
+        }
+
         private static void _processAutoActions(BattleSide side, BattleSide enemySide)
         {
+            if (side == null || enemySide?.Hero == null)
+            {
+                return;
+            }
+
             foreach (BattleUnit unit in side.GetAllUnits())
             {
                 if (unit == null || unit.HP <= 0)
@@ -136,6 +188,11 @@ namespace CoreGame.Card.Logic.StateMachine
         
         private void _processStatuses(BattleSide side)
         {
+            if (side == null)
+            {
+                return;
+            }
+
             foreach (BattleUnit unit in side.GetAllUnits())
             {
                 _machine.Processor.TickStatuses(unit, _machine.Model);
@@ -146,7 +203,6 @@ namespace CoreGame.Card.Logic.StateMachine
                 .Select(c => c.UnitId)
                 .ToList();
 
-            //todo тоже вот нужно какой то фитбек во вьюху дать
             side.Companions.RemoveAll(_shouldRemoveCompanion);
             _removeCompanionCards(side, removedCompanionIds);
         }
@@ -181,9 +237,17 @@ namespace CoreGame.Card.Logic.StateMachine
         
         private bool _isBattleFinished()
         {
-            bool sideADead = _machine.Model.SideA.Hero.HP <= 0;
-            bool sideBDead = _machine.Model.SideB.Hero.HP <= 0;
-            return sideADead || sideBDead;
+            if (_machine.Model.IsCoOp)
+            {
+                bool enemyDead = _machine.Model.EnemySide?.Hero == null || _machine.Model.EnemySide.Hero.HP <= 0;
+                bool sideADead = _machine.Model.SideA?.Hero == null || _machine.Model.SideA.Hero.HP <= 0;
+                bool sideBDead = _machine.Model.SideB?.Hero == null || _machine.Model.SideB.Hero.HP <= 0;
+                return enemyDead || (sideADead && sideBDead);
+            }
+
+            bool sideADeadNormal = _machine.Model.SideA.Hero.HP <= 0;
+            bool sideBDeadNormal = _machine.Model.SideB.Hero.HP <= 0;
+            return sideADeadNormal || sideBDeadNormal;
         }
 
         private static List<EEffectType> _collectEffectTypes(CardBattleState card)

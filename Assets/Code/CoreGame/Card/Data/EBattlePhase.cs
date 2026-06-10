@@ -7,6 +7,7 @@
         StartTurn,
         FirstSideTurn,
         SecondSideTurn,
+        EnemyTurn,
         Resolution,
         Finished,
     }

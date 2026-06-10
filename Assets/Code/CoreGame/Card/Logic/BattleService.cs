@@ -5,6 +5,7 @@ using Core.GameLoop;
 using Core.Save;
 using Core.ServiceLocator;
 using CoreGame.Card.Data;
+using CoreGame.Card.Logic.Network;
 using CoreGame.Card.Logic.StateMachine;
 using Cysharp.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace CoreGame.Card.Logic
         public event Action<BattleCardPlayedEvent> CardPlayedDetailed;
         
         private BattleStateMachine _machine;
+        private NetworkBattleService _networkBattle;
 
         private readonly List<HeroModel> _battleHeroes = new List<HeroModel>();
 
@@ -27,6 +29,7 @@ namespace CoreGame.Card.Logic
         public UniTask Initialize()
         {
             _machine = Container.Instance.GetService<BattleStateMachine>();
+            _networkBattle = Container.Instance.GetService<NetworkBattleService>();
             _machine.CardPlayedFromStateMachine += _onCardPlayedFromStateMachine;
             
             return UniTask.CompletedTask;
@@ -39,19 +42,126 @@ namespace CoreGame.Card.Logic
             EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal,
             EnemyDeckProfile enemyDeckProfile = null)
         {
+            StartBattleInternal(attacker, defender, mode, enemyDifficulty, enemyDeckProfile);
+        }
+
+        public void StartCoOpBattle(
+            HeroModel playerOne,
+            HeroModel playerTwo,
+            HeroModel aiEnemy,
+            EEnemyAIDifficulty enemyDifficulty = EEnemyAIDifficulty.Normal,
+            EnemyDeckProfile enemyDeckProfile = null)
+        {
+            _battleHeroes.Clear();
+            _battleHeroes.Add(playerOne);
+            _battleHeroes.Add(playerTwo);
+            playerOne.InBattle = true;
+            playerTwo.InBattle = true;
+
+            _machine.StartCoOpBattle(playerOne, playerTwo, aiEnemy, enemyDifficulty, enemyDeckProfile);
+            _subscribeBattle();
+        }
+
+        internal void StartBattleInternal(
+            HeroModel attacker,
+            HeroModel defender,
+            EBattleMode mode,
+            EEnemyAIDifficulty enemyDifficulty,
+            EnemyDeckProfile enemyDeckProfile,
+            string attackerUnitId = null,
+            string defenderUnitId = null)
+        {
+            _battleHeroes.Clear();
             _battleHeroes.Add(attacker); 
             _battleHeroes.Add(defender); 
             attacker.InBattle = true;
             defender.InBattle = true;
             
-            _machine.StartBattle(attacker, defender, mode, enemyDifficulty, enemyDeckProfile);
-            _machine.Model.Phase.SubscribeProperty(_onPhaseChanged);
-            
-            BattleStarted?.Invoke(_machine.Model);
-       
+            _machine.StartBattle(attacker, defender, mode, enemyDifficulty, enemyDeckProfile, attackerUnitId, defenderUnitId);
+            _subscribeBattle();
         }
 
-        public CommandResult TryPlayCardWithResult(string cardId, string targetId)
+        internal void StartCoOpBattleInternal(
+            HeroModel playerOne,
+            HeroModel playerTwo,
+            HeroModel aiEnemy,
+            EEnemyAIDifficulty enemyDifficulty,
+            EnemyDeckProfile enemyDeckProfile,
+            string playerOneUnitId,
+            string playerTwoUnitId)
+        {
+            _battleHeroes.Clear();
+            _battleHeroes.Add(playerOne);
+            _battleHeroes.Add(playerTwo);
+            playerOne.InBattle = true;
+            playerTwo.InBattle = true;
+
+            _machine.StartCoOpBattle(
+                playerOne,
+                playerTwo,
+                aiEnemy,
+                enemyDifficulty,
+                enemyDeckProfile,
+                playerOneUnitId,
+                playerTwoUnitId);
+            _subscribeBattle();
+        }
+
+        private void _subscribeBattle()
+        {
+            _machine.Model.Phase.SubscribeProperty(_onPhaseChanged);
+            BattleStarted?.Invoke(_machine.Model);
+            _networkBattle?.SyncFromServer(isBattleStarted: true);
+        }
+
+        public void ApplyNetworkSnapshot(BattleModel model, BattleStateSyncBroadcast flags)
+        {
+            if (model == null)
+            {
+                return;
+            }
+
+            bool isInitial = !_machine.HasActiveBattle;
+            _machine.ApplyRemoteSnapshot(model);
+
+            if (flags.IsBattleStarted && isInitial)
+            {
+                BattleStarted?.Invoke(_machine.Model);
+            }
+
+            if (flags.IsTurnStarted)
+            {
+                TurnStarted?.Invoke(_machine.Model);
+            }
+
+            if (flags.IsCardPlayed)
+            {
+                CardPlayed?.Invoke(_machine.Model);
+            }
+
+            if (flags.IsBattleFinished)
+            {
+                BattleFinished?.Invoke(_machine.Model);
+                _machine.ClearRemoteBattle();
+            }
+        }
+
+        public void NotifyHandUpdated()
+        {
+            CardPlayed?.Invoke(_machine.Model);
+        }
+
+        public CommandResult TryPlayCardWithResult(string cardId, string targetId, string requesterUnitId = null)
+        {
+            if (_networkBattle != null && _networkBattle.IsRemoteClient)
+            {
+                return _networkBattle.SendPlayCard(cardId, targetId, requesterUnitId);
+            }
+
+            return _tryPlayCardLocal(cardId, targetId);
+        }
+
+        private CommandResult _tryPlayCardLocal(string cardId, string targetId)
         {
             if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
             {
@@ -94,10 +204,21 @@ namespace CoreGame.Card.Logic
             });
             CardPlayed?.Invoke(_machine.Model);
             _tryFinishBattleAfterAction();
+            _networkBattle?.SyncFromServer(isCardPlayed: true);
             return CommandResult.Success;
         }
         
-        public CommandResult TryPlayMoveCardToCellWithResult(string cardId, string unitId, EBattleLine line, int cellIndex)
+        public CommandResult TryPlayMoveCardToCellWithResult(string cardId, string unitId, EBattleLine line, int cellIndex, string requesterUnitId = null)
+        {
+            if (_networkBattle != null && _networkBattle.IsRemoteClient)
+            {
+                return _networkBattle.SendMoveToCell(cardId, unitId, line, cellIndex, requesterUnitId);
+            }
+
+            return _tryPlayMoveCardLocal(cardId, unitId, line, cellIndex);
+        }
+
+        private CommandResult _tryPlayMoveCardLocal(string cardId, string unitId, EBattleLine line, int cellIndex)
         {
             if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
             {
@@ -171,12 +292,23 @@ namespace CoreGame.Card.Logic
                 });
                 CardPlayed?.Invoke(_machine.Model);
                 _tryFinishBattleAfterAction();
+                _networkBattle?.SyncFromServer(isCardPlayed: true);
             }
 
             return moved ? CommandResult.Success : CommandResult.MoveApplyFailed;
         }
         
-        public CommandResult TryPlaySummonCardToCellWithResult(string cardId, EBattleLine line, int cellIndex)
+        public CommandResult TryPlaySummonCardToCellWithResult(string cardId, EBattleLine line, int cellIndex, string requesterUnitId = null)
+        {
+            if (_networkBattle != null && _networkBattle.IsRemoteClient)
+            {
+                return _networkBattle.SendSummonToCell(cardId, line, cellIndex, requesterUnitId);
+            }
+
+            return _tryPlaySummonCardLocal(cardId, line, cellIndex);
+        }
+
+        private CommandResult _tryPlaySummonCardLocal(string cardId, EBattleLine line, int cellIndex)
         {
             if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
             {
@@ -248,11 +380,17 @@ namespace CoreGame.Card.Logic
             });
             CardPlayed?.Invoke(_machine.Model);
             _tryFinishBattleAfterAction();
+            _networkBattle?.SyncFromServer(isCardPlayed: true);
             return CommandResult.Success;
         }
 
-        public CommandResult EndTurnWithResult()
+        public CommandResult EndTurnWithResult(string requesterUnitId = null)
         {
+            if (_networkBattle != null && _networkBattle.IsRemoteClient)
+            {
+                return _networkBattle.SendEndTurn(requesterUnitId);
+            }
+
             if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
             {
                 return _resultFromState();
@@ -264,6 +402,7 @@ namespace CoreGame.Card.Logic
             }
 
             acceptPlayerInput.EndTurn();
+            _networkBattle?.SyncFromServer(isTurnStarted: true);
             return CommandResult.Success;
         }
 
@@ -284,12 +423,26 @@ namespace CoreGame.Card.Logic
                 return;
             }
 
-            bool isSideADead = _machine.Model.SideA?.Hero == null || _machine.Model.SideA.Hero.HP <= 0;
-            bool isSideBDead = _machine.Model.SideB?.Hero == null || _machine.Model.SideB.Hero.HP <= 0;
-
-            if (!isSideADead && !isSideBDead)
+            if (_machine.Model.IsCoOp)
             {
-                return;
+                bool enemyDead = _machine.Model.EnemySide?.Hero == null || _machine.Model.EnemySide.Hero.HP <= 0;
+                bool sideADead = _machine.Model.SideA?.Hero == null || _machine.Model.SideA.Hero.HP <= 0;
+                bool sideBDead = _machine.Model.SideB?.Hero == null || _machine.Model.SideB.Hero.HP <= 0;
+
+                if (!enemyDead && !(sideADead && sideBDead))
+                {
+                    return;
+                }
+            }
+            else
+            {
+                bool isSideADead = _machine.Model.SideA?.Hero == null || _machine.Model.SideA.Hero.HP <= 0;
+                bool isSideBDead = _machine.Model.SideB?.Hero == null || _machine.Model.SideB.Hero.HP <= 0;
+
+                if (!isSideADead && !isSideBDead)
+                {
+                    return;
+                }
             }
 
             _machine.SwitchState(typeof(EndBattleState));
@@ -303,16 +456,18 @@ namespace CoreGame.Card.Logic
                     break;
                 case EBattlePhase.StartBattle:
                     BattleStarted?.Invoke(_machine.Model);
+                    _networkBattle?.SyncFromServer(isBattleStarted: true);
                     break;
                 case EBattlePhase.StartTurn:
                     break;
                 case EBattlePhase.FirstSideTurn:
-                    TurnStarted?.Invoke(_machine.Model);
-                    break;
                 case EBattlePhase.SecondSideTurn:
+                case EBattlePhase.EnemyTurn:
                     TurnStarted?.Invoke(_machine.Model);
+                    _networkBattle?.SyncFromServer(isTurnStarted: true);
                     break;
                 case EBattlePhase.Resolution:
+                    _networkBattle?.SyncFromServer(isCardPlayed: true);
                     break;
                 case EBattlePhase.Finished:
                     foreach (HeroModel hero in _battleHeroes)
@@ -322,6 +477,7 @@ namespace CoreGame.Card.Logic
                     _battleHeroes.Clear();
                     _machine.Model.Phase.UnsubscribeProperty(_onPhaseChanged);
                     BattleFinished?.Invoke(_machine.Model);
+                    _networkBattle?.SyncFromServer(isBattleFinished: true);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(phase), phase, null);
@@ -345,6 +501,7 @@ namespace CoreGame.Card.Logic
         {
             CardPlayedDetailed?.Invoke(battleEvent);
             CardPlayed?.Invoke(_machine?.Model);
+            _networkBattle?.SyncFromServer(isCardPlayed: true);
         }
 
         private static List<EEffectType> _collectEffectTypes(CardBattleState card)
@@ -424,7 +581,7 @@ namespace CoreGame.Card.Logic
                     continue;
                 }
 
-                bool isEnemy = !ReferenceEquals(targetSide, actorSide);
+                bool isEnemy = _isEnemySide(battle, actorSide, targetSide);
                 bool isSelf = target.UnitId == actorSide.Hero.UnitId;
                 bool isAlly = ReferenceEquals(targetSide, actorSide);
                 bool isCompanion = target.IsCompanion;
@@ -446,6 +603,39 @@ namespace CoreGame.Card.Logic
             }
 
             return false;
+        }
+
+        private static bool _isEnemySide(BattleModel battle, BattleSide actorSide, BattleSide targetSide)
+        {
+            if (battle == null || actorSide == null || targetSide == null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(actorSide, targetSide))
+            {
+                return false;
+            }
+
+            if (battle.IsCoOp)
+            {
+                bool actorIsHuman = ReferenceEquals(actorSide, battle.SideA) || ReferenceEquals(actorSide, battle.SideB);
+                bool targetIsHuman = ReferenceEquals(targetSide, battle.SideA) || ReferenceEquals(targetSide, battle.SideB);
+
+                if (actorIsHuman && targetIsHuman)
+                {
+                    return false;
+                }
+
+                if (actorIsHuman)
+                {
+                    return ReferenceEquals(targetSide, battle.EnemySide);
+                }
+
+                return targetIsHuman;
+            }
+
+            return true;
         }
 
         private static bool _requiresUnitSelection(CardEffectConfiguration effect)

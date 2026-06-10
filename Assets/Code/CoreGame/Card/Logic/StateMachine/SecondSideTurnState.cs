@@ -105,7 +105,14 @@ namespace CoreGame.Card.Logic.StateMachine
             _cts?.Dispose();
             _cts = null;
 
-            _machine.SwitchState(typeof(TurnResolutionState));
+            if (_machine.Model.IsCoOp)
+            {
+                _machine.SwitchState(typeof(EnemyTurnState));
+            }
+            else
+            {
+                _machine.SwitchState(typeof(TurnResolutionState));
+            }
         }
 
         private void _processAI()

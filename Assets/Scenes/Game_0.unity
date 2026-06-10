@@ -373,6 +373,8 @@ MonoBehaviour:
     - armor_0
     Decks: []
     SelectedDeckId: 
+  _battleMode: 3
+  _requiredPlayers: 2
   _enemyDifficulty: 1
   _enemyDeckProfile: {fileID: 0}
 --- !u!1001 &347614925
@@ -1212,6 +1214,39 @@ MonoBehaviour:
       Companions: []
       _mandatoryCards: []
     SideB:
+      Hero:
+        UnitId: 
+        OwnerId: 
+        IsCompanion: 0
+        HP: 0
+        MaxHP: 0
+        Armor: 0
+        Energy: 0
+        MaxEnergy: 0
+        HandLimit: 0
+        Stats:
+          Agility: 0
+          Strength: 0
+          Endurance: 0
+          Intellect: 0
+        IsInArmorStance: 0
+        ArmorStanceTurnsLeft: 0
+        Statuses: []
+        CritChance: 0
+        DodgeChance: 0
+        StunChance: 0
+        MoveLineCost: 0
+        Line: 0
+        LineCellIndex: 0
+        AutoActionType: 0
+        AutoActionValue: 0
+        CompanionCardsPerTurn: 1
+        Hand: []
+        Deck: []
+        Discard: []
+      Companions: []
+      _mandatoryCards: []
+    EnemySide:
       Hero:
         UnitId: 
         OwnerId: 

@@ -66,8 +66,18 @@ namespace UI.Windows.Game.Card
         {
             _leftHeroView?.SetSide(false);
             _rightHeroView?.SetSide(true);
-            _leftHeroView?.Set(battleModel?.SideA?.Hero);
-            _rightHeroView?.Set(battleModel?.SideB?.Hero);
+
+            if (battleModel?.IsCoOp == true)
+            {
+                _leftHeroView?.Set(battleModel.SideA?.Hero);
+                _rightHeroView?.Set(battleModel.EnemySide?.Hero);
+            }
+            else
+            {
+                _leftHeroView?.Set(battleModel?.SideA?.Hero);
+                _rightHeroView?.Set(battleModel?.SideB?.Hero);
+            }
+
             _bindHeroUnitIds(battleModel);
             _updateCompanionViews(battleModel);
             _tryRefreshHoveredUnitTooltip();
@@ -123,9 +133,25 @@ namespace UI.Windows.Game.Card
             }
 
             _anchorHero(_leftHeroView, _leftSideView, battleModel.SideA?.Hero);
-            _anchorHero(_rightHeroView, _rightSideView, battleModel.SideB?.Hero);
+
+            if (battleModel.IsCoOp)
+            {
+                _anchorHero(_rightHeroView, _rightSideView, battleModel.EnemySide?.Hero);
+            }
+            else
+            {
+                _anchorHero(_rightHeroView, _rightSideView, battleModel.SideB?.Hero);
+            }
+
             _anchorCompanions(_leftCompanionViews, _leftSideView, battleModel.SideA);
-            _anchorCompanions(_rightCompanionViews, _rightSideView, battleModel.SideB);
+            if (battleModel.IsCoOp)
+            {
+                _anchorCompanions(_rightCompanionViews, _rightSideView, battleModel.EnemySide);
+            }
+            else
+            {
+                _anchorCompanions(_rightCompanionViews, _rightSideView, battleModel.SideB);
+            }
         }
 
         public void RefreshOccupiedCells(BattleModel battleModel)
@@ -138,7 +164,15 @@ namespace UI.Windows.Game.Card
             _leftSideView?.ClearOccupiedHighlights();
             _rightSideView?.ClearOccupiedHighlights();
             _markSideOccupiedCells(battleModel.SideA, _leftSideView);
-            _markSideOccupiedCells(battleModel.SideB, _rightSideView);
+            if (battleModel.IsCoOp)
+            {
+                _markSideOccupiedCells(battleModel.SideB, _leftSideView);
+                _markSideOccupiedCells(battleModel.EnemySide, _rightSideView);
+            }
+            else
+            {
+                _markSideOccupiedCells(battleModel.SideB, _rightSideView);
+            }
         }
 
         public void HighlightAvailableCellsForSide(BattleModel battleModel, BattleSide side)
@@ -149,13 +183,14 @@ namespace UI.Windows.Game.Card
                 return;
             }
 
-            BattleSideView sideView = ReferenceEquals(side, battleModel.SideA) ? _leftSideView : _rightSideView;
+            BattleSideView sideView = _resolveSideView(battleModel, side);
             if (sideView == null)
             {
                 return;
             }
 
             EBattleHighlightColorType colorType = ReferenceEquals(side, battleModel.SideA)
+                                                  || (battleModel.IsCoOp && ReferenceEquals(side, battleModel.SideB))
                 ? EBattleHighlightColorType.AllyCell
                 : EBattleHighlightColorType.EnemyCell;
 
@@ -230,8 +265,78 @@ namespace UI.Windows.Game.Card
 
         private void _updateCompanionViews(BattleModel battleModel)
         {
+            if (battleModel?.IsCoOp == true)
+            {
+                _setCoOpAllyViews(battleModel);
+                _setCompanionViews(_rightCompanionViews, battleModel.EnemySide, _rightCompanionRoot);
+                return;
+            }
+
             _setCompanionViews(_leftCompanionViews, battleModel?.SideA, _leftCompanionRoot);
             _setCompanionViews(_rightCompanionViews, battleModel?.SideB, _rightCompanionRoot);
+        }
+
+        private void _setCoOpAllyViews(BattleModel battleModel)
+        {
+            int allyUnitCount = (battleModel.SideA?.Companions.Count ?? 0)
+                                + 1
+                                + (battleModel.SideB?.Companions.Count ?? 0);
+            _ensureCompanionPoolSize(_leftCompanionViews, allyUnitCount, _leftCompanionRoot);
+
+            int index = 0;
+            index = _fillCompanionViews(_leftCompanionViews, battleModel.SideA, index, false);
+            index = _fillHeroAsAllyView(_leftCompanionViews, battleModel.SideB?.Hero, index, false);
+            index = _fillCompanionViews(_leftCompanionViews, battleModel.SideB, index, false);
+
+            for (int i = index; i < _leftCompanionViews.Count; i++)
+            {
+                BattleUnitView view = _leftCompanionViews[i];
+                if (view == null)
+                {
+                    continue;
+                }
+
+                view.SetSide(false);
+                view.Set(null);
+                _viewToUnitId.Remove(view);
+            }
+        }
+
+        private int _fillCompanionViews(List<BattleUnitView> views, BattleSide side, int startIndex, bool isRightSide)
+        {
+            if (side?.Companions == null)
+            {
+                return startIndex;
+            }
+
+            for (int i = 0; i < side.Companions.Count; i++)
+            {
+                if (startIndex >= views.Count)
+                {
+                    break;
+                }
+
+                BattleUnitView view = views[startIndex++];
+                view.SetSide(isRightSide);
+                view.Set(side.Companions[i]);
+                _viewToUnitId[view] = side.Companions[i].UnitId;
+            }
+
+            return startIndex;
+        }
+
+        private int _fillHeroAsAllyView(List<BattleUnitView> views, BattleUnit hero, int startIndex, bool isRightSide)
+        {
+            if (hero == null || startIndex >= views.Count)
+            {
+                return startIndex;
+            }
+
+            BattleUnitView view = views[startIndex++];
+            view.SetSide(isRightSide);
+            view.Set(hero);
+            _viewToUnitId[view] = hero.UnitId;
+            return startIndex;
         }
 
         private void _setCompanionViews(List<BattleUnitView> views, BattleSide side, Transform root)
@@ -319,7 +424,15 @@ namespace UI.Windows.Game.Card
         private void _bindHeroUnitIds(BattleModel battleModel)
         {
             _bindHeroUnitId(_leftHeroView, battleModel?.SideA?.Hero);
-            _bindHeroUnitId(_rightHeroView, battleModel?.SideB?.Hero);
+
+            if (battleModel?.IsCoOp == true)
+            {
+                _bindHeroUnitId(_rightHeroView, battleModel.EnemySide?.Hero);
+            }
+            else
+            {
+                _bindHeroUnitId(_rightHeroView, battleModel?.SideB?.Hero);
+            }
         }
 
         private void _bindHeroUnitId(BattleUnitView view, BattleUnit unit)
@@ -413,6 +526,21 @@ namespace UI.Windows.Game.Card
                     return;
                 }
             }
+        }
+
+        private BattleSideView _resolveSideView(BattleModel battleModel, BattleSide side)
+        {
+            if (battleModel == null || side == null)
+            {
+                return null;
+            }
+
+            if (ReferenceEquals(side, battleModel.SideA) || (battleModel.IsCoOp && ReferenceEquals(side, battleModel.SideB)))
+            {
+                return _leftSideView;
+            }
+
+            return _rightSideView;
         }
 
         private void _anchorCompanions(List<BattleUnitView> views, BattleSideView sideView, BattleSide side)

@@ -52,6 +52,69 @@ namespace CoreGame.Card.Data
             return hand;
         }
 
+        public void ApplyVisibleHand(List<CardBattleState> visibleHand)
+        {
+            if (Hero == null || visibleHand == null)
+            {
+                return;
+            }
+
+            HashSet<string> mandatoryConfigIds = new(
+                _mandatoryCards.Where(card => card?.Config != null).Select(card => card.Config.Id));
+
+            Hero.Hand.Clear();
+            foreach (CardBattleState card in visibleHand)
+            {
+                if (card == null || card.OwnerId != Hero.UnitId)
+                {
+                    continue;
+                }
+
+                if (card.Config != null && mandatoryConfigIds.Contains(card.Config.Id))
+                {
+                    continue;
+                }
+
+                Hero.Hand.Add(card);
+            }
+
+            foreach (BattleUnit companion in Companions)
+            {
+                companion.Hand = visibleHand
+                    .Where(card => card != null && card.OwnerId == companion.UnitId)
+                    .ToList();
+            }
+        }
+
+        /// <summary>
+        /// Карты, видимые конкретному герою: его обязательные, рука героя и руки его компаньонов.
+        /// </summary>
+        public List<CardBattleState> GetVisibleHand(string viewerHeroUnitId)
+        {
+            List<CardBattleState> hand = new();
+
+            if (string.IsNullOrEmpty(viewerHeroUnitId) || Hero == null)
+            {
+                return hand;
+            }
+
+            if (Hero.UnitId == viewerHeroUnitId)
+            {
+                hand.AddRange(_mandatoryCards);
+                hand.AddRange(Hero.Hand);
+            }
+
+            foreach (BattleUnit companion in Companions)
+            {
+                if (companion != null && companion.OwnerId == viewerHeroUnitId)
+                {
+                    hand.AddRange(companion.Hand);
+                }
+            }
+
+            return hand;
+        }
+
         public bool ContainsMandatoryCard(CardBattleState card)
         {
             return card != null

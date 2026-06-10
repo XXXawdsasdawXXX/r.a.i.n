@@ -233,7 +233,12 @@ namespace UI.Windows.Game.Card
                 return;
             }
 
-            CommandResult moveResult = _battleService.TryPlayMoveCardToCellWithResult(_selectionState.PendingCardId, _selectionState.PendingMoveUnitId, line, cellIndex);
+            CommandResult moveResult = _battleService.TryPlayMoveCardToCellWithResult(
+                _selectionState.PendingCardId,
+                _selectionState.PendingMoveUnitId,
+                line,
+                cellIndex,
+                _getLocalHeroId());
             bool moved = moveResult == CommandResult.Success;
             if (!moved)
             {
@@ -252,7 +257,8 @@ namespace UI.Windows.Game.Card
             }
 
             BattleSide mySide = _getMySide();
-            bool isLeft = ReferenceEquals(mySide, _battleModel.SideA);
+            bool isLeft = ReferenceEquals(mySide, _battleModel.SideA)
+                          || (_battleModel.IsCoOp && ReferenceEquals(mySide, _battleModel.SideB));
             bool isOwnCell = isLeft ? cell.Side == EBattleSideUi.Left : cell.Side == EBattleSideUi.Right;
             if (!isOwnCell)
             {
@@ -264,7 +270,11 @@ namespace UI.Windows.Game.Card
                 return;
             }
 
-            CommandResult playResult = _battleService.TryPlaySummonCardToCellWithResult(_selectionState.PendingSummonCardId, cell.Line, cell.CellIndex);
+            CommandResult playResult = _battleService.TryPlaySummonCardToCellWithResult(
+                _selectionState.PendingSummonCardId,
+                cell.Line,
+                cell.CellIndex,
+                _getLocalHeroId());
             if (playResult != CommandResult.Success)
             {
                 _showCommandError(playResult);
@@ -288,7 +298,10 @@ namespace UI.Windows.Game.Card
                 return;
             }
 
-            CommandResult playResult = _battleService.TryPlayCardWithResult(_selectionState.PendingTargetCard.InstanceId, targetUnitId);
+            CommandResult playResult = _battleService.TryPlayCardWithResult(
+                _selectionState.PendingTargetCard.InstanceId,
+                targetUnitId,
+                _getLocalHeroId());
             if (playResult != CommandResult.Success)
             {
                 _showCommandError(playResult);
@@ -364,23 +377,25 @@ namespace UI.Windows.Game.Card
                 return null;
             }
 
-            Hero hero = _userProvider.GetHeroComponent<Hero>();
-            string heroId = hero?.Model?.HeroId;
-
-            if (!string.IsNullOrEmpty(heroId))
+            string heroId = _userProvider.Id;
+            if (string.IsNullOrEmpty(heroId))
             {
-                if (_battleModel.SideA.Hero.UnitId == heroId)
-                {
-                    return _battleModel.SideA;
-                }
-
-                if (_battleModel.SideB.Hero.UnitId == heroId)
-                {
-                    return _battleModel.SideB;
-                }
+                Hero hero = _userProvider.GetHeroComponent<Hero>();
+                heroId = hero?.Model?.HeroId;
             }
 
-            return _battleModel.SideA;
+            return BattleParticipantHelper.GetMySide(_battleModel, heroId);
+        }
+
+        private string _getLocalHeroId()
+        {
+            if (!string.IsNullOrEmpty(_userProvider.Id))
+            {
+                return _userProvider.Id;
+            }
+
+            Hero hero = _userProvider.GetHeroComponent<Hero>();
+            return hero?.Model?.HeroId;
         }
 
         private bool _isEnemyHero(BattleUnit unit)
@@ -392,7 +407,7 @@ namespace UI.Windows.Game.Card
 
             BattleSide mySide = _findSideByHeroUnitId(_selectionState.PendingTargetCardActorSideHeroId);
             BattleSide targetSide = BattleGridRules.GetOwnerSide(_battleModel, unit);
-            return mySide != null && targetSide != null && !ReferenceEquals(mySide, targetSide);
+            return mySide != null && targetSide != null && !BattleParticipantHelper.IsAllySide(_battleModel, mySide, targetSide);
         }
 
         private bool _isAllyUnit(BattleUnit unit)
@@ -404,7 +419,7 @@ namespace UI.Windows.Game.Card
 
             BattleSide mySide = _getMySide();
             BattleSide targetSide = BattleGridRules.GetOwnerSide(_battleModel, unit);
-            return mySide != null && targetSide != null && ReferenceEquals(mySide, targetSide);
+            return BattleParticipantHelper.IsAllySide(_battleModel, mySide, targetSide);
         }
 
         private void _showCommandError(CommandResult result)
