@@ -146,12 +146,29 @@ namespace UI.Windows.Game.Card
             _anchorCompanions(_leftCompanionViews, _leftSideView, battleModel.SideA);
             if (battleModel.IsCoOp)
             {
+                _anchorCoOpAllyHero(battleModel);
                 _anchorCompanions(_rightCompanionViews, _rightSideView, battleModel.EnemySide);
             }
             else
             {
                 _anchorCompanions(_rightCompanionViews, _rightSideView, battleModel.SideB);
             }
+        }
+
+        private void _anchorCoOpAllyHero(BattleModel battleModel)
+        {
+            if (battleModel?.SideB?.Hero == null)
+            {
+                return;
+            }
+
+            int allyViewIndex = battleModel.SideA?.Companions.Count ?? 0;
+            if (allyViewIndex >= _leftCompanionViews.Count)
+            {
+                return;
+            }
+
+            _anchorHero(_leftCompanionViews[allyViewIndex], _leftSideView, battleModel.SideB.Hero);
         }
 
         public void RefreshOccupiedCells(BattleModel battleModel)

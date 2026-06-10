@@ -72,10 +72,14 @@ namespace UI.Windows.Game.Card.HandDeck
 
             string myId = _getLocalHeroId();
             BattleSide mySide = _getMySide(_battleModel, myId);
-            bool isMyTurn = _isMyTurn(_battleModel, myId);
+            if (mySide?.Hero == null)
+            {
+                return;
+            }
 
             view.SetHeroStats(mySide.Hero.Stats);
             view.DisplayHand(mySide.GetVisibleHand(myId), _onCardClicked);
+            bool isMyTurn = _isMyTurn(_battleModel, myId);
             view.SetInteractable(isMyTurn);
         }
 
@@ -94,7 +98,7 @@ namespace UI.Windows.Game.Card.HandDeck
                 return;
             }
 
-            CardBattleState card = _findCard(mySide, cardId);
+            CardBattleState card = _findCard(mySide, myId, cardId);
             if (card == null)
             {
                 _showCommandError(CommandResult.CardNotFound);
@@ -175,10 +179,15 @@ namespace UI.Windows.Game.Card.HandDeck
             BattleSide mySide = _getMySide(battle, playerId);
             BattleSide enemySide = BattleParticipantHelper.GetOpponentSide(battle, mySide);
 
-            CardBattleState selectedCard = _findCard(mySide, cardId);
+            CardBattleState selectedCard = _findCard(mySide, playerId, cardId);
             if (selectedCard?.Config?.Effects == null || selectedCard.Config.Effects.Count == 0)
             {
-                return enemySide.Hero.UnitId;
+                return enemySide?.Hero?.UnitId;
+            }
+
+            if (enemySide?.Hero == null)
+            {
+                return mySide.Hero.UnitId;
             }
 
             // Если у карты есть любой enemy-target эффект, целимся во вражеского героя.
@@ -191,9 +200,9 @@ namespace UI.Windows.Game.Card.HandDeck
             return mySide.Hero.UnitId;
         }
 
-        private static CardBattleState _findCard(BattleSide mySide, string cardId)
+        private static CardBattleState _findCard(BattleSide mySide, string viewerUnitId, string cardId)
         {
-            return CardPlayRules.FindCardInHand(mySide.GetVisibleHand(mySide.Hero?.UnitId), cardId)
+            return CardPlayRules.FindCardInHand(mySide.GetVisibleHand(viewerUnitId), cardId)
                    ?? CardPlayRules.FindCardInHand(mySide.GetHand(), cardId);
         }
 

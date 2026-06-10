@@ -373,6 +373,7 @@ MonoBehaviour:
     - armor_0
     Decks: []
     SelectedDeckId: 
+  _activatorKey: 
   _battleMode: 3
   _requiredPlayers: 2
   _enemyDifficulty: 1

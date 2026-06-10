@@ -1,4 +1,5 @@
 using CoreGame.Card.Data;
+using CoreGame.Card.Logic;
 using FishNet.Broadcast;
 
 namespace CoreGame.Card.Logic.Network
@@ -54,5 +55,11 @@ namespace CoreGame.Card.Logic.Network
         public string ActivatorId;
         public int PlayersWaiting;
         public int PlayersRequired;
+    }
+
+    public struct BattleActionResultBroadcast : IBroadcast
+    {
+        public bool Success;
+        public CommandResult Result;
     }
 }

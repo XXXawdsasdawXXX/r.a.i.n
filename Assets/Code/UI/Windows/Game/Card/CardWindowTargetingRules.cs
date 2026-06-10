@@ -42,9 +42,9 @@ namespace UI.Windows.Game.Card
                 return false;
             }
 
-            bool isEnemy = !ReferenceEquals(actorSide, targetSide);
+            bool isAlly = BattleParticipantHelper.IsAllySide(battleModel, actorSide, targetSide);
+            bool isEnemy = BattleParticipantHelper.IsEnemySide(battleModel, actorSide, targetSide);
             bool isSelf = target.UnitId == actorId;
-            bool isAlly = ReferenceEquals(actorSide, targetSide);
             bool isCompanion = target.IsCompanion;
 
             bool hasManualTargetEffect = false;

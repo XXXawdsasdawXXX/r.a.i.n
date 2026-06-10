@@ -25,7 +25,7 @@ namespace CoreGame.Card.Logic
                 }
             }
 
-            return battle.SideA;
+            return null;
         }
 
         public static BattleSide GetOpponentSide(BattleModel battle, BattleSide mySide)
@@ -93,9 +93,54 @@ namespace CoreGame.Card.Logic
             return battle.IsCoOp ? battle.EnemySide : battle.SideB;
         }
 
-        public static BattleSide GetUiLeftSide(BattleModel battle)
+        public static BattleSide GetUiLeftHeroSide(BattleModel battle)
         {
             return battle?.SideA;
+        }
+
+        public static BattleSide GetUiRightHeroSide(BattleModel battle)
+        {
+            return GetUiRightSide(battle);
+        }
+
+        public static bool IsEnemySide(BattleModel battle, BattleSide actorSide, BattleSide targetSide)
+        {
+            if (battle == null || actorSide == null || targetSide == null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(actorSide, targetSide))
+            {
+                return false;
+            }
+
+            return !IsAllySide(battle, actorSide, targetSide);
+        }
+
+        public static BattleSide FindSideByHeroUnitId(BattleModel battle, string heroUnitId)
+        {
+            if (battle == null || string.IsNullOrEmpty(heroUnitId))
+            {
+                return null;
+            }
+
+            if (battle.SideA?.Hero?.UnitId == heroUnitId)
+            {
+                return battle.SideA;
+            }
+
+            if (battle.SideB?.Hero?.UnitId == heroUnitId)
+            {
+                return battle.SideB;
+            }
+
+            if (battle.EnemySide?.Hero?.UnitId == heroUnitId)
+            {
+                return battle.EnemySide;
+            }
+
+            return null;
         }
     }
 }

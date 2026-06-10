@@ -158,10 +158,10 @@ namespace CoreGame.Card.Logic
                 return _networkBattle.SendPlayCard(cardId, targetId, requesterUnitId);
             }
 
-            return _tryPlayCardLocal(cardId, targetId);
+            return _tryPlayCardLocal(cardId, targetId, requesterUnitId);
         }
 
-        private CommandResult _tryPlayCardLocal(string cardId, string targetId)
+        private CommandResult _tryPlayCardLocal(string cardId, string targetId, string requesterUnitId = null)
         {
             if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
             {
@@ -173,7 +173,12 @@ namespace CoreGame.Card.Logic
                 return CommandResult.InvalidPhase;
             }
 
-            CardBattleState card = CardPlayRules.FindCardInHand(activeSide.GetHand(), cardId);
+            if (!_isRequesterAllowed(activeSide, requesterUnitId))
+            {
+                return CommandResult.NotYourSide;
+            }
+
+            CardBattleState card = _findCardInActiveHand(activeSide, cardId, requesterUnitId);
             if (card == null)
             {
                 return CommandResult.CardNotFound;
@@ -215,10 +220,10 @@ namespace CoreGame.Card.Logic
                 return _networkBattle.SendMoveToCell(cardId, unitId, line, cellIndex, requesterUnitId);
             }
 
-            return _tryPlayMoveCardLocal(cardId, unitId, line, cellIndex);
+            return _tryPlayMoveCardLocal(cardId, unitId, line, cellIndex, requesterUnitId);
         }
 
-        private CommandResult _tryPlayMoveCardLocal(string cardId, string unitId, EBattleLine line, int cellIndex)
+        private CommandResult _tryPlayMoveCardLocal(string cardId, string unitId, EBattleLine line, int cellIndex, string requesterUnitId = null)
         {
             if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
             {
@@ -228,6 +233,11 @@ namespace CoreGame.Card.Logic
             if (!_tryGetActiveSide(out BattleSide activeSide))
             {
                 return CommandResult.InvalidPhase;
+            }
+
+            if (!_isRequesterAllowed(activeSide, requesterUnitId))
+            {
+                return CommandResult.NotYourSide;
             }
 
             BattleUnit unit = _machine.FindUnit(unitId);
@@ -256,7 +266,7 @@ namespace CoreGame.Card.Logic
                 return CommandResult.TargetOccupied;
             }
 
-            CardBattleState card = CardPlayRules.FindCardInHand(activeSide.GetHand(), cardId);
+            CardBattleState card = _findCardInActiveHand(activeSide, cardId, requesterUnitId);
             if (card == null)
             {
                 return CommandResult.CardNotFound;
@@ -305,10 +315,10 @@ namespace CoreGame.Card.Logic
                 return _networkBattle.SendSummonToCell(cardId, line, cellIndex, requesterUnitId);
             }
 
-            return _tryPlaySummonCardLocal(cardId, line, cellIndex);
+            return _tryPlaySummonCardLocal(cardId, line, cellIndex, requesterUnitId);
         }
 
-        private CommandResult _tryPlaySummonCardLocal(string cardId, EBattleLine line, int cellIndex)
+        private CommandResult _tryPlaySummonCardLocal(string cardId, EBattleLine line, int cellIndex, string requesterUnitId = null)
         {
             if (!(_machine.CurrentState is IAcceptPlayerInput acceptPlayerInput))
             {
@@ -318,6 +328,11 @@ namespace CoreGame.Card.Logic
             if (!_tryGetActiveSide(out BattleSide activeSide))
             {
                 return CommandResult.InvalidPhase;
+            }
+
+            if (!_isRequesterAllowed(activeSide, requesterUnitId))
+            {
+                return CommandResult.NotYourSide;
             }
 
             if (cellIndex < 0 || cellIndex >= BattleGridRules.CELLS_PER_LINE)
@@ -333,7 +348,7 @@ namespace CoreGame.Card.Logic
                 return CommandResult.TargetOccupied;
             }
 
-            CardBattleState card = CardPlayRules.FindCardInHand(activeSide.GetHand(), cardId);
+            CardBattleState card = _findCardInActiveHand(activeSide, cardId, requesterUnitId);
             if (card == null)
             {
                 return CommandResult.CardNotFound;
@@ -396,9 +411,14 @@ namespace CoreGame.Card.Logic
                 return _resultFromState();
             }
             
-            if (!_tryGetActiveSide(out _))
+            if (!_tryGetActiveSide(out BattleSide activeSide))
             {
                 return CommandResult.InvalidPhase;
+            }
+
+            if (!_isRequesterAllowed(activeSide, requesterUnitId))
+            {
+                return CommandResult.NotYourSide;
             }
 
             acceptPlayerInput.EndTurn();
@@ -581,9 +601,9 @@ namespace CoreGame.Card.Logic
                     continue;
                 }
 
-                bool isEnemy = _isEnemySide(battle, actorSide, targetSide);
+                bool isEnemy = BattleParticipantHelper.IsEnemySide(battle, actorSide, targetSide);
                 bool isSelf = target.UnitId == actorSide.Hero.UnitId;
-                bool isAlly = ReferenceEquals(targetSide, actorSide);
+                bool isAlly = BattleParticipantHelper.IsAllySide(battle, actorSide, targetSide);
                 bool isCompanion = target.IsCompanion;
 
                 bool validByEffect = effect.Target switch
@@ -605,37 +625,33 @@ namespace CoreGame.Card.Logic
             return false;
         }
 
-        private static bool _isEnemySide(BattleModel battle, BattleSide actorSide, BattleSide targetSide)
+        private static bool _isRequesterAllowed(BattleSide activeSide, string requesterUnitId)
         {
-            if (battle == null || actorSide == null || targetSide == null)
+            if (string.IsNullOrEmpty(requesterUnitId))
             {
-                return false;
+                return true;
             }
 
-            if (ReferenceEquals(actorSide, targetSide))
+            return activeSide?.Hero != null && activeSide.Hero.UnitId == requesterUnitId;
+        }
+
+        private static CardBattleState _findCardInActiveHand(BattleSide activeSide, string cardId, string requesterUnitId)
+        {
+            if (activeSide == null)
             {
-                return false;
+                return null;
             }
 
-            if (battle.IsCoOp)
+            if (!string.IsNullOrEmpty(requesterUnitId))
             {
-                bool actorIsHuman = ReferenceEquals(actorSide, battle.SideA) || ReferenceEquals(actorSide, battle.SideB);
-                bool targetIsHuman = ReferenceEquals(targetSide, battle.SideA) || ReferenceEquals(targetSide, battle.SideB);
-
-                if (actorIsHuman && targetIsHuman)
+                CardBattleState visibleCard = CardPlayRules.FindCardInHand(activeSide.GetVisibleHand(requesterUnitId), cardId);
+                if (visibleCard != null)
                 {
-                    return false;
+                    return visibleCard;
                 }
-
-                if (actorIsHuman)
-                {
-                    return ReferenceEquals(targetSide, battle.EnemySide);
-                }
-
-                return targetIsHuman;
             }
 
-            return true;
+            return CardPlayRules.FindCardInHand(activeSide.GetHand(), cardId);
         }
 
         private static bool _requiresUnitSelection(CardEffectConfiguration effect)

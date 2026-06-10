@@ -50,6 +50,7 @@ namespace CoreGame.Card.Logic
                 InstanceFinder.ClientManager.RegisterBroadcast<BattleStateSyncBroadcast>(_onStateSync);
                 InstanceFinder.ClientManager.RegisterBroadcast<BattleHandSyncBroadcast>(_onHandSync);
                 InstanceFinder.ClientManager.RegisterBroadcast<BattleLobbyUpdateBroadcast>(_onLobbyUpdate);
+                InstanceFinder.ClientManager.RegisterBroadcast<BattleActionResultBroadcast>(_onActionResult);
             }
         }
 
@@ -60,6 +61,7 @@ namespace CoreGame.Card.Logic
             InstanceFinder.ClientManager?.UnregisterBroadcast<BattleStateSyncBroadcast>(_onStateSync);
             InstanceFinder.ClientManager?.UnregisterBroadcast<BattleHandSyncBroadcast>(_onHandSync);
             InstanceFinder.ClientManager?.UnregisterBroadcast<BattleLobbyUpdateBroadcast>(_onLobbyUpdate);
+            InstanceFinder.ClientManager?.UnregisterBroadcast<BattleActionResultBroadcast>(_onActionResult);
         }
 
         public bool ShouldDelegateStart => InstanceFinder.IsClientStarted;
@@ -317,12 +319,13 @@ namespace CoreGame.Card.Logic
 
             CommandResult result = request.Action switch
             {
-                EBattleNetworkAction.PlayCard => _battleService.TryPlayCardWithResult(request.CardId, request.TargetId),
-                EBattleNetworkAction.EndTurn => _battleService.EndTurnWithResult(),
+                EBattleNetworkAction.PlayCard => _battleService.TryPlayCardWithResult(
+                    request.CardId, request.TargetId, request.RequesterUnitId),
+                EBattleNetworkAction.EndTurn => _battleService.EndTurnWithResult(request.RequesterUnitId),
                 EBattleNetworkAction.MoveToCell => _battleService.TryPlayMoveCardToCellWithResult(
-                    request.CardId, request.UnitId, request.Line, request.CellIndex),
+                    request.CardId, request.UnitId, request.Line, request.CellIndex, request.RequesterUnitId),
                 EBattleNetworkAction.SummonToCell => _battleService.TryPlaySummonCardToCellWithResult(
-                    request.CardId, request.Line, request.CellIndex),
+                    request.CardId, request.Line, request.CellIndex, request.RequesterUnitId),
                 _ => CommandResult.InvalidState
             };
 
@@ -330,6 +333,25 @@ namespace CoreGame.Card.Logic
             {
                 _syncBattleState(isCardPlayed: true);
             }
+            else
+            {
+                Debug.LogWarning($"Battle action rejected: {result} from {request.RequesterUnitId}");
+                InstanceFinder.ServerManager.Broadcast(connection, new BattleActionResultBroadcast
+                {
+                    Success = false,
+                    Result = result
+                });
+            }
+        }
+
+        private void _onActionResult(BattleActionResultBroadcast broadcast, Channel channel)
+        {
+            if (InstanceFinder.IsServerStarted || broadcast.Success)
+            {
+                return;
+            }
+
+            Debug.LogWarning($"Battle action failed: {broadcast.Result}");
         }
 
         public void SyncFromServer(bool isBattleStarted = false, bool isTurnStarted = false, bool isCardPlayed = false, bool isBattleFinished = false)
