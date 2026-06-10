@@ -143,6 +143,8 @@ namespace CoreGame.Card.Logic.StateMachine
                 EnemySide = new BattleSide(enemyUnit),
             };
 
+            BattleGridRules.AssignCoOpStartPositions(Model);
+
             SwitchState(typeof(StartBattleState));
         }
         

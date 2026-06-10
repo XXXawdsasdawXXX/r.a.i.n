@@ -257,10 +257,7 @@ namespace CoreGame.Card.Logic
                 return CommandResult.InvalidCell;
             }
 
-            bool occupied = activeSide.GetAllUnits()
-                .Where(u => u != null && u.HP > 0)
-                .Where(u => u.UnitId != unit.UnitId)
-                .Any(u => u.Line == line && u.LineCellIndex == cellIndex);
+            bool occupied = BattleGridRules.IsCellOccupied(_machine.Model, activeSide, line, cellIndex, unit.UnitId);
             if (occupied)
             {
                 return CommandResult.TargetOccupied;
@@ -340,9 +337,7 @@ namespace CoreGame.Card.Logic
                 return CommandResult.InvalidCell;
             }
 
-            bool occupied = activeSide.GetAllUnits()
-                .Where(u => u != null && u.HP > 0)
-                .Any(u => u.Line == line && u.LineCellIndex == cellIndex);
+            bool occupied = BattleGridRules.IsCellOccupied(_machine.Model, activeSide, line, cellIndex);
             if (occupied)
             {
                 return CommandResult.TargetOccupied;
