@@ -114,6 +114,41 @@ namespace CoreGame.Card.Logic
             return null;
         }
 
+        public static IEnumerable<BattleUnit> GetEnemyUnits(BattleModel battle, BattleSide actorSide)
+        {
+            if (battle == null || actorSide == null)
+            {
+                yield break;
+            }
+
+            if (battle.IsCoOp && ReferenceEquals(actorSide, battle.EnemySide))
+            {
+                foreach (BattleUnit unit in _getCoOpTeamUnits(battle))
+                {
+                    if (unit != null && unit.HP > 0)
+                    {
+                        yield return unit;
+                    }
+                }
+
+                yield break;
+            }
+
+            BattleSide enemySide = GetOpponentSide(battle, actorSide);
+            if (enemySide == null)
+            {
+                yield break;
+            }
+
+            foreach (BattleUnit unit in enemySide.GetAllUnits())
+            {
+                if (unit != null && unit.HP > 0)
+                {
+                    yield return unit;
+                }
+            }
+        }
+
         public static bool IsCellOccupied(
             BattleModel battle,
             BattleSide side,

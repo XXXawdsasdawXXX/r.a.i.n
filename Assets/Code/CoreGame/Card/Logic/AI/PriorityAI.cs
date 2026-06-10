@@ -22,7 +22,8 @@ namespace CoreGame.Card.Logic.AI
                 return null;
             }
 
-            BattleSide enemySide = ReferenceEquals(selfSide, battle.SideA) ? battle.SideB : battle.SideA;
+            BattleSide enemySide = BattleGridRules.GetOpponentSide(battle, selfSide);
+            List<BattleUnit> enemyUnits = BattleGridRules.GetEnemyUnits(battle, selfSide).ToList();
 
             List<CardBattleState> playableCards = selfSide.GetHand()
                 .Where(card => card != null)
@@ -35,7 +36,7 @@ namespace CoreGame.Card.Logic.AI
                 return null;
             }
 
-            List<AIAction> actions = _buildCandidateActions(selfSide, self, enemySide, playableCards);
+            List<AIAction> actions = _buildCandidateActions(selfSide, self, enemyUnits, playableCards);
             if (actions.Count == 0)
             {
                 return null;
@@ -47,12 +48,9 @@ namespace CoreGame.Card.Logic.AI
         private static List<AIAction> _buildCandidateActions(
             BattleSide selfSide,
             BattleUnit self,
-            BattleSide enemySide,
+            List<BattleUnit> enemyUnits,
             List<CardBattleState> playableCards)
         {
-            List<BattleUnit> enemyUnits = enemySide.GetAllUnits()
-                .Where(unit => unit != null && unit.HP > 0)
-                .ToList();
             List<BattleUnit> allyUnits = selfSide.GetAllUnits()
                 .Where(unit => unit != null && unit.HP > 0)
                 .ToList();

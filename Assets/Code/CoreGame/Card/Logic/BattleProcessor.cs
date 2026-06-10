@@ -138,11 +138,6 @@ namespace CoreGame.Card.Logic
             }
 
             BattleSide actorSide = BattleGridRules.GetOwnerSide(battle, actor);
-            BattleSide enemySide = null;
-            if (actorSide != null)
-            {
-                enemySide = ReferenceEquals(actorSide, battle.SideA) ? battle.SideB : battle.SideA;
-            }
 
             switch (effect.Target)
             {
@@ -153,25 +148,23 @@ namespace CoreGame.Card.Logic
                         .Where(unit => unit != null && unit.HP > 0)
                         .ToList() ?? fallback;
                 case EEffectTarget.AllEnemies:
-                    return enemySide?.GetAllUnits()
-                        .Where(unit => unit != null && unit.HP > 0)
-                        .ToList() ?? fallback;
+                    return BattleGridRules.GetEnemyUnits(battle, actorSide).ToList();
                 case EEffectTarget.EnemyFrontline:
-                    return enemySide?.GetAllUnits()
-                        .Where(unit => unit != null && unit.HP > 0 && unit.Line == EBattleLine.Frontline)
-                        .ToList() ?? fallback;
+                    return BattleGridRules.GetEnemyUnits(battle, actorSide)
+                        .Where(unit => unit.Line == EBattleLine.Frontline)
+                        .ToList();
                 case EEffectTarget.EnemyBackline:
-                    return enemySide?.GetAllUnits()
-                        .Where(unit => unit != null && unit.HP > 0 && unit.Line == EBattleLine.Backline)
-                        .ToList() ?? fallback;
+                    return BattleGridRules.GetEnemyUnits(battle, actorSide)
+                        .Where(unit => unit.Line == EBattleLine.Backline)
+                        .ToList();
                 case EEffectTarget.AllCompanions:
                     return actorSide?.Companions
                         .Where(unit => unit != null && unit.HP > 0)
                         .ToList() ?? fallback;
                 case EEffectTarget.EnemyCompanions:
-                    return enemySide?.Companions
-                        .Where(unit => unit != null && unit.HP > 0)
-                        .ToList() ?? fallback;
+                    return BattleGridRules.GetEnemyUnits(battle, actorSide)
+                        .Where(unit => unit.IsCompanion)
+                        .ToList();
                 case EEffectTarget.SelectedAnyAllyUnit:
                     return actorSide?.GetAllUnits()
                         .Where(unit => unit != null && unit.HP > 0 && primaryTarget != null && unit.UnitId == primaryTarget.UnitId)
