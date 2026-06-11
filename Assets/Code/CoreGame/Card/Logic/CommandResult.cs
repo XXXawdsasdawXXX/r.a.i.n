@@ -23,6 +23,6 @@ namespace CoreGame.Card.Logic
         
         NotEnoughEnergy = 14,
         UnitStunned = 15,
-        AttackBlockedByArmorStance = 16
+        AttackBlockedByArmorStance = 16,
     }
 }

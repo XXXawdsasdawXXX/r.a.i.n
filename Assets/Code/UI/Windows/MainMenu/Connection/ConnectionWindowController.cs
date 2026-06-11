@@ -58,8 +58,7 @@ namespace UI.Windows.MainMenu.Connection
         private void _refreshIpLabel()
         {
             view.TextUserIP.SetText(_localization.Format(
-                LocalizationTables.MainMenu,
-                LocalizationKeys.MainMenu.ConnectionYourIp,
+                view.YourIpMessage,
                 ConnectionHandler.GetLocalIPAddress()));
         }
 

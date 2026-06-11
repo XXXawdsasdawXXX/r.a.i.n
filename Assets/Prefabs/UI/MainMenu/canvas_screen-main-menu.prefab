@@ -520,6 +520,18 @@ MonoBehaviour:
   <ButtonDelete>k__BackingField: {fileID: 8477316409300113945}
   <WorldsRadioGroup>k__BackingField: {fileID: 2609820155673987780}
   <Scroll>k__BackingField: {fileID: 357027755280449676}
+  _ipMessage:
+    m_TableReference:
+      m_TableCollectionName: MainMenu
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: ui.main_menu.ip_label
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2613908365041500278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,6 +1249,18 @@ MonoBehaviour:
   <ObjectIcon>k__BackingField: {fileID: 1825847544356112965}
   <ButtonDelete>k__BackingField: {fileID: 3080116420334101673}
   <ButtonReturn>k__BackingField: {fileID: 3308580255729554932}
+  _objectNameMessage:
+    m_TableReference:
+      m_TableCollectionName: MainMenu
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: ui.main_menu.delete.confirm
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &5080086278770109731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,7 +1351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2510512387303355415
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1438,6 +1462,18 @@ MonoBehaviour:
   <ButtonHost>k__BackingField: {fileID: 8157211978387576866}
   <ButtonClient>k__BackingField: {fileID: 3771968296362367503}
   <InputFieldHostIP>k__BackingField: {fileID: 8664501144116924336}
+  _yourIpMessage:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &5979702995263436623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,6 +1882,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 785281288148280076}
     m_Modifications:
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801802
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText_host
@@ -1864,7 +1908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1872,7 +1916,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1912,11 +1956,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1983,6 +2027,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3734110808297296531}
     m_Modifications:
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801797
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText-delete
@@ -2069,7 +2121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: delete
+      value: "\u0443\u0434\u0430\u043B\u0438\u0442\u044C"
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -2112,6 +2164,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1403155680779459461}
     m_Modifications:
+    - target: {fileID: 2409944568750482749, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801801
+      objectReference: {fileID: 0}
+    - target: {fileID: 2409944568750482749, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 3210088604387948656, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2226,6 +2286,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5212908569851948648}
     m_Modifications:
+    - target: {fileID: 2409944568750482749, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1651441664
+      objectReference: {fileID: 0}
+    - target: {fileID: 2409944568750482749, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 3210088604387948656, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2312,7 +2380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7330940580237409095, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: m_text
-      value: game
+      value: "\u0438\u0433\u0440\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 8042823179126906014, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: _key
@@ -2616,6 +2684,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: text-button-contnue
       objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801793
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 4885750621309047196, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Color.b
       value: 0.8207547
@@ -2714,7 +2790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: continue
+      value: "\u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -2757,6 +2833,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1215846657277844703}
     m_Modifications:
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801808
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText-new-hero
@@ -2886,6 +2970,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1348855354909576429}
     m_Modifications:
+    - target: {fileID: 2409944568750482749, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801795
+      objectReference: {fileID: 0}
+    - target: {fileID: 2409944568750482749, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 3210088604387948656, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3000,6 +3092,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1348855354909576429}
     m_Modifications:
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801796
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText-create
@@ -3125,6 +3225,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 785281288148280076}
     m_Modifications:
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801803
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText_server
@@ -3143,7 +3251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3151,7 +3259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3191,11 +3299,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 8086041027166214818, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3372,6 +3480,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1215846657277844703}
     m_Modifications:
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801798
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText-delete-hero
@@ -3740,6 +3856,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1215846657277844703}
     m_Modifications:
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801799
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText-hero-settings
@@ -4119,6 +4243,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3592935203865869311}
     m_Modifications:
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801800
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText_client
@@ -4256,6 +4388,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5378755910057623728}
     m_Modifications:
+    - target: {fileID: 2409944568750482749, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801792
+      objectReference: {fileID: 0}
+    - target: {fileID: 2409944568750482749, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 3210088604387948656, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5203,6 +5343,18 @@ PrefabInstance:
       propertyPath: m_text
       value: "do you realy want \ndelete this hero?"
       objectReference: {fileID: 0}
+    - target: {fileID: 8657918380033388767, guid: 04e773ece2268964084c711cb3c03112, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_Key
+      value: ui.main_menu.delete_hero.confirm
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657918380033388767, guid: 04e773ece2268964084c711cb3c03112, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8657918380033388767, guid: 04e773ece2268964084c711cb3c03112, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 8809576631656040101, guid: 04e773ece2268964084c711cb3c03112, type: 3}
       propertyPath: m_Name
       value: text_small-description
@@ -5539,6 +5691,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3734110808297296531}
     m_Modifications:
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableEntryReference.m_KeyId
+      value: 1680801794
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743372688009438245, guid: faae8345cfa6aac448261b53293e415e, type: 3}
+      propertyPath: _localizedString.m_TableReference.m_TableCollectionName
+      value: GUID:365096e231402c0419159ee760588b09
+      objectReference: {fileID: 0}
     - target: {fileID: 7300833877162465139, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_Name
       value: buttonText-new
@@ -5633,7 +5793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: new
+      value: "\u043D\u043E\u0432\u044B\u0439"
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontColor32.rgba

@@ -906,6 +906,14 @@ PrefabInstance:
       propertyPath: _table
       value: CoreGame
       objectReference: {fileID: 0}
+    - target: {fileID: 4661503315116357022, guid: ca8761a0a231f17468f9a9749fb20a8b, type: 3}
+      propertyPath: _localizedReference.m_TableEntryReference.m_Key
+      value: ui.core_game.hero_context_menu.duel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661503315116357022, guid: ca8761a0a231f17468f9a9749fb20a8b, type: 3}
+      propertyPath: _localizedReference.m_TableReference.m_TableCollectionName
+      value: CoreGame
+      objectReference: {fileID: 0}
     - target: {fileID: 5373249678718014023, guid: ca8761a0a231f17468f9a9749fb20a8b, type: 3}
       propertyPath: m_text
       value: No translation found for 'ui.core_game.hero_context_menu.duel' in CoreGame
@@ -1042,9 +1050,13 @@ PrefabInstance:
       propertyPath: _table
       value: CoreGame
       objectReference: {fileID: 0}
-    - target: {fileID: 5373249678718014023, guid: ca8761a0a231f17468f9a9749fb20a8b, type: 3}
-      propertyPath: m_text
-      value: No translation found for 'ui.core_game.hero_context.duel' in CoreGame
+    - target: {fileID: 4661503315116357022, guid: ca8761a0a231f17468f9a9749fb20a8b, type: 3}
+      propertyPath: _legacyKey
+      value: ui.core_game.hero_context.duel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661503315116357022, guid: ca8761a0a231f17468f9a9749fb20a8b, type: 3}
+      propertyPath: _legacyTable
+      value: CoreGame
       objectReference: {fileID: 0}
     - target: {fileID: 5591413041431016122, guid: ca8761a0a231f17468f9a9749fb20a8b, type: 3}
       propertyPath: m_Pivot.x
@@ -1060,7 +1072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5591413041431016122, guid: ca8761a0a231f17468f9a9749fb20a8b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5591413041431016122, guid: ca8761a0a231f17468f9a9749fb20a8b, type: 3}
       propertyPath: m_AnchorMin.x

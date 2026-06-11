@@ -80,11 +80,7 @@ namespace UI.Windows.Game.Card.Hover
             bool isTemporary = summonTurnsLeft > 0;
             if (isTemporary)
             {
-                builder.AppendLine(_getText(
-                    localization,
-                    LocalizationTables.Cards,
-                    LocalizationKeys.Cards.HoverTemporaryUnit,
-                    "Temporary unit"));
+                builder.AppendLine(_getText(localization, LocalizationTables.Cards, "ui.cards.hover.temporary_unit", "Temporary unit"));
                 sectionsCount++;
             }
 
@@ -95,11 +91,7 @@ namespace UI.Windows.Game.Card.Hover
                     builder.AppendLine();
                 }
 
-                builder.Append(_getText(
-                    localization,
-                    LocalizationTables.Cards,
-                    LocalizationKeys.Cards.HoverAutoAction,
-                    "Auto-action: "));
+                builder.Append(_getText(localization, LocalizationTables.Cards, "ui.cards.hover.auto_action", "Auto-action: "));
                 builder.Append(_getAutoActionDescription(unit.AutoActionType, localization));
                 if (unit.AutoActionValue > 0f)
                 {
@@ -120,11 +112,7 @@ namespace UI.Windows.Game.Card.Hover
                     builder.AppendLine();
                 }
 
-                builder.AppendLine(_getText(
-                    localization,
-                    LocalizationTables.Cards,
-                    LocalizationKeys.Cards.HoverEffects,
-                    "Effects:"));
+                builder.AppendLine(_getText(localization, LocalizationTables.Cards, "ui.cards.hover.effects", "Effects:"));
                 foreach (string statusLine in statusLines)
                 {
                     builder.Append("- ");
@@ -141,22 +129,14 @@ namespace UI.Windows.Game.Card.Hover
                     builder.AppendLine();
                 }
 
-                builder.Append(_getText(
-                    localization,
-                    LocalizationTables.Cards,
-                    LocalizationKeys.Cards.HoverTurnsLeft,
-                    "Turns left: "));
+                builder.Append(_getText(localization, LocalizationTables.Cards, "ui.cards.hover.turns_left", "Turns left: "));
                 builder.Append(summonTurnsLeft);
                 sectionsCount++;
             }
 
             if (sectionsCount == 0)
             {
-                return _getText(
-                    localization,
-                    LocalizationTables.Cards,
-                    LocalizationKeys.Cards.HoverNoEffects,
-                    "No active effects");
+                return _getText(localization, LocalizationTables.Cards, "ui.cards.hover.no_effects", "No active effects");
             }
 
             return builder.ToString();
@@ -202,19 +182,19 @@ namespace UI.Windows.Game.Card.Hover
                     return _getText(
                         localization,
                         LocalizationTables.Cards,
-                        LocalizationKeys.Cards.HoverAttackEnemyHero,
+                        "ui.cards.hover.attack_enemy_hero",
                         "Attack enemy hero");
                 case EAutoActionType.GiveShieldToOwnerHero:
                     return _getText(
                         localization,
                         LocalizationTables.Cards,
-                        LocalizationKeys.Cards.HoverShieldOwner,
+                        "ui.cards.hover.shield_owner",
                         "Shield to allied hero");
                 default:
                     return _getText(
                         localization,
                         LocalizationTables.Cards,
-                        LocalizationKeys.Cards.HoverNone,
+                        "ui.cards.hover.none",
                         "None");
             }
         }

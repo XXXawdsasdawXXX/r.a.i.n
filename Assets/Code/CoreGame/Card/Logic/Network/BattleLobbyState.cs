@@ -5,6 +5,8 @@ namespace CoreGame.Card.Logic.Network
 {
     public readonly struct BattleLobbyState
     {
+        private const string Table = LocalizationTables.CoreGame;
+
         public string ActivatorId { get; }
         public bool IsOpen { get; }
         public int PlayersWaiting { get; }
@@ -59,8 +61,8 @@ namespace CoreGame.Card.Logic.Network
             }
 
             return localization.Format(
-                LocalizationTables.CoreGame,
-                LocalizationKeys.CoreGame.BattleLobbyStatus,
+                Table,
+                "ui.core_game.battle_lobby.status",
                 PlayersWaiting,
                 MaxPlayers);
         }
@@ -80,32 +82,32 @@ namespace CoreGame.Card.Logic.Network
             if (PlayersWaiting >= MaxPlayers)
             {
                 return localization.Get(
-                    LocalizationTables.CoreGame,
-                    LocalizationKeys.CoreGame.BattleLobbyReady,
+                    Table,
+                    "ui.core_game.battle_lobby.ready",
                     "Team is ready — you can start the battle.");
             }
 
             if (!AllowEarlyStart || PlayersWaiting < MinPlayers)
             {
                 return localization.Get(
-                    LocalizationTables.CoreGame,
-                    LocalizationKeys.CoreGame.BattleLobbyWaitPartner,
+                    Table,
+                    "ui.core_game.battle_lobby.wait_partner",
                     "Wait for a partner or connect a second player to this activator.");
             }
 
             return Mode switch
             {
                 EBattleMode.CoOpPvE => localization.Get(
-                    LocalizationTables.CoreGame,
-                    LocalizationKeys.CoreGame.BattleLobbySoloPve,
+                    Table,
+                    "ui.core_game.battle_lobby.solo_pve",
                     "You can start solo — the battle will run as PvE."),
                 EBattleMode.PvP or EBattleMode.Duel => localization.Get(
-                    LocalizationTables.CoreGame,
-                    LocalizationKeys.CoreGame.BattleLobbyNotEnoughPvp,
+                    Table,
+                    "ui.core_game.battle_lobby.not_enough_pvp",
                     "Not enough players for PvP."),
                 _ => localization.Get(
-                    LocalizationTables.CoreGame,
-                    LocalizationKeys.CoreGame.BattleLobbyStartCurrent,
+                    Table,
+                    "ui.core_game.battle_lobby.start_current",
                     "You can start with the current lineup.")
             };
         }

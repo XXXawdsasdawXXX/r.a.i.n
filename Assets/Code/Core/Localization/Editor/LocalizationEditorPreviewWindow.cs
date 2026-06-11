@@ -41,13 +41,13 @@ namespace Core.Localization.Editor
             EditorGUILayout.LabelField("Editor Locale Preview", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox(
                 "Switch locale here to preview UI in the Scene/Game view without Play Mode. " +
-                "UILabelLocalizer and LocalizeStringEvent components will refresh automatically.",
+                "UIText components with a Localized String reference will refresh automatically.",
                 MessageType.Info);
 
             if (!LocalizationSettings.HasSettings)
             {
                 EditorGUILayout.HelpBox(
-                    "Localization Settings not found. Run 'R.A.I.N/Localization/Setup Project Localization' first.",
+                    "Localization Settings not found. Create Localization Settings via Window > Asset Management > Localization Tables.",
                     MessageType.Warning);
                 return;
             }

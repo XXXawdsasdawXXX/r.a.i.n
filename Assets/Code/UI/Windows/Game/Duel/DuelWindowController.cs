@@ -11,6 +11,8 @@ namespace UI.Windows.Game.Duel
 {
     public class DuelWindowController : UIWindowController<DuelWindowView>
     {
+        private const string Table = LocalizationTables.CoreGame;
+
         private NetworkDuelService _duelService;
         private LocalizationService _localization;
         private DuelUiState _lastState;
@@ -84,47 +86,47 @@ namespace UI.Windows.Game.Duel
         private void _applyTexts(DuelUiState state)
         {
             int myGold = Mathf.Max(state.MyGold, _duelService.GetLocalGold());
-            view.TextGold.SetText(_formatGold(myGold));
+            view.TextGold.SetText(_format("ui.core_game.duel.gold", "Your gold: {0}", myGold));
 
             switch (state.Role)
             {
                 case EDuelUiRole.Setup:
-                    view.TextTitle.SetText(_get(LocalizationKeys.CoreGame.DuelSetupTitle, "Challenge to duel"));
+                    view.TextTitle.SetText(_get("ui.core_game.duel.setup_title", "Challenge to duel"));
                     view.TextBody.SetText(_format(
-                        LocalizationKeys.CoreGame.DuelSetupBody,
+                        "ui.core_game.duel.setup_body",
                         "Challenge {0} to a duel.",
                         state.OpponentName));
                     view.InputStake.gameObject.SetActive(true);
                     view.InputStake.SetTextWithoutNotify(Mathf.Max(1, state.GoldStake).ToString());
                     view.ButtonPrimary.gameObject.SetActive(true);
                     view.ButtonSecondary.gameObject.SetActive(true);
-                    _setButtonText(view.ButtonPrimary, LocalizationKeys.CoreGame.DuelChallenge, "Challenge");
-                    _setButtonText(view.ButtonSecondary, LocalizationKeys.CoreGame.DuelCancel, "Cancel");
+                    _setButtonText(view.ButtonPrimary, "ui.core_game.duel.challenge", "Challenge");
+                    _setButtonText(view.ButtonSecondary, "ui.core_game.duel.cancel", "Cancel");
                     break;
                 case EDuelUiRole.Waiting:
-                    view.TextTitle.SetText(_get(LocalizationKeys.CoreGame.DuelWaitingTitle, "Waiting for response"));
+                    view.TextTitle.SetText(_get("ui.core_game.duel.waiting_title", "Waiting for response"));
                     view.TextBody.SetText(_format(
-                        LocalizationKeys.CoreGame.DuelWaitingBody,
+                        "ui.core_game.duel.waiting_body",
                         "Waiting for {0} to accept the duel. Stake: {1} gold.",
                         state.OpponentName,
                         state.GoldStake));
                     view.InputStake.gameObject.SetActive(false);
                     view.ButtonPrimary.gameObject.SetActive(false);
                     view.ButtonSecondary.gameObject.SetActive(true);
-                    _setButtonText(view.ButtonSecondary, LocalizationKeys.CoreGame.DuelCancel, "Cancel");
+                    _setButtonText(view.ButtonSecondary, "ui.core_game.duel.cancel", "Cancel");
                     break;
                 case EDuelUiRole.Invite:
-                    view.TextTitle.SetText(_get(LocalizationKeys.CoreGame.DuelInviteTitle, "Duel invitation"));
+                    view.TextTitle.SetText(_get("ui.core_game.duel.invite_title", "Duel invitation"));
                     view.TextBody.SetText(_format(
-                        LocalizationKeys.CoreGame.DuelInviteBody,
+                        "ui.core_game.duel.invite_body",
                         "{0} challenges you to a duel. Stake: {1} gold.",
                         state.OpponentName,
                         state.GoldStake));
                     view.InputStake.gameObject.SetActive(false);
                     view.ButtonPrimary.gameObject.SetActive(true);
                     view.ButtonSecondary.gameObject.SetActive(true);
-                    _setButtonText(view.ButtonPrimary, LocalizationKeys.CoreGame.DuelAccept, "Accept");
-                    _setButtonText(view.ButtonSecondary, LocalizationKeys.CoreGame.DuelDecline, "Decline");
+                    _setButtonText(view.ButtonPrimary, "ui.core_game.duel.accept", "Accept");
+                    _setButtonText(view.ButtonSecondary, "ui.core_game.duel.decline", "Decline");
                     break;
             }
         }
@@ -165,20 +167,15 @@ namespace UI.Windows.Game.Duel
         private string _get(string key, string fallback)
         {
             return _localization != null
-                ? _localization.Get(LocalizationTables.CoreGame, key, fallback)
+                ? _localization.Get(Table, key, fallback)
                 : fallback;
         }
 
         private string _format(string key, string fallback, params object[] args)
         {
             return _localization != null
-                ? _localization.Format(LocalizationTables.CoreGame, key, args)
+                ? _localization.Format(Table, key, args)
                 : string.Format(fallback, args);
-        }
-
-        private string _formatGold(int gold)
-        {
-            return _format(LocalizationKeys.CoreGame.DuelGold, "Your gold: {0}", gold);
         }
 
         private void _setButtonText(UIButton button, string key, string fallback)

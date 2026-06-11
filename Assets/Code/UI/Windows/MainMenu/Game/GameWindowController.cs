@@ -56,8 +56,7 @@ namespace UI.Windows.MainMenu.Game
         private void _refreshIpLabel()
         {
             view.TextUserIP.SetText(_localization.Format(
-                LocalizationTables.MainMenu,
-                LocalizationKeys.MainMenu.IpLabel,
+                view.IpMessage,
                 _connectionHandler.GetHostAddressForClients()));
         }
 

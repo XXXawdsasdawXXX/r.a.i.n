@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Core.GameLoop;
 using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
 using UnityEngine.Scripting;
 
 namespace Core.Localization
@@ -15,7 +15,7 @@ namespace Core.Localization
     public sealed class LocalizationService : IService, IInitializeListener, IExitListener
     {
         public bool IsInitialized { get; set; }
-        
+
         public const string LocalePrefsKey = "selected_locale_code";
 
         private static readonly string[] SupportedLocaleCodes = { "en", "ru" };
@@ -38,13 +38,13 @@ namespace Core.Localization
             LocalizationSettings.SelectedLocaleChanged -= _onSelectedLocaleChanged;
         }
 
-        private void _onSelectedLocaleChanged(UnityEngine.Localization.Locale _)
-        {
-            LocaleChanged?.Invoke();
-        }
-
         public string Get(string table, string key, string fallback = null)
         {
+            if (string.IsNullOrEmpty(table) || string.IsNullOrEmpty(key))
+            {
+                return fallback ?? string.Empty;
+            }
+
             if (!IsInitialized)
             {
                 return fallback ?? key;
@@ -54,14 +54,47 @@ namespace Core.Localization
             return string.IsNullOrEmpty(localized) ? fallback ?? key : localized;
         }
 
+        public string Get(LocalizedString reference, string fallback = null)
+        {
+            if (reference == null || reference.IsEmpty)
+            {
+                return fallback ?? string.Empty;
+            }
+
+            string referenceFallback = fallback ?? _resolveReferenceKey(reference);
+
+            if (!IsInitialized)
+            {
+                return referenceFallback;
+            }
+
+            string localized = reference.GetLocalizedString();
+            return string.IsNullOrEmpty(localized) ? referenceFallback : localized;
+        }
+
         public string Format(string table, string key, params object[] args)
         {
             if (!IsInitialized)
             {
-                return fallbackFormat(key, args);
+                return _fallbackFormat(key, args);
             }
 
             return LocalizationSettings.StringDatabase.GetLocalizedString(table, key, args);
+        }
+
+        public string Format(LocalizedString reference, params object[] args)
+        {
+            if (reference == null || reference.IsEmpty)
+            {
+                return _fallbackFormat(string.Empty, args);
+            }
+
+            if (!IsInitialized)
+            {
+                return _fallbackFormat(_resolveReferenceKey(reference), args);
+            }
+
+            return reference.GetLocalizedString(args);
         }
 
         public IReadOnlyList<LocaleOption> GetLocaleOptions()
@@ -142,15 +175,11 @@ namespace Core.Localization
             }
         }
 
-        public string GetCardName(string cardId)
-        {
-            return Get(LocalizationTables.Cards, LocalizationKeys.Cards.CardName(cardId), cardId);
-        }
+        public string GetCardName(string cardId) =>
+            Get(LocalizationTables.Cards, $"card.{cardId}.name", cardId);
 
-        public string GetCardDescription(string cardId)
-        {
-            return Get(LocalizationTables.Cards, LocalizationKeys.Cards.CardDescription(cardId), string.Empty);
-        }
+        public string GetCardDescription(string cardId) =>
+            Get(LocalizationTables.Cards, $"card.{cardId}.description", string.Empty);
 
         public string GetCompanionName(string companionAssetName)
         {
@@ -160,10 +189,7 @@ namespace Core.Localization
             }
 
             string companionId = _toCompanionLocalizationId(companionAssetName);
-            return Get(
-                LocalizationTables.Cards,
-                LocalizationKeys.Cards.CompanionName(companionId),
-                companionId);
+            return Get(LocalizationTables.Cards, $"companion.{companionId}.name", companionId);
         }
 
         public string GetCardTypeDisplayName(Enum cardType)
@@ -184,7 +210,7 @@ namespace Core.Localization
                     string part = parts[i].Trim();
                     localizedParts.Add(Get(
                         LocalizationTables.Cards,
-                        LocalizationKeys.Cards.CardType(part),
+                        $"ui.cards.type.{part.ToLowerInvariant()}",
                         part));
                 }
 
@@ -193,37 +219,22 @@ namespace Core.Localization
 
             return Get(
                 LocalizationTables.Cards,
-                LocalizationKeys.Cards.CardType(enumName),
+                $"ui.cards.type.{enumName.ToLowerInvariant()}",
                 enumName);
         }
 
-        public string GetStatusName(string statusKey, string fallback)
-        {
-            return Get(LocalizationTables.Cards, LocalizationKeys.Cards.Status(statusKey), fallback);
-        }
-
-        public string GetCommandResultText(string key, string fallback, params object[] args)
-        {
-            if (!IsInitialized)
-            {
-                return fallbackFormat(fallback, args);
-            }
-
-            return LocalizationSettings.StringDatabase.GetLocalizedString(
-                LocalizationTables.Cards,
-                key,
-                args);
-        }
+        public string GetStatusName(string statusKey, string fallback) =>
+            Get(LocalizationTables.Cards, $"ui.cards.status.{statusKey}", fallback);
 
         public string BuildCompanionInfo(bool isTemporary, int turnsLeft, int cardsPerTurn)
         {
             string lifeText = isTemporary
-                ? Format(LocalizationTables.CoreGame, LocalizationKeys.CoreGame.CompanionTemporary, turnsLeft)
-                : Get(LocalizationTables.CoreGame, LocalizationKeys.CoreGame.CompanionLifetime);
+                ? Format(LocalizationTables.CoreGame, "ui.core_game.companion.temporary", turnsLeft)
+                : Get(LocalizationTables.CoreGame, "ui.core_game.companion.lifetime", "Permanent");
 
             string cardsPerTurnText = Format(
                 LocalizationTables.CoreGame,
-                LocalizationKeys.CoreGame.CompanionCardsPerTurn,
+                "ui.core_game.companion.cards_per_turn",
                 cardsPerTurn);
 
             return $"{lifeText} | {cardsPerTurnText}";
@@ -231,7 +242,7 @@ namespace Core.Localization
 
         public string BuildStatusLine(string statusKey, string fallbackName, float value, int duration)
         {
-            StringBuilder line = new StringBuilder();
+            System.Text.StringBuilder line = new System.Text.StringBuilder();
             line.Append(GetStatusName(statusKey, fallbackName));
 
             bool hasValue = value > 0f;
@@ -255,11 +266,16 @@ namespace Core.Localization
                 }
 
                 line.Append(duration);
-                line.Append(Get(LocalizationTables.Cards, LocalizationKeys.Cards.HoverTurnShort, " turn."));
+                line.Append(Get(LocalizationTables.Cards, "ui.cards.hover.turn_short", " turn."));
             }
 
             line.Append(')');
             return line.ToString();
+        }
+
+        private void _onSelectedLocaleChanged(Locale _)
+        {
+            LocaleChanged?.Invoke();
         }
 
         private static string _toCompanionLocalizationId(string assetName)
@@ -309,9 +325,7 @@ namespace Core.Localization
             }
 
             Debug.LogWarning(
-                "[LocalizationService] No locales were loaded from Addressables. " +
-                "Registering fallback locales (en, ru). " +
-                "Run 'R.A.I.N/Localization/Setup Project Localization' in the Editor for full setup.");
+                "[LocalizationService] No locales loaded. Registering fallback en/ru.");
 
             for (int i = 0; i < SupportedLocaleCodes.Length; i++)
             {
@@ -343,32 +357,38 @@ namespace Core.Localization
             LocalizationSettings.SelectedLocale = locales[0];
         }
 
-        private string _getLocaleDisplayName(Locale locale)
+        private static string _getLocaleDisplayName(Locale locale)
         {
             if (locale == null)
             {
                 return string.Empty;
             }
 
-            if (!IsInitialized)
-            {
-                return locale.Identifier.Code switch
-                {
-                    "en" => "English",
-                    "ru" => "Русский",
-                    _ => string.IsNullOrEmpty(locale.LocaleName) ? locale.Identifier.Code : locale.LocaleName
-                };
-            }
-
             return locale.Identifier.Code switch
             {
-                "en" => Get(LocalizationTables.MainMenu, LocalizationKeys.Common.LocaleEnglish, "English"),
-                "ru" => Get(LocalizationTables.MainMenu, LocalizationKeys.Common.LocaleRussian, "Русский"),
+                "en" => "English",
+                "ru" => "Русский",
                 _ => string.IsNullOrEmpty(locale.LocaleName) ? locale.Identifier.Code : locale.LocaleName
             };
         }
 
-        private static string fallbackFormat(string template, object[] args)
+        private static string _resolveReferenceKey(LocalizedString reference)
+        {
+            if (reference == null || reference.IsEmpty)
+            {
+                return string.Empty;
+            }
+
+            TableEntryReference entryReference = reference.TableEntryReference;
+            if (entryReference.ReferenceType == TableEntryReference.Type.Name)
+            {
+                return entryReference.Key;
+            }
+
+            return entryReference.KeyId.ToString();
+        }
+
+        private static string _fallbackFormat(string template, object[] args)
         {
             if (args == null || args.Length == 0)
             {

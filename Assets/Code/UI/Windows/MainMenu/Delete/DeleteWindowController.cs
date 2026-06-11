@@ -5,11 +5,10 @@ using UnityEngine;
 
 namespace UI.Windows.MainMenu.Delete
 {
-    public class DeleteWindowController  : UIWindowController<DeleteWindowView>
+    public class DeleteWindowController : UIWindowController<DeleteWindowView>
     {
         private event Action _callback;
         private string _observedObjectName;
-        
 
         public override void SubscribeToEvents(bool flag)
         {
@@ -55,12 +54,13 @@ namespace UI.Windows.MainMenu.Delete
         private void _refreshDeleteText()
         {
             LocalizationService localization = LocalizationService.TryGet();
-            string text = localization != null
-                ? localization.Format(
-                    LocalizationTables.MainMenu,
-                    LocalizationKeys.MainMenu.DeleteConfirm,
-                    _observedObjectName)
-                : $"Delete '{_observedObjectName}'?";
+            string text = $"Delete '{_observedObjectName}'?";
+            if (localization != null
+                && view.ObjectNameMessage != null
+                && !view.ObjectNameMessage.IsEmpty)
+            {
+                text = localization.Format(view.ObjectNameMessage, _observedObjectName);
+            }
             view.TextName.SetText(text);
         }
 
@@ -80,10 +80,10 @@ namespace UI.Windows.MainMenu.Delete
         {
             _callback?.Invoke();
             _callback = null;
-            
+
             _observedObjectName = string.Empty;
             view.TextName.SetText(string.Empty);
-            
+
             Close();
         }
     }

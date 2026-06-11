@@ -85,6 +85,15 @@ MonoBehaviour:
   <ButtonHost>k__BackingField: {fileID: 3412410716830903470}
   <ButtonClient>k__BackingField: {fileID: 7653820607919664771}
   <InputFieldHostIP>k__BackingField: {fileID: 2761007316297153340}
+  _yourIpMessage:
+    m_TableReference:
+      m_TableCollectionName: MainMenu
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: ui.main_menu.connection.your_ip
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
 --- !u!1 &3217734210056396852
 GameObject:
   m_ObjectHideFlags: 0
