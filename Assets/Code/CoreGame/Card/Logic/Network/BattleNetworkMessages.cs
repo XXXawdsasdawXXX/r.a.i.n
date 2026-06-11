@@ -75,6 +75,8 @@ namespace CoreGame.Card.Logic.Network
         public EBattleMode Mode;
         public bool IsHost;
         public bool AllowEarlyStart;
+        public bool ShouldShowLobby;
+        public int OnlinePlayersCount;
     }
 
     public struct BattleActionResultBroadcast : IBroadcast

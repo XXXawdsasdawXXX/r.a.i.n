@@ -25,6 +25,17 @@ namespace Core.Localization
             public const string BattleLobbyNotEnoughPvp = "ui.core_game.battle_lobby.not_enough_pvp";
             public const string BattleLobbyStartCurrent = "ui.core_game.battle_lobby.start_current";
             public const string BattleLobbyCancel = "ui.core_game.battle_lobby.cancel";
+            public const string DuelSetupTitle = "ui.core_game.duel.setup_title";
+            public const string DuelSetupBody = "ui.core_game.duel.setup_body";
+            public const string DuelWaitingTitle = "ui.core_game.duel.waiting_title";
+            public const string DuelWaitingBody = "ui.core_game.duel.waiting_body";
+            public const string DuelInviteTitle = "ui.core_game.duel.invite_title";
+            public const string DuelInviteBody = "ui.core_game.duel.invite_body";
+            public const string DuelGold = "ui.core_game.duel.gold";
+            public const string DuelChallenge = "ui.core_game.duel.challenge";
+            public const string DuelAccept = "ui.core_game.duel.accept";
+            public const string DuelDecline = "ui.core_game.duel.decline";
+            public const string DuelCancel = "ui.core_game.duel.cancel";
             public const string CompanionTemporary = "ui.core_game.companion.temporary";
             public const string CompanionLifetime = "ui.core_game.companion.lifetime";
             public const string CompanionCardsPerTurn = "ui.core_game.companion.cards_per_turn";

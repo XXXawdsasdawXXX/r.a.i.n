@@ -201,6 +201,73 @@ namespace CoreGame.Card.Logic
             return CommandResult.InvalidState;
         }
 
+        public void StartDirectDuel(
+            NetworkConnection challengerConnection,
+            BattleHeroPayload challengerHero,
+            NetworkConnection targetConnection,
+            BattleHeroPayload targetHero)
+        {
+            if (!InstanceFinder.IsServerStarted || _stateMachine.HasActiveBattle)
+            {
+                return;
+            }
+
+            _participants.Clear();
+            _participants[challengerHero.HeroId] = challengerConnection;
+            _participants[targetHero.HeroId] = targetConnection;
+
+            _battleService.StartBattleInternal(
+                challengerHero.ToHeroModel(),
+                targetHero.ToHeroModel(),
+                EBattleMode.Duel,
+                EEnemyAIDifficulty.Normal,
+                null,
+                challengerHero.HeroId,
+                targetHero.HeroId);
+
+            _syncBattleState(isBattleStarted: true);
+        }
+
+        private void _startSoloActivatorBattle(NetworkConnection connection, BattleJoinRequestBroadcast request)
+        {
+            _participants.Clear();
+            _participants[request.Hero.HeroId] = connection;
+
+            HeroModel playerHero = request.Hero.ToHeroModel();
+            HeroModel aiHero = request.AiHero.ToHeroModel();
+
+            if (request.Mode == EBattleMode.CoOpPvE)
+            {
+                Debug.Log("Only one player online — starting activator battle as PvE.");
+            }
+
+            _battleService.StartBattleInternal(
+                playerHero,
+                aiHero,
+                EBattleMode.PvE,
+                request.EnemyDifficulty,
+                null,
+                request.Hero.HeroId,
+                null);
+
+            _syncBattleState(isBattleStarted: true);
+        }
+
+        private static int _getOnlinePlayerCount()
+        {
+            if (!InstanceFinder.IsServerStarted)
+            {
+                return InstanceFinder.IsClientStarted ? 1 : 0;
+            }
+
+            return InstanceFinder.ServerManager.Clients.Count;
+        }
+
+        private static bool _shouldShowLobby()
+        {
+            return _getOnlinePlayerCount() >= 2;
+        }
+
         private void _onJoinRequest(NetworkConnection connection, BattleJoinRequestBroadcast request, Channel channel)
         {
             if (!InstanceFinder.IsServerStarted || string.IsNullOrEmpty(request.ActivatorId))
@@ -217,6 +284,12 @@ namespace CoreGame.Card.Logic
             if (string.IsNullOrEmpty(request.Hero.HeroId))
             {
                 Debug.LogWarning("Battle join rejected: hero id is missing in payload.");
+                return;
+            }
+
+            if (_getOnlinePlayerCount() < 2)
+            {
+                _startSoloActivatorBattle(connection, request);
                 return;
             }
 
@@ -434,7 +507,7 @@ namespace CoreGame.Card.Logic
                     _battleService.StartBattleInternal(
                         playerOne,
                         playerTwo,
-                        EBattleMode.PvP,
+                        lobby.Mode == EBattleMode.Duel ? EBattleMode.Duel : EBattleMode.PvP,
                         EEnemyAIDifficulty.Normal,
                         null,
                         playerOne.HeroId,
@@ -656,7 +729,9 @@ namespace CoreGame.Card.Logic
                 MinPlayers = lobby.MinPlayers,
                 Mode = lobby.Mode,
                 IsHost = lobby.HostConnection == recipient,
-                AllowEarlyStart = lobby.AllowEarlyStart
+                AllowEarlyStart = lobby.AllowEarlyStart,
+                ShouldShowLobby = _shouldShowLobby(),
+                OnlinePlayersCount = _getOnlinePlayerCount()
             };
         }
 
@@ -702,7 +777,9 @@ namespace CoreGame.Card.Logic
                 broadcast.MinPlayers,
                 broadcast.Mode,
                 broadcast.IsHost,
-                broadcast.AllowEarlyStart);
+                broadcast.AllowEarlyStart,
+                broadcast.ShouldShowLobby,
+                broadcast.OnlinePlayersCount);
         }
 
         private sealed class BattleLobby

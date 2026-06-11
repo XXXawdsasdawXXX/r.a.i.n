@@ -59,7 +59,7 @@ namespace UI.Windows.Game.BattleLobby
                 return;
             }
 
-            if (!state.IsOpen)
+            if (!state.IsOpen || !state.ShouldShowLobby)
             {
                 _lastLobbyState = default;
                 Close();

@@ -14,6 +14,7 @@ namespace UI.Components
         public bool IsInitialized { get; set; }
 
         [SerializeField] private Button _button;
+        [SerializeField] private UIText _uiText;
         
         private AudioService _audio;
 

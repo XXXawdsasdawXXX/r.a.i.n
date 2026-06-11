@@ -10,6 +10,7 @@ namespace CoreGame.Card.Logic.Network
         public string HeroId;
         public string Name;
         public int Health;
+        public int Gold;
         public HeroStats Stats;
         public string SelectedDeckId;
         public List<string> Deck;
@@ -27,6 +28,7 @@ namespace CoreGame.Card.Logic.Network
                 HeroId = hero.HeroId,
                 Name = hero.Name,
                 Health = hero.Health,
+                Gold = hero.Gold,
                 Stats = hero.Stats,
                 SelectedDeckId = hero.SelectedDeckId,
                 Deck = hero.Deck != null ? new List<string>(hero.Deck) : new List<string>(),
@@ -41,6 +43,7 @@ namespace CoreGame.Card.Logic.Network
                 HeroId = HeroId,
                 Name = Name,
                 Health = Health,
+                Gold = Gold,
                 Stats = Stats ?? new HeroStats(),
                 SelectedDeckId = SelectedDeckId,
                 Deck = Deck ?? new List<string>(),

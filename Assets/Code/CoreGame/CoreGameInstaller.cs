@@ -32,7 +32,8 @@ namespace CoreGame
                 //cards
                 typeof(BattleService),
                 typeof(BattleStateMachine),
-                typeof(NetworkBattleService)
+                typeof(NetworkBattleService),
+                typeof(NetworkDuelService)
             };
         }
     }

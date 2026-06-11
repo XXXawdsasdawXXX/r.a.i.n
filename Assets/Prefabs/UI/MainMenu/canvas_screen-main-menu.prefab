@@ -780,8 +780,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -16.767}
-  m_SizeDelta: {x: 0, y: 33.5341}
+  m_AnchoredPosition: {x: 49.5789, y: -16.767}
+  m_SizeDelta: {x: 99.158, y: 33.5341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4264232010814130857
 GameObject:
@@ -1932,7 +1932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: "\u0445\u043E\u0441\u0442"
+      value: host
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontSize
@@ -2069,7 +2069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: "\u0443\u0434\u0430\u043B\u0438\u0442\u044C"
+      value: delete
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -2198,8 +2198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7330940580237409095, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: m_text
-      value: "\u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C\u0441\u044F
-        \u043A \u0438\u0433\u0440\u0435"
+      value: join to game
       objectReference: {fileID: 0}
     - target: {fileID: 8042823179126906014, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: _key
@@ -2313,7 +2312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7330940580237409095, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: m_text
-      value: "\u0438\u0433\u0440\u0430"
+      value: game
       objectReference: {fileID: 0}
     - target: {fileID: 8042823179126906014, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: _key
@@ -2715,7 +2714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: "\u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"
+      value: continue
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -2844,7 +2843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: "\u043D\u043E\u0432\u044B\u0439"
+      value: new
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -2973,7 +2972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7330940580237409095, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: m_text
-      value: "\u043D\u043E\u0432\u0430\u044F \u0438\u0433\u0440\u0430"
+      value: new game
       objectReference: {fileID: 0}
     - target: {fileID: 8042823179126906014, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: _key
@@ -3087,7 +3086,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: "\u0441\u043E\u0437\u0434\u0430\u0442\u044C"
+      value: create
       objectReference: {fileID: 0}
     - target: {fileID: 9015977072296828294, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: _key
@@ -3212,7 +3211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: "\u0441\u0435\u0440\u0432\u0435\u0440"
+      value: server
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -3459,7 +3458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: "\u0443\u0434\u0430\u043B\u0438\u0442\u044C"
+      value: delete
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -3512,7 +3511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1055071803116842566, guid: 72e8b06e34f535547b5e3b1fb8af9094, type: 3}
       propertyPath: m_text
-      value: "\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+      value: copy
       objectReference: {fileID: 0}
     - target: {fileID: 3077508819836482690, guid: 72e8b06e34f535547b5e3b1fb8af9094, type: 3}
       propertyPath: _uiSettings
@@ -3827,7 +3826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: "\u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
+      value: settings
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -4206,7 +4205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_text
-      value: "\u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0438\u0442\u044C\u0441\u044F"
+      value: join
       objectReference: {fileID: 0}
     - target: {fileID: 8592390817710701151, guid: faae8345cfa6aac448261b53293e415e, type: 3}
       propertyPath: m_fontSize
@@ -4343,7 +4342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7330940580237409095, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: m_text
-      value: "\u0433\u0435\u0440\u043E\u0439"
+      value: hero
       objectReference: {fileID: 0}
     - target: {fileID: 8042823179126906014, guid: 920774f47966b6c4bba2f42d656d1283, type: 3}
       propertyPath: _key
@@ -4473,7 +4472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4389451258780315301, guid: 04e773ece2268964084c711cb3c03112, type: 3}
       propertyPath: m_text
-      value: "\u0432\u0430\u0448 ip"
+      value: user ip
       objectReference: {fileID: 0}
     - target: {fileID: 4389451258780315301, guid: 04e773ece2268964084c711cb3c03112, type: 3}
       propertyPath: m_fontStyle
@@ -5509,7 +5508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8069571578608155371, guid: 735af693806aee5479cb96ac29073d3d, type: 3}
       propertyPath: m_text
-      value: "\u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0438\u0433\u0440\u044B.."
+      value: game name..
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

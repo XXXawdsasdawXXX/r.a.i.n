@@ -12,6 +12,7 @@ namespace Core.Save
         public string Name;
         public int Health;
         public int Armor;
+        public int Gold;
         public bool InBattle;
         
         public TimeSpan GameTime;
@@ -29,6 +30,7 @@ namespace Core.Save
         {
             Name = "name";
             Health = 100;
+            Gold = 100;
 
             GameTime = new TimeSpan();
             ExitTime = new TimeSpan();
