@@ -29,7 +29,7 @@ namespace CoreGame.Entities.Characters.Hero
         [field: SerializeField] public HeroColor Color { get; private set; }
         [field: SerializeField] public HeroAnimation Animation { get; private set; }
         [field: SerializeField] public HeroItemController ItemController { get; private set; }
-        [field: SerializeField] public HeroContextTarget ContextTarget { get; private set; }
+        [field: SerializeField] public HeroPointerTarget PointerTarget { get; private set; }
         
         
         public override void InitializeComponents()

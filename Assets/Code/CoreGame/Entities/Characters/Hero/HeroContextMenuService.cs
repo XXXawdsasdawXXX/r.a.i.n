@@ -72,18 +72,12 @@ namespace CoreGame.Entities.Characters.Hero
 
         public void RegisterHero(Hero hero)
         {
-            if (hero?.ContextTarget == null)
+            if (hero?.PointerTarget == null)
             {
                 return;
             }
 
-            HeroPointerTarget pointerTarget = hero.ContextTarget.GetComponent<HeroPointerTarget>();
-            if (pointerTarget == null)
-            {
-                pointerTarget = hero.ContextTarget.gameObject.AddComponent<HeroPointerTarget>();
-            }
-
-            RegisterPointerTarget(pointerTarget);
+            RegisterPointerTarget(hero.PointerTarget);
         }
 
         public void RegisterPointerTarget(HeroPointerTarget pointerTarget)
@@ -101,17 +95,12 @@ namespace CoreGame.Entities.Characters.Hero
 
         public void UnregisterHero(Hero hero)
         {
-            if (hero?.ContextTarget == null)
+            if (hero?.PointerTarget == null)
             {
                 return;
             }
 
-            HeroPointerTarget pointerTarget = hero.ContextTarget.GetComponent<HeroPointerTarget>();
-            if (pointerTarget == null)
-            {
-                return;
-            }
-
+            HeroPointerTarget pointerTarget = hero.PointerTarget;
             pointerTarget.RightClicked -= _onPointerRightClicked;
             _pointerTargets.Remove(pointerTarget);
 
@@ -160,7 +149,7 @@ namespace CoreGame.Entities.Characters.Hero
 
         private void _onPointerRightClicked(HeroPointerTarget pointerTarget)
         {
-            _openContextMenu(pointerTarget?.ContextTarget);
+            _openContextMenu(pointerTarget);
         }
 
         private void _handleRightClick()
@@ -170,11 +159,10 @@ namespace CoreGame.Entities.Characters.Hero
                 return;
             }
 
-            HeroPointerTarget pointerTarget = _findPointerTargetUnderCursor();
-            _openContextMenu(pointerTarget?.ContextTarget);
+            _openContextMenu(_findPointerTargetUnderCursor());
         }
 
-        private void _openContextMenu(HeroContextTarget target)
+        private void _openContextMenu(HeroPointerTarget target)
         {
             if (target == null || !target.CanOpenContextMenu())
             {

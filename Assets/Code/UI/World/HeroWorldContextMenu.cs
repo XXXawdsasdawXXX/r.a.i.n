@@ -21,7 +21,7 @@ namespace UI.World
         [SerializeField] private UIButton _duelButton;
         [SerializeField] private UIText _duelButtonLabel;
 
-        private HeroContextTarget _target;
+        private HeroPointerTarget _target;
         private NetworkDuelService _duelService;
         private LocalizationService _localization;
         private bool _isOpen;
@@ -52,7 +52,7 @@ namespace UI.World
             }
         }
 
-        public void Open(HeroContextTarget target)
+        public void Open(HeroPointerTarget target)
         {
             _target = target;
             _refreshLabels();

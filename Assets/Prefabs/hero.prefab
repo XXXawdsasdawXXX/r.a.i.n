@@ -268,7 +268,7 @@ MonoBehaviour:
   <Color>k__BackingField: {fileID: 3634067845205420892}
   <Animation>k__BackingField: {fileID: 323456471821699198}
   <ItemController>k__BackingField: {fileID: -227475778803773201}
-  <ContextTarget>k__BackingField: {fileID: 6215166456641444528}
+  <PointerTarget>k__BackingField: {fileID: 0}
 --- !u!50 &7074728272879338317
 Rigidbody2D:
   serializedVersion: 4
@@ -692,7 +692,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8727350893632354289}
   - component: {fileID: 2832416800504898882}
-  - component: {fileID: 6215166456641444528}
   - component: {fileID: 5182746392018374650}
   m_Layer: 0
   m_Name: target-context
@@ -761,24 +760,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.2}
   m_EdgeRadius: 0
---- !u!114 &6215166456641444528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7103871862680835141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04b768800c82bd944b038e44550b2b59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 8329376548906989968}
-  _networkObjectCache: {fileID: 0}
-  _hero: {fileID: 9045540903597572497}
-  _clickCollider: {fileID: 2832416800504898882}
-  _contextMenu: {fileID: 213756019111547672}
 --- !u!114 &5182746392018374650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,8 +772,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e3a1b2c4d547e9a0b1c2d3e4f5a6b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contextTarget: {fileID: 6215166456641444528}
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 8329376548906989968}
+  _networkObjectCache: {fileID: 0}
+  _hero: {fileID: 9045540903597572497}
   _collider: {fileID: 2832416800504898882}
+  _contextMenu: {fileID: 213756019111547672}
 --- !u!1001 &1586195582607151685
 PrefabInstance:
   m_ObjectHideFlags: 0

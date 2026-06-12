@@ -94,7 +94,7 @@ namespace UI.Windows.Game.HUD
             _contextMenuService.NotifyMenuClosed();
         }
 
-        private static HeroWorldContextMenu _resolveContextMenu(HeroContextTarget target)
+        private static HeroWorldContextMenu _resolveContextMenu(HeroPointerTarget target)
         {
             if (target?.ContextMenu != null
                 && target.ContextMenu.TryGetComponent(out HeroWorldContextMenu menuFromReference))
