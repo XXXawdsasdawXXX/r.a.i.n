@@ -65,11 +65,14 @@ namespace UI.Windows.Game.HUD
                 return;
             }
 
-            _activeContextMenu = request.Target.GetComponentInChildren<HeroWorldContextMenu>(true);
+            Hero hero = request.Target.Hero;
+            _activeContextMenu = hero != null
+                ? hero.GetComponentInChildren<HeroWorldContextMenu>(true)
+                : null;
             if (_activeContextMenu == null)
             {
                 Debug.LogWarning(
-                    $"Hero '{request.DisplayName}' has no {nameof(HeroWorldContextMenu)} on world canvas.");
+                    $"Hero '{request.DisplayName}' has no {nameof(HeroWorldContextMenu)} on hero prefab.");
                 _contextMenuService.NotifyMenuClosed();
                 return;
             }
