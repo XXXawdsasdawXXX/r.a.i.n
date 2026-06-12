@@ -358,6 +358,7 @@ MonoBehaviour:
     Name: enemy
     Health: 100
     Armor: 0
+    Gold: 100
     InBattle: 0
     Stats:
       Agility: 0
@@ -732,6 +733,34 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5939341835119669115, guid: 17514b0bf1a66534d866a5010c253ac3, type: 3}
   m_PrefabInstance: {fileID: 7965889897324383281}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1137637239 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6611185091113520020, guid: 17514b0bf1a66534d866a5010c253ac3, type: 3}
+  m_PrefabInstance: {fileID: 7965889897324383281}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1137637241 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3390096720822274462, guid: 17514b0bf1a66534d866a5010c253ac3, type: 3}
+  m_PrefabInstance: {fileID: 7965889897324383281}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1137637243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137637239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6577a4377b1624a42b3785f4d80bdf42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collider: {fileID: 1137637241}
+  _sortingPriority: 0
+  _isEnabled: 1
+  _interactionObject: {fileID: 0}
+  _useRightClick: 1
+  _useLeftClick: 0
 --- !u!4 &1253151133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4413254661523514304, guid: dd96609b13ffc80478fb86e6354d79d9, type: 3}
@@ -1838,7 +1867,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6611185091113520020, guid: 17514b0bf1a66534d866a5010c253ac3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1137637243}
   m_SourcePrefab: {fileID: 100100000, guid: 17514b0bf1a66534d866a5010c253ac3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
