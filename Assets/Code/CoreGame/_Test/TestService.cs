@@ -1,8 +1,8 @@
 ﻿using Core.GameLoop;
 using Core.Input;
 using Core.ServiceLocator;
-using CoreGame.Camera;
 using CoreGame.Grid;
+using CoreGame.PlayerCamera;
 using Cysharp.Threading.Tasks;
 using LiteNetLib.Utils;
 using Unity.Mathematics;

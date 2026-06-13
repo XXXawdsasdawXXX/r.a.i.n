@@ -1,6 +1,6 @@
 ﻿using FishNet.Broadcast;
 
-namespace CoreGame.InteractionObjects.Activators
+namespace CoreGame.Entities.InteractionObjects.Activators
 {
     public struct ActivatorBroadcast : IBroadcast
     {

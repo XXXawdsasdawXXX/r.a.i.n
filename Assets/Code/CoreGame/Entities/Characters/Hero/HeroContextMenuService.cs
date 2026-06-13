@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Core.GameLoop;
 using Core.Input;
 using Core.ServiceLocator;
-using CoreGame.Camera;
+using CoreGame.PlayerCamera;
 using Cysharp.Threading.Tasks;
 using FishNet;
 using UnityEngine;

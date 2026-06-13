@@ -4,7 +4,7 @@ using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CoreGame.Camera
+namespace CoreGame.PlayerCamera
 {
     public class CameraController : IMono, IInitializeListener, IStartListener, IUpdateListener
     {

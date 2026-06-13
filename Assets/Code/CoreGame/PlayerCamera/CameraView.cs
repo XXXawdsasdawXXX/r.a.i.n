@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace CoreGame.Camera
+namespace CoreGame.PlayerCamera
 {
     [Preserve]
     public class CameraView : MonoView

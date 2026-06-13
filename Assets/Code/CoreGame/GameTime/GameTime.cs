@@ -8,7 +8,7 @@ using FishNet.Broadcast;
 using UnityEngine.Scripting;
 using Channel = FishNet.Transporting.Channel;
 
-namespace CoreGame.Time
+namespace CoreGame.GameTime
 {
     [Preserve]
     public class GameTime : IService, ISubscriber, IInitializeListener, IUpdateListener, ILoadListener

@@ -1,14 +1,14 @@
 ﻿using System;
 using Core.ServiceLocator;
 using CoreGame._Test;
-using CoreGame.Camera;
 using CoreGame.Card.Logic;
 using CoreGame.Card.Logic.StateMachine;
 using CoreGame.Entities.Characters.Controllers;
 using CoreGame.Entities.Characters.Hero;
+using CoreGame.GameTime;
 using CoreGame.Grid;
 using CoreGame.Harvest;
-using CoreGame.Time;
+using CoreGame.PlayerCamera;
 using UnityEngine;
 
 namespace CoreGame
@@ -24,7 +24,7 @@ namespace CoreGame
                 typeof(TestService),
 #endif
                 //world
-                typeof(GameTime),
+                typeof(GameTime.GameTime),
                 typeof(GridService),
                 typeof(WorldMaterialController),
                 typeof(CameraController),

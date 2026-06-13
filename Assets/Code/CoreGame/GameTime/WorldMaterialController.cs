@@ -5,7 +5,7 @@ using Core.ServiceLocator;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CoreGame.Time
+namespace CoreGame.GameTime
 {
     public class WorldMaterialController : IMono, IInitializeListener, IUpdateListener, IExitListener
     {

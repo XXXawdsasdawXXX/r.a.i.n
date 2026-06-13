@@ -10,7 +10,7 @@ using Cysharp.Threading.Tasks;
 using FishNet;
 using UnityEngine;
 
-namespace CoreGame.InteractionObjects.Activators
+namespace CoreGame.Entities.InteractionObjects.Activators
 {
     public class BattleActivatorObject : ActivatorObject, IInitializeListener
     {

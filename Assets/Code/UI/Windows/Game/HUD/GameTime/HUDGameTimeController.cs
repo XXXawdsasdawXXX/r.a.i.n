@@ -1,7 +1,7 @@
 ﻿using Core.Data;
 using Core.GameLoop;
 using Core.ServiceLocator;
-using CoreGame.Time;
+using CoreGame.GameTime;
 using Cysharp.Threading.Tasks;
 using UI.Windows.Base;
 

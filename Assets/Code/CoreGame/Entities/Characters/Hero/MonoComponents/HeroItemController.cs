@@ -1,6 +1,6 @@
 ﻿using Core.Network;
 using Core.ServiceLocator;
-using CoreGame.Entities.GameObjects.Items;
+using CoreGame.Entities.Items;
 using FishNet.Object;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿namespace CoreGame.InteractionObjects
+﻿namespace CoreGame.Entities.InteractionObjects
 {
     public enum EInteractionObjectType
     {

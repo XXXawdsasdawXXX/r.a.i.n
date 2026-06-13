@@ -4,7 +4,7 @@ using FishNet.Connection;
 using UnityEngine;
 using Channel = FishNet.Transporting.Channel;
 
-namespace CoreGame.InteractionObjects.Activators
+namespace CoreGame.Entities.InteractionObjects.Activators
 {
     public class ActivatorObject : InteractionObject, ISubscriber
     {
