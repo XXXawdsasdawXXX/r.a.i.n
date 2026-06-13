@@ -124,7 +124,7 @@ namespace CoreGame.Entities.Characters.Hero
             }
 
             HeroContextTarget target = _findTargetUnderCursor();
-            if (target == null || !target.CanOpenContextMenu())
+            if (target == null || !target.CanOpenContextMenu)
             {
                 RequestClose();
                 return;
@@ -174,7 +174,7 @@ namespace CoreGame.Entities.Characters.Hero
                     continue;
                 }
 
-                if (!target.CanOpenContextMenu() || !target.ContainsWorldPoint(worldPoint))
+                if (!target.CanOpenContextMenu || !target.ContainsWorldPoint(worldPoint))
                 {
                     continue;
                 }

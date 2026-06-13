@@ -13,24 +13,18 @@ namespace CoreGame.Entities.Characters.Hero
         public Hero Hero => _hero != null ? _hero : GetComponentInParent<Hero>();
         public Collider2D ClickCollider => _clickCollider != null ? _clickCollider : GetComponent<Collider2D>();
 
+        public bool CanOpenContextMenu =>
+            IsClientInitialized
+            && Hero != null
+            && !_isLocalHero()
+            && !_isInBattle();
+
         public string DisplayName =>
             Hero?.Name != null && !string.IsNullOrEmpty(Hero.Name.Name)
                 ? Hero.Name.Name
                 : "Player";
 
         public string HeroObjectId => Hero != null ? Hero.ObjectId.ToString() : string.Empty;
-
-        
-        public bool CanOpenContextMenu()
-        {
-            bool isLocal = _isLocalHero();
-            bool isInBattle = _isInBattle();
-            
-            return IsClientInitialized
-                   && Hero != null
-                   && !isLocal
-                   && !isInBattle;
-        }
 
         public bool ContainsWorldPoint(Vector2 worldPoint)
         {
@@ -46,7 +40,7 @@ namespace CoreGame.Entities.Characters.Hero
             {
                 return false;
             }
-            
+
             return localHero == Hero.NetworkObject;
         }
 
