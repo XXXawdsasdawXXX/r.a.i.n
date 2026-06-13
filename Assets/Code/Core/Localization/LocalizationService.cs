@@ -15,12 +15,12 @@ namespace Core.Localization
     public sealed class LocalizationService : IService, IInitializeListener, IExitListener
     {
         public bool IsInitialized { get; set; }
-        public event Action LocaleChanged;
 
         public const string LocalePrefsKey = "selected_locale_code";
 
         private static readonly string[] SupportedLocaleCodes = { "en", "ru" };
 
+        public event Action LocaleChanged;
 
         public async UniTask Initialize()
         {

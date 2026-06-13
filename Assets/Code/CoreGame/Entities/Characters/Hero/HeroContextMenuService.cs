@@ -36,8 +36,8 @@ namespace CoreGame.Entities.Characters.Hero
         {
             _input.ActionEnded += _onActionEnded;
             _heroSpawner = Container.Instance.GetService<HeroSpawner>();
-            _heroSpawner.HeroSpawned += RegisterTarget;
-            _heroSpawner.HeroDespawned += UnregisterTarget;
+            _heroSpawner.ContextTargetSpawned += RegisterTarget;
+            _heroSpawner.ContextTargetDespawned += UnregisterTarget;
         }
 
         public void Unsubscribe()
@@ -46,34 +46,34 @@ namespace CoreGame.Entities.Characters.Hero
 
             if (_heroSpawner != null)
             {
-                _heroSpawner.HeroSpawned -= RegisterTarget;
-                _heroSpawner.HeroDespawned -= UnregisterTarget;
+                _heroSpawner.ContextTargetSpawned -= RegisterTarget;
+                _heroSpawner.ContextTargetDespawned -= UnregisterTarget;
             }
 
             _targets.Clear();
             RequestClose();
         }
 
-        public void RegisterTarget(Hero target)
+        public void RegisterTarget(HeroContextTarget target)
         {
-            if (target == null || _targets.Contains(target.ContextTarget))
+            if (target == null || _targets.Contains(target))
             {
                 return;
             }
 
-            _targets.Add(target.ContextTarget);
+            _targets.Add(target);
         }
 
-        public void UnregisterTarget(Hero target)
+        public void UnregisterTarget(HeroContextTarget target)
         {
             if (target == null)
             {
                 return;
             }
 
-            _targets.Remove(target.ContextTarget);
+            _targets.Remove(target);
 
-            if (_activeHeroObjectId == target.ObjectId.ToString())
+            if (_activeHeroObjectId == target.HeroObjectId)
             {
                 RequestClose();
             }
