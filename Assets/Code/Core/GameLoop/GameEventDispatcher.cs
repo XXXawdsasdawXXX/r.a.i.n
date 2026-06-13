@@ -280,17 +280,31 @@ namespace Core.GameLoop
 
         private void _notifyGameUpdate(float deltaTime)
         {
-            foreach (IUpdateListener listener in _updateListeners)
+            using (_updateProfilerMarker.Auto())
             {
-                listener.GameUpdate(deltaTime);
+                foreach (IUpdateListener listener in _updateListeners)
+                {
+                    Profiler.BeginSample(listener.RuntimeListenerName);
+
+                    listener.GameUpdate(deltaTime);
+
+                    Profiler.EndSample();
+                }
             }
         }
 
         private void _notifyGameFixedUpdate(float fixedDeltaTime)
         {
-            foreach (IFixedUpdateListener listener in _fixedUpdateListeners)
+            using (_fixedUpdateProfilerMarker.Auto())
             {
-                listener.GameFixedUpdate(fixedDeltaTime);
+                foreach (IFixedUpdateListener listener in _fixedUpdateListeners)
+                {
+                    Profiler.BeginSample(listener.RuntimeListenerName);
+
+                    listener.GameFixedUpdate(fixedDeltaTime);
+
+                    Profiler.EndSample();
+                }
             }
         }
 

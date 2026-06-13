@@ -1,9 +1,9 @@
 using System;
 using Core.GameLoop;
 using Core.Input;
-using Core.Network;
 using Core.ServiceLocator;
 using CoreGame.Camera;
+using FishNet;
 using FishNet.Object;
 using UnityEngine;
 
@@ -17,21 +17,12 @@ namespace CoreGame.Entities.Characters.Hero
         public event Action<HeroPointerTarget> LeftClicked;
         public event Action<HeroPointerTarget> RightClicked;
 
-        [SerializeField] private Hero _hero;
+        [SerializeField] private HeroContextTarget _contextTarget;
         [SerializeField] private Collider2D _collider;
-        [SerializeField] private GameObject _contextMenu;
 
         public bool IsHovered { get; private set; }
-        public Hero Hero => _hero != null ? _hero : NetworkObject.GetComponent<Hero>();
+        public HeroContextTarget ContextTarget => _contextTarget != null ? _contextTarget : GetComponent<HeroContextTarget>();
         public Collider2D Collider => _collider != null ? _collider : GetComponent<Collider2D>();
-        public GameObject ContextMenu => _contextMenu;
-
-        public string DisplayName =>
-            Hero?.Name != null && !string.IsNullOrEmpty(Hero.Name.Name)
-                ? Hero.Name.Name
-                : "Player";
-
-        public string HeroObjectId => Hero != null ? Hero.ObjectId.ToString() : string.Empty;
 
         public string RuntimeListenerName => $"HeroPointerTarget:{name}";
 
@@ -45,9 +36,9 @@ namespace CoreGame.Entities.Characters.Hero
                 _collider = GetComponent<Collider2D>();
             }
 
-            if (_hero == null)
+            if (_contextTarget == null)
             {
-                _hero = GetComponentInParent<Hero>();
+                _contextTarget = GetComponent<HeroContextTarget>();
             }
         }
 
@@ -57,24 +48,9 @@ namespace CoreGame.Entities.Characters.Hero
             _camera = camera;
         }
 
-        public bool CanOpenContextMenu()
-        {
-            if (Hero == null || !Hero.IsSpawned)
-            {
-                return false;
-            }
-
-            if (_isLocalHero())
-            {
-                return false;
-            }
-
-            return !_isInBattle();
-        }
-
         public void GameUpdate(float deltaTime)
         {
-            if (!IsClientStarted || Collider == null)
+            if (!InstanceFinder.IsClientStarted || Collider == null)
             {
                 _setHovered(false);
                 return;
@@ -174,27 +150,6 @@ namespace CoreGame.Entities.Characters.Hero
             {
                 HoverExited?.Invoke(this);
             }
-        }
-
-        private bool _isLocalHero()
-        {
-            if (Hero.IsOwner)
-            {
-                return true;
-            }
-
-            UserProvider userProvider = Container.Instance.GetService<UserProvider>();
-            if (userProvider?.Hero == null)
-            {
-                return false;
-            }
-
-            return userProvider.Hero.ObjectId == Hero.ObjectId;
-        }
-
-        private bool _isInBattle()
-        {
-            return Hero.Model != null && Hero.Model.InBattle;
         }
     }
 }
