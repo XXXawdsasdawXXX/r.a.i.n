@@ -778,7 +778,6 @@ MonoBehaviour:
   _hero: {fileID: 9045540903597572497}
   _collider: {fileID: 2832416800504898882}
   _contextMenu: {fileID: 213756019111547672}
-  _sortingPriority: 10
 --- !u!1001 &1586195582607151685
 PrefabInstance:
   m_ObjectHideFlags: 0

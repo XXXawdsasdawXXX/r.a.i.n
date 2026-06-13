@@ -8,7 +8,6 @@ using CoreGame.Entities.Characters.Controllers;
 using CoreGame.Entities.Characters.Hero;
 using CoreGame.Grid;
 using CoreGame.Harvest;
-using CoreGame.Interaction;
 using CoreGame.Time;
 using UnityEngine;
 
@@ -36,7 +35,6 @@ namespace CoreGame
                 typeof(BattleStateMachine),
                 typeof(NetworkBattleService),
                 typeof(NetworkDuelService),
-                typeof(WorldPointerService),
                 typeof(HeroContextMenuService)
             };
         }

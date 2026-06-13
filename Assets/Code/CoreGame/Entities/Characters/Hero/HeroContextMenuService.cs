@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Core.GameLoop;
 using Core.Input;
 using Core.ServiceLocator;
-using CoreGame.Interaction;
+using CoreGame.Camera;
 using Cysharp.Threading.Tasks;
 using FishNet;
 using UnityEngine;
@@ -20,19 +20,22 @@ namespace CoreGame.Entities.Characters.Hero
         public event Action CloseRequested;
 
         private InputManager _input;
-        private WorldPointerService _pointerService;
+        private UnityEngine.Camera _camera;
         private HeroSpawner _heroSpawner;
         private string _activeHeroObjectId;
+        private readonly List<HeroPointerTarget> _pointerTargets = new();
 
         public UniTask Initialize()
         {
             _input = Container.Instance.GetService<InputManager>();
-            _pointerService = Container.Instance.GetService<WorldPointerService>();
             return UniTask.CompletedTask;
         }
 
         public UniTask GameStart()
         {
+            _camera = null;
+            _resolveCamera();
+            _registerExistingHeroes();
             return UniTask.CompletedTask;
         }
 
@@ -40,8 +43,9 @@ namespace CoreGame.Entities.Characters.Hero
         {
             _input.ActionEnded += _onActionEnded;
             _heroSpawner = Container.Instance.GetService<HeroSpawner>();
+            _heroSpawner.HeroSpawned += RegisterHero;
             _heroSpawner.HeroDespawned += UnregisterHero;
-            _pointerService.Clicked += _onPointerClicked;
+            _registerExistingHeroes();
         }
 
         public void Unsubscribe()
@@ -50,20 +54,57 @@ namespace CoreGame.Entities.Characters.Hero
 
             if (_heroSpawner != null)
             {
+                _heroSpawner.HeroSpawned -= RegisterHero;
                 _heroSpawner.HeroDespawned -= UnregisterHero;
             }
 
-            if (_pointerService != null)
+            foreach (HeroPointerTarget pointerTarget in _pointerTargets)
             {
-                _pointerService.Clicked -= _onPointerClicked;
+                if (pointerTarget != null)
+                {
+                    pointerTarget.RightClicked -= _onPointerRightClicked;
+                }
             }
 
+            _pointerTargets.Clear();
             RequestClose();
+        }
+
+        public void RegisterHero(Hero hero)
+        {
+            if (hero?.PointerTarget == null)
+            {
+                return;
+            }
+
+            RegisterPointerTarget(hero.PointerTarget);
+        }
+
+        public void RegisterPointerTarget(HeroPointerTarget pointerTarget)
+        {
+            if (pointerTarget == null || _pointerTargets.Contains(pointerTarget))
+            {
+                return;
+            }
+
+            _resolveCamera();
+            pointerTarget.BindInput(_input, _camera);
+            pointerTarget.RightClicked += _onPointerRightClicked;
+            _pointerTargets.Add(pointerTarget);
         }
 
         public void UnregisterHero(Hero hero)
         {
-            if (hero != null && _activeHeroObjectId == hero.ObjectId.ToString())
+            if (hero?.PointerTarget == null)
+            {
+                return;
+            }
+
+            HeroPointerTarget pointerTarget = hero.PointerTarget;
+            pointerTarget.RightClicked -= _onPointerRightClicked;
+            _pointerTargets.Remove(pointerTarget);
+
+            if (_activeHeroObjectId == hero.ObjectId.ToString())
             {
                 RequestClose();
             }
@@ -92,24 +133,33 @@ namespace CoreGame.Entities.Characters.Hero
                 return;
             }
 
-            if (action == EInputAction.Esc)
+            switch (action)
             {
-                RequestClose();
-            }
-            else if (action == EInputAction.LeftClick)
-            {
-                _handleLeftClickOutside();
+                case EInputAction.RightClick:
+                    _handleRightClick();
+                    break;
+                case EInputAction.LeftClick:
+                    _handleLeftClickOutside();
+                    break;
+                case EInputAction.Esc:
+                    RequestClose();
+                    break;
             }
         }
 
-        private void _onPointerClicked(IWorldPointerTarget target, EInputAction action)
+        private void _onPointerRightClicked(HeroPointerTarget pointerTarget)
         {
-            if (action != EInputAction.RightClick || target is not HeroPointerTarget heroTarget)
+            _openContextMenu(pointerTarget);
+        }
+
+        private void _handleRightClick()
+        {
+            if (_isPointerOverScreenSpaceUi())
             {
                 return;
             }
 
-            _openContextMenu(heroTarget);
+            _openContextMenu(_findPointerTargetUnderCursor());
         }
 
         private void _openContextMenu(HeroPointerTarget target)
@@ -139,6 +189,96 @@ namespace CoreGame.Entities.Characters.Hero
             }
 
             RequestClose();
+        }
+
+        private void _registerExistingHeroes()
+        {
+            Hero[] heroes = UnityEngine.Object.FindObjectsOfType<Hero>(true);
+            foreach (Hero hero in heroes)
+            {
+                RegisterHero(hero);
+            }
+        }
+
+        private HeroPointerTarget _findPointerTargetUnderCursor()
+        {
+            UnityEngine.Camera camera = _resolveCamera();
+            if (camera == null)
+            {
+                return null;
+            }
+
+            Ray ray = camera.ScreenPointToRay(_input.MousePosition);
+            RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray, Mathf.Infinity);
+
+            HeroPointerTarget bestTarget = null;
+            float bestDistance = float.PositiveInfinity;
+
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider == null)
+                {
+                    continue;
+                }
+
+                HeroPointerTarget pointerTarget = hit.collider.GetComponent<HeroPointerTarget>()
+                    ?? hit.collider.GetComponentInParent<HeroPointerTarget>();
+                if (pointerTarget == null)
+                {
+                    continue;
+                }
+
+                if (hit.distance < bestDistance)
+                {
+                    bestDistance = hit.distance;
+                    bestTarget = pointerTarget;
+                }
+            }
+
+            if (bestTarget != null)
+            {
+                return bestTarget;
+            }
+
+            foreach (HeroPointerTarget pointerTarget in _pointerTargets)
+            {
+                if (pointerTarget != null && pointerTarget.IsHovered)
+                {
+                    return pointerTarget;
+                }
+            }
+
+            return null;
+        }
+
+        private UnityEngine.Camera _resolveCamera()
+        {
+            if (_camera != null)
+            {
+                return _camera;
+            }
+
+            try
+            {
+                CameraView cameraView = Container.Instance.GetView<CameraView>();
+                _camera = cameraView?.Camera;
+            }
+            catch (Exception)
+            {
+                _camera = null;
+            }
+
+            if (_camera == null)
+            {
+                _camera = UnityEngine.Camera.main;
+            }
+
+            foreach (HeroPointerTarget pointerTarget in _pointerTargets)
+            {
+                pointerTarget?.BindInput(_input, _camera);
+            }
+
+            return _camera;
         }
 
         private bool _isPointerOverScreenSpaceUi()
