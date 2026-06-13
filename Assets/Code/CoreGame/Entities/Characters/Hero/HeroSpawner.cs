@@ -143,13 +143,9 @@ namespace CoreGame.Entities.Characters.Hero
         [TargetRpc]
         private void _setUserHero(NetworkConnection connection, NetworkObject instance)
         {
-            if (!connection.IsLocalClient)
-            {
-                return;
-            }
-
-            _userProvider.SetConnection(connection);
-            _userProvider.SetHero(instance);
+            UserProvider userProvider = Container.Instance.GetService<UserProvider>();
+            userProvider.SetConnection(connection);
+            userProvider.SetHero(instance);
         }
 
         private void _sceneManagerOnClientLoadedStartScenes(NetworkConnection connection, bool isServer)

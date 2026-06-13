@@ -1,31 +1,22 @@
-﻿using Core.GameLoop;
-using Core.Network;
+﻿using Core.Network;
 using Core.ServiceLocator;
 using CoreGame.Entities.GameObjects.Items;
-using Cysharp.Threading.Tasks;
 using FishNet.Object;
 using UnityEngine;
 
 namespace CoreGame.Entities.Characters.Hero
 {
-    public class HeroItemController :  NetworkBehaviour, IInitializeListener
+    public class HeroItemController :  NetworkBehaviour
     {
-        public bool IsInitialized { get; set; }
         private NetworkPool _networkItemPool;
-        
         
         public override void OnStartClient()
         {
             base.OnStartClient();
             
             enabled = IsOwner;
-        }
-        
-        public UniTask Initialize()
-        {
+
             _networkItemPool = Container.Instance.GetService<ItemPool>();
-            
-            return UniTask.CompletedTask;
         }
 
         private void Update()

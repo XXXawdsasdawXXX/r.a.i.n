@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8074581406936682630}
   - component: {fileID: 3531984426106318170}
+  - component: {fileID: 6962643335069575635}
   m_Layer: 5
   m_Name: conext_menu
   m_TagString: Untagged
@@ -64,6 +65,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6962643335069575635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213756019111547672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9062270c5530244bd1cf8ec090a65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _body: {fileID: 8074581406936682630}
+  _duelButton: {fileID: 6448110956711244791}
+  _duelButtonLabel: {fileID: 1767286410264383600}
 --- !u!1 &4326856643688120662
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +561,6 @@ GameObject:
   - component: {fileID: 2159393219663018436}
   - component: {fileID: 937168788856458866}
   - component: {fileID: 3798250269343925181}
-  - component: {fileID: 2009389708045320266}
   m_Layer: 5
   m_Name: canvas
   m_TagString: Untagged
@@ -667,21 +682,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _personName: {fileID: 4172023190012156737}
   _uiText: {fileID: 61791954432726609}
---- !u!114 &2009389708045320266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6401220223736595008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9062270c5530244bd1cf8ec090a65a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _body: {fileID: 8074581406936682630}
-  _duelButton: {fileID: 6448110956711244791}
-  _duelButtonLabel: {fileID: 1767286410264383600}
 --- !u!1 &7103871862680835141
 GameObject:
   m_ObjectHideFlags: 0

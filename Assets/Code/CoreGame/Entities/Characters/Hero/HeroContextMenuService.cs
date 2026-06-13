@@ -24,15 +24,11 @@ namespace CoreGame.Entities.Characters.Hero
         private HeroSpawner _heroSpawner;
         private string _activeHeroObjectId;
         private readonly List<HeroContextTarget> _targets = new();
-        private readonly List<Collider2D> _physicsHits = new();
-        private ContactFilter2D _hitFilter;
 
         public UniTask Initialize()
         {
             _input = Container.Instance.GetService<InputManager>();
             _cameraView = Container.Instance.GetView<CameraView>();
-            _hitFilter = new ContactFilter2D();
-            _hitFilter.NoFilter();
             return UniTask.CompletedTask;
         }
 
@@ -60,7 +56,7 @@ namespace CoreGame.Entities.Characters.Hero
 
         public void RegisterTarget(Hero target)
         {
-            if (target?.ContextTarget == null || _targets.Contains(target.ContextTarget))
+            if (target == null || _targets.Contains(target.ContextTarget))
             {
                 return;
             }
@@ -70,7 +66,7 @@ namespace CoreGame.Entities.Characters.Hero
 
         public void UnregisterTarget(Hero target)
         {
-            if (target?.ContextTarget == null)
+            if (target == null)
             {
                 return;
             }
@@ -122,7 +118,7 @@ namespace CoreGame.Entities.Characters.Hero
 
         private void _handleRightClick()
         {
-            if (_isPointerOverScreenSpaceUi())
+            if (_isPointerOverBlockingUi())
             {
                 return;
             }
@@ -147,7 +143,7 @@ namespace CoreGame.Entities.Characters.Hero
 
         private void _handleLeftClickOutside()
         {
-            if (!HasActiveMenu || _isPointerOverScreenSpaceUi())
+            if (!HasActiveMenu || _isPointerOverBlockingUi())
             {
                 return;
             }
@@ -162,61 +158,10 @@ namespace CoreGame.Entities.Characters.Hero
                 return null;
             }
 
-            Vector2 worldPoint = _getMouseWorldPoint();
+            Vector3 screen = _input.MousePosition;
+            screen.z = Mathf.Abs(_cameraView.Camera.transform.position.z);
+            Vector2 worldPoint = _cameraView.ScreenToWorldPoint(screen);
 
-            HeroContextTarget physicsHit = _findTargetViaPhysics(worldPoint);
-            if (physicsHit != null)
-            {
-                return physicsHit;
-            }
-
-            return _findTargetViaRegisteredTargets(worldPoint);
-        }
-
-        private Vector2 _getMouseWorldPoint()
-        {
-            Vector3 screenPoint = _input.MousePosition;
-            screenPoint.z = -_cameraView.Camera.transform.position.z;
-            Vector3 worldPoint = _cameraView.ScreenToWorldPoint(screenPoint);
-            worldPoint.z = 0f;
-            return worldPoint;
-        }
-
-        private HeroContextTarget _findTargetViaPhysics(Vector2 worldPoint)
-        {
-            Physics2D.SyncTransforms();
-
-            _physicsHits.Clear();
-            Physics2D.OverlapPoint(worldPoint, _hitFilter, _physicsHits);
-
-            HeroContextTarget bestTarget = null;
-            float bestZ = float.NegativeInfinity;
-
-            foreach (Collider2D hit in _physicsHits)
-            {
-                if (!_tryResolveContextTarget(hit, out HeroContextTarget target))
-                {
-                    continue;
-                }
-
-                if (!target.CanOpenContextMenu())
-                {
-                    continue;
-                }
-
-                float z = target.transform.position.z;
-                if (z >= bestZ)
-                {
-                    bestZ = z;
-                    bestTarget = target;
-                }
-            }
-
-            return bestTarget;
-        }
-
-        private HeroContextTarget _findTargetViaRegisteredTargets(Vector2 worldPoint)
-        {
             HeroContextTarget bestTarget = null;
             float bestZ = float.NegativeInfinity;
 
@@ -229,7 +174,7 @@ namespace CoreGame.Entities.Characters.Hero
                     continue;
                 }
 
-                if (!target.CanOpenContextMenu() || !target.OverlapsPointer(worldPoint))
+                if (!target.CanOpenContextMenu() || !target.ContainsWorldPoint(worldPoint))
                 {
                     continue;
                 }
@@ -245,45 +190,9 @@ namespace CoreGame.Entities.Characters.Hero
             return bestTarget;
         }
 
-        private static bool _tryResolveContextTarget(Collider2D hit, out HeroContextTarget target)
+        private static bool _isPointerOverBlockingUi()
         {
-            target = hit.GetComponent<HeroContextTarget>()
-                     ?? hit.GetComponentInParent<HeroContextTarget>();
-            if (target != null)
-            {
-                return true;
-            }
-
-            Hero hero = hit.GetComponentInParent<Hero>();
-            target = hero?.ContextTarget;
-            return target != null;
-        }
-
-        private bool _isPointerOverScreenSpaceUi()
-        {
-            if (EventSystem.current == null)
-            {
-                return false;
-            }
-
-            PointerEventData pointerData = new(EventSystem.current)
-            {
-                position = _input.MousePosition
-            };
-
-            List<RaycastResult> results = new();
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            foreach (RaycastResult result in results)
-            {
-                Canvas canvas = result.gameObject.GetComponentInParent<Canvas>();
-                if (canvas != null && canvas.renderMode != RenderMode.WorldSpace)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
         }
     }
 }
